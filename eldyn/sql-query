@@ -1,0 +1,10 @@
+SELECT * FROM `obat`;
+SELECT nama FROM `pasien`;
+SELECT * FROM `pasien` WHERE id = 2;
+SELECT * FROM `penyuplai_obat` WHERE alamat = 'Jakarta';
+SELECT id,nama FROM `pasien` WHERE id = 2;
+SELECT * FROM `jenis_obat`;
+SELECT * FROM `obat_pasien` WHERE id_obat = 3;
+SELECT * FROM `obat_pasien` WHERE id_pasien = 2;
+SELECT nama FROM `pasien` WHERE id_detail = 6;
+SELECT * FROM `obat_pasien` WHERE id_obat = 3 AND id_pasien = 5;

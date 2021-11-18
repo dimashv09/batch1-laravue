@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 18, 2021 at 05:32 AM
+-- Generation Time: Nov 18, 2021 at 07:29 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -43,7 +43,15 @@ CREATE TABLE `detail_pasien` (
 
 INSERT INTO `detail_pasien` (`id`, `umur`, `alamat`, `tanggal_lahir`, `golongan_darah`, `berat_badan`, `tinggi_badan`) VALUES
 (1, '26', 'Perum Galaxy', '2021-11-02', 'B', 62, 171),
-(2, '22', 'Jakarta', '2021-11-06', 'B-', 56, 168);
+(2, '22', 'Jakarta', '2021-11-06', 'B-', 56, 168),
+(3, '19', 'Bandung', '2021-10-06', 'O', 52, 158),
+(4, '28', 'Jakarta', '2021-09-15', 'A', 62, 171),
+(5, '24', 'Yogyakarta', '2021-10-19', 'A', 59, 168),
+(6, '17', 'Bekasi', '2021-08-03', 'B', 56, 162),
+(7, '20', 'Surabaya', '2021-10-18', 'O', 64, 164),
+(8, '18', 'Semarang', '2021-11-08', 'A', 51, 166),
+(9, '32', 'Cirebon', '2021-11-01', 'A', 67, 167),
+(10, '28', 'Solo', '2021-10-02', 'A', 58, 174);
 
 -- --------------------------------------------------------
 
@@ -64,7 +72,13 @@ INSERT INTO `jenis_obat` (`id`, `nama`) VALUES
 (1, 'Tablet'),
 (2, 'Kapsul'),
 (3, 'Serbuk'),
-(4, 'Pil');
+(4, 'Pil'),
+(5, 'larutan'),
+(6, 'kaplet'),
+(7, 'obat tetes'),
+(8, 'salep'),
+(9, 'Emulsi'),
+(10, 'Galenik');
 
 -- --------------------------------------------------------
 
@@ -84,7 +98,15 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`id`, `nama`, `id_jenis`, `id_penyuplai`) VALUES
-(1, 'Panadol', 2, 1);
+(1, 'Panadol', 2, 1),
+(2, 'Apex', 2, 3),
+(3, 'Namex', 1, 3),
+(4, 'Quangqong', 8, 7),
+(5, 'Taro', 3, 4),
+(6, 'Soffell', 8, 10),
+(7, 'Antangin', 5, 5),
+(8, 'Kenko', 10, 2),
+(9, 'Benedict', 7, 8);
 
 -- --------------------------------------------------------
 
@@ -104,7 +126,15 @@ CREATE TABLE `obat_pasien` (
 
 INSERT INTO `obat_pasien` (`id`, `id_pasien`, `id_obat`) VALUES
 (1, 1, 1),
-(2, 3, 1);
+(2, 3, 1),
+(3, 1, 4),
+(4, 8, 3),
+(5, 5, 3),
+(6, 6, 2),
+(7, 10, 6),
+(8, 8, 2),
+(9, 6, 7),
+(10, 7, 4);
 
 -- --------------------------------------------------------
 
@@ -124,7 +154,15 @@ CREATE TABLE `pasien` (
 
 INSERT INTO `pasien` (`id`, `nama`, `id_detail`) VALUES
 (1, 'John Doe', 1),
-(3, 'Jen Doe', 2);
+(3, 'Jen Doe', 2),
+(4, 'Mark', 3),
+(5, 'Clarice', 4),
+(6, 'Vanesa', 5),
+(7, 'Matthew', 6),
+(8, 'Robert', 7),
+(9, 'Grace', 8),
+(10, 'Frank', 9),
+(11, 'Jono', 10);
 
 -- --------------------------------------------------------
 
@@ -144,7 +182,15 @@ CREATE TABLE `penyuplai_obat` (
 
 INSERT INTO `penyuplai_obat` (`id`, `nama`, `alamat`) VALUES
 (1, 'Kimia Farma', 'Jakarta'),
-(2, 'Kikayu GLobal Sentosa', 'Jakarta');
+(2, 'Kikayu GLobal Sentosa', 'Jakarta'),
+(3, 'PT Jaya Utama Santikah ', 'Tangerang'),
+(4, 'Dunia Cakrawala Abadi', 'Jakarta'),
+(5, 'PT. Haecho Cell Beautque Manis ', 'Jakarta'),
+(6, 'PT. Sumber Energi Alternatif', 'Jakarta'),
+(7, 'Cangjia Inc', 'China'),
+(8, 'PT. Subur Anguerah Indonesia', 'Tangerang'),
+(9, 'PT. Podo Mekar Jaya Indonesia', 'Surabaya'),
+(10, 'PT. Bina Mitra Jaya Bersama', 'Sidoarjo');
 
 --
 -- Indexes for dumped tables
@@ -199,37 +245,37 @@ ALTER TABLE `penyuplai_obat`
 -- AUTO_INCREMENT for table `detail_pasien`
 --
 ALTER TABLE `detail_pasien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `jenis_obat`
 --
 ALTER TABLE `jenis_obat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `obat_pasien`
 --
 ALTER TABLE `obat_pasien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `penyuplai_obat`
 --
 ALTER TABLE `penyuplai_obat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
