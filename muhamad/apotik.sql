@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2021 at 03:39 AM
+-- Generation Time: Nov 18, 2021 at 04:09 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -33,6 +33,13 @@ CREATE TABLE `bill` (
   `payment_id` int(11) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bill`
+--
+
+INSERT INTO `bill` (`id`, `product_id`, `payment_id`, `price`) VALUES
+(1, 1, 1, 25000);
 
 -- --------------------------------------------------------
 
@@ -65,9 +72,35 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 CREATE TABLE `customer` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
-  `phone` char(13) NOT NULL,
-  `payment_id` int(11) NOT NULL
+  `phone` char(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`id`, `name`, `phone`) VALUES
+(1, 'Muhamad', '081234567890');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_detail`
+--
+
+CREATE TABLE `customer_detail` (
+  `id` int(11) NOT NULL,
+  `email` varchar(32) NOT NULL,
+  `instagram` varchar(32) NOT NULL,
+  `customer_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customer_detail`
+--
+
+INSERT INTO `customer_detail` (`id`, `email`, `instagram`, `customer_id`) VALUES
+(1, 'muhamadhaspin@gmail.com', '@mhmmdhdyh', 1);
 
 -- --------------------------------------------------------
 
@@ -81,6 +114,13 @@ CREATE TABLE `payment` (
   `total_price` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `pay_date`, `total_price`, `customer_id`) VALUES
+(1, '2021-11-17 02:56:47', 100000, 1);
 
 -- --------------------------------------------------------
 
@@ -132,6 +172,13 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `customer_detail`
+--
+ALTER TABLE `customer_detail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_customers` (`customer_id`);
+
+--
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
@@ -153,7 +200,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -165,13 +212,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `customer_detail`
+--
+ALTER TABLE `customer_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -189,6 +242,12 @@ ALTER TABLE `product`
 ALTER TABLE `bill`
   ADD CONSTRAINT `fk_bill` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`),
   ADD CONSTRAINT `fk_billproduct` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+--
+-- Constraints for table `customer_detail`
+--
+ALTER TABLE `customer_detail`
+  ADD CONSTRAINT `fk_customers` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`);
 
 --
 -- Constraints for table `payment`
