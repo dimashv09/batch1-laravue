@@ -7,4 +7,4 @@
 7. SELECT * FROM product ORDER BY price DESC;
 8. SELECT * FROM product ORDER BY price ASC;
 9. SELECT * FROM product WHERE price <= 100000 ORDER BY price DESC
-10. SELECT * FROM product WHERE category = 2 ORDER BY price ASC;
+10. SELECT * FROM product WHERE category_id = 2 ORDER BY price ASC;
