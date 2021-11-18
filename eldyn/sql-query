@@ -1,0 +1,23 @@
+SELECT * FROM `obat`;
+SELECT nama FROM `pasien`;
+SELECT * FROM `pasien` WHERE id = 2;
+SELECT * FROM `penyuplai_obat` WHERE alamat = 'Jakarta';
+SELECT id,nama FROM `pasien` WHERE id = 2;
+SELECT * FROM `jenis_obat`;
+SELECT * FROM `obat_pasien` WHERE id_obat = 3;
+SELECT * FROM `obat_pasien` WHERE id_pasien = 2;
+SELECT nama FROM `pasien` WHERE id_detail = 6;
+SELECT * FROM `obat_pasien` WHERE id_obat = 3 AND id_pasien = 5;
+
+SELECT * FROM `obat` ORDER BY nama DESC;
+SELECT * FROM `pasien` ORDER BY nama ASC;
+SELECT * FROM `obat` WHERE nama LIKE '%x%';
+SELECT * FROM `pasien` WHERE nama LIKE '%a%';
+SELECT nama AS nama_pasien FROM `pasien` WHERE nama LIKE '%m%';
+SELECT nama AS nama_obat FROM `obat` WHERE nama LIKE '%a%';
+SELECT nama AS nama_obat FROM `obat` WHERE nama LIKE '%a%' ORDER BY nama DESC;
+SELECT MAX(id) id_obat FROM `obat`;
+SELECT MIN(id) id_pasien FROM `pasien`;
+SELECT nama, umur AS umur FROM pasien t1 
+INNER JOIN detail_pasien t2
+ON t1.id_detail = t2.id;

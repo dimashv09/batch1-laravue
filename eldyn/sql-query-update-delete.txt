@@ -1,0 +1,5 @@
+UPDATE `detail_pasien` SET `umur`='34' WHERE `alamat` = 'Perum Galaxy'
+DELETE FROM `obat` WHERE `nama` = 'Kenko';
+UPDATE `obat` SET `nama`='Prameks' WHERE `id` = 3
+DELETE FROM `pasien` WHERE `id` = 11;
+UPDATE `jenis_obat` SET `nama`='Sirup' WHERE `id` = 7
