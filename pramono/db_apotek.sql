@@ -18,11 +18,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_pramono`
+-- Database: `db_apotek`
 --
 
 -- --------------------------------------------------------
-
+-- Buat database
+CREATE DATABASE db_apotek;
 --
 -- Struktur dari tabel `biodata`
 --
@@ -37,14 +38,6 @@ CREATE TABLE `biodata` (
   `alamat` longtext NOT NULL,
   `telepon` int(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `biodata`
---
-
-INSERT INTO `biodata` (`id`, `nama`, `umur`, `pendidikan`, `kota_id`, `kecamatan_id`, `alamat`, `telepon`) VALUES
-(1, 'pramono', 27, 'd3', 1, 1, 'kp bbc', 0),
-(2, 'dimas', 35, 's1', 2, 2, 'tes', 0);
 
 -- --------------------------------------------------------
 
@@ -61,10 +54,6 @@ CREATE TABLE `kecamatan` (
 -- Dumping data untuk tabel `kecamatan`
 --
 
-INSERT INTO `kecamatan` (`id`, `nama`) VALUES
-(1, 'cihampelas'),
-(2, 'sukowaten');
-
 -- --------------------------------------------------------
 
 --
@@ -79,10 +68,6 @@ CREATE TABLE `kota` (
 --
 -- Dumping data untuk tabel `kota`
 --
-
-INSERT INTO `kota` (`id`, `nama`) VALUES
-(1, 'bandung'),
-(2, 'yogyakarta');
 
 -- --------------------------------------------------------
 
@@ -100,9 +85,6 @@ CREATE TABLE `obat` (
 -- Dumping data untuk tabel `obat`
 --
 
-INSERT INTO `obat` (`id`, `nama`, `jenis`) VALUES
-(1, 'paracetamol', 'pill'),
-(2, 'sinovak', 'vaksin');
 
 -- --------------------------------------------------------
 
@@ -121,11 +103,6 @@ CREATE TABLE `pembeli` (
 -- Dumping data untuk tabel `pembeli`
 --
 
-INSERT INTO `pembeli` (`id`, `username`, `email`, `id_biodata`) VALUES
-(1, 'pram212', 'pramono6236@gmail.com', 1);
-
--- --------------------------------------------------------
-
 --
 -- Struktur dari tabel `penyakit`
 --
@@ -139,10 +116,6 @@ CREATE TABLE `penyakit` (
 --
 -- Dumping data untuk tabel `penyakit`
 --
-
-INSERT INTO `penyakit` (`id`, `nama`, `id_obat`) VALUES
-(1, 'covid 19', 2),
-(2, 'demam', 1);
 
 -- --------------------------------------------------------
 
@@ -161,9 +134,6 @@ CREATE TABLE `stok_obat` (
 -- Dumping data untuk tabel `stok_obat`
 --
 
-INSERT INTO `stok_obat` (`id`, `id_obat`, `stok`, `harga`) VALUES
-(1, 1, 100, 5000),
-(2, 2, 100, 0);
 
 -- --------------------------------------------------------
 
@@ -180,16 +150,6 @@ CREATE TABLE `transaksi` (
   `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `transaksi`
---
-
-INSERT INTO `transaksi` (`id`, `id_obat`, `id_pembeli`, `tanggal`, `jam`, `jumlah`) VALUES
-(1, 1, 1, '2021-11-18', '21:38:18', 10);
-
---
--- Indexes for dumped tables
---
 
 --
 -- Indeks untuk tabel `biodata`
@@ -254,53 +214,49 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT untuk tabel `biodata`
 --
 ALTER TABLE `biodata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT untuk tabel `kecamatan`
 --
 ALTER TABLE `kecamatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT untuk tabel `kota`
 --
 ALTER TABLE `kota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT untuk tabel `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT untuk tabel `pembeli`
 --
 ALTER TABLE `pembeli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT untuk tabel `penyakit`
 --
 ALTER TABLE `penyakit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_obat`
 --
 ALTER TABLE `stok_obat`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Ketidakleluasaan untuk tabel `biodata`

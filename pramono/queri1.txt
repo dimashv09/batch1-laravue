@@ -1,0 +1,125 @@
+Tugas Simple Query Mysql Bag. 1
+
+// setup database
+use database db_apotek;
+
+1. Megisi semua data apotek minimal 10 data pertabel.
+    - isi terlebih dahulu tabel yang menjadi referensi dari tabel lain.
+    * tabel kota
+    INSERT INTO `kota`(`id`, `nama`) VALUES 
+    ('','kabupaten bandung barat'),
+    ('','jakarta pusat'),
+    ('','jakarta selatan'),
+    ('','jakarta barat'),
+    ('','jakarta timur'),
+    ('','jakarta utara'),
+    ('','depok'),
+    ('','bandung'),
+    ('','cimahi'),
+    ('','yogyakarta');
+
+    * tabel kecamatan
+    INSERT INTO `kecamatan`(`id`, `nama`) VALUES 
+    ('','cihampelas'),
+    ('','johar baru'),
+    ('','pasar minggu'),
+    ('','kebon jeruk'),
+    ('','jatinegara'),
+    ('','pluit'),
+    ('','sawangan'),
+    ('','antapani'),
+    ('','cibeber'),
+    ('','bantul');
+
+    *tabel obat
+    INSERT INTO `obat`(`id`, `nama`, `jenis`) VALUES 
+    ('','paracetamol', 'pill'),
+    ('','decolgen', 'pill'),
+    ('','paramex', 'pill'),
+    ('','antalgin', 'pill'),
+    ('','antibiotik', 'pill'),
+    ('','komix', 'sirup'),
+    ('','formula 44', 'sirup'),
+    ('','sinovac', 'vaksin'),
+    ('','astrazineka', 'vaksin'),
+    ('','CTM', 'pill');
+
+    - isi data pada tabel yang memiliki forign key
+    * tabel biodata 
+    INSERT INTO `biodata`(`id`, `nama`, `umur`, `pendidikan`, `kota_id`, `kecamatan_id`, `alamat`, `telepon`) VALUES 
+    ('','pramono','27','d3','7','1','Kp. bbc','085117694669'),
+    ('','dani','26','s1','2','2','Kp. abc','085000007777'),
+    ('','usep','26','s1','3','3','jl. abc','085000007777'),
+    ('','lina','26','s1','4','4','jl. abc','085000007777'),
+    ('','muzdalifah','26','s1','5','5','jl. abc','085000007777'),
+    ('','gofur','26','s1','6','6','jl. abc','085000007777'),
+    ('','andri','26','s1','7','7','jl. abc','085000007777'),
+    ('','noval','26','s1','8','8','jl. abc','085000007777'),
+    ('','nita','34','s1','9','9','jl. abc','085000007777'),
+    ('','diana','34','s1','10','10','jl. abc','085000007777');
+
+    * tabel pembeli
+    INSERT INTO `pembeli`(`id`, `username`, `email`, `id_biodata`) VALUES 
+    ('','pram212','pramono6236@gmail.com','1'),
+    ('','dani23','dani@gmail.com','2'),
+    ('','usep09','usep@gmail.com','3'),
+    ('','lina34','lina@gmail.com','4'),
+    ('','ifah02','muzdalifah@gmail.com','5'),
+    ('','gofur53','gofur@gmail.com','6'),
+    ('','andri21','andri@gmail.com','7'),
+    ('','noval90','noval@gmail.com','8'),
+    ('','nita65','nita65@gmail.com','9'),
+    ('','diana65','diana65@gmail.com','10');
+
+    * tabel penyakit
+    INSERT INTO `penyakit`(`id`, `nama`, `id_obat`) VALUES 
+    ('','demam','1'),
+    ('','pusing','2'),
+    ('','flu','3'),
+    ('','demam','4'),
+    ('','gatal','4'),
+    ('','koreng','4'),
+    ('','batuk','7'),
+    ('','covid 19','8'),
+    ('','nyeri sendi','9'),
+    ('','susah tidur','10');
+
+    * tabel stok_obat
+    INSERT INTO `stok_obat`(`id`, `id_obat`, `stok`, `harga`) VALUES 
+    ('','1','100','5000'),
+    ('','2','100','5000'),
+    ('','3','100','2000'),
+    ('','4','100','9000'),
+    ('','5','100','5000'),
+    ('','6','100','5000'),
+    ('','7','100','1000'),
+    ('','8','100','5000'),
+    ('','9','100','10000'),
+    ('','10','100','5000');
+
+    * tabel transaksi
+    INSERT INTO `transaksi`(`id`, `id_obat`, `id_pembeli`, `tanggal`, `jam`, `jumlah`) VALUES 
+    ('','1','3','2021-11-20','10:42:43', '4'),
+    ('','3','2','2021-11-20','11:42:43', '5'),
+    ('','1','4','2021-11-20','12:42:43', '10'),
+    ('','3','9','2021-11-20','13:42:43', '1'),
+    ('','6','7','2021-11-20','14:42:43', '2'),
+    ('','4','3','2021-11-20','15:42:43', '4'),
+    ('','8','3','2021-11-20','16:42:43', '3'),
+    ('','8','1','2021-11-20','16:42:43', '3'),
+    ('','1','3','2021-11-20','16:42:43', '3'),
+    ('','7','3','2021-11-20','16:42:43', '3');
+
+2. Membuat 10 query
+    - SELECT * FROM biodata;
+    - SELECT nama, umur, pendidikan FROM biodata;
+    - SELECT * FROM obat LIMIT 5;
+    - SELECT * FROM kecamatan ORDER BY nama DESC;
+    - SELECT COUNT(id), jenis FROM obat WHERE jenis = 'pill';
+    - SELECT AVG(harga) FROM stok_obat;
+    - SELECT COUNT(id), nama, jenis FROM obat GROUP BY jenis;
+    - SELECT SUM(stok), stok, harga, id_obat FROM stok_obat GROUP BY harga;
+    - SELECT MIN(harga), stok, harga FROM stok_obat;
+    - SELECT MAX(harga), stok, harga FROM stok_obat;
+
+    
