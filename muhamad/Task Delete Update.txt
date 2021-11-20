@@ -1,0 +1,9 @@
+1. DELETE FROM product WHERE name = "Paracetamol";
+
+2. DELETE FROM product WHERE price >= 15000;
+
+3. DELETE FROM product WHERE name LIKE "%pa%" AND price > 100000;
+
+4. UPDATE product SET name = "Mommy poko" WHERE id = 11;
+
+5. UPDATE product SET price = 70000 WHERE id = 2;
