@@ -1,0 +1,15 @@
+SELECT pasien.nama, obat.nama AS obat_pasien FROM `obat_pasien` 
+JOIN pasien ON obat_pasien.id_pasien = pasien.id
+JOIN obat ON obat_pasien.id_obat = obat.id
+ORDER BY pasien.nama ASC;
+
+SELECT pasien.nama, umur, golongan_darah, obat.nama AS obat_pasien, jenis_obat.nama FROM `obat_pasien` 
+JOIN pasien ON obat_pasien.id_pasien = pasien.id
+JOIN obat ON obat_pasien.id_obat = obat.id
+JOIN detail_pasien ON pasien.id_detail = detail_pasien.id
+JOIN jenis_obat ON obat.id_jenis = jenis_obat.id
+ORDER BY pasien.nama ASC;
+
+SELECT obat.nama AS nama_obat, jenis_obat.nama AS jenis_obat, penyuplai_obat.nama AS penyuplai FROM obat
+JOIN jenis_obat ON jenis_obat.id = obat.id_jenis
+JOIN penyuplai_obat ON penyuplai_obat.id = obat.id_penyuplai;

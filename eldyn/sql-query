@@ -18,6 +18,4 @@ SELECT nama AS nama_obat FROM `obat` WHERE nama LIKE '%a%';
 SELECT nama AS nama_obat FROM `obat` WHERE nama LIKE '%a%' ORDER BY nama DESC;
 SELECT MAX(id) id_obat FROM `obat`;
 SELECT MIN(id) id_pasien FROM `pasien`;
-SELECT nama, umur AS umur FROM pasien t1 
-INNER JOIN detail_pasien t2
-ON t1.id_detail = t2.id;
+SELECT * FROM `obat_pasien` WHERE id_obat = 3 AND id_pasien = 5;
