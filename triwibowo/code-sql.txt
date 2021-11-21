@@ -1,0 +1,10 @@
+1. SELECT * FROM obat;
+2. SELECT kadaluarsa FROM detil_obat;
+3. SELECT id_obat, id_pasien FROM obat_pasien;
+4. SELECT * FROM obat WHERE id_rak >= 2;
+5. SELECT id_rak FROM obat WHERE id_rak >= 2;
+6. SELECT nama FROM pasien;
+7. SELECT nama, penyakit, nama_obat FROM pasien WHERE penyakit = "pilek";
+8. SELECT id, nama, id_jenis, kadaluarsa FROM detil_obat WHERE id_jenis >= 2;
+9. SELECT nama_obat, id_rak FROM obat WHERE id_rak = 1;
+10. SELECT id, nama, alamat FROM pasien WHERE alamat = "cimahi";
