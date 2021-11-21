@@ -1,0 +1,25 @@
+Tugas Membuat query delete update
+--- query 1 ----
+
+UPDATE `biodata` SET 
+`nama`='rita',`umur`='26',`pendidikan`='s1',`kota_id`='5',`kecamatan_id`='6',`alamat`='tes',`telepon`='0857676256523' 
+WHERE id = '5';
+
+--- query 2 ---
+
+UPDATE pembeli
+SET email = 'example@mail.com'
+WHERE username = 'pram212';
+
+--- query 3 ---
+UPDATE pembeli
+SET email = 'example@mail.com'
+WHERE id = '7';
+
+--- query 4 ---
+DELETE FROM `stok_obat` WHERE id = '6';
+
+--- query 5 ---
+DELETE FROM `stok_obat` WHERE harga BETWEEN '1000' AND '5000';
+
+
