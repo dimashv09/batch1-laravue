@@ -4,13 +4,13 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
+		<title>Penerbit | Edit</title>
 		<style>
 			@import url('../styles.css');
 		</style>
 	</head>
 	<?php
-		include_once("connect.php");
+		include_once("../connect.php");
 		$id = $_GET['id'];
 
 		$penerbit = mysqli_query($mysqli, "SELECT * FROM penerbits WHERE id='$id'");
@@ -69,7 +69,7 @@
 					$telp = $_POST['telp'];
 					$alamat = $_POST['alamat'];
 					
-					include_once("connect.php");
+					include_once("../connect.php");
 
 					$result = mysqli_query($mysqli, "UPDATE penerbits SET nama_penerbit = '$nama', email = '$email', telp = '$telp', alamat = '$alamat' WHERE id = '$id';");
 					

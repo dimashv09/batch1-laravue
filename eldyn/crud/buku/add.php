@@ -4,13 +4,13 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Buku | Add</title>
 	<style>
 		@import url('../styles.css');
 	</style>
 </head>
 <?php
-	include_once("connect.php");
+	include_once("../connect.php");
 	$penerbit = mysqli_query($mysqli, "SELECT * FROM penerbits");
 	$pengarang = mysqli_query($mysqli, "SELECT * FROM pengarangs");
 	$katalog = mysqli_query($mysqli, "SELECT * FROM katalogs");
@@ -102,7 +102,7 @@
 				$qty_stok = $_POST['qty_stok'];
 				$harga_pinjam = $_POST['harga_pinjam'];
 				
-				include_once("connect.php");
+				include_once("../connect.php");
 
 				$result = mysqli_query($mysqli, "INSERT INTO `bukus` (`isbn`, `judul`, `tahun`, `id_penerbit`, `id_pengarang`, `id_katalog`, `qty_stok`, `harga_pinjam`) VALUES ('$isbn', '$judul', '$tahun', '$id_penerbit', '$id_pengarang', '$id_katalog', '$qty_stok', '$harga_pinjam');");
 				

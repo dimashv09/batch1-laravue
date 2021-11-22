@@ -4,13 +4,13 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
+		<title>Buku | Edit</title>
 		<style>
 			@import url('../styles.css');
 		</style>
 	</head>
 	<?php
-		include_once("connect.php");
+		include_once("../connect.php");
 		$isbn = $_GET['isbn'];
 
 		$buku = mysqli_query($mysqli, "SELECT * FROM bukus WHERE isbn='$isbn'");
@@ -112,7 +112,7 @@
 					$qty_stok = $_POST['qty_stok'];
 					$harga_pinjam = $_POST['harga_pinjam'];
 					
-					include_once("connect.php");
+					include_once("../connect.php");
 
 					$result = mysqli_query($mysqli, "UPDATE bukus SET judul = '$judul', tahun = '$tahun', id_penerbit = '$id_penerbit', id_pengarang = '$id_pengarang', id_katalog = '$id_katalog', qty_stok = '$qty_stok', harga_pinjam = '$harga_pinjam' WHERE isbn = '$isbn';");
 					

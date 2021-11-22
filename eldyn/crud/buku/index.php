@@ -1,5 +1,5 @@
 <?php
-include_once("connect.php");
+include_once("../connect.php");
 $buku = mysqli_query($mysqli, "SELECT bukus.*, nama_pengarang, nama_penerbit, katalogs.nama AS nama_katalog FROM bukus
 			LEFT JOIN penerbits ON penerbits.id = bukus.id_penerbit 
 			LEFT JOIN pengarangs ON pengarangs.id = bukus.id_pengarang 
@@ -12,7 +12,7 @@ $buku = mysqli_query($mysqli, "SELECT bukus.*, nama_pengarang, nama_penerbit, ka
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Table</title>
+		<title>Buku</title>
 	</head>
 	<style>
 		@import url('../styles.css');

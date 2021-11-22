@@ -1,5 +1,5 @@
 <?php
-	include_once("connect.php");
+	include_once("../connect.php");
 	$penerbit = mysqli_query($mysqli, "SELECT * FROM penerbits");
 ?>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Table</title>
+		<title>Penerbit</title>
 	</head>
 	<style>
 		@import url('../styles.css');

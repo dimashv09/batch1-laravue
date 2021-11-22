@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
+		<title>Katalog | Edit</title>
 		<style>
 			@import url('../styles.css');
 			.form__save {
@@ -16,7 +16,7 @@
 		</style>
 	</head>
 	<?php
-		include_once("connect.php");
+		include_once("../connect.php");
 		$id = $_GET['id'];
 
 		$katalog = mysqli_query($mysqli, "SELECT * FROM katalogs WHERE id='$id'");
@@ -56,7 +56,7 @@
 					$id = $_GET['id'];
 					$nama = $_POST['nama'];
 					
-					include_once("connect.php");
+					include_once("../connect.php");
 
 					$result = mysqli_query($mysqli, "UPDATE katalogs SET nama = '$nama' WHERE id = '$id';");
 					
