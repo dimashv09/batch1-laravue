@@ -49,7 +49,7 @@ $penerbit = mysqli_query($conn, "SELECT * FROM penerbits");
 
         include_once("connect.php");
 
-        $result = mysqli_query($conn, "INSERT INTO `penerbits` VALUES ('', '$nama', '$email', '$telp', '$alamat', '', '');");
+        $result = mysqli_query($conn, "INSERT INTO `penerbits` (`nama_penerbit`,`email`,`telp`,`alamat`) VALUES ('$nama', '$email', '$telp', '$alamat');");
 
         if (mysqli_affected_rows($conn) > 0) {
             header("Location:penerbit.php");

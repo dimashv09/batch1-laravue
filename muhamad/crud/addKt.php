@@ -34,7 +34,7 @@ $katalog = mysqli_query($conn, "SELECT * FROM katalogs");
 
         include_once("connect.php");
 
-        $result = mysqli_query($conn, "INSERT INTO `katalogs` VALUES ('', '$nama', '', '');");
+        $result = mysqli_query($conn, "INSERT INTO `katalogs` (`nama`) VALUES ('$nama');");
 
         if (mysqli_affected_rows($conn) > 0) {
             header("Location:katalog.php");

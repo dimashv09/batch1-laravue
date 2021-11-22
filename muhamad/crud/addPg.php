@@ -49,7 +49,7 @@ $pengarang = mysqli_query($conn, "SELECT * FROM pengarangs");
 
         include_once("connect.php");
 
-        $result = mysqli_query($conn, "INSERT INTO `pengarangs` VALUES ('', '$nama', '$email', '$telp', '$alamat', '', '');");
+        $result = mysqli_query($conn, "INSERT INTO `pengarangs` (`nama_pengarang`,`email`,`telp`,`alamat`) VALUES ('$nama', '$email', '$telp', '$alamat');");
 
         if (mysqli_affected_rows($conn) > 0) {
             header("Location:pengarang.php");
