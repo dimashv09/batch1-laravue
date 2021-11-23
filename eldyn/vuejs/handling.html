@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vue | Handling Event</title>
+</head>
+<body>
+	<div id="app">
+		<!-- ==================== Event 1 ==================== -->
+		<button @click="counter += 1">Add 1</button>
+		<p>The button above has been clicked {{ counter }} times.</p>
+
+		<!-- ==================== Event 2 ==================== -->
+		<div>
+			<!-- `greet` is the name of a method defined below -->
+			<button @click="greet">Greet</button>
+		</div>
+
+		<!-- ==================== Event 3 ==================== -->
+		<div>
+			<!-- ---------- 1 ---------- -->
+			<button @click="say('hi')">Say hi</button>
+			<button @click="say('what')">Say what</button>
+
+			<!-- ---------- 2 ---------- -->
+			<button @click="warn('Form cannot be submitted yet.', $event)">
+				Submit
+			</button>
+		</div>
+
+		<!-- ==================== Event 4 ==================== -->
+		<!-- both one() and two() will execute on button click -->
+		<div>
+			<button @click="one($event), two($event)">
+				Submit
+			</button>
+		</div>
+	</div>
+
+	<script src="https://unpkg.com/vue@next"></script>
+	<script>
+		Vue.createApp({
+			data() {
+				return {
+					counter: 0,
+					name: "Vue.js"
+				}
+			},
+			methods: {
+				greet(event) {
+					// `this` inside methods points to the current active instance
+					alert('Hello ' + this.name + '!')
+					// `event` is the native DOM event
+					if (event) {
+						alert(event.target.tagName)
+					}
+				},
+				say(message) {
+					alert(message)
+				},
+				one(event) {
+					// first handler logic...
+				},
+				two(event) {
+					// second handler logic...
+				}
+			}
+		}).mount('#app')
+	</script>
+</body>
+</html>
