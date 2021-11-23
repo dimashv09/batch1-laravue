@@ -37,6 +37,13 @@
 				Submit
 			</button>
 		</div>
+
+		<!-- ==================== Event 5 ==================== -->
+		<div>
+			<button @click="warn('Form cannot be submitted yet.', $event)">
+				Submit
+			</button>
+		</div>
 	</div>
 
 	<script src="https://unpkg.com/vue@next"></script>
@@ -65,6 +72,13 @@
 				},
 				two(event) {
 					// second handler logic...
+				},
+				warn(message, event) {
+					// now we have access to the native event
+					if (event) {
+						event.preventDefault()
+					}
+					alert(message)
 				}
 			}
 		}).mount('#app')
