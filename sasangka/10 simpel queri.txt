@@ -1,0 +1,11 @@
+1. SELECT*FROM'obat'
+2.SELECT *FROM `obat` WHERE harga_beli > 500;
+3.SELECT * FROM `toko` WHERE kd_toko = 2;
+4.SELECT * FROM `toko` WHERE alamat = 'PEDAN';
+5.SELECT id,nama FROM `user` WHERE id = 2;
+6.SELECT * FROM `jenis_obat`;
+7.SELECT * FROM `jenis obat` WHERE nama_barang= 4;
+8.SELECT * FROM `pelanggan` WHERE alamat LIKE 'laweyan';
+9.SELECT * FROM `pelanggan` WHERE alamat LIKE 'Klaten;
+10.SELECT * FROM `jenis obat`
+
