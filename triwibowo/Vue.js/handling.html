@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handling</title>
+</head>
+
+<body>
+    <!-- Event Handling 1 -->
+    <div id="example-1">
+        <button v-on:click="counter += 1">Add 1</button>
+        <p>The button above has been clicked {{ counter }} times.</p>
+    </div>
+    <!-- Selesai Handling 1 -->
+
+    <!-- Handling 2 -->
+    <div id="example-2">
+        <!-- `greet` is the name of a method defined below -->
+        <button v-on:click="greet">Greet</button>
+    </div>
+    <!-- Selesai Handling 2 -->
+
+    <!-- handling 3 -->
+    <div id="example-3">
+        <button v-on:click="say('hi')">Say hi</button>
+        <button v-on:click="say('what')">Say what</button>
+    </div>
+    <!-- Selesai Handling 3 -->
+
+    <!-- handling 4 -->
+    <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+        Submit
+    </button>
+    <!-- Selesai Handling 4 -->
+
+    <!-- handling 5 -->
+
+    <!-- Selesai Handling 5 -->
+
+    <!-- handling 6 -->
+
+    <!-- Selesai Handling 6 -->
+
+    <!-- handling 7 -->
+
+    <!-- Selesai Handling 7 -->
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    // Handling 1
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            counter: 0
+        }
+    })
+    // Selesai Handling 1
+</script>
+<script>
+    // Handling 2
+    var example2 = new Vue({
+        el: '#example-2',
+        data: {
+            name: 'Vue.js'
+        },
+        // define methods under the `methods` object
+        methods: {
+            greet: function (event) {
+                // `this` inside methods points to the Vue instance
+                alert('Hello ' + this.name + '!')
+                // `event` is the native DOM event
+                if (event) {
+                    alert(event.target.tagName)
+                }
+            }
+        }
+    })
+    // Selesai Handling 2
+</script>
+<script>
+    // Handling 3
+    new Vue({
+        el: '#example-3',
+        methods: {
+            say: function (message) {
+                alert(message)
+            }
+        }
+    })
+    // Selesai Handling 3
+</script>
+<script>
+    // Handling 4
+    // ...
+    methods: {
+        warn: function (message, event) {
+            // now we have access to the native event
+            if (event) {
+                event.preventDefault()
+            }
+            alert(message)
+        }
+    }
+</script>
