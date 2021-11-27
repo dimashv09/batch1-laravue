@@ -100,7 +100,7 @@ new Vue({
   el: '#key-2',
   methods: {
     funcKey2: function () {
-      window.location.href = 'https://github.com/dimashv09/batch1-laravue/tree/pramono/pramono';
+      window.location.href = 'https://github.com/dimashv09/batch1-laravue/tree/pramono/pramono/vue.js';
     },
   },
 });
