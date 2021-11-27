@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Event Handilng</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.0.2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center mt-5">
+        <div class="col-sm-8">
+          <!-- card -->
+          <div class="card">
+            <div class="card-header text-center">
+              <h1>Event Handling</h1>
+            </div>
+            <div class="card-body mb-5">
+              <div id="example-1">
+                <h4>Listening To Event</h4>
+                <button v-on:click="counter += 1" class="btn btn-primary">Add 1</button>
+                <p class="card-text">The button above has been clicked {{ counter }} times.</p>
+              </div>
+              <hr />
+              <div id="example-2">
+                <h4>Method Event Handlers</h4>
+                <!-- `greet` is the name of a method defined below -->
+                <button v-on:click="greet" class="btn btn-warning">Greet</button>
+              </div>
+              <hr />
+              <div id="example-3">
+                <h4>Methods in Inline Handlers</h4>
+                <button v-on:click="say('hi')" class="btn btn-info">Say hi</button>
+                <button v-on:click="say('what')" class="btn btn-info">Say what</button>
+              </div>
+              <hr />
+              <div id="example-4">
+                <button v-on:click="warn('Form cannot be submitted yet.', $event)" class="btn btn-danger">Submit</button>
+              </div>
+              <hr />
+              <div>
+                <h4>Event Modifiers</h4>
+                <h5>.stop</h5>
+                <a href="index.html" class="bg-primary text-white">
+                  Parent <br />
+                  <span v-on:click.stop.prevent="func2" id="e-modif" class="bg-secondary text-white">Child</span>
+                </a>
+                <hr />
+                <h5>.prevent</h5>
+                <a href="" v-on:click.prevent="func3" class="btn btn-info" id="e-modif2">click me</a>
+                <hr />
+                <h5>.self</h5>
+                <div class="bg-secondaary py-5 px-2 border rounded" id="e-selfParent" v-on:click.self="func4">
+                  <button class="btn btn-primary" id="e-selfChild">Click</button>
+                </div>
+                <hr />
+                <h5>.once</h5>
+                <div id="e-modifOnce">
+                  <button v-on:click.once="counter += 1" class="btn btn-primary">Add 1</button>
+                  <p class="card-text">tombol di atas sudah dipencet sebanyak {{ counter }} times. <strong>tapi cuman bisa diklik sekali aja</strong></p>
+                </div>
+              </div>
+              <div>
+                <h4>Key Modifiers</h4>
+                <h5>.keyup</h5>
+                <label for="key-1">Ketikan sesuatu kemudian pencet enter</label>
+                <br />
+                <input v-on:keyup.enter="funcKey1('Hi')" type="text" id="key-1" class="form-control" />
+                <hr />
+                <label for="key-2">Pencet CTRL + Click</label> <br />
+                <span id="key-2" v-on:click.ctrl="funcKey2">https://github.com/dimashv09/batch1-laravue/tree/pramono/pramono</span>
+              </div>
+            </div>
+          </div>
+          <!-- card end -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="handling.js"></script>
+  </body>
+</html>
