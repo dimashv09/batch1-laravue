@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '4e32f28423fe9e501afb20af94b9c4a62ce04c7f',
+        'reference' => 'aefce00da164cf3a214414355e7992d8bbad47ca',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '4e32f28423fe9e501afb20af94b9c4a62ce04c7f',
+            'reference' => 'aefce00da164cf3a214414355e7992d8bbad47ca',
             'dev_requirement' => false,
         ),
         'almasaeed2010/adminlte' => array(
@@ -442,8 +442,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
