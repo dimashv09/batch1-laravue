@@ -15,7 +15,8 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        //
+        $title = "Katalog";
+        return view('catalog.index', ['title' => "Katalog"]);
     }
 
     /**
