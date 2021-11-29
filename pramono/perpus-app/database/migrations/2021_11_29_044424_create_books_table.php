@@ -17,10 +17,11 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->integer('isbn')->unique();
             $table->char('title');
-            $table->year('year');
-            $table->foreignId('publisher_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('writer_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('catalog_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->year('year')->nullable();
+            $table->bigInteger('stock')->nullable();
+            $table->foreignId('publisher_id')->nullable()->constrained();
+            $table->foreignId('writer_id')->nullable()->constrained();
+            $table->foreignId('catalog_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

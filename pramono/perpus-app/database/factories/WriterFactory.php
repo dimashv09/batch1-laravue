@@ -14,7 +14,10 @@ class WriterFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->firstName(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'phone' => $this->faker->e164PhoneNumber(),
+            'address' => $this->faker->city(),
         ];
     }
 }

@@ -13,6 +13,6 @@ class MemberSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Member::factory()->count(10)->hasUser(1)->create();
     }
 }

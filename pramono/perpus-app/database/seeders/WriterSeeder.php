@@ -13,6 +13,6 @@ class WriterSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Writer::factory()->count(5)->create();
     }
 }

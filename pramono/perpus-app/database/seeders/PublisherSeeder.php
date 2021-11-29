@@ -13,6 +13,6 @@ class PublisherSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Publisher::factory()->count(5)->create();
     }
 }

@@ -13,4 +13,9 @@ class Transaction extends Model
     {
         return $this->hasMany(Member::class);
     }
+
+    public function transactionDetail()
+    {
+        return $this->hasMany(TransactionDetail::class);
+    }
 }
