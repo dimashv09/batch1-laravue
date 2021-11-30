@@ -126,38 +126,38 @@
 					<!-- Add icons to the links using the .nav-icon class
 						with font-awesome or any other icon font library -->
 						<li class="nav-item">
-							<a href="{{ route('dashboard') }}" class="nav-link {{ (request()->is('dashboard')) ? 'active' : '' }}">
+							<a href="{{ route('Dashboard') }}" class="nav-link {{ (request()->is('dashboard')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>Dashboard</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('catalog') }}" class="nav-link {{ (request()->is('catalog')) ? 'active' : '' }}">
-								<i class="nav-icon fas fa-tachometer-alt"></i>
+							<a href="{{ route('Catalog') }}" class="nav-link {{ (request()->is('catalog')) ? 'active' : '' }}">
+								<i class="nav-icon fas fa-tags"></i>
 								<p>Catalog</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('publisher') }}" class="nav-link {{ (request()->is('publisher')) ? 'active' : '' }}">
-								<i class="nav-icon fas fa-tachometer-alt"></i>
+							<a href="{{ route('Publisher') }}" class="nav-link {{ (request()->is('publisher')) ? 'active' : '' }}">
+								<i class="nav-icon fas fa-hand-holding-usd"></i>
 								<p>Publisher</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('author') }}" class="nav-link {{ (request()->is('author')) ? 'active' : '' }}">
-								<i class="nav-icon fas fa-tachometer-alt"></i>
+							<a href="{{ route('Author') }}" class="nav-link {{ (request()->is('author')) ? 'active' : '' }}">
+								<i class="nav-icon fas fa-pen-nib"></i>
 								<p>Author</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('book') }}" class="nav-link {{ (request()->is('book')) ? 'active' : '' }}">
-								<i class="nav-icon fas fa-tachometer-alt"></i>
+							<a href="{{ route('Book') }}" class="nav-link {{ (request()->is('book')) ? 'active' : '' }}">
+								<i class="nav-icon fas fa-book"></i>
 								<p>Book</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('member') }}" class="nav-link {{ (request()->is('member')) ? 'active' : '' }}">
-								<i class="nav-icon fas fa-tachometer-alt"></i>
+							<a href="{{ route('Member') }}" class="nav-link {{ (request()->is('member')) ? 'active' : '' }}">
+								<i class="nav-icon fas fa-users"></i>
 								<p>Member</p>
 							</a>
 						</li>
@@ -179,8 +179,8 @@
 					</div><!-- /.col -->
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item active">Dashboard v1</li>
+						<li class="breadcrumb-item"><a href="{{ request()->route()->uri }}">{{ Route::currentRouteName() }}</a></li>
+						<li class="breadcrumb-item active">Admin</li>
 						</ol>
 					</div><!-- /.col -->
 				</div><!-- /.row -->
