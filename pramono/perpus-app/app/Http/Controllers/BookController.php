@@ -15,6 +15,20 @@ class BookController extends Controller
      */
     public function index()
     {
+        $book = new Book();
+
+        # book - catalog relationship test
+            // $catalog = $book->with('catalog')->get();
+            // return $catalog;
+
+        # book - publisher relationship test
+            // $publisher = $book->with('publisher')->get();
+            // return $publisher;
+
+        # book - writer relationship test
+            // $writer = $book->with('writer')->get();
+            // return $writer;
+
         $title = "Buku";
         return view('book.index', compact('title'));
     }

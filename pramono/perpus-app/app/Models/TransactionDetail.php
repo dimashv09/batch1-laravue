@@ -9,14 +9,4 @@ class TransactionDetail extends Model
 {
     use HasFactory;
 
-    public function transaction()
-    {
-        return $this->belongsTo(Transaction::class);
-    }
-
-
-    public function book()
-    {
-        return $this->belongsTo(Book::class);
-    }
 }

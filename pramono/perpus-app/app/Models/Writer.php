@@ -9,7 +9,9 @@ class Writer extends Model
 {
     use HasFactory;
 
-    public function book()
+    // seorang penulis dapat menulis banyak buku.
+        # one to many
+    public function books()
     {
         return $this->hasMany(Book::class);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use App\Http\Requests\StoreMemberRequest;
 use App\Http\Requests\UpdateMemberRequest;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -15,6 +16,16 @@ class MemberController extends Controller
      */
     public function index()
     {
+        $member = new Member();
+
+        # member - user relationship test
+            // $user = $member->with('user')->get();
+            // return $user;
+
+        # member - transaksi relationship test
+            // $transactions = $member->with('transactions')->get();
+            // return $transactions;
+
         $title = "Anggota";
         return view('member.index', compact('title'));
     }

@@ -9,13 +9,17 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    public function book()
+    // transaksi ini milik anggota ...
+        # many to one
+    public function member()
     {
-        return $this->hasMany(Member::class);
+        return $this->belongsTo(Member::class);
     }
 
-    public function transactionDetail()
+    // transaksi memiliki banyak detail transaksi
+        # many to many
+    public function book()
     {
-        return $this->hasMany(TransactionDetail::class);
+        return $this->belongsToMany(Book::class, 'transaction_details');
     }
 }

@@ -15,6 +15,10 @@ class CatalogController extends Controller
      */
     public function index()
     {
+        # catalog - book testing
+            // $catalog = Catalog::with('books')->get();
+            // return $catalog;
+
         $title = "Katalog";
         return view('catalog.index', ['title' => "Katalog"]);
     }

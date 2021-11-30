@@ -42,6 +42,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // seorang user milik seorang anggota
+        # one to one
     public function member()
     {
         return $this->belongsTo(Member::class);

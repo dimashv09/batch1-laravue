@@ -9,7 +9,9 @@ class Catalog extends Model
 {
     use HasFactory;
 
-    public function book()
+    // sebuah katalog dimiliki oleh banyak buku.
+        #one to many
+    public function books()
     {
         return $this->hasMany(Book::class);
     }

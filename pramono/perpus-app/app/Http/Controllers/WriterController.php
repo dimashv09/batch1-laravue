@@ -15,6 +15,10 @@ class WriterController extends Controller
      */
     public function index()
     {
+        # writer - book relationship test
+            // $writer = Writer::with('books')->get();
+            // return $writer;
+
         $title = "Pengarang";
         return view('writer.index', compact('title'));
     }

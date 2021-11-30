@@ -9,7 +9,9 @@ class Publisher extends Model
 {
     use HasFactory;
 
-    public function book()
+    // satu penerbit dapat menerbitkan banyak buku.
+        # one to many
+    public function books()
     {
         return $this->hasMany(Book::class);
     }
