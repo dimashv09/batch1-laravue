@@ -20,4 +20,8 @@ class Book extends Model
 	public function author() {
 		return $this->belongsTo(Publisher::class, 'author_id');
 	}
+
+	public function transactionDetails() {
+		return $this->hasMany(TransactionDetail::class, 'book_id');
+	}
 }

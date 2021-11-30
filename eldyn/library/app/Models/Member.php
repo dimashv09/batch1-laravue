@@ -12,4 +12,8 @@ class Member extends Model
 	public function user() {
 		return $this->hasOne(User::class, 'member_id');
 	}
+
+	public function transactionDetail() {
+		return $this->hasOne(Transaction::class, 'member_id');
+	}
 }
