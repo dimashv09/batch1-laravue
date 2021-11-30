@@ -15,7 +15,9 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        $title = "Penerbit";
+
+        return view('publisher.index', compact('title'));
     }
 
     /**

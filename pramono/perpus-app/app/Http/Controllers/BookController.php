@@ -15,7 +15,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $title = "Buku";
+        return view('book.index', compact('title'));
     }
 
     /**

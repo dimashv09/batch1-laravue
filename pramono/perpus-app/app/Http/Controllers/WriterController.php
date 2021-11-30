@@ -15,7 +15,8 @@ class WriterController extends Controller
      */
     public function index()
     {
-        //
+        $title = "Pengarang";
+        return view('writer.index', compact('title'));
     }
 
     /**

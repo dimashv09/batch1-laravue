@@ -15,7 +15,8 @@ class MemberController extends Controller
      */
     public function index()
     {
-        //
+        $title = "Anggota";
+        return view('member.index', compact('title'));
     }
 
     /**

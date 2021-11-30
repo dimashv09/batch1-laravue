@@ -20,8 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('catalog', App\Http\Controllers\CatalogController::class);
 
-Auth::routes();
+Route::middleware('auth')->group(function(){
+    Route::resource('catalog', App\Http\Controllers\CatalogController::class);
+    Route::resource('book', App\Http\Controllers\BookController::class);
+    Route::resource('publisher', App\Http\Controllers\PublisherController::class);
+    Route::resource('writer', App\Http\Controllers\WriterController::class);
+    Route::resource('member', App\Http\Controllers\MemberController::class);
+});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
