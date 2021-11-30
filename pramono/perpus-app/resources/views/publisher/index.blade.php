@@ -29,3 +29,9 @@
     "INI ADALAH HALAMAN PENERBIT".
 </p>
 @endsection
+
+@push('script')
+    <script>
+        $("#penerbit").addClass("active");
+    </script>
+@endpush

@@ -71,3 +71,9 @@
     </tbody>
   </table>
 @endsection
+
+@push('script')
+    <script>
+        $("#katalog").addClass("active");
+    </script>
+@endpush

@@ -30,3 +30,9 @@
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, corporis aperiam soluta consequuntur sit vel ducimus fugiat veritatis laudantium et eaque incidunt. Ipsam.
     </p>
 @endsection
+
+@push('script')
+    <script>
+        $("#home").addClass("active");
+    </script>
+@endpush

@@ -29,3 +29,9 @@
     "INI ADALAH HALAMAN PENGARANG".
 </p>
 @endsection
+
+@push('script')
+    <script>
+        $("#pengarang").addClass("active");
+    </script>
+@endpush

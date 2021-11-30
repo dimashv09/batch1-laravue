@@ -34,49 +34,41 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                <a href="{{url('/home')}}" class="nav-link">
+                <a href="{{url('/home')}}" class="nav-link" id="home">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>Home</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/member')}}" class="nav-link">
+                <a href="{{url('/member')}}" class="nav-link" id="anggota">
                     <i class="fas fa-id-card-alt nav-icon"></i>
                     <p>Anggota</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/book')}}" class="nav-link">
+                <a href="{{url('/book')}}" class="nav-link" id="buku">
                     <i class="nav-icon fas fa-book"></i>
                     <p>Buku</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/catalog')}}" class="nav-link">
+                <a href="{{url('/catalog')}}" class="nav-link" id="katalog">
                     <i class="nav-icon fas fa-list"></i>
                     <p>Katalog</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/publisher')}}" class="nav-link">
+                <a href="{{url('/publisher')}}" class="nav-link" id="penerbit">
                     <i class="fas fa-globe-asia nav-icon"></i>
                     <p>Penerbit</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/writer')}}" class="nav-link">
+                <a href="{{url('/writer')}}" class="nav-link" id="pengarang">
                     <i class="fas fa-feather nav-icon"></i>
                     <p>Pengarang</p>
                 </a>
             </li>
-            {{-- <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-cog"></i>
-                    <p>Pengaturan<i class="right fas fa-angle-left"></i></p>
-                </a>
-                <ul class="nav nav-treeview">
-                </ul>
-            </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

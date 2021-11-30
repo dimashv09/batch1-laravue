@@ -29,3 +29,9 @@
     "INI ADALAH HALAMAN ANGGOTA".
 </p>
 @endsection
+
+@push('script')
+    <script>
+        $("#anggota").addClass("active");
+    </script>
+@endpush

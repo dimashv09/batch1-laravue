@@ -29,3 +29,9 @@
     "INI ADALAH HALAMAN BUKU".
 </p>
 @endsection
+
+@push('script')
+    <script>
+        $("#buku").addClass("active");
+    </script>
+@endpush
