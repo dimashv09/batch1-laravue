@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 1. On Click Event (inline-event) -->
+    <div id="onclick-event">
+        <button @click="porsi += 1">nambah porsi</button>
+        <p>And telah makan Syawurma sebanyak {{ porsi }} Porsi.</p>
+    </div>
+    <hr>
+
+    <!-- 2. Calling methods / Functions using Event (without parameters) -->
+    <div id="call-a-method">
+        <button @click="pukul">Pukul</button>
+    </div>
+    <hr>
+
+    <!-- 3. Calling methods / Functions using Event (with parameters) -->
+    <div id="call-method-with-param">
+        <button v-on:click="speak('Muhamad')">Tampilkan Nama kamu</button>
+        <button v-on:click="speak('Ka Dimas')">Tampilkan nama Mentor Kamu</button>
+    </div>
+    <hr>
+
+    <!-- 4. Calling methods / Functions using Event (with parameters and Native event of DOM) -->
+    <div id="call-method-with-param-and-event">
+        <a href="google.com" v-on:click="peringatan('Maaf, halaman tersebut tidak boleh di akses', $event)">
+            Pergi ke Google
+        </a>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        // 1. On Click Event
+        const firstEvent = new Vue({
+                el: '#onclick-event',
+                data: {
+                    porsi: 0
+                }
+            })
+
+        // 2. Calling methods / Functions using Event (without parameters)
+        const secondEvent = new Vue({
+                el: '#call-a-method',
+                data: {
+                    name: 'Muhamad'
+                },
+                // define methods under the `methods` object
+                methods: {
+                    pukul: function (event) {
+                        // `this` keyword kembali kpd object yang memiliki method ini
+                        alert(`hey, kamu kenapa ${this.name}!`)
+
+                        // Bisa menangkap eventnya click apabila tidak ada parameter
+                        if (event) {
+                            alert(`ayo ${event.target.innerHTML} balik ${this.name}!`)
+                        }
+                    }
+                }
+            })
+
+        // 3. Calling methods / Functions using Event (with parameters)
+        const thirdEvent = new Vue({
+                el: '#call-method-with-param',
+                methods: {
+                    speak: function (nama) {
+                        alert(`Hai ${nama}`)
+                    }
+                }
+            })
+            
+        // 4. Calling methods / Functions using Event (with parameters and Native event of DOM)
+        const fourthEvent = new Vue({
+                el: '#call-method-with-param-and-event',
+                methods: {
+                    peringatan: function (pesan, event) {
+                        // Tag a sudah di hentikan fungsinya
+                        if (event) {
+                            event.preventDefault()
+                        }
+                        // kasih tau alasan larangannya
+                        alert(pesan)
+                    }
+                }
+            })
+        
+    </script>
+</body>
+
+</html>
