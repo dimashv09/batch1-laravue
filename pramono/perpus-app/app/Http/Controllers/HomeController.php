@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Catalog;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,13 +37,7 @@ class HomeController extends Controller
             WHERE EXISTS
             (SELECT * FROM users WHERE users.id_anggota = anggotas.id);
         */
-            $query1 = Member::select('*')
-                        ->whereExists(function ($query) {
-                            $query->select(DB::raw(1))
-                                ->from('users')
-                                ->whereColumn('users.member_id', 'members.id');
-                        })
-                        ->get();
+            $query1 = Member::whereHas('user')->get();
 
         /*
             No. 2
@@ -49,13 +45,7 @@ class HomeController extends Controller
             WHERE NOT EXISTS
             (SELECT * FROM users WHERE users.id_anggota = anggotas.id);
         */
-
-            $query2 = Member::select('*')
-                        ->whereNotExists(function ($query) {
-                            $query->select(DB::raw(1))
-                                ->from('users')
-                                ->whereColumn('users.member_id', 'members.id');
-                        })->get();
+            $query2 = Member::whereDoesntHave('user')->get();
 
         /*
             No. 3
@@ -64,13 +54,8 @@ class HomeController extends Controller
             (SELECT * FROM peminjaman WHERE anggotas.id = peminjaman.id_anggota);
         */
 
-        $query3 = DB::table('members')
-                    ->select('id', 'name')
-                    ->whereNotExists(function ($query) {
-                        $query->select(DB::raw(1))
-                            ->from('transactions')
-                            ->whereColumn('transactions.member_id', 'members.id');
-                    })->get();
+            $query3 = Member::select('id', 'name')->whereDoesntHave('transactions')->get();
+
 
         /*
             No. 4
@@ -78,14 +63,7 @@ class HomeController extends Controller
             WHERE EXISTS
             (SELECT * FROM peminjaman WHERE anggotas.id = peminjaman.id_anggota);
         */
-
-        $query4 = DB::table('members')
-                    ->select('id', 'name')
-                    ->whereExists(function ($query) {
-                        $query->select(DB::raw(1))
-                            ->from('transactions')
-                            ->whereColumn('transactions.member_id', 'members.id');
-                    })->get();
+            $query4 = Member::select('id', 'name')->whereHas('transactions')->get();
 
         /*
             No. 5
@@ -95,13 +73,7 @@ class HomeController extends Controller
             GROUP BY anggotas.id
             HAVING COUNT(peminjaman.id_anggota) > 1;
         */
-
-        $query5 = DB::table('members')
-                    ->join('transactions', 'members.id', '=', 'transactions.member_id')
-                    ->select('members.id', 'members.name', 'members.phone')
-                    ->groupBy('members.id')
-                    ->havingRaw('COUNT(transactions.member_id) > ?', [1])
-                    ->get();
+            $query5 = Member::select('name', 'phone')->has('transactions', '>', 1)->get();
 
         /*
             No. 6
@@ -111,8 +83,7 @@ class HomeController extends Controller
             ON anggotas.id = peminjaman.id_anggota;
         */
 
-        $query6 = DB::table('members')
-                    ->join('transactions', 'members.id', '=', 'transactions.member_id')
+        $query6 = Member::join('transactions', 'members.id', '=', 'transactions.member_id')
                     ->select('members.name', 'members.phone', 'members.address', 'transactions.start', 'transactions.end')
                     ->get();
 
@@ -124,11 +95,12 @@ class HomeController extends Controller
             ON anggotas.id = peminjaman.id_anggota
             WHERE peminjaman.tgl_kembali LIKE '2021-06%';
         */
-        $query7 = DB::table('members')
-                    ->join('transactions', 'members.id', '=', 'transactions.member_id')
+
+        $query7 = Member::join('transactions', 'members.id', '=', 'transactions.member_id')
                     ->select('members.name', 'members.phone', 'members.address', 'transactions.start', 'transactions.end')
                     ->where('transactions.end', 'like', '2021-06%')
                     ->get();
+
         /*
             No. 8
             SELECT anggotas.name, anggotas.telp, anggotas.alamat, peminjaman.tgl_pinjam, peminjaman.tgl_kembali
@@ -137,8 +109,7 @@ class HomeController extends Controller
             ON anggotas.id = peminjaman.id_anggota
             WHERE peminjaman.tgl_pinjam LIKE '2021-05%';
          */
-        $query8 = DB::table('members')
-            ->join('transactions', 'members.id', '=', 'transactions.member_id')
+        $query8 = Member::join('transactions', 'members.id', '=', 'transactions.member_id')
             ->select('members.name', 'members.phone', 'members.address', 'transactions.start', 'transactions.end')
             ->where('transactions.start', 'like', '2021-05%')
             ->get();
@@ -151,8 +122,7 @@ class HomeController extends Controller
             ON anggotas.id = peminjaman.id_anggota
             WHERE peminjaman.tgl_pinjam LIKE '2021-06%' AND peminjaman.tgl_kembali LIKE '2021-06%';
          */
-        $query9 = DB::table('members')
-                ->join('transactions', 'members.id', '=', 'transactions.member_id')
+        $query9 = Member::join('transactions', 'members.id', '=', 'transactions.member_id')
                 ->select('members.name', 'members.phone', 'members.address', 'transactions.start', 'transactions.end')
                 ->where('transactions.start', 'like', '2021-06%')
                 ->orWhere('transactions.end', 'like', '2021-06%')
@@ -167,8 +137,7 @@ class HomeController extends Controller
             WHERE anggotas.alamat = "bandung";
          */
 
-        $query10 = DB::table('members')
-                ->join('transactions', 'members.id', '=', 'transactions.member_id')
+        $query10 = Member::join('transactions', 'members.id', '=', 'transactions.member_id')
                 ->select('members.name', 'members.phone', 'members.address', 'transactions.start', 'transactions.end')
                 ->where('members.address', 'bandung')
                 ->get();
@@ -182,8 +151,7 @@ class HomeController extends Controller
             WHERE anggotas.alamat = "bandung" AND anggotas.sex = "P";
          */
 
-        $query11 = DB::table('members')
-                ->join('transactions', 'members.id', '=', 'transactions.member_id')
+        $query11 = Member::join('transactions', 'members.id', '=', 'transactions.member_id')
                 ->select('members.name', 'members.phone', 'members.address', 'transactions.start', 'transactions.end')
                 ->where('members.address', 'bandung')
                 ->where('members.gender', 'P')
@@ -220,8 +188,7 @@ class HomeController extends Controller
             GROUP BY detail_peminjaman.id;
 
         */
-        $query13 = DB::table('members')
-                ->join('transactions', 'members.id', '=', 'transactions.member_id')
+        $query13 = Member::join('transactions', 'members.id', '=', 'transactions.member_id')
                 ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
                 ->join('books', 'transaction_details.book_id', '=', 'books.id')
                 ->select('members.name', 'members.phone', 'members.address', 'transactions.start', 'transactions.end', 'books.isbn', 'transaction_details.qty', 'books.title', 'books.price')
@@ -241,8 +208,7 @@ class HomeController extends Controller
             INNER JOIN katalogs ON katalogs.id = bukus.id_katalog
             GROUP BY detail_peminjaman.id;
         */
-        $query14 = DB::table('members')
-                    ->join('transactions', 'members.id', '=', 'transactions.member_id')
+        $query14 = Member::join('transactions', 'members.id', '=', 'transactions.member_id')
                     ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
                     ->join('books', 'transaction_details.book_id', '=', 'books.id')
                     ->join('publishers', 'books.publisher_id', '=', 'publishers.id')
@@ -260,10 +226,8 @@ class HomeController extends Controller
             GROUP BY katalogs.id
 
         */
-        $query15 = DB::table('catalogs')
-                    ->join('books', 'catalogs.id', '=', 'books.id')
-                    ->groupBy('catalogs.id')
-                    ->get();
+
+        $query15 = Catalog::with('books')->groupBy('id')->get();
 
         /*
             no. 16
@@ -272,13 +236,7 @@ class HomeController extends Controller
             (SELECT * FROM penerbits WHERE penerbits.id = bukus.id_penerbit);
         */
 
-        $query16 =  DB::table('books')
-                    ->whereNotExists(function ($query) {
-                        $query->select(DB::raw(1))
-                            ->from('publishers')
-                            ->whereColumn('publishers.id', 'books.publisher_id');
-                    })
-                    ->get();
+        $query16 = Book::whereDoesntHave('publisher')->get();
 
         /*
             no. 17
@@ -289,8 +247,9 @@ class HomeController extends Controller
             WHERE pengarangs.nama_pengarang = "Pengarang 05"
             GROUP BY pengarangs.id
         */
-        $query17 = DB::table('books')
-                    ->join('writers', 'books.writer_id', '=', 'writers.id')
+
+        $query17 = Book::join('writers', 'books.writer_id', '=', 'writers.id')
+                    ->select('writers.name', DB::raw('COUNT(writers.id) as books'))
                     ->where('writers.name', 'Pengarang 05')
                     ->groupBy('writers.id')
                     ->get();
@@ -299,7 +258,7 @@ class HomeController extends Controller
             no. 18
             SELECT * FROM bukus WHERE bukus.harga_pinjam > 10000
         */
-        $query18 = DB::table('books')->where('price', '>', 1000)->get();
+        $query18 = Book::where('price', '>', 1000)->get();
 
         /*
             no. 19
@@ -308,10 +267,7 @@ class HomeController extends Controller
             INNER JOIN penerbits ON bukus.id_penerbit = penerbits.id
             WHERE bukus.qty_stok > 10
         */
-        $query19 = DB::table('books')
-                    ->join('publishers', 'books.publisher_id', '=', 'publishers.id')
-                    ->where('books.stock', '>', 10)
-                    ->get();
+        $query19 = Book::with('publisher')->where('stock', '>', 10)->get();
 
         /*
             no. 20
@@ -319,10 +275,12 @@ class HomeController extends Controller
             WHERE created_at LIKE '2021-06%'
             ORDER BY id DESC LIMIT 1;
         */
-        $query20 = DB::table('members')->where('created_at', 'like', '2021-06%')
-                ->orderByDesc('id')
-                ->limit(1)
-                ->get();
+        // $query20 = DB::table('members')->where('created_at', 'like', '2021-06%')
+        //         ->orderByDesc('id')
+        //         ->limit(1)
+        //         ->get();
+        $query20 = Member::whereMonth('created_at','12')->orderByDesc('id')->first();
+
 
 /***************************************************************************************************/
 
