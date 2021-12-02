@@ -18,9 +18,10 @@ class CatalogController extends Controller
         # catalog - book testing
             // $catalog = Catalog::with('books')->get();
             // return $catalog;
-
+        $catalogs = Catalog::all();
         $title = "Katalog";
-        return view('catalog.index', ['title' => "Katalog"]);
+
+        return view('catalog.index', compact('title', 'catalogs'));
     }
 
     /**

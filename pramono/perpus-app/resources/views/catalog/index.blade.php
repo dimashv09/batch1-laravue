@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content-header')
-    Ini Halaman Katalog
+    {{$title}}
 @endsection
 
 @section('title')
@@ -26,50 +26,59 @@
     </div>
 </div>
 @endsection
+
 @section('content')
-<table class="table table-hover text-nowrap">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Nama katalog</th>
-        <th>Opsi</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Lorem ipsum dolor sit amet.</td>
-        <td>
-            <a href="#" class="btn btn-info btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Hapus</a>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Lorem ipsum dolor sit amet consectetur.</td>
-        <td>
-            <a href="#" class="btn btn-info btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Hapus</a>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Lorem ipsum dolor sit.</td>
-        <td>
-            <a href="#" class="btn btn-info btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Hapus</a>
-        </td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Lorem ipsum dolor sit amet.</td>
-        <td>
-            <a href="#" class="btn btn-info btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Hapus</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="row justify-content-start">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Daftar Katalog</h3>
+                <div class="card-tools d-flex">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control float-right h-100" placeholder="Search">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <a href="{{url('/catalog/create')}}" class="btn btn-sm btn-primary mx-2"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered text-nowrap text-center">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Nama katalog</th>
+                        <th style="width: 10%">Opsi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($catalogs as $catalog)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$catalog->name}}</td>
+                                <td class="d-flex">
+                                    <a href="{{url('/catalog/'. $catalog->id. 'edit')}}" class="btn btn-info btn-sm">Edit</a>
+                                    <form action="{{url('catalog/'. $catalog->id)}}" method="POST">
+                                        @csrf @method('delete')
+                                        <button class="btn btn-sm btn-danger">Hapus</button>
+                                    </form>
+                                    {{-- <a href="" class="btn btn-danger btn-sm">Hapus</a> --}}
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4">Belum ada data.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('script')

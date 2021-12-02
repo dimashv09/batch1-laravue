@@ -9,7 +9,7 @@
 @endsection
 
 @section('content-header')
-    Buku
+    {{$title}}
 @endsection
 
 @section('content-title')
