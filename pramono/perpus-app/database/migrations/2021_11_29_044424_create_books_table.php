@@ -19,6 +19,7 @@ class CreateBooksTable extends Migration
             $table->char('title');
             $table->year('year')->nullable();
             $table->bigInteger('stock')->nullable();
+            $table->integer('price')->nullable();
             $table->foreignId('publisher_id')->nullable()->constrained();
             $table->foreignId('writer_id')->nullable()->constrained();
             $table->foreignId('catalog_id')->nullable()->constrained();

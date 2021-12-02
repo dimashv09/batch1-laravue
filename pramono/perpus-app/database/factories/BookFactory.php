@@ -18,9 +18,10 @@ class BookFactory extends Factory
             'title' => $this->faker->sentence(3),
             'year' => $this->faker->year(),
             'stock' => $this->faker->numberBetween(1, 30),
-            'publisher_id' => $this->faker->numberBetween(1,5),
-            'writer_id' => $this->faker->numberBetween(1,5),
-            'catalog_id' => $this->faker->numberBetween(1,5)
+            'price' => $this->faker->numberBetween(3000, 5000),
+            'publisher_id' => $this->faker->numberBetween(1,4),
+            'writer_id' => $this->faker->numberBetween(1,4),
+            'catalog_id' => $this->faker->numberBetween(1,4)
         ];
     }
 }

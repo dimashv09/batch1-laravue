@@ -16,7 +16,11 @@ class TransactionDetailFactory extends Factory
         $fisrtBook = \App\Models\Book::orderBy('id', 'asc')->first();
         $lastBook = \App\Models\Book::orderBy('id', 'desc')->first();
 
+        $firstTrc = \App\Models\Transaction::orderBy('id', 'asc')->first();
+        $lastTrc = \App\Models\Transaction::orderBy('id', 'desc')->first();
+
         return [
+            'transaction_id' => $this->faker->numberBetween($firstTrc, $lastTrc),
             'book_id' => $this->faker->numberBetween($fisrtBook->id, $lastBook->id),
             'qty' => $this->faker->numberBetween(1, 30)
         ];
