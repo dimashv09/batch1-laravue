@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class MemberSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class MemberSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Member::factory()->count(10)->create();
+        \App\Models\User::factory()->count(1)->create();
     }
 }

@@ -35,7 +35,7 @@ class HomeController extends Controller
             WHERE EXISTS
             (SELECT * FROM users WHERE users.id_anggota = anggotas.id);
         */
-            $query1 = DB::table('members')
+            $query1 = Member::select('*')
                         ->whereExists(function ($query) {
                             $query->select(DB::raw(1))
                                 ->from('users')
@@ -50,7 +50,7 @@ class HomeController extends Controller
             (SELECT * FROM users WHERE users.id_anggota = anggotas.id);
         */
 
-            $query2 = DB::table('members')
+            $query2 = Member::select('*')
                         ->whereNotExists(function ($query) {
                             $query->select(DB::raw(1))
                                 ->from('users')
