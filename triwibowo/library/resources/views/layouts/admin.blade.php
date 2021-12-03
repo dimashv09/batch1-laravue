@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>Library | {{ $judul }}</title>
+    <link rel="shortcut icon" href="{{ asset('assets/dist/img/favicon.ico') }}">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -17,6 +18,9 @@
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <!-- jsGrid -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jsgrid/jsgrid.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jsgrid/jsgrid-theme.min.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -24,8 +28,8 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
-                height="60" width="60">
+            <img class="animation__shake" src="{{ asset('assets/dist/img/logo1.png') }}" alt="AdminLTELogo" height="60"
+                width="60">
         </div>
 
         <!-- Navbar -->
@@ -91,9 +95,9 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+                <img src="{{ asset('assets/dist/img/logo1.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">Library</span>
             </a>
 
             <!-- Sidebar -->
@@ -129,10 +133,50 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <a href="{{ url('home') }}" class="nav-link">
+                                <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('author') }}" class="nav-link">
+                                <i class="nav-icon fas fa-at"></i>
+                                <p>
+                                    Authors
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('catalog') }}" class="nav-link">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    Catalogs
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('book') }}" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Books
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('publisher') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-tag"></i>
+                                <p>
+                                    Publishers
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('member') }}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Members
                                 </p>
                             </a>
                         </li>
@@ -150,7 +194,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">{{ $judul }}</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -189,12 +233,17 @@
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
+    <!-- jsGrid -->
+    <script src="{{ asset('assets/plugins/jsgrid/demos/db.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jsgrid/jsgrid.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
 </body>
 
 </html>
