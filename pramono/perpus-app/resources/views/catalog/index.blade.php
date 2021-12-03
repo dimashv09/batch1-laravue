@@ -29,10 +29,12 @@
 
 @section('content')
 <div class="row justify-content-start">
-    <div class="col-8">
+    <div class="col-md-8 col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Daftar Katalog</h3>
+                <div class="card-title">
+                    <a href="{{url('/catalog/create')}}" class="btn btn-sm btn-primary">Baru</a>
+                </div>
                 <div class="card-tools d-flex">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" name="table_search" class="form-control float-right h-100" placeholder="Search">
@@ -42,11 +44,10 @@
                             </button>
                         </div>
                     </div>
-                    <a href="{{url('/catalog/create')}}" class="btn btn-sm btn-primary mx-2"><i class="fas fa-plus"></i></a>
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-bordered text-nowrap text-center">
+                <table class="table table-bordered table-responsive text-nowrap text-center">
                     <thead>
                       <tr>
                         <th>#</th>
@@ -65,7 +66,7 @@
                                 <td>{{count($catalog->books)}}</td>
                                 <td class="d-flex">
                                     <a href="{{url('/catalog/'. $catalog->id. 'edit')}}" class="btn btn-info btn-sm">Edit</a>
-                                    <form action="{{url('catalog/'. $catalog->id)}}" method="POST">
+                                    <form action="{{url('catalog/'. $catalog->id)}}" method="POST" id="form-delete">
                                         @csrf @method('delete')
                                         <button class="btn btn-sm btn-danger">Hapus</button>
                                     </form>
