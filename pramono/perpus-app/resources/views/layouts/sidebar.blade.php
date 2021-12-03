@@ -17,7 +17,7 @@
           <a href="#" class="d-block">{{ucwords(Auth::user()->name)}}</a>
         </div>
       </div>
-      {{-- <!-- SidebarSearch Form -->
+      <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
@@ -27,43 +27,43 @@
             </button>
           </div>
         </div>
-      </div> --}}
+      </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                <a href="{{url('/home')}}" class="nav-link" id="home">
+                <a href="{{url('/home')}}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p>Home</p>
+                    <p>Dashboard</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/member')}}" class="nav-link" id="anggota">
+                <a href="{{url('/member')}}" class="nav-link {{ request()->is('member') ? 'active' : '' }}">
                     <i class="fas fa-id-card-alt nav-icon"></i>
                     <p>Anggota</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/book')}}" class="nav-link" id="buku">
+                <a href="{{url('/book')}}" class="nav-link {{ request()->is('book') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
                     <p>Buku</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/catalog')}}" class="nav-link" id="katalog">
+                <a href="{{url('/catalog')}}" class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-list"></i>
                     <p>Katalog</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/publisher')}}" class="nav-link" id="penerbit">
+                <a href="{{url('/publisher')}}" class="nav-link {{ request()->is('publisher') ? 'active' : '' }}">
                     <i class="fas fa-globe-asia nav-icon"></i>
                     <p>Penerbit</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/writer')}}" class="nav-link" id="pengarang">
+                <a href="{{url('/writer')}}" class="nav-link {{ request()->is('writer') ? 'active' : '' }}">
                     <i class="fas fa-feather nav-icon"></i>
                     <p>Pengarang</p>
                 </a>

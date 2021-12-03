@@ -31,7 +31,5 @@
 @endsection
 
 @push('script')
-    <script>
-        $("#pengarang").addClass("active");
-    </script>
+
 @endpush

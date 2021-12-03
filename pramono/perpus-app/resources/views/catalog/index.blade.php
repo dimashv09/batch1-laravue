@@ -50,7 +50,9 @@
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>Nama katalog</th>
+                        <th>Nama Katalog</th>
+                        <th>Dibuat Pada</th>
+                        <th style="width: 10%">Jumlah Buku</th>
                         <th style="width: 10%">Opsi</th>
                       </tr>
                     </thead>
@@ -59,6 +61,8 @@
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$catalog->name}}</td>
+                                <td>{{date('l, M Y', strtotime($catalog->created_at))}}</td>
+                                <td>{{count($catalog->books)}}</td>
                                 <td class="d-flex">
                                     <a href="{{url('/catalog/'. $catalog->id. 'edit')}}" class="btn btn-info btn-sm">Edit</a>
                                     <form action="{{url('catalog/'. $catalog->id)}}" method="POST">
@@ -82,7 +86,5 @@
 @endsection
 
 @push('script')
-    <script>
-        $("#katalog").addClass("active");
-    </script>
+
 @endpush

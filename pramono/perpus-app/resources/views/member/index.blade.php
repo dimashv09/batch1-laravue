@@ -31,7 +31,5 @@
 @endsection
 
 @push('script')
-    <script>
-        $("#anggota").addClass("active");
-    </script>
+
 @endpush

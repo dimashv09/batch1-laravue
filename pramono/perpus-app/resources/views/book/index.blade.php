@@ -31,7 +31,5 @@
 @endsection
 
 @push('script')
-    <script>
-        $("#buku").addClass("active");
-    </script>
+
 @endpush

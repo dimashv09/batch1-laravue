@@ -32,7 +32,5 @@
 @endsection
 
 @push('script')
-    <script>
-        $("#home").addClass("active");
-    </script>
+
 @endpush
