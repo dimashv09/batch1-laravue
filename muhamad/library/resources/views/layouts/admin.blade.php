@@ -35,9 +35,6 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
-                </li>
             </ul>
 
             <!-- Right navbar links -->
@@ -151,10 +148,52 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="{{ url('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('catalog') }}"
+                                class="nav-link {{ Request::is('catalog') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Catalog
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('member') }}" class="nav-link {{ Request::is('member') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Members
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('author') }}" class="nav-link {{ Request::is('author') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-feather-alt"></i>
+                                <p>
+                                    Authors
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('publisher') }}"
+                                class="nav-link {{ Request::is('publisher') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-dolly-flatbed"></i>
+                                <p>
+                                    Publishers
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('book') }}" class="nav-link {{ Request::is('book') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Books
                                 </p>
                             </a>
                         </li>
@@ -172,7 +211,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">@yield('header')</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
