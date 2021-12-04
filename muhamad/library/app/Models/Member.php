@@ -9,13 +9,13 @@ class Member extends Model
 {
     use HasFactory;
 
-    // Member has one User
+    // Get User for the Member
     public function user()
     {
         return $this->hasOne(User::class, 'member_id');
     }
 
-    // Author has many Transactions
+    // Get the Transaction for the Member
     public function transactions()
     {
         return $this->hasMany(Transaction::class, 'member_id');

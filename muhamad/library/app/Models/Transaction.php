@@ -9,9 +9,15 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    // Transaction has one Member
+    // Get the Member that owns the Transaction
     public function member()
     {
         return $this->belongsTo(Member::class, 'member_id');
+    }
+
+    // Get the Transaction Detail for the Transaction
+    public function transactionDeatil()
+    {
+        return $this->hasOne(TransactionDeatil::class, 'transaction_id');
     }
 }
