@@ -7,7 +7,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Catalog</h3>
+                <h3 class="card-title">Catalog;s Data</h3>
 
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -26,43 +26,25 @@
                 <table class="table table-head-fixed text-nowrap">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Name</th>
+                            <th class="text-center">Total of Books</th>
+                            {{-- <th class="text-center">Create Date1</th> --}}
+                            {{-- <th class="text-center">Create Date2</th> --}}
+                            <th class="text-center">Create Date</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($catalogs as $catalog)
                         <tr>
-                            <td>183</td>
-                            <td>John Doe</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $catalog->name }}</td>
+                            <td class="text-center">{{ count($catalog->books) }}</td>
+                            {{-- <td class="text-center">{{ $catalog->created_at->diffForHumans() }}</td> --}}
+                            {{-- <td class="text-center">{{ $catalog->created_at->isoFormat('dddd D') }}</td> --}}
+                            <td class="text-center">{{ date('d M Y', strtotime($catalog->created_at)) }}</td>
                         </tr>
-                        <tr>
-                            <td>219</td>
-                            <td>Alexander Pierce</td>
-                        </tr>
-                        <tr>
-                            <td>657</td>
-                            <td>Bob Doe</td>
-                        </tr>
-                        <tr>
-                            <td>175</td>
-                            <td>Mike Doe</td>
-                        </tr>
-                        <tr>
-                            <td>134</td>
-                            <td>Jim Doe</td>
-                        </tr>
-                        <tr>
-                            <td>494</td>
-                            <td>Victoria Doe</td>
-                        </tr>
-                        <tr>
-                            <td>832</td>
-                            <td>Michael Doe</td>
-                        </tr>
-                        <tr>
-                            <td>982</td>
-                            <td>Rocky Doe</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

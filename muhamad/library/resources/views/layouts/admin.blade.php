@@ -156,16 +156,17 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('catalog') }}"
-                                class="nav-link {{ Request::is('catalog') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-th"></i>
+                            <a href="{{ url('catalogs') }}"
+                                class="nav-link {{ Request::is('catalogs') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-table"></i>
                                 <p>
                                     Catalog
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('member') }}" class="nav-link {{ Request::is('member') ? 'active' : '' }}">
+                            <a href="{{ url('members') }}"
+                                class="nav-link {{ Request::is('members') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Members
@@ -173,7 +174,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('author') }}" class="nav-link {{ Request::is('author') ? 'active' : '' }}">
+                            <a href="{{ url('authors') }}"
+                                class="nav-link {{ Request::is('authors') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-feather-alt"></i>
                                 <p>
                                     Authors
@@ -181,8 +183,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('publisher') }}"
-                                class="nav-link {{ Request::is('publisher') ? 'active' : '' }}">
+                            <a href="{{ url('publishers') }}"
+                                class="nav-link {{ Request::is('publishers') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-dolly-flatbed"></i>
                                 <p>
                                     Publishers
@@ -190,7 +192,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('book') }}" class="nav-link {{ Request::is('book') ? 'active' : '' }}">
+                            <a href="{{ url('books') }}" class="nav-link {{ Request::is('books') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
                                     Books

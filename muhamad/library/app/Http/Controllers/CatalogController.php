@@ -14,7 +14,8 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        return view('admin.catalog.index');
+        $catalogs = Catalog::all();
+        return view('admin.catalog.index', compact('catalogs'));
     }
 
     /**
