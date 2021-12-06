@@ -1,13 +1,18 @@
 @extends('layouts.admin')
 
-@section('header') Catalog @endsection
+@section('header', 'Catalog')
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
+            @if (session()->has('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
             <div class="card-header">
-                <h3 class="card-title">Catalog's Data</h3>
+                <a href="{{ route('catalogs.create') }}" class="btn btn-primary">Create new Catalog</a>
 
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -32,6 +37,7 @@
                             {{-- <th class="text-center">Create Date1</th> --}}
                             {{-- <th class="text-center">Create Date2</th> --}}
                             <th class="text-center">Create Date</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +49,18 @@
                             {{-- <td class="text-center">{{ $catalog->created_at->diffForHumans() }}</td> --}}
                             {{-- <td class="text-center">{{ $catalog->created_at->isoFormat('dddd D') }}</td> --}}
                             <td class="text-center">{{ date('d M Y', strtotime($catalog->created_at)) }}</td>
+                            <td class="text-center">
+                                <a href="{{ route("catalogs.edit",$catalog->id) }}" class="badge bg-warning p-2">
+                                    edit</a>
+
+                                <form action="{{ route("catalogs.destroy", $catalog->id) }}" method="post"
+                                    class="d-inline">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="badge bg-danger p-2 border-0"
+                                        onclick=" return confirm('Are you sure?')">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

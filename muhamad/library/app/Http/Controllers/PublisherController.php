@@ -14,7 +14,8 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        return view('admin.publisher.index');
+        $publishers = Publisher::all();
+        return view('admin.publisher.index', compact('publishers'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.publisher.create');
     }
 
     /**
@@ -35,7 +36,19 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        // Validation data
+        $validator = $request->validate([
+            'name' => 'required|min:3|max:32',
+            'email' => 'required',
+            'phone_number' => 'required|min:12',
+            'address' => 'required'
+        ]);
+
+        // Insert validated data into database
+        Publisher::create($validator);
+
+        return redirect('publishers')->with('success', 'New publisher has been Added');
     }
 
     /**
@@ -57,7 +70,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        //
+        return view('admin.publisher.edit', compact('publisher'));
     }
 
     /**
@@ -69,7 +82,18 @@ class PublisherController extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        //
+        // Validation data
+        $validator = $request->validate([
+            'name' => 'required|min:3|max:32',
+            'email' => 'required',
+            'phone_number' => 'required|min:12',
+            'address' => 'required'
+        ]);
+
+        // Insert validated data into database
+        $publisher->update($validator);
+
+        return redirect('publishers')->with('success', 'publisher has been Updated');
     }
 
     /**
@@ -80,6 +104,8 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        //
+        $publisher->delete(); // Delete data with specific ID
+
+        return redirect('publishers')->with('success', 'Publisher has been Deleted');
     }
 }
