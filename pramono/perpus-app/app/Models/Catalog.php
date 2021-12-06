@@ -9,6 +9,8 @@ class Catalog extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     // sebuah katalog dimiliki oleh banyak buku.
         #one to many
     public function books()

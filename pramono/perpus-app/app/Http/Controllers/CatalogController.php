@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catalog;
-use App\Http\Requests\StoreCatalogRequest;
-use App\Http\Requests\UpdateCatalogRequest;
+use Illuminate\Http\Request;
 
 class CatalogController extends Controller
 {
@@ -13,16 +12,11 @@ class CatalogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        # catalog - book testing
-            // $catalog = Catalog::with('books')->get();
-            // return $catalog;
-
         $catalogs = Catalog::all();
-        $title = "Katalog";
-
-        return view('catalog.index', compact('title', 'catalogs'));
+        return view('catalog.index', compact('catalogs'));
     }
 
     /**
@@ -32,7 +26,7 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        //
+        return view('catalog.create');
     }
 
     /**
@@ -41,9 +35,17 @@ class CatalogController extends Controller
      * @param  \App\Http\Requests\StoreCatalogRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCatalogRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $catalog = new Catalog();
+        $catalog->name = $request->name;
+        $catalog->save();
+
+        return redirect('/catalog')->with('sukses', 'Katalog Baru Berhasil Ditambahkan!');
     }
 
     /**
@@ -65,7 +67,8 @@ class CatalogController extends Controller
      */
     public function edit(Catalog $catalog)
     {
-        //
+        return view('catalog.edit', compact('catalog'));
+
     }
 
     /**
@@ -75,9 +78,18 @@ class CatalogController extends Controller
      * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCatalogRequest $request, Catalog $catalog)
+    public function update(Request $request, Catalog $catalog)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $catalog->update([
+            'name' => $request->name
+        ]);
+
+        return redirect('/catalog')->with('sukses', 'Katalog Berhasil Diubah!');
+
     }
 
     /**
@@ -88,6 +100,9 @@ class CatalogController extends Controller
      */
     public function destroy(Catalog $catalog)
     {
-        //
+        $catalog->books()->delete();
+
+        $catalog->delete();
+        return redirect('/catalog')->with('sukses', 'Katalog Berhasil Dihapus!');
     }
 }

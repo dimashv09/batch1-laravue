@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publisher;
-use App\Http\Requests\StorePublisherRequest;
-use App\Http\Requests\UpdatePublisherRequest;
+use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
@@ -15,12 +14,8 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        # publisher - book testing
-            // $publisher = Publisher::with('books')->get();
-            // return $publisher;
-
-        $title = "Penerbit";
-        return view('publisher.index', compact('title'));
+        $publishers = Publisher::all();
+        return view('publisher.index', compact('publishers'));
     }
 
     /**
@@ -30,7 +25,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view('publisher.create');
     }
 
     /**
@@ -39,9 +34,22 @@ class PublisherController extends Controller
      * @param  \App\Http\Requests\StorePublisherRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePublisherRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric'
+        ]);
+
+        $publisher = new Publisher();
+        $publisher->name = $request->name;
+        $publisher->email = $request->email;
+        $publisher->phone = $request->phone;
+        $publisher->address = $request->address;
+        $publisher->save();
+
+        return redirect('/publisher')->with('sukses', 'Penerbit Baru Berhasil Ditambahkan!');
     }
 
     /**
@@ -52,7 +60,7 @@ class PublisherController extends Controller
      */
     public function show(Publisher $publisher)
     {
-        //
+
     }
 
     /**
@@ -63,7 +71,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        //
+        return view('publisher.edit', compact('publisher'));
     }
 
     /**
@@ -73,9 +81,22 @@ class PublisherController extends Controller
      * @param  \App\Models\Publisher  $publisher
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePublisherRequest $request, Publisher $publisher)
+    public function update(Request $request, Publisher $publisher)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric'
+        ]);
+
+        $publisher->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+
+        return redirect('/publisher')->with('sukses', 'Penerbit Berhasil Diubah!');
     }
 
     /**
@@ -86,6 +107,8 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        //
+        $publisher->books()->delete();
+        $publisher->delete();
+        return redirect('/publisher')->with('sukses', 'Publisher Berhasil Dihapus!');
     }
 }
