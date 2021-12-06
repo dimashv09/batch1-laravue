@@ -82,13 +82,20 @@ class PublisherController extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        // Validation data
-        $validator = $request->validate([
+        // Create Rules
+        $rules = [
             'name' => 'required|min:3|max:32',
-            'email' => 'required',
-            'phone_number' => 'required|min:12',
             'address' => 'required'
-        ]);
+        ];
+
+        // Check if there is unique data
+        if ($request->email != $publisher->email || $request->phone_number != $publisher->phone_number) {
+            $rules['email'] = 'required|unique';
+            $rules['phone_number'] = 'required|unique|min:13';
+        }
+
+        //Validation data
+        $validator = $request->validate($rules);
 
         // Insert validated data into database
         $publisher->update($validator);
