@@ -88,10 +88,11 @@ class PublisherController extends Controller
             'address' => 'required'
         ];
 
-        // Check if there is unique data
-        if ($request->email != $publisher->email || $request->phone_number != $publisher->phone_number) {
-            $rules['email'] = 'required|unique';
-            $rules['phone_number'] = 'required|unique|min:13';
+        // Check if there is unique data changed
+        if ($request->email != $publisher->email) {
+            $rules['email'] = 'required|unique:publishers';
+        } else if ($request->phone_number != $publisher->phone_number) {
+            $rules['phone_number'] = 'required|unique:publishers|min:12';
         }
 
         //Validation data
