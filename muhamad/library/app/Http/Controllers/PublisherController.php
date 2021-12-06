@@ -101,7 +101,7 @@ class PublisherController extends Controller
         // Insert validated data into database
         $publisher->update($validator);
 
-        return redirect('publishers')->with('success', 'publisher has been Updated');
+        return redirect('publishers')->with('success', 'publisher table has been Updated');
     }
 
     /**
