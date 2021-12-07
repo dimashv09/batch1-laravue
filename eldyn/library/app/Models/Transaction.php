@@ -10,6 +10,6 @@ class Transaction extends Model
     use HasFactory;
 
 	public function transactionDetail() {
-		return $this->hasOne(TransactionDetail::class, 'transaction_id');
+		return $this->hasMany(TransactionDetail::class, 'transaction_id');
 	}
 }

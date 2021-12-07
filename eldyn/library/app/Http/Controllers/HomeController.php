@@ -159,7 +159,7 @@ class HomeController extends Controller
 				->whereMonth('created_at', '>=', 6)
 				->get();
 
-		return $data20;
+		// return $data20;
         return view('home');
     }
 }
