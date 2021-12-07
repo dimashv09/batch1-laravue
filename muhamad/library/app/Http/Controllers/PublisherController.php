@@ -48,7 +48,7 @@ class PublisherController extends Controller
         // Insert validated data into database
         Publisher::create($validator);
 
-        return redirect('publishers')->with('success', 'New publisher has been Added');
+        return redirect('publishers')->with('success', 'New publisher data has been Added');
     }
 
     /**
@@ -101,7 +101,7 @@ class PublisherController extends Controller
         // Insert validated data into database
         $publisher->update($validator);
 
-        return redirect('publishers')->with('success', 'publisher table has been Updated');
+        return redirect('publishers')->with('success', 'publisher data has been Updated');
     }
 
     /**
@@ -114,6 +114,6 @@ class PublisherController extends Controller
     {
         $publisher->delete(); // Delete data with specific ID
 
-        return redirect('publishers')->with('success', 'Publisher has been Deleted');
+        return redirect('publishers')->with('success', 'Publisher data has been Deleted');
     }
 }
