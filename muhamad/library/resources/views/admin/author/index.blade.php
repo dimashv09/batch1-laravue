@@ -13,32 +13,20 @@
             @endif
             <div class="card-header">
                 <a href="{{ route('authors.create') }}" class="btn btn-primary">Add new Author</a>
-
-                <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0" style="height: 300px;">
-                <table class="table table-head-fixed text-nowrap">
+            <div class="card-body p-0">
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Address</th>
-                            <th class="text-center">Total of Books</th>
-                            <th class="text-center">Join Date</th>
-                            <th class="text-center">Action</th>
+                            <th class="align-middle" style="width: 10px;">#</th>
+                            <th class="align-middle">Name</th>
+                            <th class="align-middle">Email</th>
+                            <th class="align-middle">Phone Number</th>
+                            <th class="align-middle">Address</th>
+                            <th class="align-middle">Total of Books</th>
+                            <th class="align-middle">Join Date</th>
+                            <th class="align-middle text-center" style="width: 130px;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,10 +37,10 @@
                             <td>{{ $author->email }}</td>
                             <td>{{ $author->phone_number }}</td>
                             <td>{{ $author->address }}</td>
-                            <td class="text-center">{{ count($author->books) }}</td>
-                            <td class="text-center">{{ date('d M Y', strtotime($author->created_at)) }}</td>
-                            <td class="text-center">
-                                <a href="{{ route("authors.edit", $author->id) }}" class="badge bg-warning p-2">
+                            <td>{{ count($author->books) }}</td>
+                            <td>{{ date('d M Y', strtotime($author->created_at)) }}</td>
+                            <td>
+                                <a href="{{ route("authors.edit", $author->id) }}" class="badge bg-warning p-2 mb-2">
                                     edit</a>
 
                                 <form action="{{ route("authors.destroy", $author->id) }}" method="post"
@@ -68,11 +56,7 @@
                     </tbody>
                 </table>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
     </div>
-    <!-- /.col -->
 </div>
-<!-- /.row -->
 @endsection

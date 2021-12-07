@@ -13,31 +13,19 @@
             @endif
             <div class="card-header">
                 <a href="{{ route('catalogs.create') }}" class="btn btn-primary">Create new Catalog</a>
-
-                <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0" style="height: 300px;">
-                <table class="table table-head-fixed text-nowrap">
+            <div class="card-body p-0">
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th class="text-center">Total of Books</th>
-                            {{-- <th class="text-center">Create Date1</th> --}}
-                            {{-- <th class="text-center">Create Date2</th> --}}
-                            <th class="text-center">Create Date</th>
-                            <th class="text-center">Action</th>
+                            <th class="align-middle" style="width: 10px;">#</th>
+                            <th class="align-middle">Name</th>
+                            <th class="align-middle">Total of Books</th>
+                            {{-- <th>Create Date1</th> --}}
+                            {{-- <th>Create Date2</th> --}}
+                            <th class="align-middle">Create Date</th>
+                            <th class="align-middle text-center" style="width: 130px;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,12 +33,12 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $catalog->name }}</td>
-                            <td class="text-center">{{ count($catalog->books) }}</td>
-                            {{-- <td class="text-center">{{ $catalog->created_at->diffForHumans() }}</td> --}}
-                            {{-- <td class="text-center">{{ $catalog->created_at->isoFormat('dddd D') }}</td> --}}
-                            <td class="text-center">{{ date('d M Y', strtotime($catalog->created_at)) }}</td>
+                            <td>{{ count($catalog->books) }}</td>
+                            {{-- <td>{{ $catalog->created_at->diffForHumans() }}</td> --}}
+                            {{-- <td>{{ $catalog->created_at->isoFormat('dddd D') }}</td> --}}
+                            <td>{{ date('d M Y', strtotime($catalog->created_at)) }}</td>
                             <td class="text-center">
-                                <a href="{{ route("catalogs.edit",$catalog->id) }}" class="badge bg-warning p-2">
+                                <a href="{{ route("catalogs.edit",$catalog->id) }}" class="badge bg-warning p-2 mb-2">
                                     edit</a>
 
                                 <form action="{{ route("catalogs.destroy", $catalog->id) }}" method="post"
@@ -70,7 +58,5 @@
         </div>
         <!-- /.card -->
     </div>
-    <!-- /.col -->
 </div>
-<!-- /.row -->
 @endsection
