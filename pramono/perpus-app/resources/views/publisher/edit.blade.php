@@ -53,7 +53,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="address" class="form-label">Alamat</label>
-                      <textarea class="form-control" name="address" id="address" rows="3">{{$publisher->address}}</textarea>
+                      <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" rows="3">{{$publisher->address}}</textarea>
                     </div>
                 </div>
                     <!-- /.card-body -->
@@ -65,9 +65,3 @@
     </div>
 </div>
 @endsection
-
-
-@push('script')
-<script src="{{asset('vendor/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
-<script src="{{asset('vendor/plugins/jquery-validation/additional-methods.min.js')}}"></script>
-@endpush

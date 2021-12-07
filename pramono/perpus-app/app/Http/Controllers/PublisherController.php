@@ -39,7 +39,8 @@ class PublisherController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'phone' => 'required|numeric'
+            'phone' => 'required|numeric',
+            'address' => 'required'
         ]);
 
         $publisher = new Publisher();
@@ -86,7 +87,8 @@ class PublisherController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'phone' => 'required|numeric'
+            'phone' => 'required|numeric',
+            'address' => 'required'
         ]);
 
         $publisher->update([
