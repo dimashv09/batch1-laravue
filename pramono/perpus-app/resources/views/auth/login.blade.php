@@ -25,6 +25,11 @@
     <link rel="stylesheet" href="{{asset('vendor/dist/css/adminlte.min.css')}}" />
   </head>
   <body class="hold-transition login-page">
+     <!-- Preloader -->
+     <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="{{asset('vendor/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
     <div class="login-box">
       <div class="login-logo">
         <a href="{{url('/')}}"><b>Admin</b>LTE</a>
