@@ -40,8 +40,8 @@ class PublisherController extends Controller
         // Validation data
         $validator = $request->validate([
             'name' => 'required|min:3|max:32',
-            'email' => 'required',
-            'phone_number' => 'required|min:12',
+            'email' => 'required|unique:publishers',
+            'phone_number' => 'required|unique:publishers|min:12',
             'address' => 'required'
         ]);
 

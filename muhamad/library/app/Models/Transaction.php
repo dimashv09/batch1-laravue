@@ -16,8 +16,8 @@ class Transaction extends Model
     }
 
     // Get the Transaction Detail for the Transaction
-    public function transactionDeatil()
+    public function transactionDeatils()
     {
-        return $this->hasOne(TransactionDeatil::class, 'transaction_id');
+        return $this->hasMany(TransactionDeatil::class, 'transaction_id');
     }
 }

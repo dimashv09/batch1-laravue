@@ -12,6 +12,6 @@ class TransactionDetail extends Model
     // Get the Transaction that owns the Transaction Detail
     public function transaction()
     {
-        return $this->belongsTo(Transaction::class, 'transactions_id');
+        return $this->belongsTo(Transaction::class, 'transaction_id');
     }
 }
