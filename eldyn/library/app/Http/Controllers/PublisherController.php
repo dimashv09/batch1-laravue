@@ -14,7 +14,8 @@ class PublisherController extends Controller
      */
     public function index()
     {
-		return view('admin.publisher.publisher');
+		$publishers = Publisher::with('books')->get();
+		return view('admin.publisher.publisher', compact('publishers'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.publisher.create');
     }
 
     /**
@@ -35,41 +36,56 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+		$this->validate($request, [
+			'name' => ['required', 'min:3'],
+			'phone_number' => ['required', 'min:10'],
+			'email' => ['required', 'email', 'unique:publishers'],
+			'address' => ['required']
+		]);
+		Publisher::create($request->all());
+        return redirect('publishers');
     }
-
+	
     /**
-     * Display the specified resource.
+	 * Display the specified resource.
      *
-     * @param  \App\Models\Publisher  $publisher
-     * @return \Illuminate\Http\Response
+	 * @param  \App\Models\Publisher  $publisher
+	 * @return \Illuminate\Http\Response
      */
-    public function show(Publisher $publisher)
+	public function show(Publisher $publisher)
     {
-        //
+		//
     }
-
+	
     /**
-     * Show the form for editing the specified resource.
+	 * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Publisher  $publisher
-     * @return \Illuminate\Http\Response
+	 * @param  \App\Models\Publisher  $publisher
+	 * @return \Illuminate\Http\Response
      */
-    public function edit(Publisher $publisher)
+	public function edit(Publisher $publisher)
     {
-        //
+		return view('admin.publisher.edit', compact('publisher'));
     }
-
+	
     /**
-     * Update the specified resource in storage.
+	 * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Publisher  $publisher
-     * @return \Illuminate\Http\Response
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \App\Models\Publisher  $publisher
+	 * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Publisher $publisher)
+	public function update(Request $request, Publisher $publisher)
     {
-        //
+		$this->validate($request, [
+			'name' => ['required', 'min:3'],
+			'phone_number' => ['required', 'min:10'],
+			'email' => ['required', 'email', 'unique:publishers,email,'.$publisher->id],
+			'address' => ['required']
+		]);
+		$publisher->update($request->all());
+		return redirect('publishers');
+		//
     }
 
     /**
@@ -80,6 +96,7 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        //
+        $publisher->delete();
+		return redirect('publishers');
     }
 }

@@ -21,8 +21,28 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('Dashboard');
-Route::get('/catalog', [App\Http\Controllers\CatalogController::class, 'index'])->name('Catalog');
-Route::get('/author', [App\Http\Controllers\AuthorController::class, 'index'])->name('Author');
-Route::get('/book', [App\Http\Controllers\BookController::class, 'index'])->name('Book');
-Route::get('/member', [App\Http\Controllers\MemberController::class, 'index'])->name('Member');
-Route::get('/publisher', [App\Http\Controllers\PublisherController::class, 'index'])->name('Publisher');
+
+// ---------- Catalogs ----------
+Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index'])->name('Catalogs');
+Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create'])->name('Catalog Create');
+Route::post('/catalogs', [App\Http\Controllers\CatalogController::class, 'store'])->name('Catalog Store');
+Route::get('/catalogs/{catalog}/edit', [App\Http\Controllers\CatalogController::class, 'edit'])->name('Catalog Edit');
+Route::patch('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'update'])->name('Catalog Update');
+Route::delete('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'destroy'])->name('Catalog Delete');
+
+// ---------- Authors ----------
+Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index'])->name('Authors');
+
+// ---------- Books ----------
+Route::get('/books', [App\Http\Controllers\BookController::class, 'index'])->name('Books');
+
+// ---------- Members ----------
+Route::get('/members', [App\Http\Controllers\MemberController::class, 'index'])->name('Members');
+
+// ---------- Publishers ----------
+Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index'])->name('Publishers');
+Route::get('/publishers/create', [App\Http\Controllers\PublisherController::class, 'create'])->name('Publisher Create');
+Route::post('/publishers', [App\Http\Controllers\PublisherController::class, 'store'])->name('Publisher Store');
+Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherController::class, 'edit'])->name('Publisher Edit');
+Route::patch('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update'])->name('Publisher Update');
+Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy'])->name('Publisher Delete');

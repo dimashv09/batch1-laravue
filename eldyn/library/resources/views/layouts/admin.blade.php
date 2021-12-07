@@ -132,33 +132,33 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('Catalog') }}" class="nav-link {{ (request()->is('catalog')) ? 'active' : '' }}">
+							<a href="{{ route('Catalogs') }}" class="nav-link {{ (request()->is('catalogs*')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-tags"></i>
-								<p>Catalog</p>
+								<p>Catalogs</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('Publisher') }}" class="nav-link {{ (request()->is('publisher')) ? 'active' : '' }}">
+							<a href="{{ route('Publishers') }}" class="nav-link {{ (request()->is('publishers*')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-hand-holding-usd"></i>
-								<p>Publisher</p>
+								<p>Publishers</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('Author') }}" class="nav-link {{ (request()->is('author')) ? 'active' : '' }}">
+							<a href="{{ route('Authors') }}" class="nav-link {{ (request()->is('authors*')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-pen-nib"></i>
-								<p>Author</p>
+								<p>Authors</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('Book') }}" class="nav-link {{ (request()->is('book')) ? 'active' : '' }}">
+							<a href="{{ route('Books') }}" class="nav-link {{ (request()->is('books*')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-book"></i>
-								<p>Book</p>
+								<p>Books</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('Member') }}" class="nav-link {{ (request()->is('member')) ? 'active' : '' }}">
+							<a href="{{ route('Members') }}" class="nav-link {{ (request()->is('members*')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-users"></i>
-								<p>Member</p>
+								<p>Members</p>
 							</a>
 						</li>
 					</ul>
@@ -175,7 +175,7 @@
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-6">
-						<h1 class="m-0">Dashboard</h1>
+						<h1 class="m-0">@yield('wrapper-title', 'Dashboard')</h1>
 					</div><!-- /.col -->
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">

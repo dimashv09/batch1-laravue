@@ -25,7 +25,7 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.catalog.create');
     }
 
     /**
@@ -36,51 +36,62 @@ class CatalogController extends Controller
      */
     public function store(Request $request)
     {
+		$this->validate($request, [
+			'name' => ['required', 'min:3']
+		]);
+		Catalog::create($request->all());
+        return redirect('catalogs');
+    }
+	
+    /**
+	 * Display the specified resource.
+     *
+	 * @param  \App\Models\Catalog  $catalog
+	 * @return \Illuminate\Http\Response
+     */
+	public function show(Catalog $catalog)
+    {
+		//
+	}
+	
+    /**
+	 * Show the form for editing the specified resource.
+     *
+	 * @param  \App\Models\Catalog  $catalog
+	 * @return \Illuminate\Http\Response
+     */
+	public function edit(Catalog $catalog)
+    {
+		return view('admin.catalog.edit', compact('catalog'));
         //
     }
-
+	
     /**
-     * Display the specified resource.
+	 * Update the specified resource in storage.
      *
+	 * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Catalog  $catalog
-     * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\Response
      */
-    public function show(Catalog $catalog)
+	public function update(Request $request, Catalog $catalog)
     {
-        //
+		$this->validate($request, [
+			'name' => ['required', 'min:3']
+		]);
+		$catalog->update($request->all());
+		return redirect('catalogs');
+		//
     }
-
+	
     /**
-     * Show the form for editing the specified resource.
+	 * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Catalog  $catalog
-     * @return \Illuminate\Http\Response
+	 * @param  \App\Models\Catalog  $catalog
+	 * @return \Illuminate\Http\Response
      */
-    public function edit(Catalog $catalog)
+	public function destroy(Catalog $catalog)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Catalog  $catalog
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Catalog $catalog)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Catalog  $catalog
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Catalog $catalog)
-    {
-        //
+		$catalog->delete();
+		return redirect('catalogs');
     }
 }
