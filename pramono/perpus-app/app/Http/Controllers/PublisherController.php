@@ -15,7 +15,7 @@ class PublisherController extends Controller
     public function index()
     {
         $publishers = Publisher::all();
-        return view('publisher.index', compact('publishers'));
+        return view('publisher', compact('publishers'));
     }
 
     /**
@@ -38,8 +38,8 @@ class PublisherController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required|numeric',
+            'email' => 'required|email|unique:publishers',
+            'phone' => 'required|numeric|unique:publishers',
             'address' => 'required'
         ]);
 
@@ -98,7 +98,7 @@ class PublisherController extends Controller
             'address' => $request->address,
         ]);
 
-        return redirect('/publisher')->with('sukses', 'Penerbit Berhasil Diubah!');
+        return redirect('/publisher')->with('sukses', 'Data Berhasil Diubah!');
     }
 
     /**
@@ -111,6 +111,6 @@ class PublisherController extends Controller
     {
         $publisher->books()->delete();
         $publisher->delete();
-        return redirect('/publisher')->with('sukses', 'Publisher Berhasil Dihapus!');
+        return redirect('/publisher')->with('sukses', 'Data Berhasil Dihapus!');
     }
 }

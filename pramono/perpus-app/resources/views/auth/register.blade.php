@@ -90,7 +90,7 @@
             </div>
         </form>
 
-        <div class="social-auth-links text-center">
+        {{-- <div class="social-auth-links text-center">
             <p>- OR -</p>
             <a href="#" class="btn btn-block btn-primary">
             <i class="fab fa-facebook mr-2"></i>
@@ -100,7 +100,7 @@
             <i class="fab fa-google-plus mr-2"></i>
             Sign up using Google+
             </a>
-        </div>
+        </div> --}}
 
         <a href="{{url('/login')}}" class="text-center">I already have a membership</a>
         </div>

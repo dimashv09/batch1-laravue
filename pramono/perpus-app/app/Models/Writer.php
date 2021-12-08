@@ -9,6 +9,8 @@ class Writer extends Model
 {
     use HasFactory;
 
+    protected $guarded= [];
+
     // seorang penulis dapat menulis banyak buku.
         # one to many
     public function books()

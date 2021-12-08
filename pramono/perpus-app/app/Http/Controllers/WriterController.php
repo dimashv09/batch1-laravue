@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Writer;
-use App\Http\Requests\StoreWriterRequest;
-use App\Http\Requests\UpdateWriterRequest;
+use Illuminate\Http\Request;
 
 class WriterController extends Controller
 {
@@ -15,12 +14,9 @@ class WriterController extends Controller
      */
     public function index()
     {
-        # writer - book relationship test
-            // $writer = Writer::with('books')->get();
-            // return $writer;
         $writers = Writer::all();
         $title = "Penulis";
-        return view('writer.index', compact('title', 'writers'));
+        return view('writer', compact('title', 'writers'));
     }
 
     /**
@@ -39,9 +35,23 @@ class WriterController extends Controller
      * @param  \App\Http\Requests\StoreWriterRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreWriterRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:writers',
+            'phone' => 'required|numeric|unique:writers',
+            'address' => 'required'
+        ]);
+
+        $publisher = new Writer();
+        $publisher->name = $request->name;
+        $publisher->email = $request->email;
+        $publisher->phone = $request->phone;
+        $publisher->address = $request->address;
+        $publisher->save();
+
+        return redirect('/writer')->with('sukses', 'Penulis Baru Berhasil Ditambahkan!');
     }
 
     /**
@@ -73,9 +83,23 @@ class WriterController extends Controller
      * @param  \App\Models\Writer  $writer
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateWriterRequest $request, Writer $writer)
+    public function update(Request $request, Writer $writer)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+            'address' => 'required'
+        ]);
+
+        $writer->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address
+        ]);
+
+        return redirect('/writer')->with('sukses', 'Data Berhasil Diubah!');
     }
 
     /**
@@ -86,6 +110,8 @@ class WriterController extends Controller
      */
     public function destroy(Writer $writer)
     {
-        //
+        $writer->books()->delete();
+        $writer->delete();
+        return redirect('/writer')->with('sukses', 'Data Berhasil Dihapus!');
     }
 }
