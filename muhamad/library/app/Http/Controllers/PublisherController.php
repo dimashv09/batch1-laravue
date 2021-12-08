@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,7 @@ class PublisherController extends Controller
     public function index()
     {
         $publishers = Publisher::all();
-        return view('admin.publisher.index', compact('publishers'));
+        return view('admin.publisher', compact('publishers'));
     }
 
     /**
@@ -25,7 +29,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return view('admin.publisher.create');
+        //
     }
 
     /**
@@ -36,12 +40,11 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         // Validation data
         $validator = $request->validate([
             'name' => 'required|min:3|max:32',
             'email' => 'required|unique:publishers',
-            'phone_number' => 'required|unique:publishers|min:12',
+            'phone_number' => 'required|unique:publishers|min:12|max:15',
             'address' => 'required'
         ]);
 
@@ -70,7 +73,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        return view('admin.publisher.edit', compact('publisher'));
+        //
     }
 
     /**
@@ -86,7 +89,7 @@ class PublisherController extends Controller
         $validator = $request->validate([
             'name' => 'required|min:3|max:32',
             'email' => "required|email:dns|unique:publishers,email,{$publisher->id}",
-            'phone_number' => "required|unique:publishers,phone_number,{$publisher->id}|min:12",
+            'phone_number' => "required|unique:publishers,phone_number,{$publisher->id}|min:12|max:15",
             'address' => 'required'
         ]);
 
@@ -104,7 +107,8 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        $publisher->delete(); // Delete data with specific ID
+        // Delete data with specific ID
+        $publisher->delete();
 
         return redirect('publishers')->with('success', 'Publisher data has been Deleted');
     }

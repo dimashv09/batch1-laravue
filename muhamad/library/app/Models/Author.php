@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     // Get the Books for the Author
     public function books()

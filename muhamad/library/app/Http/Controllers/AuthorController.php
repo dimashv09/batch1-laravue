@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,7 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
-        return view('admin.author.index', compact('authors'));
+        return view('admin.author', compact('authors'));
     }
 
     /**
@@ -36,7 +40,18 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation Data
+        $validator = $request->validate([
+            'name' => 'required|min:3|max:32',
+            'email' => 'required|unique:authors',
+            'phone_number' => 'required|unique:authors|min:12|max:15',
+            'address' => 'required'
+        ]);
+
+        // Insert validated data into database
+        Author::create($validator);
+
+        return redirect('authors')->with('success', 'New author data has been Added');
     }
 
     /**
@@ -70,7 +85,18 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        // Validation Data
+        $validator = $request->validate([
+            'name' => 'required|min:3|max:32',
+            'email' => "required|unique:authors,email,{$author->id}",
+            'phone_number' => "required|unique:authors,phone_number,{$author->id}|min:12|max:15",
+            'address' => 'required'
+        ]);
+
+        // Insert validated data into database
+        $author->update($validator);
+
+        return redirect('authors')->with('success', 'Author data has been Updated');
     }
 
     /**
@@ -81,6 +107,9 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        // Delete data with specific ID
+        $author->delete();
+
+        return redirect('authors')->with('success', 'Author data has been Deleted');
     }
 }
