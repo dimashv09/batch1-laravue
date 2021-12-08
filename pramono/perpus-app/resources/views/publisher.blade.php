@@ -166,7 +166,7 @@
                     },
                     destroy(data){
                         this.url = '{{url('publisher')}}'+'/'+ data.id
-                        if(confirm('Buku yang diterbitkan oleh Penerbit ini akan ikut terhapus. Apakah Anda yakin ingin menghapusnya?')) {
+                        if(confirm('Apakah Anda yakin ingin menghapusnya?')) {
                             axios.post(this.url, { _method:'DELETE'}).then(response =>{location.reload();
                             });
                         }

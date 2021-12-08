@@ -157,7 +157,7 @@
                     },
                     destroy(data){
                         this.url = '{{url('writer')}}'+'/'+ data.id
-                        if(confirm('Buku yang ditulis oleh Penulis ini akan ikut terhapus. Apakah Anda yakin ingin menghapusnya?')) {
+                        if(confirm('Apakah Anda yakin ingin menghapusnya?')) {
                             axios.post(this.url, { _method:'DELETE'}).then(response =>{location.reload();
                             });
                         }

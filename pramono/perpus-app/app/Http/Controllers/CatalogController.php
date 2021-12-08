@@ -100,8 +100,6 @@ class CatalogController extends Controller
      */
     public function destroy(Catalog $catalog)
     {
-        $catalog->books()->delete();
-
         $catalog->delete();
         return redirect('/catalog')->with('sukses', 'Katalog Berhasil Dihapus!');
     }

@@ -20,9 +20,9 @@ class CreateBooksTable extends Migration
             $table->year('year')->nullable();
             $table->bigInteger('stock')->nullable();
             $table->integer('price')->nullable();
-            $table->foreignId('publisher_id')->nullable()->constrained();
-            $table->foreignId('writer_id')->nullable()->constrained();
-            $table->foreignId('catalog_id')->nullable()->constrained();
+            $table->foreignId('publisher_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('writer_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('catalog_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

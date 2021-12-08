@@ -110,7 +110,6 @@ class WriterController extends Controller
      */
     public function destroy(Writer $writer)
     {
-        $writer->books()->delete();
         $writer->delete();
         return redirect('/writer')->with('sukses', 'Data Berhasil Dihapus!');
     }
