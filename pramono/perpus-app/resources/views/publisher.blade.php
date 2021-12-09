@@ -33,23 +33,16 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
+                        Data Penerbit
+                    </div>
+                    <div class="card-tools ">
                         <a href="#" @click="store()" class="btn btn-sm btn-primary">
                             <i class="fas fa-plus"></i>
                         </a>
                     </div>
-                    <div class="card-tools d-flex">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right h-100" placeholder="Search">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered text-center">
+                    <table class="table table-bordered text-center" id="publishers">
                         <thead>
                           <tr>
                             <th>#</th>
@@ -57,8 +50,8 @@
                             <th>Email</th>
                             <th>Telepon</th>
                             <th>Alamat</th>
-                            <th>Buku yang diterbitkan</th>
                             <th>Dibuat Pada</th>
+                            <th>Buku yang diterbitkan</th>
                             <th>Opsi</th>
                           </tr>
                         </thead>
@@ -84,15 +77,6 @@
                             @endforelse
                         </tbody>
                     </table>
-                </div>
-                <div class="card-footer clearfix">
-                    <ul class="pagination pagination-sm m-0 float-right">
-                      <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -140,9 +124,31 @@
 
 @endsection
 
+@section('css')
+<!-- DataTables Css -->
+<link rel="stylesheet" href="{{asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{asset('vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{asset('vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+@endsection
+
 @push('script')
+    {{-- vue's CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.js"></script>
+    {{-- datatables sources --}}
+    <script src="{{asset('vendor/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/jszip/jszip.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/pdfmake/pdfmake.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/pdfmake/vfs_fonts.js')}}"></script>
+    <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+
     <script>
         var app = new Vue({
                 el : '#app',
@@ -174,5 +180,19 @@
                 }
 
 		});
+
+        // datatable's script
+        $("#publishers").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false, "info": false,
+            "buttons": ["excel", "pdf",
+                {
+                    extend: 'print',
+                    title: function(){
+                        var printTitle = 'Data Penerbit';
+                        return printTitle
+                    },
+                }
+            ]
+        }).buttons().container().appendTo('#publishers_wrapper .col-md-6:eq(0)');
     </script>
 @endpush
