@@ -14,26 +14,26 @@
     {{-- Data Table --}}
     <div class="row">
         <div class="col-12">
+            {{-- Displaying The Success Message of Modifying DataBase --}}
+            @if (session()->has('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+
+            {{-- Displaying The Validation Errors --}}
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <h4 class="py-3">Oops, There's something wrong!</h4>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <div class="card">
-                {{-- Displaying The Success Message of Modifying DataBase --}}
-                @if (session()->has('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-                @endif
-
-                {{-- Displaying The Validation Errors --}}
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <h4 class="py-3">Oops, There's something wrong!</h4>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-
                 <div class="card-header">
                     <a href="#" @click="addData()" class="btn btn-primary">Add new Publisher</a>
                 </div>
@@ -111,7 +111,7 @@
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="text" class="form-control @error('phone_number') is-invalid @enderror"
+                            <input type="number" class="form-control @error('phone_number') is-invalid @enderror"
                                 id="phone" placeholder="Enter Publisher's phone" name="phone_number" required
                                 :value="data.phone_number">
                             @error('phone_number')
