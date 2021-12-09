@@ -44,7 +44,7 @@ class AuthorController extends Controller
         $validator = $request->validate([
             'name' => 'required|min:3|max:32',
             'email' => 'required|unique:authors',
-            'phone_number' => 'required|unique:authors|min:12|max:15',
+            'phone_number' => 'required|unique:authors|min:12|max:15|numeric',
             'address' => 'required'
         ]);
 
@@ -89,7 +89,7 @@ class AuthorController extends Controller
         $validator = $request->validate([
             'name' => 'required|min:3|max:32',
             'email' => "required|unique:authors,email,{$author->id}",
-            'phone_number' => "required|unique:authors,phone_number,{$author->id}|min:12|max:15",
+            'phone_number' => "required|unique:authors,phone_number,{$author->id}|min:12|max:15|numeric",
             'address' => 'required'
         ]);
 
