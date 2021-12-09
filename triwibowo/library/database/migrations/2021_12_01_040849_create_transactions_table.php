@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('member_id');
             $table->date('date_start');
-            $table->date('data_end');
+            $table->date('date_end');
             $table->timestamps();
 
             $table->foreign('member_id')->references('id')->on('members');
