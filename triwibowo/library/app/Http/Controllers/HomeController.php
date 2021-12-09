@@ -157,7 +157,7 @@ class HomeController extends Controller
             ->where('created_at', '=', '06-2021%')
             ->get();
 
-        return $data20;
+        // return $data20;
         return view('home', [
             'judul' => 'Dasboard'
         ]);

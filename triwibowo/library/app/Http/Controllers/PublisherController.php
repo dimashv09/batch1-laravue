@@ -14,7 +14,7 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        return view('admin.publisher.index', [
+        return view('admin.publishers.index', [
             'judul' => 'publisher'
         ]);
     }

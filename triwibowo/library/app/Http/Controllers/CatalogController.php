@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Catalog;
 use Illuminate\Http\Request;
 
+use function GuzzleHttp\Promise\all;
+
 class CatalogController extends Controller
 {
     /**
@@ -14,7 +16,9 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        return view('admin.catalog.index', [
+        $catalogs = Catalog::with('books')->get();
+
+        return view('admin.catalogs.index', compact('catalogs'), [
             'judul' => 'Catalog'
         ]);
     }
