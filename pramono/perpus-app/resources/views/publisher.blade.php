@@ -51,7 +51,7 @@
                             <th>Telepon</th>
                             <th>Alamat</th>
                             <th>Dibuat Pada</th>
-                            <th>Buku yang diterbitkan</th>
+                            <th>Buku</th>
                             <th>Opsi</th>
                           </tr>
                         </thead>
@@ -183,7 +183,7 @@
 
         // datatable's script
         $("#publishers").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false, "info": false,
+            "responsive": true, "lengthChange": true, "autoWidth": false, "info": false,
             "buttons": ["excel", "pdf",
                 {
                     extend: 'print',

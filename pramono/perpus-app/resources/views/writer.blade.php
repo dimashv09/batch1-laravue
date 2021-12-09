@@ -51,7 +51,7 @@
                                 <th>Telepon</th>
                                 <th>Alamat</th>
                                 <th>Dibuat Pada</th>
-                                <th>Jumlah Buku</th>
+                                <th>Buku</th>
                                 <th>Opsi</th>
                             </tr>
                         </thead>
