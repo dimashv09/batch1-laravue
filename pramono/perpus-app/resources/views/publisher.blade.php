@@ -89,7 +89,7 @@
                 <input type="hidden" name="_method" value="PUT" v-if="method">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">No. Title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -155,19 +155,22 @@
                 data : {
                     data : {},
                     url : '',
-                    method : false
+                    method : false,
+                    title : {},
                 },
                 methods: {
                     store(){
                         this.data = {}
                         this.url = '{{url('publisher')}}'
                         this.method = false
+                        $(".modal-title").text("Tambah Penerbit")
                         $("#exampleModal").modal()
                     },
                     update(data){
                         this.data = data
                         this.url = '{{url('publisher')}}'+'/'+data.id
                         this.method = true
+                        $(".modal-title").text("Edit Penerbit")
                         $("#exampleModal").modal()
                     },
                     destroy(data){

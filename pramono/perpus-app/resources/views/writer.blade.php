@@ -162,12 +162,14 @@
                         this.data = {}
                         this.url = '{{url('writer')}}'
                         this.method = false
+                        $(".modal-title").text("Tambah Penulis")
                         $("#exampleModal").modal()
                     },
                     update(data){
                         this.data = data
                         this.url = '{{url('writer')}}'+'/'+data.id
                         this.method = true
+                        $(".modal-title").text("Edit Penulis")
                         $("#exampleModal").modal()
                     },
                     destroy(data){
