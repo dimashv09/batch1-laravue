@@ -15,13 +15,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('member_id');
+            $table->foreignId('member_id')->constrained(); // Set ForeignKey of Member Table
             $table->date('date_start');
             $table->date('date_end');
             $table->timestamps();
-
-            // Set Relation of Table
-            $table->foreign('member_id')->references('id')->on('members');
         });
     }
 

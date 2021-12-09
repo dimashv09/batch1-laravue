@@ -20,11 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->unsignedBigInteger('member_id')->nullable();
+            $table->foreignId('member_id')->constrained(); // Set ForeignKey of Catalog Table
             $table->timestamps();
-
-            // Set Relation of Table
-            $table->foreign('member_id')->references('id')->on('members');
         });
     }
 

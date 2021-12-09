@@ -18,17 +18,12 @@ class CreateBooksTable extends Migration
             $table->integer('isbn');
             $table->string('title', 64);
             $table->integer('year');
-            $table->unsignedBigInteger('publisher_id');
-            $table->unsignedBigInteger('author_id');
-            $table->unsignedBigInteger('catalog_id');
+            $table->foreignId('publisher_id')->constrained(); // Set ForeignKey of Publisher Table
+            $table->foreignId('author_id')->constrained(); // Set ForeignKey of Author Table
+            $table->foreignId('catalog_id')->constrained(); // Set ForeignKey of Catalog Table
             $table->integer('qty');
             $table->integer('price');
             $table->timestamps();
-
-            // Set Relation of Table
-            $table->foreign('publisher_id')->references('id')->on('publishers');
-            $table->foreign('author_id')->references('id')->on('authors');
-            $table->foreign('catalog_id')->references('id')->on('catalogs');
         });
     }
 

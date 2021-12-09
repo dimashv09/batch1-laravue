@@ -15,14 +15,10 @@ class CreateTransactionDetailsTable extends Migration
     {
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('transaction_id');
-            $table->unsignedBigInteger('book_id');
+            $table->foreignId('transaction_id')->constrained(); // Set ForeignKey of Transaction Table
+            $table->foreignId('book_id')->constrained(); // Set ForeignKey of Book Table
             $table->integer('qty');
             $table->timestamps();
-
-            // Set Relation of Table
-            $table->foreign('transaction_id')->references('id')->on('transactions');
-            $table->foreign('book_id')->references('id')->on('books');
         });
     }
 
