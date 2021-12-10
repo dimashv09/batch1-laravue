@@ -29,10 +29,18 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 // Route::get('/catalogs/{catalog}/edit', [App\Http\Controllers\CatalogController::class, 'edit'])->name('Catalog Edit');
 // Route::patch('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'update'])->name('Catalog Update');
 // Route::delete('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'destroy'])->name('Catalog Delete');
-Route::resource('/catalogs', App\Http\Controllers\CatalogController::class);
+Route::resource('/catalogs', App\Http\Controllers\CatalogController::class, [
+	'names' => [
+		'index' => 'Catalogs'
+	]
+]);
 
 // ---------- Authors ----------
-Route::resource('/authors', App\Http\Controllers\AuthorController::class);
+Route::resource('/authors', App\Http\Controllers\AuthorController::class, [
+	'names' => [
+		'index' => 'Authors'
+	]
+]);
 
 // ---------- Books ----------
 Route::get('/books', [App\Http\Controllers\BookController::class, 'index'])->name('Books');
@@ -47,4 +55,8 @@ Route::get('/members', [App\Http\Controllers\MemberController::class, 'index'])-
 // Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherController::class, 'edit'])->name('Publisher Edit');
 // Route::patch('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update'])->name('Publisher Update');
 // Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy'])->name('Publisher Delete');
-Route::resource('/publishers', App\Http\Controllers\PublisherController::class);
+Route::resource('/publishers', App\Http\Controllers\PublisherController::class, [
+	'names' => [
+		'index' => 'Publishers'
+	]
+]);
