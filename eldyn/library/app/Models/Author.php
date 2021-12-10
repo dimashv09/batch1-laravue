@@ -9,6 +9,8 @@ class Author extends Model
 {
     use HasFactory;
 
+	protected $fillable = ['name', 'phone_number', 'email', 'address'];
+
 	public function books() {
 		return $this->hasMany(Book::class, 'author_id');
 	}

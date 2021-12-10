@@ -13,7 +13,10 @@
 						<div class="card-body">
 							<div class="form-group">
 								<label for="name">Catalog's Name</label>
-								<input type="text" name="name" class="form-control w-50" placeholder="Enter catalog's name" required>
+								<input type="text" name="name" class="form-control w-50 @error('name') is-invalid @enderror" placeholder="Enter catalog's name">
+								@error('name')
+									<div class="alert alert-danger w-50 mt-1">{{ $message }}</div>
+								@enderror
 							</div>
 						</div>
 						<!-- /.card-body -->

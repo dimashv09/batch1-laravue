@@ -18,6 +18,7 @@
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
 		<!-- summernote -->
+		@yield('css')
 	</head>
 	<body class="hold-transition sidebar-mini layout-fixed">
 		<div class="wrapper">
@@ -126,37 +127,37 @@
 					<!-- Add icons to the links using the .nav-icon class
 						with font-awesome or any other icon font library -->
 						<li class="nav-item">
-							<a href="{{ route('Dashboard') }}" class="nav-link {{ (request()->is('dashboard')) ? 'active' : '' }}">
+							<a href="{{ url('dashboard') }}" class="nav-link {{ (request()->is('dashboard')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>Dashboard</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('Catalogs') }}" class="nav-link {{ (request()->is('catalogs*')) ? 'active' : '' }}">
+							<a href="{{ url('catalogs') }}" class="nav-link {{ (request()->is('catalogs*')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-tags"></i>
 								<p>Catalogs</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('Publishers') }}" class="nav-link {{ (request()->is('publishers*')) ? 'active' : '' }}">
+							<a href="{{ url('publishers') }}" class="nav-link {{ (request()->is('publishers*')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-hand-holding-usd"></i>
 								<p>Publishers</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('Authors') }}" class="nav-link {{ (request()->is('authors*')) ? 'active' : '' }}">
+							<a href="{{ url('authors') }}" class="nav-link {{ (request()->is('authors*')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-pen-nib"></i>
 								<p>Authors</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('Books') }}" class="nav-link {{ (request()->is('books*')) ? 'active' : '' }}">
+							<a href="{{ url('books') }}" class="nav-link {{ (request()->is('books*')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-book"></i>
 								<p>Books</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('Members') }}" class="nav-link {{ (request()->is('members*')) ? 'active' : '' }}">
+							<a href="{{ url('members') }}" class="nav-link {{ (request()->is('members*')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-users"></i>
 								<p>Members</p>
 							</a>
@@ -230,5 +231,10 @@
 		<script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
 		<!-- AdminLTE App -->
 		<script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
+		<!-- Vue js -->
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+		<!-- Axios -->
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		@yield('js')
 	</body>
 </html>

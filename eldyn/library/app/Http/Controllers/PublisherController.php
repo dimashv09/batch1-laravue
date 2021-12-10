@@ -12,6 +12,11 @@ class PublisherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+	
     public function index()
     {
 		$publishers = Publisher::with('books')->get();
@@ -42,8 +47,10 @@ class PublisherController extends Controller
 			'email' => ['required', 'email', 'unique:publishers'],
 			'address' => ['required']
 		]);
-		Publisher::create($request->all());
-        return redirect('publishers');
+		$create = Publisher::create($request->all());
+		if ( $create ) {
+			return redirect('publishers');
+		}
     }
 	
     /**
@@ -85,7 +92,6 @@ class PublisherController extends Controller
 		]);
 		$publisher->update($request->all());
 		return redirect('publishers');
-		//
     }
 
     /**

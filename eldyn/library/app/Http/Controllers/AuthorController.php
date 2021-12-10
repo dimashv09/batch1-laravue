@@ -12,9 +12,14 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+	
     public function index()
     {
-		$authors = Author::with('books')->get();
+		$authors  = Author::with('books')->get();
         return view('admin.author.author', compact('authors'));
     }
 
@@ -36,7 +41,14 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+			'name' => ['required', 'min:3'],
+			'phone_number' => ['required', 'min:10'],
+			'email' => ['required', 'email', 'unique:publishers'],
+			'address' => ['required']
+		]);
+		Author::create($request->all());
+        return redirect('authors');
     }
 
     /**
@@ -70,7 +82,14 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $this->validate($request, [
+			'name' => ['required', 'min:3'],
+			'phone_number' => ['required', 'min:10'],
+			'email' => ['required', 'email', 'unique:publishers,email,'.$author->id],
+			'address' => ['required']
+		]);
+		$author->update($request->all());
+		return redirect('authors');
     }
 
     /**
@@ -81,6 +100,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+		return redirect('authors');
     }
 }
