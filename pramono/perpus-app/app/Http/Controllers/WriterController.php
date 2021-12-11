@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Writer;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class WriterController extends Controller
 {
@@ -14,9 +15,26 @@ class WriterController extends Controller
      */
     public function index()
     {
-        $writers = Writer::all();
-        $title = "Penulis";
-        return view('writer', compact('title', 'writers'));
+
+        $writers = Writer::with('books');
+        return view('writer', compact('writers'));
+
+    }
+
+    public function getData()
+    {
+        $writers = Writer::with('books');
+        $datatables = datatables()
+                        ->of($writers)
+                        ->addColumn('books', function($writers){
+                            return $writers->books->count();
+                        })
+                        ->editColumn('created_at', function($writers){
+                            return $writers->created_at->format('d/mm/y');
+                        })
+                        ->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -44,14 +62,14 @@ class WriterController extends Controller
             'address' => 'required'
         ]);
 
-        $publisher = new Writer();
-        $publisher->name = $request->name;
-        $publisher->email = $request->email;
-        $publisher->phone = $request->phone;
-        $publisher->address = $request->address;
-        $publisher->save();
+        $writer = new Writer();
+        $writer->name = $request->name;
+        $writer->email = $request->email;
+        $writer->phone = $request->phone;
+        $writer->address = $request->address;
+        $writer->save();
 
-        return redirect('/writer')->with('sukses', 'Penulis Baru Berhasil Ditambahkan!');
+        return response()->json($writer);
     }
 
     /**
@@ -99,7 +117,7 @@ class WriterController extends Controller
             'address' => $request->address
         ]);
 
-        return redirect('/writer')->with('sukses', 'Data Berhasil Diubah!');
+        return response()->json($writer);
     }
 
     /**
@@ -111,6 +129,6 @@ class WriterController extends Controller
     public function destroy(Writer $writer)
     {
         $writer->delete();
-        return redirect('/writer')->with('sukses', 'Data Berhasil Dihapus!');
+        return response()->json();
     }
 }

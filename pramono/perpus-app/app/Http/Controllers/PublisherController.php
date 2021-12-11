@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Publisher;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class PublisherController extends Controller
 {
@@ -16,6 +17,22 @@ class PublisherController extends Controller
     {
         $publishers = Publisher::all();
         return view('publisher', compact('publishers'));
+    }
+
+    public function getData()
+    {
+        $publishers = Publisher::with('books');
+        $datatables = datatables()
+                        ->of($publishers)
+                        ->addColumn('books', function($publishers){
+                            return $publishers->books->count();
+                        })
+                        ->editColumn('created_at', function($publishers){
+                            return $publishers->created_at->format('d/mm/y');
+                        })
+                        ->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -50,7 +67,7 @@ class PublisherController extends Controller
         $publisher->address = $request->address;
         $publisher->save();
 
-        return redirect('/publisher')->with('sukses', 'Penerbit Baru Berhasil Ditambahkan!');
+        return response()->json($publisher);
     }
 
     /**
@@ -98,7 +115,7 @@ class PublisherController extends Controller
             'address' => $request->address,
         ]);
 
-        return redirect('/publisher')->with('sukses', 'Data Berhasil Diubah!');
+        return response()->json($publisher);
     }
 
     /**
@@ -110,6 +127,6 @@ class PublisherController extends Controller
     public function destroy(Publisher $publisher)
     {
         $publisher->delete();
-        return redirect('/publisher')->with('sukses', 'Data Berhasil Dihapus!');
+        return response()->json($publisher);
     }
 }

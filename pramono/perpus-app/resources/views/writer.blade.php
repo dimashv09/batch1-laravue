@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section("content-header", "$title")
-@section("title", "$title")
+@section("content-header", "Penulis")
+@section("title", "Penulis")
 @section('subtitle', 'Daftar Penulis')
 @section('content-title', 'Daftar Penulis' )
 
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered text-center" id="writers">
+                    <table class="table table-sm table-bordered text-center" id="writers">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -55,27 +55,6 @@
                                 <th>Opsi</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @forelse ($writers as $writer)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$writer->name}}</td>
-                                    <td>{{$writer->email}}</td>
-                                    <td>{{$writer->phone}}</td>
-                                    <td>{{$writer->address}}</td>
-                                    <td>{{date('l, M Y', strtotime($writer->created_at))}}</td>
-                                    <td>{{count($writer->books)}}</td>
-                                    <td>
-                                        <a href="#" @click="update({{$writer}})" class="btn btn-info btn-sm">Edit</a>
-                                        <a href="#" @click="destroy({{$writer}})" class="btn btn-danger btn-sm">Hapus</a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4">Belum ada data.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -85,7 +64,7 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form :action="url" method="POST">
+            <form :action="action" method="POST" v-on:submit="submitForm( $event, data.id )">
                 @csrf
                 <input type="hidden" name="_method" value="PUT" v-if="method">
                 <div class="modal-content">
@@ -122,80 +101,60 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('css')
-<!-- DataTables Css -->
+
+{{-- datatable css --}}
 <link rel="stylesheet" href="{{asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 @endsection
 
 @push('script')
-    {{-- vue's CDN --}}
+    {{-- vue and axios CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.js"></script>
-    {{-- datatables sources --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{-- datatables script --}}
     <script src="{{asset('vendor/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('vendor/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('vendor/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('vendor/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('vendor/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+    {{-- <script src="{{asset('vendor/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
     <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
     <script src="{{asset('vendor/plugins/jszip/jszip.min.js')}}"></script>
     <script src="{{asset('vendor/plugins/pdfmake/pdfmake.min.js')}}"></script>
     <script src="{{asset('vendor/plugins/pdfmake/vfs_fonts.js')}}"></script>
     <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-    <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+    <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script> --}}
+
+    {{-- prepare variables for datatable DOM & crud --}}
     <script>
-        // vue's script
-        var app = new Vue({
-                el : '#app',
-                data : {
-                    data : {},
-                    url : '',
-                    method : false
+        var action = '{{url('writer')}}';
+        var api = '{{url('get/writer')}}';
+        var columns = [
+            { data: "DT_RowIndex", name: "id" },
+            { data: "name", name: "name" },
+            { data: "email", name: "email" },
+            { data: "phone", name: "phone" },
+            { data: "address", name: "address" },
+            { data: "created_at", name: "created_at" },
+            { data: "books", name: "books" },
+            {
+                render: function (i, row, data, meta) {
+                    return `
+                <a href="#" onclick="app.update(event, ${meta.row})" class="btn btn-info btn-sm">Edit</a>
+                <a href="#" onclick="app.destroy(event, ${data.id})" class="btn btn-danger btn-sm">Hapus</a>
+                `;
                 },
-                methods: {
-                    store(){
-                        this.data = {}
-                        this.url = '{{url('writer')}}'
-                        this.method = false
-                        $(".modal-title").text("Tambah Penulis")
-                        $("#exampleModal").modal()
-                    },
-                    update(data){
-                        this.data = data
-                        this.url = '{{url('writer')}}'+'/'+data.id
-                        this.method = true
-                        $(".modal-title").text("Edit Penulis")
-                        $("#exampleModal").modal()
-                    },
-                    destroy(data){
-                        this.url = '{{url('writer')}}'+'/'+ data.id
-                        if(confirm('Apakah Anda yakin ingin menghapusnya?')) {
-                            axios.post(this.url, { _method:'DELETE'}).then(response =>{location.reload();
-                            });
-                        }
-                    },
-                }
-
-		});
-
-        // datatable's script
-        $("#writers").DataTable({
-            "responsive": true, "lengthChange": true, "autoWidth": true, "info": false,
-            "buttons": ["excel", "pdf",
-                {
-                    extend: 'print',
-                    title: function(){
-                        var printTitle = 'Data Penulis';
-                        return printTitle
-                    },
-                }
-            ]
-        }).buttons().container().appendTo('#writers_wrapper .col-md-6:eq(0)');
-
+                orderable: false,
+            },
+        ];
     </script>
+
+    {{-- crud script --}}
+    <script src="{{asset('js/myscript.js')}}"></script>
 @endpush
