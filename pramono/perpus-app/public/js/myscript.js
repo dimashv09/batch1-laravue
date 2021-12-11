@@ -9,8 +9,7 @@ var app = new Vue({
         message: "",
     },
     mounted: function () {
-        // ketika halaman pertama kali dimuat
-        this.run_datatable(); // jalankan method ru_datatable()
+        this.run_datatable();
         // mounted sama seperti __construct dalam OOP PHP
     },
     methods: {
