@@ -118,6 +118,9 @@
     <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script> --}}
 
+    {{-- sweetalert CDN --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     {{-- prepare variables for datatable DOM & crud --}}
     <script>
         var action = '{{url('writer')}}';

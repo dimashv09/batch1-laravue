@@ -9,14 +9,6 @@
 <div id="app">
     <div class="row justify-content-start">
         <div class="col-sm-12">
-
-            <div class="alert alert-success alert-dismissible fade" role="alert" id="ajaxAlert">
-                <strong></strong>.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
@@ -123,6 +115,9 @@
     {{-- <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script> --}}
     {{-- <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script> --}}
     {{-- <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script> --}}
+
+    {{-- sweetalert CDN --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- prepare variables for datatable DOM & crud --}}
     <script>

@@ -48,8 +48,7 @@ var app = new Vue({
                     .then((response) => {
                         _this.table.ajax.reload();
                         this.message = "Data berhasil dihapus";
-                        $("#ajaxAlert strong").text(this.message);
-                        $("#ajaxAlert").addClass("show");
+                        Swal.fire(this.message);
                     });
             }
         },
@@ -65,8 +64,7 @@ var app = new Vue({
                 .then((response) => {
                     $("#exampleModal").modal("hide");
                     _this.table.ajax.reload();
-                    $("#ajaxAlert strong").text(this.message);
-                    $("#ajaxAlert").addClass("show");
+                    Swal.fire(this.message);
                 });
         },
     },
