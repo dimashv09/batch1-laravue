@@ -15,10 +15,7 @@ class WriterController extends Controller
      */
     public function index()
     {
-
-        $writers = Writer::with('books');
-        return view('writer', compact('writers'));
-
+        return view('admin.writer');
     }
 
     public function getData()

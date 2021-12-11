@@ -16,7 +16,7 @@ class CatalogController extends Controller
     public function index()
     {
         $catalogs = Catalog::all();
-        return view('catalog.index', compact('catalogs'));
+        return view('admin.catalog.index', compact('catalogs'));
     }
 
     /**
@@ -26,7 +26,7 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        return view('catalog.create');
+        return view('admin.catalog.create');
     }
 
     /**
@@ -67,7 +67,7 @@ class CatalogController extends Controller
      */
     public function edit(Catalog $catalog)
     {
-        return view('catalog.edit', compact('catalog'));
+        return view('admin.catalog.edit', compact('catalog'));
 
     }
 

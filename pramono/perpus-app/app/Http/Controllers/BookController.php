@@ -30,7 +30,7 @@ class BookController extends Controller
             // return $writer;
 
         $title = "Buku";
-        return view('book.index', compact('title'));
+        return view('admin.book.index', compact('title'));
     }
 
     /**

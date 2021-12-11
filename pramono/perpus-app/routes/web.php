@@ -41,5 +41,6 @@ Route::middleware('auth')->group(function(){
     // api url
     Route::get('get/writer', [\App\Http\Controllers\WriterController::class, 'getData']);
     Route::get('get/publisher', [\App\Http\Controllers\PublisherController::class, 'getData']);
+    Route::get('get/member', [\App\Http\Controllers\MemberController::class, 'getData']);
 });
 

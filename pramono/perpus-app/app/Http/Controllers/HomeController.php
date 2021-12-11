@@ -305,7 +305,7 @@ class HomeController extends Controller
         // return $query19;
         // return $query20;
 
-        return view('home');
+        return view('admin.home');
 
     }
 }

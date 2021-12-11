@@ -6,6 +6,7 @@ var app = new Vue({
         action, // variable action form
         api, // url ajax
         method: false,
+        message: "",
     },
     mounted: function () {
         // ketika halaman pertama kali dimuat
@@ -41,12 +42,15 @@ var app = new Vue({
         },
         destroy(event, id) {
             this.action += "/" + id;
-            console.log(id);
+            const _this = this;
             if (confirm("Apakah Anda yakin ingin menghapusnya?")) {
                 axios
                     .post(this.action, { _method: "DELETE" })
                     .then((response) => {
                         _this.table.ajax.reload();
+                        this.message = "Data berhasil dihapus";
+                        $("#ajaxAlert strong").text(this.message);
+                        $("#ajaxAlert").addClass("show");
                     });
             }
         },
@@ -54,12 +58,16 @@ var app = new Vue({
             event.preventDefault();
             const _this = this;
             var action = !this.method ? this.action : this.action + "/" + id;
-
+            this.message = !this.method
+                ? "Data Berhasil ditambahkan"
+                : "Data berhasil diubah";
             axios
                 .post(action, new FormData($(event.target)[0]))
                 .then((response) => {
                     $("#exampleModal").modal("hide");
                     _this.table.ajax.reload();
+                    $("#ajaxAlert strong").text(this.message);
+                    $("#ajaxAlert").addClass("show");
                 });
         },
     },

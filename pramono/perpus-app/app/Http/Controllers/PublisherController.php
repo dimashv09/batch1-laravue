@@ -15,8 +15,12 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publishers = Publisher::all();
-        return view('publisher', compact('publishers'));
+        // READ with vue.js
+        return view('admin.publisher');
+
+        // READ without vue.js
+            // $members = Member:all()
+            // return view('admin.publisher.index', compact('members'));
     }
 
     public function getData()
@@ -42,7 +46,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return view('publisher.create');
+        return view('admin.publisher.create');
     }
 
     /**

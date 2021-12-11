@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
-use App\Http\Requests\StoreMemberRequest;
-use App\Http\Requests\UpdateMemberRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\DataTables;
 
 class MemberController extends Controller
 {
@@ -26,8 +26,7 @@ class MemberController extends Controller
             // $transactions = $member->with('transactions')->get();
             // return $transactions;
 
-        $title = "Anggota";
-        return view('member.index', compact('title'));
+        return view('admin.member');
     }
 
     /**
@@ -35,6 +34,21 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getData()
+    {
+        $members = Member::all();
+        $datatables = datatables()
+                        ->of($members)
+                        ->editColumn('created_at', function($members){
+                            return $members->created_at->format('d/mm/y');
+                        })
+                        ->addIndexColumn();
+
+        return $datatables->make(true);
+    }
+
+
     public function create()
     {
         //
@@ -46,9 +60,20 @@ class MemberController extends Controller
      * @param  \App\Http\Requests\StoreMemberRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMemberRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'gender' => 'required',
+            'email' => 'required|unique:members',
+            'phone' => 'required|numeric',
+            'address' => 'required',
+        ]);
+
+        $member = new Member();
+        $member->create($request->all());
+
+        return response()->json($member);
     }
 
     /**
@@ -59,7 +84,7 @@ class MemberController extends Controller
      */
     public function show(Member $member)
     {
-        //
+
     }
 
     /**
@@ -80,9 +105,25 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMemberRequest $request, Member $member)
+    public function update(Request $request, Member $member)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'gender' => 'required',
+            'email' => 'required',
+            'phone' => 'required|numeric',
+            'address' => 'required',
+        ]);
+
+        $member->update([
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+
+        return response()->json();
     }
 
     /**
@@ -93,6 +134,8 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $member->delete();
+
+        return response()->json($member);
     }
 }
