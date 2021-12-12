@@ -46,7 +46,12 @@ Route::resource('/authors', App\Http\Controllers\AuthorController::class, [
 Route::get('/books', [App\Http\Controllers\BookController::class, 'index'])->name('Books');
 
 // ---------- Members ----------
-Route::get('/members', [App\Http\Controllers\MemberController::class, 'index'])->name('Members');
+// Route::get('/members', [App\Http\Controllers\MemberController::class, 'index'])->name('Members');
+Route::resource('/members', App\Http\Controllers\MemberController::class, [
+	'names' => [
+		'index' => 'Members'
+	]
+]);
 
 // ---------- Publishers ----------
 // Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index'])->name('Publishers');
@@ -60,3 +65,7 @@ Route::resource('/publishers', App\Http\Controllers\PublisherController::class, 
 		'index' => 'Publishers'
 	]
 ]);
+
+Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']);
+Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 'api']);
+Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);

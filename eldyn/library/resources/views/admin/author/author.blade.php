@@ -18,7 +18,7 @@
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body">
-					<table id="dataTable" class="table table-bordered table-striped">
+					<table id="dataTable" class="table table-bordered table-striped w-100">
 						<thead>
 							<tr>
 								<th style="width: 10px">#</th>
@@ -26,32 +26,10 @@
 								<th>Email</th>
 								<th>Phone Number</th>
 								<th>Address</th>
-								<th>Total Books</th>
-								<th>created at</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach ($authors as $key => $author)
-							<tr>
-								<td class="text-center">{{ $key + 1 }}</td>
-								<td>{{ $author->name }}</td>
-								<td>{{ $author->email }}</td>
-								<td>{{ $author->phone_number }}</td>
-								<td>{{ $author->address }}</td>
-								<td style="text-align: center">{{ count($author->books) }}</td>
-								<td>{{ date('H:i:s - d F Y', strtotime( $author->created_at ))}}</td>
-								<td class="d-flex" style="gap: .5rem">
-									<a href="#" @click="editData({{ $author }})"  class="btn btn-sm btn-warning text-white">Edit</a>
-									<a href="#" @click="deleteData({{ $author->id }})"  class="btn btn-sm btn-danger text-white">Delete</a>
-									{{-- <form action="{{ url('authors/'.$author->id) }}" method="POST">
-										@csrf
-										@method('delete')
-										<button type="submit" class="btn btn-sm btn-danger text-white" onclick="return confirm('Are you sure want to delete this data?')">Delete</button>
-									</form> --}}
-								</td>
-							</tr>	
-							@endforeach
 						</tbody>
 					</table>
 				</div>
@@ -69,7 +47,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<form :action="actionUrl" autocomplete="off" method="POST">
+					<form :action="actionUrl" autocomplete="off" method="POST" @submit="submitForm($event, data.id)">
 						@csrf
 						<input v-if="editStatus" type="hidden" name="_method" value="PATCH">
 						<div class="modal-body">
@@ -131,38 +109,99 @@
 	<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 	<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 	<script>
-		$(function() {
-			$("#dataTable").DataTable();
-		})
-	</script>
-	<script>
-		var app = new Vue({
+		var actionUrl = "{{ url('authors') }}";
+		var apiUrl = "{{ url('api/authors') }}";
+
+		var columns = [
+			{
+				data: 'DT_RowIndex',
+				class: 'text-center',
+				orderable: true
+			},
+			{
+				data: 'name',
+				class: 'text-center',
+				orderable: true
+			},
+			{
+				data: 'email',
+				class: 'text-center',
+				orderable: true
+			},
+			{
+				data: 'phone_number',
+				class: 'text-center',
+				orderable: true
+			},
+			{
+				data: 'address',
+				class: 'text-center',
+				orderable: true
+			},
+			{
+				render: function (index, row, data, meta) {
+					return `
+						<button onclick="authorVue.editData(event, ${meta.row})"  class="btn btn-sm btn-warning text-white">Edit</button>
+						<button onclick="authorVue.deleteData(event, ${data.id})"  class="btn btn-sm btn-danger text-white">Delete</button>
+					`;
+				}, 
+				orderable: false, 
+				width: '160px', 
+				class: 'text-center' 
+			}
+		];
+
+		var authorVue = new Vue({
 			el: "#authorVue",
 			data: {
+				dataList: [],
 				data: {},
-				actionUrl: '',
+				actionUrl,
+				apiUrl,
 				editStatus: false
 			},
+			mounted() {
+				this.datatable();
+			},
 			methods: {
+				datatable() {
+					const _this = this;
+					_this.table = $('#dataTable').DataTable({
+						ajax: {
+							url: this.apiUrl,
+							type: 'GET'
+						},
+						columns,
+					}).on('xhr', function() {
+						_this.dataList = _this.table.ajax.json().data;
+					})
+				},
 				addData() {
 					this.data = []
 					this.editStatus = false
-					this.actionUrl = '{{ url('authors') }}'
 					$('#modal-crud').modal();
 				},
-				editData(data) {
-					this.data = data
+				editData(event, row) {
+					this.data = this.dataList[row]
 					this.editStatus = true
-					this.actionUrl = '{{ url('authors') }}' + '/' + data.id
 					$('#modal-crud').modal();
 				},
-				deleteData(id) {
-					this.actionUrl = '{{ url('authors') }}' + '/' + id
+				deleteData(event, id) {
 					if (confirm('Are you sure?')) {
-						axios.post(this.actionUrl, {_method: 'DELETE'}).then(response => {
-							location.reload();
+						$(event.target).parents('tr').remove();
+						axios.post(this.actionUrl + '/' + id, {_method: 'DELETE'}).then(response => {
+							alert("Data has been removed")
 						})
 					}
+				},
+				submitForm(event, id) {
+					const _this = this
+					event.preventDefault();
+					var url = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id
+					axios.post(url, new FormData($(event.target)[0])).then(response => {
+						$('#modal-crud').modal('hide')
+						_this.table.ajax.reload();
+					})
 				}
 			}
 		})
