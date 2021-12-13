@@ -124,41 +124,41 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-            with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="{{ url('dashboard') }}" class="nav-link {{ (request()->is('dashboard')) ? 'active' : '' }}">
+              <a href="{{ url('home') }}" class="nav-link {{ (request()->is('home')) ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>Dashboard</p>
+                <p>Home</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('catalogs') }}" class="nav-link {{ (request()->is('catalogs*')) ? 'active' : '' }}">
-                <i class="nav-icon fas fa-tags"></i>
-                <p>Catalogs</p>
+              <a href="{{ url('catalog') }}" class="nav-link {{ (request()->is('catalog')) ? 'active' : '' }}">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>Catalog</p>
+              </a>
+            </li>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{ url('publishers') }}" class="nav-link {{ (request()->is('publishers*')) ? 'active' : '' }}">
-                <i class="nav-icon fas fa-hand-holding-usd"></i>
+                <i class="fas fa-handshake"></i>
                 <p>Publishers</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{ url('authors') }}" class="nav-link {{ (request()->is('authors*')) ? 'active' : '' }}">
-                <i class="nav-icon fas fa-pen-nib"></i>
+                <i class="fab fa-adversal"></i>
                 <p>Authors</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{ url('books') }}" class="nav-link {{ (request()->is('books*')) ? 'active' : '' }}">
-                <i class="nav-icon fas fa-book"></i>
+                <i class="fas fa-book-open"></i>
                 <p>Books</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{ url('members') }}" class="nav-link {{ (request()->is('members*')) ? 'active' : '' }}">
-                <i class="nav-icon fas fa-users"></i>
+                <i class="fas fa-address-card"></i>
                 <p>Members</p>
               </a>
             </li>
@@ -176,7 +176,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">@yield('wrapper-title', 'Dashboard')</h1>
+            <h1 class="m-0">@yield('wrapper-title', 'home')</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

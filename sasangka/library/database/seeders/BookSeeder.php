@@ -22,14 +22,14 @@ class BookSeeder extends Seeder
 
 			$book->isbn = $faker->randomNumber(9);
 			$book->title = $faker->name;
-			$book->year = rand(2010, 2021);
+			$book->year = rand(2011, 2021);
 
 		    $book->publisher_id = rand(1, 20);
             $book->author_id = rand(1, 20);
             $book->catalog_id = rand(1, 4);
 
-            $book->qty = rand(10, 20);
-            $book->price = rand(15000, 200000);
+            $book->quantity = rand(10, 20);
+            $book->price = rand(15000, 250000);
 
             $book->save();
         }
