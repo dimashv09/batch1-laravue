@@ -41,7 +41,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -211,8 +211,11 @@
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
-            <!-- /.content-header -->
-            @yield('content')
+            <section class="content">
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </section>
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
