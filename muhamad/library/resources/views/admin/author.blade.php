@@ -11,17 +11,17 @@
 
 @section('content')
 <div id="controller">
-    {{-- Data Table --}}
+    <!-- Data Table -->
     <div class="row">
         <div class="col-12">
-            {{-- Displaying The Success Message of Modifying DataBase --}}
+            <!-- Displaying The Success Message of Modifying DataBase -->
             @if (session()->has('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
             @endif
 
-            {{-- Displaying The Validation Errors --}}
+            <!-- Displaying The Validation Errors -->
             @if ($errors->any())
             <div class="alert alert-danger">
                 <h4 class="py-3">Oops, There's something wrong!</h4>
@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    {{-- Modal Popup --}}
+    <!-- Modal Popup -->
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
