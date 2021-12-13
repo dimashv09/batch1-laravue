@@ -38,7 +38,7 @@
                     <a href="#" @click="addData()" class="btn btn-primary">Add new Member</a>
                 </div>
                 <div class="card-body p-3">
-                    <table id="dataTable" class="table table-striped table-bordered text-center">
+                    <table id="dataTable" class="table table-striped table-bordered text-center w-100">
                         <thead>
                             <tr>
                                 <th class="align-middle" style="width: 10px;">#</th>
