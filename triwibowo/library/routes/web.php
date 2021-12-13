@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\PublisherController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,15 +25,29 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+//book
 Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
-Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
-Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
+//Author
+Route::resource('authors', AuthorController::class);
+//Member
 Route::get('/members', [App\Http\Controllers\MemberController::class, 'index']);
 
 // Catalogs
-Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
-Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']);
-Route::post('/catalogs', [App\Http\Controllers\CatalogController::class, 'store']);
-Route::get('/catalogs/{catalog}/edit', [App\Http\Controllers\CatalogController::class, 'edit']);
-Route::put('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'update']);
-Route::delete('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'destroy']);
+Route::resource('catalogs', CatalogController::class);
+
+// Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
+// Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']);
+// Route::post('/catalogs', [App\Http\Controllers\CatalogController::class, 'store']);
+// Route::get('/catalogs/{catalog}/edit', [App\Http\Controllers\CatalogController::class, 'edit']);
+// Route::put('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'update']);
+// Route::delete('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'destroy']);
+
+// Publishers
+Route::resource('publishers', PublisherController::class);
+
+// Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
+// Route::get('/publishers/create', [App\Http\Controllers\PublisherController::class, 'create']);
+// Route::post('/publishers', [App\Http\Controllers\PublisherController::class, 'store']);
+// Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherController::class, 'edit']);
+// Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update']);
+// Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy']);

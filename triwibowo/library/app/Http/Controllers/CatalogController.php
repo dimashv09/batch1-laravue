@@ -44,7 +44,7 @@ class CatalogController extends Controller
 
         // Security Required
         $this->validate($request, [
-            'name' => ['required']
+            'name' => 'required|min:3',
         ]);
 
         Catalog::create($request->all());
@@ -84,7 +84,7 @@ class CatalogController extends Controller
     public function update(Request $request, Catalog $catalog)
     {
         $this->validate($request, [
-            'name' => ['required']
+            'name' => 'required|min:3',
         ]);
 
         $catalog->update($request->all());
