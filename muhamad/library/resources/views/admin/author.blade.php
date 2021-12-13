@@ -46,30 +46,10 @@
                                 <th class="align-middle">Email</th>
                                 <th class="align-middle">Phone Number</th>
                                 <th class="align-middle">Address</th>
-                                <th class="align-middle">Total of Books</th>
-                                <th class="align-middle">Join Date</th>
                                 <th class="align-middle" style="width: 80px;">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($authors as $author)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $author->name }}</td>
-                                <td>{{ $author->email }}</td>
-                                <td>{{ $author->phone_number }}</td>
-                                <td>{{ $author->address }}</td>
-                                <td>{{ count($author->books) }}</td>
-                                <td>{{ date('d M Y', strtotime($author->created_at)) }}</td>
-                                <td>
-                                    <a href="#" @click="editData({{ $author }})" class="badge bg-warning p-2 mb-2">
-                                        Edit</a>
-                                    <a href="#" @click="deleteData({{ $author->id }})" class="badge bg-danger p-2 mb-2">
-                                        Delete</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
+
                     </table>
                 </div>
             </div>
@@ -86,7 +66,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form :action="actionUrl" method="post">
+                <form :action="actionUrl" method="post" @submit.prevent="submittedForm($event, data.id)">
                     <div class="modal-body">
                         @csrf
                         <input type="hidden" name="_method" value="PUT" v-if="status" />
@@ -158,38 +138,30 @@
     });
 </script>
 
-<!-- CRUD VueJs -->
+<!-- API -->
 <script>
-    const controller = new Vue({
-            el: '#controller',
-            data: {
-                data : {},
-                actionUrl : `{{ url('authors') }}`,
-                status : false,
-            },
-            methods: {
-                addData() {
-                    this.data = {};
-                    this.actionUrl = `{{ url('authors') }}`
-                    this.status = false
-                    $('#modal-default').modal()
-                },
-                editData(authorData) {
-                    this.data = authorData;
-                    this.actionUrl = `{{ url('authors') }}/${authorData.id}`
-                    this.status = true
-                    $('#modal-default').modal()
-                },
-                deleteData(authorID) {
-                    this.actionUrl = `{{ url('authors') }}/${authorID}`
-                    if (confirm("Are you sure you want to delete this Data?")) {
-                        axios.post(this.actionUrl, {_method: 'DELETE'})
-                            .then(response => { location.reload() })
-                    }
-                }
-            }
-        })
+    const actionUrl = `{{ url('authors'); }}`
+    const apiUrl = `{{ url('api/authors'); }}`
+
+    let columns = [
+        {data: 'DT_RowIndex', orderable: true},
+        {data: 'name', orderable: true},
+        {data: 'email', orderable: true},
+        {data: 'phone_number', orderable: true},
+        {data: 'address', orderable: true},
+        {render: function(index, row, data, meta) {
+            /* html */
+            return `
+            <a href="#" class="badge bg-warning p-2 mb-2" onclick="controller.editData(event, ${meta.row})">
+                Edit</a>
+            <a href="#" class="badge bg-danger p-2 mb-2" onclick="controller.deleteData(event, ${data.id})">
+                Delete</a>`
+        }, width: '130px', orderable: false}
+    ]
 </script>
+
+<!-- CRUD VueJs -->
+<script src="{{ asset("js/data.js") }}"></script>
 
 <!-- If is-invalid show the model -->
 {{-- @if (count($errors) > 0)

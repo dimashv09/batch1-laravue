@@ -14,7 +14,15 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return view('admin.member.index');
+        return view('admin.member');
+    }
+
+    public function api()
+    {
+        $members = Member::all();
+        $datatables = datatables()->of($members)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -35,7 +43,19 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation Data
+        $validator = $request->validate([
+            'name' => 'required|min:3|max:32',
+            'gender' => 'required|max:1',
+            'phone_number' => 'required|unique:members|min:12|max:15',
+            'address' => 'required',
+            'email' => 'required|unique:members',
+        ]);
+
+        // Insert validated data into database
+        Member::create($validator);
+
+        return redirect('members')->with('success', 'New member data has been Added');
     }
 
     /**
@@ -69,7 +89,19 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-        //
+        // Validation Data
+        $validator = $request->validate([
+            'name' => 'required|min:3|max:32',
+            'gender' => 'required|max:1',
+            'phone_number' => "required|unique:members,phone_number,{$member->id}|min:12|max:15",
+            'address' => 'required',
+            'email' => "required|unique:members,email,{$member->id}",
+        ]);
+
+        // Insert validated data into database
+        $member->update($validator);
+
+        return redirect('members')->with('success', 'Member data has been Updated');
     }
 
     /**
@@ -80,6 +112,9 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        // Delete data with specific ID
+        $member->delete();
+
+        return redirect('members')->with('success', 'Member data has been Deleted');
     }
 }

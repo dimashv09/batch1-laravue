@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     // Get User for the Member
     public function user()

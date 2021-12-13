@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('header', 'Publisher')
+@section('header', 'Member')
 
 @section('css')
 <!-- DataTables -->
@@ -35,7 +35,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <a href="#" @click="addData()" class="btn btn-primary">Add new Publisher</a>
+                    <a href="#" @click="addData()" class="btn btn-primary">Add new Member</a>
                 </div>
                 <div class="card-body p-3">
                     <table id="dataTable" class="table table-striped table-bordered text-center">
@@ -43,9 +43,10 @@
                             <tr>
                                 <th class="align-middle" style="width: 10px;">#</th>
                                 <th class="align-middle">Name</th>
-                                <th class="align-middle">Email</th>
+                                <th class="align-middle">Gender</th>
                                 <th class="align-middle">Phone Number</th>
                                 <th class="align-middle">Address</th>
+                                <th class="align-middle">Email</th>
                                 <th class="align-middle" style="width: 80px;">Action</th>
                             </tr>
                         </thead>
@@ -61,7 +62,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Publisher</h4>
+                    <h4 class="modal-title">Member</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -74,23 +75,23 @@
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                placeholder="Enter Catalog's name" name="name" required :value="data.name">
+                                placeholder="Enter Member's name" name="name" required :value="data.name">
                             @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                placeholder="Enter Publisher's email" name="email" required :value="data.email">
-                            @error('email')
+                            <label for="gender">Gender</label>
+                            <input type="text" class="form-control @error('gender') is-invalid @enderror" id="gender"
+                                placeholder="Enter Member's Gender" name="gender" required :value="data.gender">
+                            @error('gender')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
                             <input type="text" class="form-control @error('phone_number') is-invalid @enderror"
-                                id="phone" placeholder="Enter Publisher's phone" name="phone_number" required
+                                id="phone" placeholder="Enter member's phone" name="phone_number" required
                                 :value="data.phone_number">
                             @error('phone_number')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -99,8 +100,16 @@
                         <div class="form-group">
                             <label for="address">Address</label>
                             <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
-                                placeholder="Enter Publisher's address" name="address" required :value="data.address">
+                                placeholder="Enter member's address" name="address" required :value="data.address">
                             @error('address')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                placeholder="Enter Member's email" name="email" required :value="data.email">
+                            @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -139,15 +148,16 @@
 </script>
 
 <script>
-    const actionUrl = `{{ url('publishers'); }}`
-        const apiUrl = `{{ url('api/publishers'); }}`
+    const actionUrl = `{{ url('members'); }}`
+        const apiUrl = `{{ url('api/members'); }}`
 
         let columns = [
         {data: 'DT_RowIndex', orderable: true},
         {data: 'name', orderable: true},
-        {data: 'email', orderable: true},
+        {data: 'gender', orderable: true},
         {data: 'phone_number', orderable: true},
         {data: 'address', orderable: true},
+        {data: 'email', orderable: true},
         {render: function(index, row, data, meta) {
         /* html */
         return `
@@ -162,12 +172,4 @@
 <!-- CRUD VueJs -->
 <script src="{{ asset("js/data.js") }}"></script>
 
-<!-- If is-invalid show the model -->
-<!-- @if (count($errors) > 0)
-<script type="text/javascript">
-    $( document ).ready(function() {
-        $('#modal-default').modal('show');
-    });
-</script>
-@endif -->
 @endsection
