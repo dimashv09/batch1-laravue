@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Catalog;
 use Illuminate\Http\Request;
 
-class CatalogControllers extends Controller
+class CatalogController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,9 @@ class CatalogControllers extends Controller
      */
     public function index()
     {
-        return 'hello';
+        $catalogs = Catalog::all();
+        return view('admin.catalog.index', compact('catalogs'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -23,7 +29,7 @@ class CatalogControllers extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.catalog.create');
     }
 
     /**
@@ -34,7 +40,23 @@ class CatalogControllers extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // INSERT METHOD NO.1 (Tingker)
+        // $catalog = new Catalog;
+        // $catalog->name = $request->name;
+        // $catalog->save();
+
+        // INSERT METHOD NO.2
+        // Catalog::create($request->all());
+
+        // Validation data
+        $validator = $request->validate([
+            'name' => 'required|min:3|max:32'
+        ]);
+
+        // Insert validated data into database
+        Catalog::create($validator);
+
+        return redirect('catalogs')->with('success', 'New catalog has been created');
     }
 
     /**
@@ -56,7 +78,7 @@ class CatalogControllers extends Controller
      */
     public function edit(Catalog $catalog)
     {
-        //
+        return view('admin.catalog.edit', compact('catalog'));
     }
 
     /**
@@ -68,7 +90,15 @@ class CatalogControllers extends Controller
      */
     public function update(Request $request, Catalog $catalog)
     {
-        //
+        // Validation data
+        $validator = $request->validate([
+            'name' => 'required|min:3|max:32'
+        ]);
+
+        // Insert validated data into database
+        $catalog->update($validator);
+
+        return redirect('catalogs')->with('success', 'Catalog has been Updated');
     }
 
     /**
@@ -79,6 +109,9 @@ class CatalogControllers extends Controller
      */
     public function destroy(Catalog $catalog)
     {
-        //
+        // Catalog::destroy($catalog->id);
+        $catalog->delete(); // Delete data with specific ID
+
+        return redirect('catalogs')->with('success', 'Catalog has been Deleted');
     }
 }

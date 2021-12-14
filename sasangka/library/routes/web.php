@@ -20,8 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/catalogs', [App\Http\Controllers\CataLogControllers::class, 'index']);
-Route::get('/Publishers', [App\Http\Controllers\PublisherController::class, 'index']);
-Route::get('/Authors', [App\Http\Controllers\AuthorController::class, 'index']);
-Route::get('/Books', [App\Http\Controllers\BookController::class, 'index']);
-Route::get('/Members', [App\Http\Controllers\MembersControllers::class, 'index']);
+Route::get('/catalog', [App\Http\Controllers\CatalogController::class, 'index']);
+Route::get('/Publisher', [App\Http\Controllers\PublisherController::class, 'index']);
+Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
+Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
+Route::get('/members', [App\Http\Controllers\MemberController::class, 'index']);
+
+

@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 
-class PublisherControllers extends Controller
+class PublisherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,16 @@ class PublisherControllers extends Controller
      */
     public function index()
     {
-        //
+        $publishers = Publisher::all();
+        return view('admin.Publisher.index');
+    }
+
+    public function api()
+    {
+        $publishers = Publisher::all();
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -35,7 +48,18 @@ class PublisherControllers extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation data
+        $validator = $request->validate([
+            'name' => 'required|min:3|max:32',
+            'email' => 'required|unique:publishers',
+            'phone_number' => 'required|unique:publishers|min:12|max:15',
+            'address' => 'required'
+        ]);
+
+        // Insert validated data into database
+        Publisher::create($validator);
+
+        return redirect('publishers')->with('success', 'New publisher data has been Added');
     }
 
     /**
@@ -69,7 +93,18 @@ class PublisherControllers extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        //
+        //Validation data
+        $validator = $request->validate([
+            'name' => 'required|min:3|max:32',
+            'email' => "required|email:dns|unique:publishers,email,{$publisher->id}",
+            'phone_number' => "required|unique:publishers,phone_number,{$publisher->id}|min:12|max:15",
+            'address' => 'required'
+        ]);
+
+        // Insert validated data into database
+        $publisher->update($validator);
+
+        return redirect('publishers')->with('success', 'publisher data has been Updated');
     }
 
     /**
@@ -80,6 +115,9 @@ class PublisherControllers extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        //
+        // Delete data with specific ID
+        $publisher->delete();
+
+        return redirect('publishers')->with('success', 'Publisher data has been Deleted');
     }
 }

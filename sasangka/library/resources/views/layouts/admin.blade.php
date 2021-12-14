@@ -36,10 +36,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="index3.html" class="nav-link">Dashboard</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="#" class="nav-link">kontak</a>
       </li>
       </ul>
 
@@ -132,16 +132,16 @@
             </li>
             <li class="nav-item">
               <a href="{{ url('catalog') }}" class="nav-link {{ (request()->is('catalog')) ? 'active' : '' }}">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="fas fa-door-closed"></i>
                 <p>Catalog</p>
               </a>
             </li>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('publishers') }}" class="nav-link {{ (request()->is('publishers*')) ? 'active' : '' }}">
+              <a href="{{ url('Publisher') }}" class="nav-link {{ (request()->is('Publisher')) ? 'active' : '' }}">
                 <i class="fas fa-handshake"></i>
-                <p>Publishers</p>
+                <p>Publisher</p>
               </a>
             </li>
             <li class="nav-item">
@@ -176,7 +176,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">@yield('wrapper-title', 'home')</h1>
+            <h1 class="m-0">@yield('header')</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

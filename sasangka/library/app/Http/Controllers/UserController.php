@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\user;
 use Illuminate\Http\Request;
 
-class BookController extends Controller
+class userController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('admin.book.index');
+        //
     }
 
     /**
@@ -41,10 +41,10 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Book  $book
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Book $book)
+    public function show(user $user)
     {
         //
     }
@@ -52,10 +52,10 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Book  $book
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit(user $user)
     {
         //
     }
@@ -64,10 +64,10 @@ class BookController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Book  $book
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, user $user)
     {
         //
     }
@@ -75,10 +75,10 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Book  $book
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy(user $user)
     {
         //
     }

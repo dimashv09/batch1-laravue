@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\DataTables;
 
-class MemberControllers extends Controller
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,17 @@ class MemberControllers extends Controller
      */
     public function index()
     {
-       return //
+        $member = new Member();
+
+        # member - user relationship test
+            // $user = $member->with('user')->get();
+            // return $user;
+
+        # member - transaksi relationship test
+            // $transactions = $member->with('transactions')->get();
+            // return $transactions;
+
+        return view('admin.member.index');
     }
 
     /**
@@ -22,6 +34,21 @@ class MemberControllers extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getData()
+    {
+        $members = Member::all();
+        $datatables = datatables()
+                        ->of($members)
+                        ->editColumn('created_at', function($members){
+                            return $members->created_at->format('d/mm/y');
+                        })
+                        ->addIndexColumn();
+
+        return $datatables->make(true);
+    }
+
+
     public function create()
     {
         //
@@ -30,12 +57,23 @@ class MemberControllers extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreMemberRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'gender' => 'required',
+            'email' => 'required|unique:members',
+            'phone' => 'required|numeric',
+            'address' => 'required',
+        ]);
+
+        $member = new Member();
+        $member->create($request->all());
+
+        return response()->json($member);
     }
 
     /**
@@ -46,7 +84,7 @@ class MemberControllers extends Controller
      */
     public function show(Member $member)
     {
-        //
+
     }
 
     /**
@@ -63,13 +101,29 @@ class MemberControllers extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateMemberRequest  $request
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Member $member)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'gender' => 'required',
+            'email' => 'required',
+            'phone' => 'required|numeric',
+            'address' => 'required',
+        ]);
+
+        $member->update([
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+
+        return response()->json();
     }
 
     /**
@@ -80,6 +134,8 @@ class MemberControllers extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $member->delete();
+
+        return response()->json($member);
     }
 }
