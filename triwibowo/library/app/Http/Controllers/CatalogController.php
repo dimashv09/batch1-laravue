@@ -34,7 +34,6 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        return view('admin.catalogs.create');
     }
 
     /**
@@ -75,7 +74,6 @@ class CatalogController extends Controller
      */
     public function edit(Catalog $catalog)
     {
-        return view('admin.catalogs.edit', compact('catalog'));
     }
 
     /**
@@ -88,7 +86,7 @@ class CatalogController extends Controller
     public function update(Request $request, Catalog $catalog)
     {
         $this->validate($request, [
-            'name' => 'required|min:3',
+            'name' => 'required|min:3|unique:catalogs,name,' . $catalog->name
         ]);
 
         $catalog->update($request->all());
@@ -105,7 +103,5 @@ class CatalogController extends Controller
     public function destroy(Catalog $catalog)
     {
         $catalog->delete();
-
-        return redirect('catalogs');
     }
 }
