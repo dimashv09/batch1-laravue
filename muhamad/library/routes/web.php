@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\CatalogController;
@@ -25,7 +26,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
 
 // Start Catalog's Routes (Old)
 // Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']); // Show main page
@@ -50,3 +50,7 @@ Route::get('/api/authors', [AuthorController::class, 'api']);
 // Member's Route
 Route::resource('members', MemberController::class);
 Route::get('/api/members', [MemberController::class, 'api']);
+
+// Book's Route
+Route::resource('books', BookController::class);
+Route::get('/api/books', [BookController::class, 'api']);

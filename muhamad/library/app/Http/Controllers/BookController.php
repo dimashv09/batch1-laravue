@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,13 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('admin.book.index');
+        return view('admin.book');
+    }
+
+    public function api()
+    {
+        $books = Book::all();
+        return json_encode($books);
     }
 
     /**

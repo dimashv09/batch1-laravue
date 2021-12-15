@@ -21,7 +21,7 @@
     @yield('css')
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition dark-mode sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -31,7 +31,7 @@
         </div>
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <nav class="main-header navbar navbar-expand navbar-dark">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -96,7 +96,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link bg-secondary rounded" href="{{ route('logout') }}"
+                    <a class="nav-link bg-danger rounded" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                         <i class="fas fa-sign-out-alt ml-1"></i>

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     // Get the Publisher that owns the Book
     public function publisher()
