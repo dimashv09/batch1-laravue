@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +33,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return view('admin.publishers.create');
+        // return view('admin.publishers.create');
     }
 
     /**
@@ -42,7 +46,7 @@ class PublisherController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|min:3',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:publishers',
             'phone_number' => 'required|min:11',
             'address' => 'required',
         ]);
@@ -50,6 +54,8 @@ class PublisherController extends Controller
         Publisher::create($request->all());
 
         return redirect('publishers');
+
+        return $request;
     }
 
     /**
@@ -71,7 +77,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        return view('admin.publishers.edit', compact('publisher'));
+        // return view('admin.publishers.edit', compact('publisher'));
     }
 
     /**
@@ -85,7 +91,7 @@ class PublisherController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|min:3|bail',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:publishers,email,' . $publisher->id,
             'phone_number' => 'required|min:11',
             'address' => 'required',
         ]);
@@ -104,7 +110,5 @@ class PublisherController extends Controller
     public function destroy(Publisher $publisher)
     {
         $publisher->delete();
-
-        return redirect('publishers');
     }
 }

@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                placeholder="name" value="{{ $catalog->name }}" required>
+                                placeholder="name" value="{{ old('name', $catalog->name) }}" required>
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
