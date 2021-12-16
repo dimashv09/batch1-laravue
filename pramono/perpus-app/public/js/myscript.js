@@ -66,6 +66,25 @@ var app = new Vue({
                     $("#exampleModal").modal("hide");
                     _this.table.ajax.reload();
                     Swal.fire(this.message);
+                })
+                .catch(function (error) {
+                    if (error.response) {
+                        var message_error = error.response.data.errors;
+                        var error_element = "";
+                        $.each(
+                            message_error,
+                            function (indexInArray, valueOfElement) {
+                                error_element += `<div clas='text-danger'> ${valueOfElement}</div> <br>`;
+                            }
+                        );
+
+                        Swal.fire({
+                            title: "Gagal!",
+                            icon: "error",
+                            html: error_element,
+                            confirmButtonText: "Ulangi",
+                        });
+                    }
                 });
         },
     },
