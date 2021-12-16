@@ -188,7 +188,7 @@
                     axios.post(`${actionUrl}/${bookID}`, {_method: 'DELETE'})
                         .then(response => {
                             alert("Book has been Deleted")
-                            location.reload();
+                            this.getBooks();
                         })
                 }
             },
@@ -199,7 +199,7 @@
                     .then(() => {
                         $('#modal-default').modal('hide')
                         alert("Data has been Updated")
-                        location.reload()
+                        this.getBooks();
                     })
             }
         }

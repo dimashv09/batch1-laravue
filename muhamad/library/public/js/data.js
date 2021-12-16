@@ -36,7 +36,7 @@ const controller = new Vue({
         deleteData(event, id) {
             if (confirm("Are you sure you want to delete this Data?")) {
                 $(event.target).parents('tr').remove()
-                axios.post(actionUrl + `/${id}`, {_method: 'DELETE'})
+                axios.post(`${actionUrl}/${id}`, {_method: 'DELETE'})
                     .then(() => alert("Data has been Deleted"))
             }
         },
