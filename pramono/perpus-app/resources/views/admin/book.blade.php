@@ -11,7 +11,7 @@
         <div class="col-sm-8 offtets-md-2">
             <form action="" class="d-inline">
                 <div class="input-group">
-                    <input type="search" class="form-control form-control-md" placeholder="Cari Buku" v-model="search">
+                    <input type="search" class="form-control form-control-md" placeholder="Telusuri Buku..." v-model="search">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-md btn-default">
                             <i class="fa fa-search"></i>
@@ -19,13 +19,14 @@
                     </div>
                 </div>
             </form>
-        </div>
+        </div> <!-- col-sm-8 end -->
         <div class="col-sm-2">
             <a href="#" v-on:click="store()" class="btn btn-primary btn-md">Tambah</a>
-        </div>
-    </div>
+        </div> <!-- col-sm-2 end -->
+    </div> <!-- row end -->
 
     <hr>
+
     <div class="row">
         <div class="col-md-3" v-for="data in searchBook">
             <div class="info-box shadow" @click="update($event, data.id)">
@@ -34,10 +35,11 @@
                     <span class="info-box-text">@{{ data.title }}</span>
                     <small class="info-box-text">Stok @{{ data.stock }}</small>
                     <span class="info-box-number">Rp @{{ currency(data.price) }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
+                </div> <!-- info-box-content end -->
+            </div> <!-- info-box end -->
+        </div> <!-- col-md-3 end -->
+    </div>  <!-- row end -->
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -51,7 +53,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
+                    </div> <!-- modal-header end -->
                     <div class="modal-body">
                         <div class="mb-3">
                           <label for="isbn" class="form-label">ISBN</label>
@@ -97,15 +99,15 @@
                           <label for="stock" class="form-label">Stok</label>
                           <input type="number" name="stock" id="stock" class="form-control" :value="data.stock">
                         </div>
-                    </div>
+                    </div> <!-- modal-body end -->
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-danger" v-on:click="destroy(data.id)" v-if="btn_delete">Delete</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
+                    </div> <!-- modal-footer end -->
+                </div> <!-- modal-content end -->
             </form>
-        </div>
-    </div>
+        </div> <!-- modal-dialog end -->
+    </div> <!-- modal end -->
 
 </div>
 @endsection

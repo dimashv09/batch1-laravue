@@ -27,7 +27,7 @@ class WriterController extends Controller
                             return $writers->books->count();
                         })
                         ->editColumn('created_at', function($writers){
-                            return $writers->created_at->format('d/mm/y');
+                            return custom_date($writers->created_at);
                         })
                         ->addIndexColumn();
 

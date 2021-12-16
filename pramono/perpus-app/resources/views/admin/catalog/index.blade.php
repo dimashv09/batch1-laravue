@@ -60,7 +60,7 @@
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$catalog->name}}</td>
-                                <td>{{date('l, M Y', strtotime($catalog->created_at))}}</td>
+                                <td>{{ custom_date($catalog->created_at) }}</td>
                                 <td>{{count($catalog->books)}}</td>
                                 <td class="d-flex">
                                     <a href="{{url('/catalog/'. $catalog->id. '/edit')}}" class="btn btn-info btn-sm">Edit</a>

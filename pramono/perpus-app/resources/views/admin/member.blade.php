@@ -56,7 +56,7 @@
                     <div class="modal-body">
                         <div class="mb-3">
                           <label for="name" class="form-label">Nama</label>
-                          <input type="text" name="name" id="name" class="form-control" placeholder="Masukan Nama Penulis" :value="data.name" required>
+                          <input type="text" name="name" id="name" class="form-control" placeholder="Masukan Nama Penulis" :value="data.name">
                         </div>
                         <div class="mb-3">
                           <label for="gender" class="form-label">Jenis Kelamin</label>
@@ -67,15 +67,15 @@
                         </div>
                         <div class="mb-3">
                           <label for="email" class="form-label">Email</label>
-                          <input type="email" class="form-control" name="email" id="email"  placeholder="Masukan Email" :value="data.email" required>
+                          <input type="email" class="form-control" name="email" id="email"  placeholder="Masukan Email" :value="data.email">
                         </div>
                         <div class="mb-3">
                           <label for="phone" class="form-label">Telepon</label>
-                          <input type="tel" name="phone" id="phone" class="form-control" placeholder="Masukan No. Telepon" :value="data.phone" required>
+                          <input type="tel" name="phone" id="phone" class="form-control" placeholder="Masukan No. Telepon" :value="data.phone">
                         </div>
                         <div class="mb-3">
                           <label for="address" class="form-label">Alamat</label>
-                          <input type="text" name="address" id="address" class="form-control" placeholder="Masukan Alamat" :value="data.address" required>
+                          <input type="text" name="address" id="address" class="form-control" placeholder="Masukan Alamat" :value="data.address">
                         </div>
                     </div>
                     <div class="modal-footer">

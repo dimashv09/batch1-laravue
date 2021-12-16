@@ -32,7 +32,7 @@ class PublisherController extends Controller
                             return $publishers->books->count();
                         })
                         ->editColumn('created_at', function($publishers){
-                            return $publishers->created_at->format('d/mm/y');
+                            return custom_date($publishers->created_at);
                         })
                         ->addIndexColumn();
 

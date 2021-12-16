@@ -41,7 +41,7 @@ class MemberController extends Controller
         $datatables = datatables()
                         ->of($members)
                         ->editColumn('created_at', function($members){
-                            return $members->created_at->format('d/mm/y');
+                            return custom_date($members->created_at);
                         })
                         ->addIndexColumn();
 
