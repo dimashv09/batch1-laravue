@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
+use App\Models\Catalog;
+use App\Models\Publisher;
+use App\Models\Writer;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -15,22 +17,17 @@ class BookController extends Controller
      */
     public function index()
     {
-        $book = new Book();
+        $publishers = Publisher::get();
+        $catalogs = Catalog::get();
+        $writers = Writer::get();
+        return view('admin.book', compact('publishers', 'catalogs', 'writers'));
+    }
 
-        # book - catalog relationship test
-            // $catalog = $book->with('catalog')->get();
-            // return $catalog;
+    public function getData()
+    {
+        $books = Book::all();
 
-        # book - publisher relationship test
-            // $publisher = $book->with('publisher')->get();
-            // return $publisher;
-
-        # book - writer relationship test
-            // $writer = $book->with('writer')->get();
-            // return $writer;
-
-        $title = "Buku";
-        return view('admin.book.index', compact('title'));
+        return $books;
     }
 
     /**
@@ -40,7 +37,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -49,9 +46,19 @@ class BookController extends Controller
      * @param  \App\Http\Requests\StoreBookRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBookRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'isbn' => 'required|numeric|unique:books',
+            'title' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required',
+        ]);
+
+        $book = Book::create($request->all());
+
+        return response()->json($book);
+
     }
 
     /**
@@ -83,9 +90,18 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(Request $request, Book $book)
     {
-        //
+        $request->validate([
+            'isbn' => 'required|numeric',
+            'title' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required',
+        ]);
+
+        $book->update($request->all());
+
+        return response()->json($book);
     }
 
     /**
@@ -96,6 +112,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return response()->json($book);
     }
 }

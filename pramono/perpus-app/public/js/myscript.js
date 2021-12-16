@@ -35,6 +35,7 @@ var app = new Vue({
         },
         update(event, id) {
             this.data = this.datas[id];
+            console.log(id);
             this.method = true;
             $(".modal-title").text("Edit Penulis");
             $("#exampleModal").modal();

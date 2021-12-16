@@ -7,11 +7,10 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12 text-center zindex-1">
-      <h1 class="mb-3">Take Control of your<br>
-        Library</h1>
-      <p class="mb-4">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum<br>
-        dolore eu fugiat nulla pariatur.</p>
-      <a href="{{route('register')}}" class="btn btn-secondary btn-lg">Try Now</a>
+      <h1 class="mb-3">Sistem Manajemen<br>
+        Perpustakaan</h1>
+      <p class="mb-4">Aplikasi admin berbasis web yang dibuat dengan <strong>Laravel</strong> dan <strong>Vue.js</strong>. Ini Saya buat sebagai hasil dari penyelesaian study case yang diberikan oleh Eduwork (Platform Pelatihan Bidang IT dan Penyalur SDM) sekaligus Saya jadikan sebagai portofolio proyek pribadi Saya.</p>
+      <a href="{{route('register')}}" class="btn btn-secondary btn-lg">Coba Demo</a>
       <!-- banner image -->
       <img class="img-fluid w-100 banner-image" src="{{asset('vendor/landing/images/hero-area/banner-img.png')}}" alt="banner-img">
     </div>
@@ -35,10 +34,10 @@
 <!-- feature -->
 <section class="section feature mb-0" id="feature">
 <div class="container">
-  <div class="row">
-    <div class="col-lg-12 text-center">
-      <h2 class="section-title">Awesome Features</h2>
-      <p class="mb-100">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>Excepteur sint occaecat cupidatat non proident</p>
+  <div class="row justify-content-center">
+    <div class="col-lg-8 text-center">
+      <h2 class="section-title">Fitur</h2>
+      <p class="mb-100">Memiliki berbagai fitur yang berguna untuk mengelola data perpustakaan seperti peminjaman, pengarsipan buku dan lainnya secara online.</p>
     </div>
     <!-- feature item -->
     <div class="col-md-6 mb-80">
@@ -47,9 +46,8 @@
           <i class="ti-ruler-pencil feature-icon mr-4"></i>
         </div>
         <div>
-          <h4>Wonderful Design</h4>
-          <p>Consectetur adipiscing elit donec tempus
-            pellentesque dui.</p>
+          <h4>Design UI</h4>
+          <p>Menggunakan template <em>AdminLTE versi 3.0</em> Sebagai front end aplikasi.</p>
         </div>
       </div>
     </div>
@@ -60,9 +58,8 @@
           <i class="ti-layout-cta-left feature-icon mr-4"></i>
         </div>
         <div>
-          <h4>Easy Customize</h4>
-          <p>Consectetur adipiscing elit donec tempus
-            pellentesque dui.</p>
+          <h4>CRUD</h4>
+          <p>Menerapkan proses CRUD <em>single page</em> berbasis AJAX untuk meningkatkan performa.</p>
         </div>
       </div>
     </div>
@@ -73,9 +70,8 @@
           <i class="ti-split-v-alt feature-icon mr-4"></i>
         </div>
         <div>
-          <h4>Aothorizing User</h4>
-          <p>Consectetur adipiscing elit donec tempus
-            pellentesque dui.</p>
+          <h4>Hak Akses</h4>
+          <p>Pembatasan hak akses user untuk menggunakan fitur-fitur yang ada dalam sistem.</p>
         </div>
       </div>
     </div>
@@ -86,9 +82,8 @@
           <i class="ti-layers-alt feature-icon mr-4"></i>
         </div>
         <div>
-          <h4>Organized Book Borrowing</h4>
-          <p>Consectetur adipiscing elit donec tempus
-            pellentesque dui.</p>
+          <h4>Keamanan</h4>
+          <p>Sistem keamanan sudah tertanam sebagaimana keamanan yang telah diterapkan oleh laravel.</p>
         </div>
       </div>
     </div>
@@ -99,7 +94,7 @@
 </section>
 <!-- /feature -->
 
-<!-- marketing -->
+ <!-- marketing -->
 <section class="section-lg seo">
 <div class="container">
   <div class="row">
@@ -161,11 +156,12 @@
 <!-- team -->
 <section class="section-lg team" id="team">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-12 text-center">
-      <h2 class="section-title">Our Team</h2>
-      <p class="mb-100">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu<br>
-        fugiat nulla pariatur. Excepteur sint occaecat </p>
+  <div class="row justify-content-center">
+    <div class="col-lg-10 text-center">
+        <h2 class="section-title">Developer</h2>
+        <p class="mb-100">
+            Nama saya Pramono, berasal dari Bandung, berlatar belakang pendidikan DIII/Perbankan Syariah. Saya sangat tertarik untuk memiliki <em>skill programming</em> khususnya <em>Web Programming</em> mengingat banyaknya permintaan dan masa depan yang cukup cerah. Saya belajar dengan berbagai cara baik otodidak maupun dengan mengikuti pelatihan.
+        </p>
     </div>
   </div>
   <div class="col-10 mx-auto">
@@ -312,16 +308,14 @@
 <section class="section">
 <div class="container">
     <div class="client-logo-slider align-self-center">
-        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/client-logo-1.png')}}" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/client-logo-2.png')}}" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/client-logo-3.png')}}" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/client-logo-4.png')}}" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/client-logo-5.png')}}" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/client-logo-1.png')}}" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/client-logo-2.png')}}" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/client-logo-3.png')}}" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/client-logo-4.png')}}" alt="client-logo"></a>
-        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/client-logo-5.png')}}" alt="client-logo"></a>
+        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/laravel-logo.png')}}" alt="client-logo"></a>
+        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/vue-logo.png')}}" alt="client-logo"></a>
+        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/axios-logo.png')}}" alt="client-logo"></a>
+        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/bootstrap-logo.png')}}" alt="client-logo"></a>
+        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/html-css-js-logo.png')}}" alt="client-logo"></a>
+        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/jquery-logo.png')}}" alt="client-logo"></a>
+        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/php-logo.png')}}" alt="client-logo"></a>
+        <a href="#" class="text-center d-block outline-0 p-5"><img class="d-unset img-fluid" src="{{asset('vendor/landing/images/clients-logo/mysql-logo.png')}}" alt="client-logo"></a>
     </div>
 </div>
 </section>

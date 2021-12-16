@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     // buku ini diterbitkan oleh ...
         # one to many

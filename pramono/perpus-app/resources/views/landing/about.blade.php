@@ -5,17 +5,11 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <h2 class="section-title">About us</h2>
+          <h2 class="section-title">Tentang Aplikasi</h2>
         </div>
         <div class="col-lg-12 mb-100">
-          <p>Readdle redefines personal productivity and shapes the "future of work" by crea
-            outstanding apps and services. Popular Readdle apps such as Scanner Pro, PDF
-            Expert, Spark and Documents, were downloaded over 90 million times worldwide.</p>
-          <p>Readdle apps shaped mobile software categories, such as document scanning
-            (Scanner Pro), email (Spark), document management (Documents), PDF editing
-            (PDF Expert) and calendaring (Calendars 5). We've also won numerous awards,
-            got to the top positions on the App Store charts and, most importantly, are loved
-            by millions of people.</p>
+          <p>Aplikasi ini Saya buat saat sedang menjalani <em>bootcamp Laravel Vue.js</em> di sebuah platform bernama <a href="https://eduwork.id/">Eduwork</a>. Dalam bootcamp tersebut studi kasus yang diberikan adalah berupa aplikasi pengelolaan data perpustakaan. Daripada dibuat hanya sekedar untuk memenuhi kebutuhan pembelajaran, Saya berinisiatif untuk menghostingnya sebagai portofolio.</p>
+          <p>Kelas yang Saya ikuti adalah kelas <em>Laravel Vue.js</em>. Kelas ini diperuntukan untuk siswa yang ingin mempelajari farmwork <a href="">Laravel</a> yang terintegrasi dengan <a href="">Vue.js</a> sebagai <em>handle</em> <em>front end</em>-nya. Selain itu, aplikasi ini juga tertanam beberapa library diluar dari <em>Laravel</em> dan <em>Vue.js</em> seperti di antaranya <em>AdminLTE, SweetAlert, Datatables, </em> dan sebagainya.</p>
         </div>
         <div class="col-lg-12">
           <!-- about video -->
@@ -36,55 +30,12 @@
   </section>
   <!-- /about us -->
 
-  <!-- product -->
-  <section class="section product" style="background-image: url({{asset('vendor/landing/images/backgrounds/about-bg.png')}});">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-title">Our Product</h2>
-          <p class="mb-100">Far far away, behind the word mountains, far from the <br> countries Vokalia and Consonantia.</p>
-        </div>
-        <div class="col-md-4 col-sm-6 mb-50">
-          <a href="#"><img src="{{asset('vendor/landing/images/product/product-1.jpg')}}" alt="product-img" class="rounded w-100 img-fluid"></a>
-        </div>
-        <div class="col-md-4 col-sm-6 mb-50">
-          <a href="#"><img src="{{asset('vendor/landing/images/product/product-2.jpg')}}" alt="product-img" class="rounded w-100 img-fluid"></a>
-        </div>
-        <div class="col-md-4 col-sm-6 mb-50">
-          <a href="#"><img src="{{asset('vendor/landing/images/product/product-3.jpg')}}" alt="product-img" class="rounded w-100 img-fluid"></a>
-        </div>
-        <div class="col-12 text-center">
-          <a href="#" class="btn btn-primary">Explore More Product</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- our vision -->
-  <section class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <h2 class="section-title">Our Vision</h2>
-          <p>Far far away, behind the word mountains,
-            far from the countries Vokalia and Consonantia,
-            there live the blind texts. Separated they
-            live in Bookmarksgrove right at the coast of the
-            Semantics, a large language ocean.</p>
-        </div>
-        <div class="col-md-6">
-          <img src="{{asset('vendor/landing/images/about/vision.png')}}" alt="vision" class="img-fluid w-100">
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- /our vision -->
-
   <!-- clients -->
   <section class="section">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-title">Our Clients</h2>
+          <h2 class="section-title">Teknologi</h2>
           <ul class="list-inline text-center">
             <li class="list-inline-item mx-5 mb-5"><a href="#"><img src="{{asset('vendor/landing/images/clients-logo/client-1.png')}}" alt="clients-logo" class="img-fluid"></a></li>
             <li class="list-inline-item mx-5 mb-5"><a href="#"><img src="{{asset('vendor/landing/images/clients-logo/client-2.png')}}" alt="clients-logo" class="img-fluid"></a></li>

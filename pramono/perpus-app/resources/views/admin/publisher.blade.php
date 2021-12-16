@@ -9,7 +9,6 @@
 <div id="app">
     <div class="row justify-content-start">
         <div class="col-sm-12">
-
             <div class="alert alert-success alert-dismissible fade" role="alert" id="ajaxAlert">
                 <strong></strong>.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

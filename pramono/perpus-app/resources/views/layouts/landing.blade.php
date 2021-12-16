@@ -37,7 +37,7 @@
     <section class="fixed-top navigation">
         <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('vendor/landing/images/logo.png')}}" alt="logo"></a>
+            <h4 class="brand">SISTEM MANAJEMEN PERPUSTAKAAN</h4>
             <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -50,22 +50,16 @@
                         <a class="nav-link" href="{{url('/')}}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="{{url('/#feature')}}">Feature</a>
+                        <a class="nav-link page-scroll" href="{{url('/#feature')}}">Fitur</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('about')}}">About</a>
+                        <a class="nav-link" href="{{url('about')}}">Tentang</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('service')}}">Service</a>
+                        <a class="nav-link page-scroll" href="{{url('/#team')}}">Developer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="{{url('/#team')}}">Team</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link page-scroll" href="{{url('/#pricing')}}">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('/contact')}}">Contact</a>
+                        <a class="nav-link" href="{{url('/contact')}}">Kontak</a>
                     </li>
                     @auth
                     <li class="nav-item">
@@ -73,10 +67,9 @@
                     </li>
                     @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('login')}}">Login</a>
+                        <a class="nav-link" href="{{route('login')}}">Masuk</a>
                     </li>
                     </ul>
-                        <a href="#" class="btn btn-primary ml-lg-3 primary-shadow">Register Now</a>
                     @endauth
                     @endif
                 </div>
@@ -91,20 +84,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 text-center text-lg-left mb-4 mb-lg-0">
-                <!-- logo -->
-                    <a href="index.html">
-                        <img class="img-fluid" src="{{asset('vendor/landing/images/logo.png')}}" alt="logo">
-                    </a>
+                    <h5>Sistem Manajemen Perpustakaan</h5>
                 </div>
                 <!-- footer menu -->
                 <nav class="col-lg-8 align-self-center mb-5">
                     <ul class="list-inline text-lg-right text-center footer-menu">
-                        <li class="list-inline-item active"><a href="index.html">Home</a></li>
-                        <li class="list-inline-item"><a class="page-scroll" href="#feature">Feature</a></li>
-                        <li class="list-inline-item"><a href="about.html">About</a></li>
-                        <li class="list-inline-item"><a class="page-scroll" href="#team">Team</a></li>
-                        <li class="list-inline-item"><a class="page-scroll" href="#pricing">Pricing</a></li>
-                        <li class="list-inline-item"><a href="contact.html">Contact</a></li>
+                        <li class="list-inline-item active"><a href="{{url('/')}}">Home</a></li>
+                        <li class="list-inline-item"><a class="page-scroll" href="{{url('/#feature')}}">Fitur</a></li>
+                        <li class="list-inline-item"><a href="{{url('about')}}">Tentang</a></li>
+                        <li class="list-inline-item"><a class="page-scroll" href="{{url('/#team')}}">Developer</a></li>
+                        <li class="list-inline-item"><a href="{{url('/contact')}}">Kontak</a></li>
                     </ul>
                 </nav>
                 <!-- footer social icon -->
@@ -112,9 +101,6 @@
                 <ul class="list-inline text-lg-right text-center social-icon">
                     <li class="list-inline-item">
                         <a class="facebook" href="#"><i class="ti-facebook"></i></a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="twitter" href="#"><i class="ti-twitter-alt"></i></a>
                     </li>
                     <li class="list-inline-item">
                         <a class="linkedin" href="#"><i class="ti-linkedin"></i></a>

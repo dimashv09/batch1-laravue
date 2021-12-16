@@ -42,5 +42,6 @@ Route::middleware('auth')->group(function(){
     Route::get('get/writer', [\App\Http\Controllers\WriterController::class, 'getData']);
     Route::get('get/publisher', [\App\Http\Controllers\PublisherController::class, 'getData']);
     Route::get('get/member', [\App\Http\Controllers\MemberController::class, 'getData']);
+    Route::get('get/book', [\App\Http\Controllers\BookController::class, 'getData']);
 });
 
