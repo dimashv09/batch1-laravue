@@ -18,7 +18,10 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'member_id' => $this->faker->numberBetween(1,3),
+            'member_id' => $this->faker->numberBetween(
+                \App\Models\Member::orderBy('id', 'asc')->first()->id,
+                \App\Models\Member::orderBy('id', 'desc')->first()->id
+            ),
             'email_verified_at' => now(),
             'password' => Hash::make('12345678'), // password
             'remember_token' => Str::random(10),

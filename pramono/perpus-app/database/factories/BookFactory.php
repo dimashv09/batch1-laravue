@@ -15,13 +15,22 @@ class BookFactory extends Factory
     {
         return [
             'isbn' => $this->faker->ean8(),
-            'title' => $this->faker->sentence(3),
+            'title' => $this->faker->sentence(2),
             'year' => $this->faker->year(),
             'stock' => $this->faker->numberBetween(1, 30),
             'price' => $this->faker->numberBetween(3000, 5000),
-            'publisher_id' => $this->faker->numberBetween(1,4),
-            'writer_id' => $this->faker->numberBetween(1,4),
-            'catalog_id' => $this->faker->numberBetween(1,4)
+            'publisher_id' => $this->faker->numberBetween(
+                \App\Models\Publisher::orderBy('id', 'asc')->first()->id,
+                \App\Models\Publisher::orderBy('id', 'desc')->first()->id
+            ),
+            'writer_id' => $this->faker->numberBetween(
+                \App\Models\Writer::orderBy('id', 'asc')->first()->id,
+                \App\Models\Writer::orderBy('id', 'desc')->first()->id
+            ),
+            'catalog_id' => $this->faker->numberBetween(
+                \App\Models\Catalog::orderBy('id', 'asc')->first()->id,
+                \App\Models\Catalog::orderBy('id', 'desc')->first()->id
+            )
         ];
     }
 }
