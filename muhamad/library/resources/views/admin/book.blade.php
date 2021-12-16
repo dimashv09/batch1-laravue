@@ -187,6 +187,7 @@
                 if (confirm("Are you sure you want to delete this book?")) {
                     axios.post(`${actionUrl}/${bookID}`, {_method: 'DELETE'})
                         .then(response => {
+                            $('#modal-default').modal('hide')
                             alert("Book has been Deleted")
                             this.getBooks();
                         })

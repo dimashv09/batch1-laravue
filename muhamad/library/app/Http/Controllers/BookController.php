@@ -53,14 +53,14 @@ class BookController extends Controller
     {
         // Validation Data
         $validator = $request->validate([
-            'isbn' => 'required|unique:books',
+            'isbn' => 'required|unique:books|max:11',
             'title' => 'required',
-            'year' => 'required',
+            'year' => 'required|max:11',
             'publisher_id' => 'required',
             'author_id' => 'required',
             'catalog_id' => 'required',
-            'qty' => 'required',
-            'price' => 'required',
+            'qty' => 'required|max:11',
+            'price' => 'required|max:11',
         ]);
 
         // Insert validated data into database
@@ -102,14 +102,14 @@ class BookController extends Controller
     {
         // Validation Data
         $validator = $request->validate([
-            'isbn' => "required|unique:books,isbn,{$book->id}",
+            'isbn' => "required|unique:books,isbn,{$book->id}|max:11",
             'title' => 'required',
-            'year' => 'required',
+            'year' => 'required|max:11',
             'publisher_id' => 'required',
             'author_id' => 'required',
             'catalog_id' => 'required',
-            'qty' => 'required',
-            'price' => 'required',
+            'qty' => 'required|max:11',
+            'price' => 'required|max:11',
         ]);
 
         // Insert validated data into database
