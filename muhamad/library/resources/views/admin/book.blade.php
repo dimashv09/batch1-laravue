@@ -52,20 +52,14 @@
         },
         methods: {
             getBooks() {
-                const _this = this;
-                $.ajax({
-                    url: apiUrl,
-                    method: 'GET',
-                    success: function (dataOfBooks) {
-                        _this.books = JSON.parse(dataOfBooks);
-                    },
-                    error: function (errorThrow) {
-                        console.log(errorThrow);
-                    }
-                })
+                // Using Axios instead of Ajax
+                axios
+                    .get(apiUrl)
+                    .then(response => this.books = response.data)
+                    .catch(error => console.log(error))
             },
             numberWithSpaces(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             },
             bookFilter() {
                 return this.books.filter(book => {
