@@ -82,8 +82,11 @@
                         </div>
                         <div class="form-group">
                             <label for="gender">Gender</label>
-                            <input type="text" class="form-control @error('gender') is-invalid @enderror" id="gender"
-                                placeholder="Enter Member's Gender" name="gender" required :value="data.gender">
+                            <select class="form-control" name="gender" id="gender" required>
+                                <option :selected="data.gender == 'M'" value="M">Male</option>
+                                <option :selected="data.gender == 'F'" value="F">Female</option>
+                            </select>
+
                             @error('gender')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
