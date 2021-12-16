@@ -42,7 +42,6 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <validation-errors :errors="validationErrors" v-if="validationErrors"></validation-errors>
             <form :action="action" method="POST" v-on:submit="submitForm( $event, data.id )">
                 @csrf
                 <input type="hidden" name="_method" value="PUT" v-if="method">
@@ -100,7 +99,7 @@
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-danger" v-on:click="destroy(data.id)">Delete</button>
+                        <button type="button" class="btn btn-danger" v-on:click="destroy(data.id)" v-if="btn_delete">Delete</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
@@ -131,6 +130,7 @@
             action, // variable action form
             method: false,
             message: "",
+            btn_delete: false
         },
         mounted: function () {
             this.getBook();
@@ -162,8 +162,8 @@
             update(event, id) {
                 var index = this.datas.findIndex(x => x.id === id)
                 this.data = this.datas[index]
-                console.log(this.data)
                 this.method = true;
+                this.btn_delete = true;
                 $(".modal-title").text("Detail Buku");
                 $("#exampleModal").modal();
             },
@@ -177,6 +177,7 @@
                             this.message = "Data berhasil dihapus";
                             $("#exampleModal").modal("hide");
                             Swal.fire(this.message);
+                            this.getBook();
                         });
                 }
             },
@@ -192,6 +193,7 @@
                     .then((response) => {
                             $("#exampleModal").modal("hide");
                             Swal.fire(this.message);
+                            this.getBook();
                     }).catch( function(error) {
                         if (error.response) {
                             var message_error = error.response.data.errors;
