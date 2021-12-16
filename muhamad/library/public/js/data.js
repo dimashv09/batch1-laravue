@@ -37,15 +37,15 @@ const controller = new Vue({
             if (confirm("Are you sure you want to delete this Data?")) {
                 $(event.target).parents('tr').remove()
                 axios.post(actionUrl + `/${id}`, {_method: 'DELETE'})
-                    .then(response => alert("Data has been Deleted"))
+                    .then(() => alert("Data has been Deleted"))
             }
         },
         submittedForm(event, id) {
             const _this = this;
-            let actionUrl = this.status ? this.actionUrl + '/' + id  : this.actionUrl
+            let actionUrl = this.status ? `${this.actionUrl}/${id}`  : this.actionUrl
 
             axios.post(actionUrl, new FormData($(event.target)[0]))
-                .then(response => {
+                .then(() => {
                     $('#modal-default').modal('hide')
                     _this.table.ajax.reload()
                     alert("Data has been Updated")

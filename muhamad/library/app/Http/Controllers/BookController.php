@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Author;
+use App\Models\Catalog;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -18,7 +21,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('admin.book');
+        $publishers = Publisher::all();
+        $authors = Author::all();
+        $catalogs = Catalog::all();
+        return view('admin.book', compact('publishers', 'authors', 'catalogs'));
     }
 
     public function api()
@@ -45,7 +51,22 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation Data
+        $validator = $request->validate([
+            'isbn' => 'required|unique:books',
+            'title' => 'required',
+            'year' => 'required',
+            'publisher_id' => 'required',
+            'author_id' => 'required',
+            'catalog_id' => 'required',
+            'qty' => 'required',
+            'price' => 'required',
+        ]);
+
+        // Insert validated data into database
+        Book::create($validator);
+
+        return redirect('books')->with('success', 'New Book data has been Added');
     }
 
     /**
@@ -79,7 +100,22 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        // Validation Data
+        $validator = $request->validate([
+            'isbn' => "required|unique:books,isbn,{$book->id}",
+            'title' => 'required',
+            'year' => 'required',
+            'publisher_id' => 'required',
+            'author_id' => 'required',
+            'catalog_id' => 'required',
+            'qty' => 'required',
+            'price' => 'required',
+        ]);
+
+        // Insert validated data into database
+        $book->update($validator);
+
+        return redirect('books')->with('success', 'book data has been Updated');
     }
 
     /**
@@ -90,6 +126,6 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
     }
 }
