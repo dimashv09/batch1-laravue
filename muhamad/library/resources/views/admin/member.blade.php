@@ -47,6 +47,7 @@
                                 <th class="align-middle">Phone Number</th>
                                 <th class="align-middle">Address</th>
                                 <th class="align-middle">Email</th>
+                                <th class="align-middle">Join Date</th>
                                 <th class="align-middle" style="width: 80px;">Action</th>
                             </tr>
                         </thead>
@@ -156,11 +157,12 @@
 
         let columns = [
         {data: 'DT_RowIndex', orderable: true},
-        {data: 'name', orderable: true},
-        {data: 'gender', orderable: true},
-        {data: 'phone_number', orderable: true},
-        {data: 'address', orderable: true},
-        {data: 'email', orderable: true},
+        {data: 'name', orderable: false},
+        {data: 'gender', orderable: false},
+        {data: 'phone_number', orderable: false},
+        {data: 'address', orderable: false},
+        {data: 'email', orderable: false},
+        {data: 'date', orderable: false},
         {render: function(index, row, data, meta) {
         /* html */
         return `
