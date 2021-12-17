@@ -21,6 +21,7 @@
     <!-- jsGrid -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/jsgrid/jsgrid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/jsgrid/jsgrid-theme.min.css') }}">
+    <link rel="https://cdn.datatables.net/rowgroup/1.1.1/css/rowGroup.bootstrap4.min.css" />
     @yield('css')
 </head>
 
@@ -252,6 +253,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     {{-- Axios --}}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
     @yield('js')
 </body>
 

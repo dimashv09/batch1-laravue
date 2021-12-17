@@ -18,11 +18,17 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::with('books')->get();
-
-        return view('admin.authors.index', compact('authors'), [
+        return view('admin.authors.index', [
             'judul' => 'Author'
         ]);
+    }
+
+    public function api()
+    {
+        $authors = Author::with('books')->latest()->get();
+        $datatables = datatables()->of($authors)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**

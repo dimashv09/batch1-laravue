@@ -18,12 +18,17 @@ class PublisherController extends Controller
      */
     public function index()
     {
-
-        $publishers = Publisher::with('books')->get();
-
-        return view('admin.publishers.index', compact('publishers'), [
-            'judul' => 'publisher'
+             return view('admin.publishers.index', [
+            'judul' => 'Publisher'
         ]);
+    }
+
+    public function api()
+    {
+        $publishers = Publisher::with('books')->latest()->get();
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -55,7 +60,7 @@ class PublisherController extends Controller
 
         return redirect('publishers');
 
-        return $request;
+        // return $request;
     }
 
     /**

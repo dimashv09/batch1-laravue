@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    
 @endsection
 @section('content')
     <div id="controller">
@@ -24,7 +25,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table id="example1" class="table table-bordered table-striped dataTable dtr-inline"
+                                    <table id="datatable" class="table table-bordered table-striped dataTable dtr-inline"
                                         role="grid" aria-describedby="example1_info">
                                         <thead>
                                             <tr role="row" class="text-center">
@@ -38,29 +39,6 @@
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-
-                                        <tbody>
-                                            @foreach ($authors as $key => $author)
-                                                <tr class="odd">
-                                                    <td class="text-center">{{ $key + 1 }}</td>
-                                                    <td>{{ $author->name }}</td>
-                                                    <td class="text-center">{{ $author->email }}</td>
-                                                    <td class="text-center">{{ $author->phone_number }}</td>
-                                                    <td class="text-center">{{ $author->address }}</td>
-                                                    <td class="text-center">{{ COUNT($author->books) }}</td>
-                                                    <td class="text-center">
-                                                        {{ date('d/m/Y', strtotime($author->created_at)) }}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a href="#" @click="editData({{ $author }})"
-                                                            class="btn btn-sm btn-warning">Edit</a>
-                                                        <a href="#" @click="deleteData({{ $author->id }})"
-                                                            class="btn btn-sm btn-danger">Delete</a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-
                                     </table>
                                 </div>
                             </div>
@@ -74,10 +52,10 @@
         <div class="modal fade" id="modal-default">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" :action="actionUrl" autocomplete="off">
+                    <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
                         <div class="modal-header">
 
-                            <h4 class="modal-title">@{{ judul }}</h4>
+                            <h4 class="modal-title">Author</h4>
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -140,11 +118,12 @@
 
     <script>
         $(function() {
-            $("#example1").DataTable({
+            $("#datatable").DataTable({
                     "responsive": true,
-                    "lengthChange": false,
+                    "lengthChange": true,
                     "autoWidth": false,
-                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                    "bDestroy": true
                 })
                 .buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
@@ -152,43 +131,58 @@
     </script>
 
     <script type="text/javascript">
-        var controller = new Vue({
-            el: '#controller',
-            data: {
-                data: {},
-                actionUrl: '{{ url('authors') }}',
-                editStatus: false,
-                judul: ''
-            },
-            mounted: function() {
+        var actionUrl = '{{ url('authors') }}';
+        var apiUrl = '{{ url('api/authors') }}';
 
+        var columns = [
+        {
+            data: 'DT_RowIndex',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'name',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'email',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'phone_number',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'address',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'books.length',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'created_at',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            render: function(index, row, data, meta) {
+                return `
+                <a href = '#' class = "btn btn-warning btn-sm" onclick = "controller.editData(event, ${meta.row})"> Edit </a> 
+                <a class = "btn btn-danger btn-sm" onclick = "controller.deleteData(event, ${data.id})"> Delete </a>`;
             },
-            methods: {
-                addData() {
-                    this.data = {};
-                    this.actionUrl = '{{ url('authors') }}';
-                    this.editStatus = false;
-                    this.judul = 'Create New Author';
-                    $('#modal-default').modal();
-                },
-                editData(data) {
-                    this.data = data;
-                    this.actionUrl = '{{ url('authors') }}' + '/' + data.id;
-                    this.editStatus = true;
-                    this.judul = 'Edit Author';
-                    $('#modal-default').modal();
-                },
-                deleteData(id) {
-                    this.actionUrl = '{{ url('authors') }}' + '/' + id;
-                    if (confirm("Are you sure ?")) {
-                        axios.post(this.actionUrl, {
-                            _method: 'DELETE'
-                        }).then(response => {
-                            location.reload();
-                        })
-                    }
-                }
-            }
-        });
-    </script>
+            orderable: false,
+            width: '200px',
+            class: 'text-center'
+        },
+    
+];
+ </script>
+
+ <script src="{{ asset('js/data.js') }}"></script>
 @endsection
