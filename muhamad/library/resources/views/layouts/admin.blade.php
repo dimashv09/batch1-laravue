@@ -265,6 +265,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <!-- Axios CDN -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- SweetAlert 2 CDN -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield('js')
 </body>

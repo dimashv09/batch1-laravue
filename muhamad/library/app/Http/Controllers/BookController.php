@@ -53,20 +53,20 @@ class BookController extends Controller
     {
         // Validation Data
         $validator = $request->validate([
-            'isbn' => 'required|unique:books|max:11',
+            'isbn' => 'required|unique:books|max:9',
             'title' => 'required',
-            'year' => 'required|max:11',
+            'year' => 'required|min:2|max:4',
             'publisher_id' => 'required',
             'author_id' => 'required',
             'catalog_id' => 'required',
-            'qty' => 'required|max:11',
-            'price' => 'required|max:11',
+            'qty' => 'required|min:1|max:4',
+            'price' => 'required|min:1|max:11',
         ]);
 
         // Insert validated data into database
-        Book::create($validator);
+        $book = Book::create($validator);
 
-        return redirect('books')->with('success', 'New Book data has been Added');
+        return response()->json($book);
     }
 
     /**
@@ -102,14 +102,14 @@ class BookController extends Controller
     {
         // Validation Data
         $validator = $request->validate([
-            'isbn' => "required|unique:books,isbn,{$book->id}|max:11",
+            'isbn' => "required|unique:books,isbn,{$book->id}|max:9",
             'title' => 'required',
-            'year' => 'required|max:11',
+            'year' => 'required|min:2|max:4',
             'publisher_id' => 'required',
             'author_id' => 'required',
             'catalog_id' => 'required',
-            'qty' => 'required|max:11',
-            'price' => 'required|max:11',
+            'qty' => 'required|min:1|max:4',
+            'price' => 'required|min:1|max:11',
         ]);
 
         // Insert validated data into database

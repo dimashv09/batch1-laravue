@@ -66,7 +66,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="year">Year</label>
-                                    <input type="number" class="form-control form-control-sm" id="year"
+                                    <input type="text" class="form-control form-control-sm" id="year"
                                         placeholder="Enter Book's Year Released" name="year" required
                                         :value="book.year">
                                 </div>
@@ -126,7 +126,8 @@
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between" v-if="isEdit">
-                        <button type="button" class="btn btn-danger" @click="deleteData(book.id)">Delete</button>
+                        <button type="button" class="btn btn-danger"
+                            @click.prevent="deleteData(book.id)">Delete</button>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                     <div class="modal-footer justify-content-center" v-else>
@@ -184,23 +185,53 @@
                 $('#modal-default').modal();
             },
             deleteData(bookID) {
-                if (confirm("Are you sure you want to delete this book?")) {
-                    axios.post(`${actionUrl}/${bookID}`, {_method: 'DELETE'})
-                        .then(response => {
-                            $('#modal-default').modal('hide')
-                            alert("Book has been Deleted")
-                            this.getBooks();
-                        })
-                }
+                Swal.fire({
+                    title: "Are you sure you want to delete this book?",
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post(`${actionUrl}/${bookID}`, {_method: 'DELETE'})
+                            .then(response => {
+                                $('#modal-default').modal('hide')
+                                Swal.fire("Book has been Deleted")
+                                this.getBooks();
+                            })
+                    }
+                })
             },
             submitted(event, bookID) {
                 let actionUrl = this.isEdit ? `${this.actionUrl}/${bookID}` : this.actionUrl
+                let successMessage = this.isEdit ? "Data has been Updated" : "Data has been Added"
 
                 axios.post(actionUrl, new FormData($(event.target)[0]))
                     .then(() => {
                         $('#modal-default').modal('hide')
-                        alert("Data has been Updated")
+                        Swal.fire(successMessage)
                         this.getBooks();
+                    })
+                    .catch((error) => {
+                        if (error.response) {
+                            // get all error messages
+                            let errorMessage = error.response.data.errors
+                            // extract each error then insert it into error box
+                            let errorBox = ''
+                            $.each(errorMessage, function (key, val) {
+                                errorBox += `<p clas='text-danger'> ${val}</p> <br>`
+                            })
+
+                            // Display an Error Messages
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                html: errorBox,
+                            })
+                        }
                     })
             }
         }
