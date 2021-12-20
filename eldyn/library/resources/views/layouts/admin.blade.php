@@ -235,6 +235,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
 		<!-- Axios -->
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<!-- SA2 -->
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		@yield('js')
 	</body>
 </html>

@@ -26,27 +26,13 @@
 								<th>Email</th>
 								<th>Phone Number</th>
 								<th>Address</th>
-								{{-- <th>Total Books</th>
-								<th>created at</th> --}}
+								{{-- <th>Total Books</th> --}}
+								<th>created at</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							{{-- @foreach ($publishers as $key => $publisher)
-							<tr>
-								<td class="text-center">{{ $key + 1 }}</td>
-								<td>{{ $publisher->name }}</td>
-								<td>{{ $publisher->email }}</td>
-								<td>{{ $publisher->phone_number }}</td>
-								<td>{{ $publisher->address }}</td>
-								<td style="text-align: center">{{ count($publisher->books) }}</td>
-								<td>{{ date('H:i:s - d F Y', strtotime( $publisher->created_at ))}}</td>
-								<td class="d-flex" style="gap: .5rem">
-									<a href="#" @click="editData({{ $publisher }})"  class="btn btn-sm btn-warning text-white">Edit</a>
-									<a href="#" @click="deleteData({{ $publisher->id }})"  class="btn btn-sm btn-danger text-white">Delete</a>
-								</td>
-							</tr>	
-							@endforeach --}}
+							
 						</tbody>
 					</table>
 				</div>
@@ -152,6 +138,11 @@
 			},
 			{
 				data: 'address',
+				class: 'text-center',
+				orderable: true
+			},
+			{
+				data: 'date',
 				class: 'text-center',
 				orderable: true
 			},
