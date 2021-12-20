@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Catalog;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -14,9 +17,18 @@ class BookController extends Controller
      */
     public function index()
     {
-		return view('admin.book.book');
-
+		$publishers = Publisher::all();
+		$catalogs = Catalog::all();
+		$authors = Author::all();
+		return view('admin.book.book', compact(['publishers', 'catalogs', 'authors']));
     }
+
+	public function api() {
+		$books = Book::all();
+		$datatables = datatables()->of($books)->addIndexColumn();
+
+		return $datatables->make(true);
+	}
 
     /**
      * Show the form for creating a new resource.
@@ -36,7 +48,18 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+			'isbn' => ['required', 'integer'],
+			'title' => ['required'],
+			'year' => ['required', 'integer'],
+			'publisher_id' => ['required', 'integer'],
+			'author_id' => ['required', 'integer'],
+			'catalog_id' => ['required', 'integer'],
+			'quantity' => ['required', 'integer'],
+			'price' => ['required', 'integer']
+		]);
+		Book::create($request->all());
+        return redirect('books');
     }
 
     /**
@@ -70,7 +93,18 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $this->validate($request, [
+			'isbn' => ['required', 'integer'],
+			'title' => ['required'],
+			'year' => ['required', 'integer'],
+			'publisher_id' => ['required', 'integer'],
+			'author_id' => ['required', 'integer'],
+			'catalog_id' => ['required', 'integer'],
+			'quantity' => ['required', 'integer'],
+			'price' => ['required', 'integer']
+		]);
+		$book->update($request->all());
+        return redirect('books');
     }
 
     /**
@@ -81,6 +115,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect('books');
     }
 }
