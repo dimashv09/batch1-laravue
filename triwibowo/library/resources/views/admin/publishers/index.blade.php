@@ -4,8 +4,7 @@
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}"   
 @endsection
 @section('content')
     <div id="controller">
@@ -49,9 +48,13 @@
             </div>
         </div>
 
+        
+
         <div class="modal fade" id="modal-default">
             <div class="modal-dialog">
                 <div class="modal-content">
+
+
                     <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
                         <div class="modal-header">
 
@@ -65,10 +68,12 @@
                             @csrf
 
                             <input type="hidden" name="_method" value="PUT" v-if="editStatus">
+
                             {{-- name --}}
                             <div class="form-floating mb-3">
                                 <input type="text" name="name" class="form-control" id="floatingInput"
                                     placeholder=" Input your name" :value="data.name">
+                                    <p class="error">@{{ error }}</p>
                             </div>
                             {{-- email --}}
                             <div class="form-floating mb-3">
@@ -90,6 +95,7 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
+                        
                     </form>
                 </div>
                 <!-- /.modal-content -->
@@ -116,6 +122,9 @@
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
     <script>
         $(function() {
@@ -135,6 +144,7 @@
     <script type="text/javascript">
         var actionUrl = '{{ url('publishers') }}';
         var apiUrl = '{{ url('api/publishers') }}';
+        const error = null;
 
         var columns = [
         {

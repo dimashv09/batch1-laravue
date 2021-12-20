@@ -56,9 +56,9 @@ class PublisherController extends Controller
             'address' => 'required',
         ]);
 
-        Publisher::create($request->all());
+          $publisher = Publisher::create($request->all());
 
-        return redirect('publishers');
+        return response()->json($publisher);
 
         // return $request;
     }
@@ -103,7 +103,8 @@ class PublisherController extends Controller
 
         $publisher->update($request->all());
 
-        return redirect('publishers');
+        // return redirect('publishers');
+        return response()->json('publisher');
     }
 
     /**

@@ -68,42 +68,35 @@
                             <input type="hidden" name="_method" value="PUT" v-if="editStatus">
                             {{-- name --}}
                             <div class="form-floating mb-3">
-                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="floatingInput"
+                                <input type="text" name="name" class="form-control" id="floatingInput"
                                     placeholder=" Input your name" :value="data.name">
-                                    @error('name')
-                                         <span class="text-danger">{{ $message }}</span>
-                                    @enderror
                             </div>
                             {{-- email --}}
                             <div class="form-floating mb-3">
-                                <input type="text" name="gender" class="form-control @error('gender') is-invalid @enderror" id="floatingInput"
-                                    placeholder="Input Gender Hanya P/L" v-bind:value="data.gender">
-                                    @error('gender')
-                                         <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                <div class="form-check">
+                                    <label for="gender" class="form-check-label" for="flexRadioDefault1"><input class="form-check-input"  type="radio" name="gender" id="flexRadioDefault1" value="P" :checked="data.gender == 'P'">
+                                      Female
+                                    </label>
+                                  </div>
+                                  <div class="form-check"> 
+                                    <label for="gender" class="form-check-label" for="flexRadioDefault2"><input class="form-check-input"  type="radio" name="gender" id="flexRadioDefault2" value="L" :checked="data.gender == 'L'">
+                                      Male
+                                    </label>
+                                  </div>
+                            </div>
                             {{-- phone number --}}
                             <div class="form-floating mb-3">
-                                <input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" id="floatingInput"
+                                <input type="text" name="phone_number" class="form-control" id="floatingInput"
                                     placeholder="Input phone number" :value="data.phone_number">
-                                    @error('phone_number')
-                                         <span class="text-danger">{{ $message }}</span>
-                                    @enderror
                                 </div>
                             {{-- address --}}
                             <div class="form-floating mb-3">
-                                <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" id="floatingInput"
+                                <input type="text" name="address" class="form-control" id="floatingInput"
                                     placeholder="Input address" :value="data.address">
-                                    @error('address')
-                                         <span class="text-danger">{{ $message }}</span>
-                                    @enderror
                                 </div>
                             <div class="form-floating mb-3">
-                                <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="floatingInput"
+                                <input type="text" name="email" class="form-control" id="floatingInput"
                                     placeholder="Input email example@email.com" :value="data.email">
-                                    @error('email')
-                                         <span class="text-danger">{{ $message }}</span>
-                                    @enderror
                                 </div>
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -135,6 +128,7 @@
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(function() {

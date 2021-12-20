@@ -58,9 +58,9 @@ class MemberController extends Controller
             'address' => 'required',
         ]);
 
-        Member::create($request->all());
+        $member = Member::create($request->all());
 
-        return redirect('members');
+        return response()->json($member);
 
         // return $request;
     }
@@ -106,7 +106,7 @@ class MemberController extends Controller
 
         $member->update($request->all());
 
-        return redirect('members');
+        return response()->json('member');
     }
 
     /**
