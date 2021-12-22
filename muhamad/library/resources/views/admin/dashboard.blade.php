@@ -43,7 +43,7 @@
             <div class="small-box bg-info">
                 <div class="inner">
                     <h3>{{ $publishers }}</h3>
-                    <p>Data of Publishers</p>
+                    <p>Total of Publishers</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-file-invoice"></i>
@@ -59,7 +59,7 @@
             <div class="small-box bg-primary">
                 <div class="inner">
                     <h3>{{ $transactions }}</h3>
-                    <p>Data of Transactions</p>
+                    <p>Total of Transactions</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-receipt"></i>
@@ -75,7 +75,7 @@
             <!-- DONUT CHART -->
             <div class="card card-dark">
                 <div class="card-header">
-                    <h3 class="card-title">Donut Chart</h3>
+                    <h3 class="card-title">Data of Publishers</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -95,7 +95,7 @@
             <!-- BAR CHART -->
             <div class="card card-dark">
                 <div class="card-header">
-                    <h3 class="card-title">Bar Chart</h3>
+                    <h3 class="card-title">Data of Transactions</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
