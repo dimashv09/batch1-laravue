@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PublisherController;
 
 /*
@@ -54,3 +55,6 @@ Route::get('/api/members', [MemberController::class, 'api']);
 // Book's Route
 Route::resource('books', BookController::class);
 Route::get('/api/books', [BookController::class, 'api']);
+
+// Dashboard's Route
+Route::resource('dashboard', DashboardController::class);
