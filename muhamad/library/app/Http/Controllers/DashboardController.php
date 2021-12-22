@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Author;
 use App\Models\Member;
 use App\Models\Publisher;
 use App\Models\Transaction;
@@ -34,6 +35,16 @@ class DashboardController extends Controller
             ->groupBy('name')
             ->pluck('name');
 
+        // Data of Pie Chart
+        $data_pie = Book::select(DB::raw('COUNT(author_id) as total'))
+            ->groupBy('author_id')
+            ->orderBy('author_id', 'ASC')
+            ->pluck('total');
+        $label_pie = Author::orderBy('author_id', 'ASC')
+            ->join('books', 'books.author_id', '=', 'authors.id')
+            ->groupBy('name')
+            ->pluck('name');
+
         // Data of Bar Chart
         $label_bar = ['Transaction Starts', 'Transaction Ends'];
         $data_bar = [];
@@ -59,7 +70,7 @@ class DashboardController extends Controller
             $data_bar[$key]['data'] = $data_month;
         }
 
-        return view('admin.dashboard', compact('books', 'publishers', 'members', 'transactions', 'data_donut', 'label_donut', 'data_bar'));
+        return view('admin.dashboard', compact('books', 'publishers', 'members', 'transactions', 'data_donut', 'label_donut', 'data_pie', 'label_pie', 'data_bar'));
     }
 
     /**
