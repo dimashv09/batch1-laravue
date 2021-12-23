@@ -103,7 +103,7 @@
             <!-- DONUT CHART -->
             <div class="card card-danger">
                 <div class="card-header">
-                  <h3 class="card-title">Prosentase Penerbit</h3>
+                  <h3 class="card-title">Penerbit</h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -125,7 +125,7 @@
             <!-- LINE CHART -->
             <div class="card card-info">
                 <div class="card-header">
-                  <h3 class="card-title">Prosentase Peminjaman Anggota</h3>
+                  <h3 class="card-title">Transaksi Anggota</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                       <i class="fas fa-minus"></i>
