@@ -6,7 +6,6 @@ var controller = new Vue({
         actionUrl,
         apiUrl,
         editStatus: false,
-        genderStatus: false,
     },
     mounted: function() {
         this.datatable();

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Catalog;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -14,9 +17,20 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('admin.books.index', [
+        $publishers = Publisher::all();
+        $authors = Author::all();
+        $catalogs = Catalog::all();
+
+        return view('admin.books.index',compact('publishers', 'authors', 'catalogs'), [
             'judul' => 'Book'
         ]);
+    }
+
+    public function api()
+    {
+        $books = Book::with('author', 'publisher', 'catalog')->latest()->get();
+
+        return json_encode($books);
     }
 
     /**
@@ -37,7 +51,21 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'isbn' => 'required|min:3|numeric',
+            'title' => 'required',
+            'year' => 'required|numeric',
+            'publisher_id' => 'required',
+            'author_id' => 'required',
+            'catalog_id' => 'required',
+            'qty' => 'required|numeric',
+            'price' => 'required|numeric',
+            
+        ]);
+
+        $book = Book::create($request->all());
+
+        return response()->json($book);
     }
 
     /**
@@ -71,7 +99,20 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $this->validate($request, [
+            'isbn' => 'required|min:3|numeric',
+            'title' => 'required',
+            'year' => 'required|numeric',
+            'publisher_id' => 'required',
+            'author_id' => 'required',
+            'catalog_id' => 'required',
+            'qty' => 'required|numeric',
+            'price' => 'required|numeric', 
+        ]);
+
+        $book->update($request->all());
+
+        return response()->json('book');
     }
 
     /**
@@ -82,6 +123,6 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
     }
 }

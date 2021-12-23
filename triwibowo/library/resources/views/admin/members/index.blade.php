@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/radio.css') }}">
     
 @endsection
 @section('content')
@@ -73,15 +74,13 @@
                             </div>
                             {{-- email --}}
                             <div class="form-floating mb-3">
-                                <div class="form-check">
-                                    <label for="gender" class="form-check-label" for="flexRadioDefault1"><input class="form-check-input"  type="radio" name="gender" id="flexRadioDefault1" value="P" :checked="data.gender == 'P'">
-                                      Female
-                                    </label>
+                                  <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="customRadio" name="gender" value="P" :checked="data.gender == 'P'">
+                                    <label class="custom-control-label" for="customRadio">Female</label>
                                   </div>
-                                  <div class="form-check"> 
-                                    <label for="gender" class="form-check-label" for="flexRadioDefault2"><input class="form-check-input"  type="radio" name="gender" id="flexRadioDefault2" value="L" :checked="data.gender == 'L'">
-                                      Male
-                                    </label>
+                                  <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="customRadio2" name="gender" value="L" :checked="data.gender == 'L'">
+                                    <label class="custom-control-label" for="customRadio2">Male</label>
                                   </div>
                             </div>
                             {{-- phone number --}}
@@ -140,7 +139,6 @@
                     "bDestroy": true
                 })
                 .buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
         });
     </script>
 
