@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Catalog;
 use App\Models\Member;
+use App\Models\Transaction;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
@@ -28,7 +32,45 @@ class HomeController extends Controller
     public function index()
     {
 
-        DB::statement("SET SQL_MODE=''");
+        $total_books = Book::all()->count();
+        $total_members = Member::all()->count();
+        $total_publishers = Publisher::all()->count();
+        $total_transactions = Transaction::all()->count();
+
+        // Donut Chart Compacts
+        $donut_label = Publisher::has('books')->withCount('books')->pluck('name');
+        $donut_data = Publisher::has('books')->withCount('books')->pluck('books_count');
+
+        // Bar Chart Compacts
+        $label_bar = ['peminjaman', 'pengembalian'];
+        $data_bar = [];
+        foreach ($label_bar as $key => $value) {
+            $data_bar[$key]['label'] = $label_bar[$key];
+            $data_bar[$key]['backgroundcolor'] = $key == 0 ? 'lightgreen' : 'lightblue';
+            $data_month = [];
+            for ($i=1; $i < 12; $i++) {
+                if ($key == 0) {
+                    array_push($data_month, Transaction::select(DB::raw("COUNT(*) as total"))->whereMonth('start', $i)->first()->total);
+                    // $data_month = Transaction::select(DB::raw("COUNT(*) as total"))->whereMonth('start', $i)->first()->total;
+                } else {
+                    array_push($data_month, Transaction::select(DB::raw("COUNT(*) as total"))->whereMonth('end', $i)->first()->total);
+                    // $data_month = Transaction::select(DB::raw("COUNT(*) as total"))->whereMonth('end', $i)->first()->total;
+                }
+
+            }
+            $data_bar[$key]['data'] = $data_month;
+        }
+
+        // Polar Chart Compacts
+        $polar_label = Member::has('transactions')->withCount('transactions')->pluck('name');
+        $polar_data = Member::has('transactions')->withCount('transactions')->pluck('transactions_count');
+
+        return view('admin.home', compact('total_books', 'total_members', 'total_publishers', 'total_transactions', 'donut_label', 'donut_data', 'data_bar', 'polar_label', 'polar_data'));
+
+
+
+        // MYSQL QUIS SYNTAX
+        // DB::statement("SET SQL_MODE=''");
         // gak tau kenapa kalo gak pake ini muncul error setiap melakukan grouping atau ordering. mau pake model atau pake class DB.(referensi: stackoverflow)
 
         /*
@@ -304,8 +346,6 @@ class HomeController extends Controller
         // return $query18;
         // return $query19;
         // return $query20;
-
-        return view('admin.home');
 
     }
 }
