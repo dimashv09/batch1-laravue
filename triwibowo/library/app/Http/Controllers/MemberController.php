@@ -19,7 +19,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return view('admin.members.index', [
+        return view('admin.members', [
             'judul' => 'Member'
         ]);
     }
@@ -27,7 +27,10 @@ class MemberController extends Controller
     public function api()
     {
         $members = Member::with('transactions')->latest()->get();
-        $datatables = datatables()->of($members)->addIndexColumn();
+        $datatables = datatables()->of($members)
+                                  ->addColumn('date', function($member){
+                                               return form_tang($member->created_at);
+                                  })->addIndexColumn();
 
         return $datatables->make(true);
     }

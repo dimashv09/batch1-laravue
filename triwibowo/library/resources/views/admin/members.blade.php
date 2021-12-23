@@ -4,7 +4,9 @@
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}"   
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/radio.css') }}">
+    
 @endsection
 @section('content')
     <div id="controller">
@@ -14,7 +16,7 @@
                     <div class="card-header">
                         <div>
                             <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New
-                                Publisher</a>
+                                Member</a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -30,10 +32,11 @@
                                             <tr role="row" class="text-center">
                                                 <th>Nomor</th>
                                                 <th>Name</th>
-                                                <th>Email</th>
+                                                <th>Gender</th>
                                                 <th>Phone Number</th>
                                                 <th>Address</th>
-                                                <th>Total Book</th>
+                                                <th>Email</th>
+                                                <th>Total Transaction</th>
                                                 <th>Created at</th>
                                                 <th>Action</th>
                                             </tr>
@@ -48,17 +51,13 @@
             </div>
         </div>
 
-        
-
         <div class="modal fade" id="modal-default">
             <div class="modal-dialog">
                 <div class="modal-content">
-
-
                     <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
                         <div class="modal-header">
 
-                            <h4 class="modal-title">Publisher</h4>
+                            <h4 class="modal-title">Member</h4>
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -68,41 +67,47 @@
                             @csrf
 
                             <input type="hidden" name="_method" value="PUT" v-if="editStatus">
-
                             {{-- name --}}
                             <div class="form-floating mb-3">
                                 <input type="text" name="name" class="form-control" id="floatingInput"
                                     placeholder=" Input your name" :value="data.name">
-                                    <p class="error">@{{ error }}</p>
                             </div>
                             {{-- email --}}
                             <div class="form-floating mb-3">
-                                <input type="text" name="email" class="form-control" id="floatingInput"
-                                    placeholder="Input email example@email.com" :value="data.email">
+                                  <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="customRadio" name="gender" value="P" :checked="data.gender == 'P'">
+                                    <label class="custom-control-label" for="customRadio">Female</label>
+                                  </div>
+                                  <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="customRadio2" name="gender" value="L" :checked="data.gender == 'L'">
+                                    <label class="custom-control-label" for="customRadio2">Male</label>
+                                  </div>
                             </div>
                             {{-- phone number --}}
                             <div class="form-floating mb-3">
                                 <input type="text" name="phone_number" class="form-control" id="floatingInput"
                                     placeholder="Input phone number" :value="data.phone_number">
-                            </div>
+                                </div>
                             {{-- address --}}
                             <div class="form-floating mb-3">
                                 <input type="text" name="address" class="form-control" id="floatingInput"
                                     placeholder="Input address" :value="data.address">
-                            </div>
+                                </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="email" class="form-control" id="floatingInput"
+                                    placeholder="Input email example@email.com" :value="data.email">
+                                </div>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
-                        
                     </form>
                 </div>
                 <!-- /.modal-content -->
             </div>
             <!-- /.modal-dialog -->
         </div>
-
         <!-- /.modal -->
     </div>
 
@@ -122,9 +127,7 @@
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
 
     <script>
         $(function() {
@@ -136,15 +139,12 @@
                     "bDestroy": true
                 })
                 .buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
         });
-
     </script>
 
     <script type="text/javascript">
-        var actionUrl = '{{ url('publishers') }}';
-        var apiUrl = '{{ url('api/publishers') }}';
-        const error = null;
+        var actionUrl = '{{ url('members') }}';
+        var apiUrl = '{{ url('api/members') }}';
 
         var columns = [
         {
@@ -158,7 +158,7 @@
             orderable: true
         },
         {
-            data: 'email',
+            data: 'gender',
             class: 'text-center',
             orderable: true
         },
@@ -173,12 +173,17 @@
             orderable: true
         },
         {
-            data: 'books.length',
+            data: 'email',
             class: 'text-center',
             orderable: true
         },
         {
-            data: 'created_at',
+            data: 'transactions.length',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'date',
             class: 'text-center',
             orderable: true
         },
@@ -194,8 +199,6 @@
         },
     
 ];
-
-
  </script>
 
  <script src="{{ asset('js/data.js') }}"></script>

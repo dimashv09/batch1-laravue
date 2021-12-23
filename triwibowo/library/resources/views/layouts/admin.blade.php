@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/jsgrid/jsgrid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/jsgrid/jsgrid-theme.min.css') }}">
     <link rel="https://cdn.datatables.net/rowgroup/1.1.1/css/rowGroup.bootstrap4.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/gaya.css') }}">
     @yield('css')
 </head>
 
@@ -105,7 +106,7 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                        {{-- <a href="#" class="d-block">{{ auth()->user()->name}}</a> --}}
                     </div>
                 </div>
 

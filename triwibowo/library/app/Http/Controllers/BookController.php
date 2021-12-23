@@ -15,13 +15,18 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $publishers = Publisher::all();
         $authors = Author::all();
         $catalogs = Catalog::all();
 
-        return view('admin.books.index',compact('publishers', 'authors', 'catalogs'), [
+        return view('admin.books',compact('publishers', 'authors', 'catalogs'), [
             'judul' => 'Book'
         ]);
     }

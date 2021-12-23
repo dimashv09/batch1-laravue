@@ -18,7 +18,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view('admin.authors.index', [
+        return view('admin.authors', [
             'judul' => 'Author'
         ]);
     }
@@ -26,7 +26,10 @@ class AuthorController extends Controller
     public function api()
     {
         $authors = Author::with('books')->latest()->get();
-        $datatables = datatables()->of($authors)->addIndexColumn();
+        $datatables = datatables()->of($authors)
+                                  ->addColumn('date', function($author){
+                                      return form_tang($author->created_at);
+                                  })->addIndexColumn();
 
         return $datatables->make(true);
     }

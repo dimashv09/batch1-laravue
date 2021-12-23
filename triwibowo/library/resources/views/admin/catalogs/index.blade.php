@@ -44,7 +44,7 @@
                                                     <td>{{ $catalog->name }}</td>
                                                     <td class="text-center">{{ COUNT($catalog->books) }}</td>
                                                     <td class="text-center">
-                                                        {{ date('d/m/Y', strtotime($catalog->created_at)) }}
+                                                        {{ form_tang($catalog->created_at) }}
                                                     </td>
                                                     <td class="text-center">
                                                         <a href="#" @click="editData({{ $catalog }})"

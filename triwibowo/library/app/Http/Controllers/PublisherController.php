@@ -18,7 +18,7 @@ class PublisherController extends Controller
      */
     public function index()
     {
-             return view('admin.publishers.index', [
+             return view('admin.publishers', [
             'judul' => 'Publisher'
         ]);
     }
@@ -26,7 +26,9 @@ class PublisherController extends Controller
     public function api()
     {
         $publishers = Publisher::with('books')->latest()->get();
-        $datatables = datatables()->of($publishers)->addIndexColumn();
+        $datatables = datatables()->of($publishers)->addColumn('date', function($publisher){
+                                                                return form_tang($publisher->created_at);
+                                                              })->addIndexColumn();
 
         return $datatables->make(true);
     }
