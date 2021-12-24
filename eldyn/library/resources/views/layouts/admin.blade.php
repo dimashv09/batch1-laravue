@@ -237,6 +237,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<!-- SA2 -->
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<!-- ChartJS -->
+		<script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
 		@yield('js')
 	</body>
 </html>
