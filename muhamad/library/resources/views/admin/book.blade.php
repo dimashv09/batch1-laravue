@@ -52,7 +52,7 @@
                         <input type="hidden" name="_method" value="PUT" v-if="isEdit">
 
                         <div class="form-group">
-                            <label for="isbn">isbn</label>
+                            <label for="isbn">ISBN</label>
                             <input type="number" class="form-control form-control-sm" id="isbn"
                                 placeholder="Enter Book's ISBN" name="isbn" required :value="book.isbn">
                         </div>

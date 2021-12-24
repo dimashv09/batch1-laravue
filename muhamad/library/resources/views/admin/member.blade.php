@@ -35,7 +35,19 @@
 
             <div class="card">
                 <div class="card-header">
-                    <a href="#" @click="addData()" class="btn btn-primary">Add new Member</a>
+                    <div class="row">
+                        <div class="col-10">
+                            <a href="#" @click="addData()" class="btn btn-primary">Add new Member</a>
+                        </div>
+                        <div class="col-2">
+                            <select class="form-control" name="filter">
+                                <option value="">--Filter--</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="card-body p-3">
                     <table id="dataTable" class="table table-striped table-bordered text-center w-100">
@@ -176,5 +188,18 @@
 
 <!-- CRUD VueJs -->
 <script src="{{ asset("js/data.js") }}"></script>
+
+<!-- Gender's Filter Script -->
+<script>
+    $('select[name=filter]').on('change', function() {
+        gender = $('select[name=filter]').val();
+
+        if (gender == '') {
+            controller.table.ajax.url(apiUrl).load()
+        } else {
+            controller.table.ajax.url(`${apiUrl}?gender=${gender}`).load()
+        }
+    })
+</script>
 
 @endsection
