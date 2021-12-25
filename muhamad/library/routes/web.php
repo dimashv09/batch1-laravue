@@ -8,6 +8,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +59,7 @@ Route::get('/api/books', [BookController::class, 'api']);
 
 // Dashboard's Route
 Route::resource('dashboard', DashboardController::class);
+
+// Transaction's Route
+Route::resource('transactions', TransactionController::class);
+Route::get('/api/transactions', [TransactionController::class, 'api']);

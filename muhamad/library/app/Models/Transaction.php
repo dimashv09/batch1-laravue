@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
+    protected $with = ['transactionDetails'];
 
     // Get the Member that owns the Transaction
     public function member()
@@ -16,8 +17,8 @@ class Transaction extends Model
     }
 
     // Get the Transaction Detail for the Transaction
-    public function transactionDeatils()
+    public function transactionDetails()
     {
-        return $this->hasMany(TransactionDeatil::class, 'transaction_id');
+        return $this->hasMany(TransactionDetail::class, 'transaction_id');
     }
 }

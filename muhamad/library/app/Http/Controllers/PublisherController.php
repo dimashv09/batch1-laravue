@@ -26,10 +26,10 @@ class PublisherController extends Controller
     {
         $publishers = Publisher::all();
 
-        // Insert data using Yajra DataTable instead of PHP deceraltion
+        // Insert data using Yajra DataTable instead of PHP Syntax
         $datatables = datatables()->of($publishers)
-            ->addColumn('date', function ($author) {
-                return convertDate($author->created_at);
+            ->addColumn('date', function ($publisher) {
+                return convertDate($publisher->created_at);
             })->addIndexColumn();
 
         return $datatables->make(true);

@@ -99,7 +99,6 @@
                                 <option :selected="data.gender == 'M'" value="M">Male</option>
                                 <option :selected="data.gender == 'F'" value="F">Female</option>
                             </select>
-
                             @error('gender')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
