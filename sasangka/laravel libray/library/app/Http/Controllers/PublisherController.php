@@ -19,7 +19,8 @@ class PublisherController extends Controller
     public function index()
     {
         $publishers = Publisher::all();
-        return view('admin.Publisher.index');
+         //return $publishers; //cek data DB
+        return view('admin.Publisher.index',compact('publishers'));
     }
 
     public function api()
