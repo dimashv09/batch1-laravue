@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('member_id')->nullable()->constrained()->nullOnDelete();
             $table->date('start');
             $table->date('end');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

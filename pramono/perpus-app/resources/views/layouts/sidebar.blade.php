@@ -39,6 +39,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{url('/transaction')}}" class="nav-link {{ request()->is('transaction') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-shopping-cart"></i>
+                    <p>Peminjaman</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{url('/member')}}" class="nav-link {{ request()->is('member') ? 'active' : '' }}">
                     <i class="fas fa-id-card-alt nav-icon"></i>
                     <p>Anggota</p>

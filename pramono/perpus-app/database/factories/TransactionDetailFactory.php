@@ -22,7 +22,7 @@ class TransactionDetailFactory extends Factory
         return [
             'transaction_id' => $this->faker->numberBetween($firstTrc->id, $lastTrc->id),
             'book_id' => $this->faker->numberBetween($fisrtBook->id, $lastBook->id),
-            'qty' => $this->faker->numberBetween(1, 30)
+            'qty' => 1
         ];
     }
 }

@@ -33,10 +33,9 @@ class Book extends Model
 
     // satu buku dapat dipinjam berkali-kali
         # many to many
-    public function transaction()
+    public function transactions()
     {
-        return $this->belongsToMany(Transaction::class, 'transaction_details');
+        return $this->belongsToMany(Transaction::class, 'transaction_details')->withPivot('qty');
     }
-
 
 }

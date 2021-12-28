@@ -9,17 +9,15 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    // transaksi ini milik anggota ...
-        # many to one
+    protected $guarded=[];
+
     public function member()
     {
         return $this->belongsTo(Member::class);
     }
 
-    // transaksi memiliki banyak detail transaksi
-        # many to many
-    public function book()
+    public function books()
     {
-        return $this->belongsToMany(Book::class, 'transaction_details');
+        return $this->belongsToMany(Book::class, 'transaction_details')->withPivot('qty');
     }
 }

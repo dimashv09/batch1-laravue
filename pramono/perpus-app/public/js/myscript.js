@@ -25,6 +25,7 @@ var app = new Vue({
                 })
                 .on("xhr", function () {
                     _this.datas = _this.table.ajax.json().data;
+                    console.log(_this.datas);
                 });
         },
         store() {

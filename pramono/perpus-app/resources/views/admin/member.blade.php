@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-sm table-bordered text-center" id="publishers">
+                    <table class="table table-sm table-bordered text-center">
                         <thead>
                           <tr>
                             <th>No</th>

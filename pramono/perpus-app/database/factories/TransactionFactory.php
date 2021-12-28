@@ -19,7 +19,8 @@ class TransactionFactory extends Factory
         return [
             'member_id' => $this->faker->numberBetween($fisrtMember->id, $lastMember->id),
             'start' => $this->faker->date(),
-            'end' => $this->faker->date()
+            'end' => $this->faker->date(),
+            'status' => $this->faker->boolean(),
         ];
     }
 }
