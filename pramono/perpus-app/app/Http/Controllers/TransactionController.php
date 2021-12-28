@@ -147,9 +147,10 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
+
         $members = $this->members;
-        $books = $this->books;
-        return view('admin.transactions.edit', compact('transaction', 'members', 'books'));
+        $buku = $this->books;
+        return view('admin.transactions.edit', compact('transaction', 'members', 'buku'));
     }
 
     /**
@@ -161,6 +162,14 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
+         // lakukan validasi request
+         $request->validate([
+            'member_id' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'book_id' => 'required',
+        ]);
+
         dd($request->all());
     }
 

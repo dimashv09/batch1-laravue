@@ -64,11 +64,14 @@
                             @enderror
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label>Buku</label>
                         <select class="select2" multiple="multiple" data-placeholder="Masukan Buku" style="width: 100%;" name="book_id[]" id="select-books">
-                            @foreach ($books as $book)
-                                <option value="{{$book->id}}" class="option-books">{{$book->title}}</option>
+                            @foreach ($buku as $b)
+                                <option value="{{$b->id}}" class="option-books" {{ select_m2m($b->id, 'book_id', $transaction, $transaction->books->pluck('id')) }}>
+                                    {{$b->title}}
+                                </option>
                             @endforeach
                         </select>
                         @error('book_id')
