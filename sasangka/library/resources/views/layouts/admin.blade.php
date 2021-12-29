@@ -139,7 +139,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('Publishers/') }}" class="nav-link {{ (request()->is('Publisher')) ? 'active' : '' }}">
+              <a href="{{ url('publishers/') }}" class="nav-link {{ (request()->is('publisher')) ? 'active' : '' }}">
                 <i class="fas fa-handshake"></i>
                 <p>Publisher</p>
               </a>
