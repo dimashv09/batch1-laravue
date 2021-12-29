@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -45,3 +45,6 @@ Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 
 //Member
 Route::resource('members', MemberController::class);
 Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
+
+// dashboard
+Route::resource('dashboard', DashboardController::class);
