@@ -21,8 +21,8 @@ Auth::routes();
 //home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 //publisher
-Route::get('/Publishers', [App\Http\Controllers\PublisherController::class, 'index']);
-Route::get('/Publishers/create',[App\Http\Controllers\PublisherController::class, 'create']);
+Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
+Route::get('/publishers/create',[App\Http\Controllers\PublisherController::class, 'create']);
  
 //author
 Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);

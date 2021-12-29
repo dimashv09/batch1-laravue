@@ -20,7 +20,7 @@ class PublisherController extends Controller
     {
         $publishers = Publisher::all();
          //return $publishers; //cek data DB
-        return view('admin.Publisher.index',compact('publishers'));
+        return view('admin.publisher.index',compact('publishers'));
     }
 
     public function api()
