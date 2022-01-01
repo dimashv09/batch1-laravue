@@ -1,7 +1,6 @@
 @extends('layouts.admin')
-@section('title', 'Publishers')
-@section('wrapper-title', 'Publishers - create')
-
+@section('title', 'Publisher')
+@section('wrapper-title', 'Publisher - Edit')
 @section('content')
 	<div class="container">
 		<div class="row">
@@ -14,7 +13,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="name">Publisher's Name</label>
-									<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Lorem Ipsum" required>
+									<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="isi nama anda" required>
 									@error('name')
 										<div class="alert alert-danger">{{ $message }}</div>
 									@enderror

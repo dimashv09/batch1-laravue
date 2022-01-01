@@ -20,16 +20,26 @@ Route::get('/', function () {
 Auth::routes();
 //home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+
 //publisher
 Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
 Route::get('/publishers/create',[App\Http\Controllers\PublisherController::class, 'create']);
- 
+Route::post('/publishers') [App\Http\Controllers\PublisherController::class, 'store']);
+Route::get('/publishers/{publisher}/edit')[App\Http\Controllers\PublisherController::class,'edit']);
+Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update']);
+Route::delete('/publisher/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy']);
+
+
 //author
 Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
+
 //books
 Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
+
 //member
 Route::get('/members', [App\Http\Controllers\MemberController::class, 'index']);
+
+
 //catalog
 Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
 Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']);

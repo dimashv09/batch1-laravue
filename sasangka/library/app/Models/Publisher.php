@@ -9,8 +9,10 @@ class Publisher extends Model
 {
     use HasFactory;
 
-    public function books()
-    {
-    	return $this->hasMany('App\Models\Book','publisher_id');
-    }
+//cara ke 2 create data
+protected $fillable = ['name', 'phone_number', 'email', 'address'];
+
+	public function books() {
+		return $this->hasMany(Book::class, 'publisher_id');
+	}
 }

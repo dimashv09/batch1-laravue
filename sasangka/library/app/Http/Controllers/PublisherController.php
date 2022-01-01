@@ -18,17 +18,17 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publishers = Publisher::all();
+        $publishers = publisher::all();
          //return $publishers; //cek data DB
         return view('admin.publisher.index',compact('publishers'));
     }
 
     public function api()
     {
-        $publishers = Publisher::all();
-        $datatables = datatables()->of($publishers)->addIndexColumn();
+        // $publishers = publisher::all();
+        // $datatables = datatables()->of($publishers)->addIndexColumn();
 
-        return $datatables->make(true);
+        // return $datatables->make(true);
     }
 
     /**
@@ -38,7 +38,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.publisher.create');
     }
 
     /**
@@ -82,7 +82,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        //
+         return view('admin.publisher.edit', compact('publisher'));
     }
 
     /**
@@ -94,7 +94,7 @@ class PublisherController extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        //Validation data
+        Validation data
         $validator = $request->validate([
             'name' => 'required|min:3|max:32',
             'email' => "required|email:dns|unique:publishers,email,{$publisher->id}",
@@ -102,7 +102,7 @@ class PublisherController extends Controller
             'address' => 'required'
         ]);
 
-        // Insert validated data into database
+        Insert validated data into database
         $publisher->update($validator);
 
         return redirect('publishers')->with('success', 'publisher data has been Updated');
@@ -116,7 +116,7 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        // Delete data with specific ID
+        Delete data with specific ID
         $publisher->delete();
 
         return redirect('publishers')->with('success', 'Publisher data has been Deleted');

@@ -131,7 +131,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('catalogs/create') }}" class="nav-link {{ (request()->is('catalogs')) ? 'active' : '' }}">
+              <a href="{{ url('catalogs') }}" class="nav-link {{ (request()->is('catalogs')) ? 'active' : '' }}">
                 <i class="fas fa-door-closed"></i>
                 <p>Catalog</p>
               </a>

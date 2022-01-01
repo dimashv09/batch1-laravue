@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('title', 'Publishers')
-@section('wrapper-title', 'Publishers')
+@section('title', 'Publisher')
+@section('wrapper-title', 'Publisher - Edit')
 
 @section('css')
     <!-- DataTables -->
