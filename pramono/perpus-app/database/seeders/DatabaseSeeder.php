@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
             WriterSeeder::class,
             BookSeeder::class,
             TransactionSeeder::class,
-            TransactionDetailSeeder::class,
         ]);
 
     }

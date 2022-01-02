@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Member;
 use App\Models\Transaction;
-use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -33,14 +31,22 @@ class TransactionController extends Controller
 
     public function getData(Request $request)
     {
-        $transactions = Transaction::all();
-
+        if ( $request->status) {
+            $status = ($request->status == 'selesai') ? boolval(1) : boolval(0) ;
+            $transactions = Transaction::where('status',  $status )->get();
+        } elseif ($request->start_date) {
+            $transactions = Transaction::whereDate('start', $request->start_date)->get();
+        } else {
+            $transactions = Transaction::orderBy('id', 'desc')->get();
+        }
+        // dump($request->status);
         $datatables = Datatables::of($transactions)
                     ->addColumn('action', function($transactions) {
-                        $button = '<a href="'.route('transaction.edit', ['transaction' => $transactions->id] ).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
-                        $button .= '<a href="'.url('transaction/'. $transactions->id).'" class="btn mx-1 btn-xs btn-info"><i class="glyphicon glyphicon-show"></i> Detail</a>';
-                        $button .= '<a href="#" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
-                        return $button;
+                        $btnEdit = '<a href="'.route('transaction.edit', ['transaction' => $transactions->id] ).'" class="btn btn-xs btn-primary">Edit</a>';
+                        $btnDetail = '<a href="'.url('transaction/'. $transactions->id).'" class="btn mx-1 btn-xs btn-info">Detail</a>';
+                        $btnDelete = "<a href='#' onclick='app.destroy(event, $transactions->id)' class='btn btn-xs btn-danger'> Delete</a>";
+
+                        return $btnEdit . $btnDetail . $btnDelete;
                     })
                     ->addColumn('member', function($transactions) {
                         return $transactions->member->name;
@@ -63,10 +69,11 @@ class TransactionController extends Controller
                         return custom_date($transactions->end);
                     })
                     ->editColumn('status', function($transactions) {
-                        $status = ($transactions->status == 1) ? "sudah dikembalikan" : "belum dikembalikan" ;
+                        $status = ($transactions->status == 1) ? "selesai" : "dalam proses" ;
                         return $status;
                     })
                     ->removeColumn(['member_id', 'created_at', 'updated_at'])
+                    ->addIndexColumn()
                     ->make(true);
 
         return $datatables;
@@ -170,7 +177,36 @@ class TransactionController extends Controller
             'book_id' => 'required',
         ]);
 
-        dd($request->all());
+
+        // input data dari request yang dikirimkan
+        # mengisi tabel utama (transactions tabel)
+        $transaction->start = date('Y-m-d', strtotime($request->start));
+        $transaction->end = date('Y-m-d', strtotime($request->end));
+        $transaction->member_id = $request->member_id;
+        $transaction->status = $request->status;
+        $transaction->update();
+
+        $transaction->refresh();
+        # isi tabel pivot (transaction_details)
+        // isi kolom book_id dengan request (book_id) yang dikirimkan berserta dengan kolm qty dengan nilai 1.
+        $transaction->books()->syncWithPivotValues($request->book_id, ['qty' => 1]);
+        // syncWithPivotValues($array_value, ['pivot' => value]) berfungsi untuk menghapus record transaksi terkait di tabel pivot dan menggantinya dengan yang data yang baru
+
+        // update stock buku
+        foreach ($request->book_id as $id) {
+            $book = Book::find($id); // ambil data buku yang ID-nya = nilai ke-n dalam pengulangan ini.
+            if ($request->status == 1) {
+                # code...
+                $book->stock += 1; // ubah data pada kolom stok dengan - 1
+            } else {
+                # code...
+                $book->stock -= 1; // ubah data pada kolom stok dengan - 1
+            }
+            $book->update(); // simpan data
+        }
+
+        return redirect('transaction')->with('success', 'Yeeaayy, Data Berhasil Diubah');
+
     }
 
     /**
@@ -181,6 +217,8 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->books()->detach();
+        $transaction->delete();
+        return response()->json($transaction);
     }
 }

@@ -13,13 +13,13 @@ class TransactionFactory extends Factory
      */
     public function definition()
     {
-        $fisrtMember = \App\Models\Member::orderBy('id', 'asc')->first();
-        $lastMember = \App\Models\Member::orderBy('id', 'desc')->first();
+        $first_member = \App\Models\Member::all()->first()->id;
+        $last_member = \App\Models\Member::all()->last()->id;
 
         return [
-            'member_id' => $this->faker->numberBetween($fisrtMember->id, $lastMember->id),
-            'start' => $this->faker->date(),
-            'end' => $this->faker->date(),
+            'member_id' => $this->faker->numberBetween($first_member, $last_member),
+            'start' => $this->faker->dateTimeBetween('-4 days', 'now'),
+            'end' => $this->faker->dateTimeBetween('now', '+3 days'),
             'status' => $this->faker->boolean(),
         ];
     }

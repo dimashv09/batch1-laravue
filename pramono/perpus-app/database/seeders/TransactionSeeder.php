@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Book;
 use Illuminate\Database\Seeder;
 
 class TransactionSeeder extends Seeder
@@ -13,6 +14,12 @@ class TransactionSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Transaction::factory()->count(5)->create();
+        \App\Models\Transaction::factory()
+                        ->hasAttached(
+                            Book::factory()->count(2),
+                            ['qty' => 1]
+                        )
+                        ->count(6)
+                        ->create();
     }
 }

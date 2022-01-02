@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{route('transaction.index')}}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
             </div>
         </div>
     </div>

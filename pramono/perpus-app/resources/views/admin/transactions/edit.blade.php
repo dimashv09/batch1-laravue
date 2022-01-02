@@ -10,7 +10,7 @@
     <div class="col-sm-8">
         <div class="card">
             <div class="card-header bg-primary">
-                <h4 class="card-title">Tambah Peminjaman Baru</h4>
+                <h4 class="card-title">Edit Peminjaman</h4>
             </div>
             <div class="card-body">
                 <form action="{{route('transaction.update', $transaction )}}" method="POST">
@@ -21,7 +21,7 @@
                       <select class="form-control @error('member_id') is-invalid @enderror" name="member_id" id="member_id">
                           <option value="">--Pilih--</option>
                           @foreach ($members as $member)
-                          <option value="{{$member->id}}" @if ($transaction->member->id = $member->id)
+                          <option value="{{$member->id}}" @if ($transaction->member_id == $member->id)
                               selected
                           @endif>{{$member->name}}</option>
                           @endforeach
@@ -36,12 +36,7 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group">
-                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" name="start" value="{{date('d/m/Y', strtotime($transaction->start))}}"/>
-                                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                    </div>
-                                </div>
+                                <input type="date" name="start" id="start" class="form-control" value="{{$transaction->start}}">
                             </div>
                             @error('start')
                                 <small class="text-danger">{{$message}}</small>
@@ -52,19 +47,13 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group">
-                                <div class="input-group date" id="reservationdate2" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate2" name="end" value="{{date('d/m/Y', strtotime($transaction->end))}}"/>
-                                    <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                    </div>
-                                </div>
+                                <input type="date" name="end" id="end" class="form-control" value="{{$transaction->end}}">
                             </div>
                             @error('end')
                                 <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label>Buku</label>
                         <select class="select2" multiple="multiple" data-placeholder="Masukan Buku" style="width: 100%;" name="book_id[]" id="select-books">
@@ -93,7 +82,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Ubah</button>
                         <a href="{{route('transaction.index')}}" class="btn btn-secondary">Batal</a>
                     </div>
                 </form>
@@ -104,8 +93,6 @@
 @endsection
 
 @section('css')
-<!-- daterange picker -->
-<link rel="stylesheet" href="{{asset('vendor/plugins/daterangepicker/daterangepicker.css')}}">
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{asset('vendor/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
 <!-- Bootstrap Color Picker -->
@@ -132,10 +119,6 @@
 <!-- InputMask -->
 <script src="{{asset('vendor/plugins/moment/moment.min.js')}}"></script>
 <script src="{{asset('vendor/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
-<!-- date-range-picker -->
-<script src="{{asset('vendor/plugins/daterangepicker/daterangepicker.js')}}"></script>
-<!-- bootstrap color picker -->
-<script src="{{asset('vendor/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{{asset('vendor/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 <!-- Bootstrap Switch -->
@@ -155,59 +138,6 @@
     //Initialize Select2 Elements
     $('.select2bs4').select2({
       theme: 'bootstrap4'
-    })
-
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date picker start
-    $('#reservationdate').datetimepicker({
-        format: 'L'
-    });
-    //Date picker end
-    $('#reservationdate2').datetimepicker({
-        format: 'L'
-    });
-
-    //Date and time picker
-    $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
-
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'MM/DD/YYYY hh:mm A'
-      }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-    //Timepicker
-    $('#timepicker').datetimepicker({
-      format: 'LT'
     })
 
     //Bootstrap Duallistbox

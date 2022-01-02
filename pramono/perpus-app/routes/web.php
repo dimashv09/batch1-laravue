@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,4 +47,3 @@ Route::middleware('auth')->group(function(){
     Route::get('get/book', [\App\Http\Controllers\BookController::class, 'getData']);
     Route::get('get/transaction', [\App\Http\Controllers\TransactionController::class, 'getData']);
 });
-
