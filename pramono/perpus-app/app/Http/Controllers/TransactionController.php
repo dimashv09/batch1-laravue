@@ -35,7 +35,7 @@ class TransactionController extends Controller
             $status = ($request->status == 'selesai') ? boolval(1) : boolval(0) ;
             $transactions = Transaction::where('status',  $status )->get();
         } elseif ($request->start_date) {
-            $transactions = Transaction::whereDate('start', $request->start_date)->get();
+            $transactions = Transaction::whereBetween('start', [$request->start_date, $request->end_date])->get();
         } else {
             $transactions = Transaction::orderBy('id', 'desc')->get();
         }

@@ -26,7 +26,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-2 text-center">
+                        <div class="col-2">
                             <label for="status" class="form-label">Status :</label>
                             <select class="form-control" name="status" id="status" v-on:change="filterStatus()" v-model="status">
                               <option value="all">Semua</option>
@@ -36,12 +36,23 @@
                         </div>
 
                         <div class="col-3">
-                            <!-- Date -->
+                             <!-- Date range -->
                             <div class="form-group">
-                                <label>Tanggal Pinjam :</label>
-                                <input type="date" name="" id="tanggal" class="form-control" v-on:change="filterTanggal()" v-model="start_date">
+                                <label>Tanggal Pinjam</label>
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control float-right" id="reservation">
+                                </div>
+                                <!-- /.input group -->
                             </div>
+                            <!-- /.form group -->
                         </div>
+
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -107,6 +118,7 @@
     <script src="{{asset('vendor/plugins/daterangepicker/daterangepicker.js')}}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{asset('vendor/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+
     {{-- manual script --}}
     <script>
         // api and crud variables for ajaxs
@@ -130,12 +142,20 @@
             data: {
                 status: "",
                 action,
+                fromdate: "",
+                todate: "",
                 start_date: "",
                 message: "",
             },
             mounted: function () {
                 this.datatable();
-                $('#reservationdate').datetimepicker({ format: 'L' });
+                $('#reservation').daterangepicker();
+                $('#reservation').on('apply.daterangepicker', function(ev, picker)
+                    {   const _this = this;
+                        startdate=picker.startDate.format('YYYY-MM-DD');
+                        enddate=picker.endDate.format('YYYY-MM-DD');
+                        app.filterOnDate(startdate, enddate);
+                    });
             },
             methods: {
                 datatable() {
@@ -172,10 +192,10 @@
                         this.table.ajax.url(api + '?status=' + this.status ).load();
                     }
                 },
-                filterTanggal() {
-                    this.table.ajax.url(api + '?start_date=' + this.start_date ).load();
+                filterOnDate(start, end) {
+                    this.table.ajax.url(api + '?start_date=' + start + '&end_date=' + end ).load();
                 }
-            },
+            }
         });
 
 
