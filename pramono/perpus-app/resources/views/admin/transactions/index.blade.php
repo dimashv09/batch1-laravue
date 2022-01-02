@@ -34,11 +34,10 @@
                               <option value="belum">Dalam Proses</option>
                             </select>
                         </div>
-
                         <div class="col-3">
                              <!-- Date range -->
                             <div class="form-group">
-                                <label>Tanggal Pinjam</label>
+                                <label>Tanggal Pinjam :</label>
                                 <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -51,8 +50,6 @@
                             </div>
                             <!-- /.form group -->
                         </div>
-
-
                     </div>
                 </div>
                 <div class="card-body">
