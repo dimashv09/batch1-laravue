@@ -26,7 +26,14 @@ class TransactionController extends Controller
 
     public function index()
     {
-        return view('admin.transactions.index');
+        if (auth()->user()->can('lihat data peminjaman')) {
+            # code...
+            return view('admin.transactions.index');
+        } else {
+            # code...
+            return abort('403');
+        }
+
     }
 
     public function getData(Request $request)

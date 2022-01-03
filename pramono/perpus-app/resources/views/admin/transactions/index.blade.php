@@ -53,6 +53,7 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @can('lihat data peminjaman')
                     <table class="table table-sm table-bordered table-striped w-100 text-center">
                         <thead>
                           <tr>
@@ -68,6 +69,7 @@
                           </tr>
                         </thead>
                     </table>
+                    @endcan
                 </div>
             </div>
         </div>
