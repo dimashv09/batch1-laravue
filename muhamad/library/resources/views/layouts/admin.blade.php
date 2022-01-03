@@ -68,18 +68,30 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#">
                             <i class="far fa-bell"></i>
-                            <span class="badge badge-warning navbar-badge">10</span>
+                            @if (transactionAlert())
+                            <span class="badge badge-danger navbar-badge">{{ count(transactionAlert()) }}</span>
+                            @endif
                         </a>
+
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <span class="dropdown-item dropdown-header">15 Notifications</span>
+                            <span class="dropdown-item dropdown-header">
+                                Transaction Alerts
+                            </span>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                                <span class="float-right text-muted text-sm">3 mins</span>
+                            @foreach (transactionAlert() as $note)
+                            <a href="{{ route( 'transactions.show', $note['transaction'])}}" class="dropdown-item">
+                                <i class="fas fa-book mr-2"></i> {{ $note["member"] }}
+                                <span class="float-right text-muted text-sm">{{ $note["day_late"] }} Days</span>
                             </a>
 
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                            @endforeach
+                            @if (transactionAlert())
+                            <a href="#" class="dropdown-item dropdown-footer">There's {{ count(transactionAlert()) }}
+                                notification</a>
+                            @else
+                            <a href="#" class="dropdown-item dropdown-footer">There's No notifications</a>
+                            @endif
                         </div>
                     </li>
 
@@ -101,7 +113,6 @@
                     </li>
                 </ul>
             </nav>
-            <!-- /.navbar -->
 
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -206,18 +217,16 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('transactions') }}"
-                                    class="nav-link {{ Request::is('transactions') ? 'active' : '' }}">
+                                    class="nav-link {{ Request::is('transactions*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-cash-register"></i>
                                     <p>
-                                        Translations
+                                        Transactions
                                     </p>
                                 </a>
                             </li>
                         </ul>
                     </nav>
-                    <!-- /.sidebar-menu -->
                 </div>
-                <!-- /.sidebar -->
             </aside>
 
             <!-- Content Wrapper. Contains page content -->

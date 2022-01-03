@@ -29,7 +29,8 @@ class MemberController extends Controller
             $members = Member::all();
         }
 
-        $datatables = datatables()->of($members)
+        $datatables = datatables()
+            ->of($members)
             ->addColumn('date', function ($member) {
                 return convertDate($member->created_at);
             })

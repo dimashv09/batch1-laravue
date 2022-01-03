@@ -150,6 +150,7 @@ class HomeController extends Controller
             ->get();
 
         // return $data20;
+        // return transactionAlert();
         return view('home');
     }
 }
