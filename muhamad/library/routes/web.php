@@ -30,12 +30,12 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
 // Start Catalog's Routes (Old)
-// Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']); // Show main page
-// Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']); // show create page
-// Route::post('/catalogs', [App\Http\Controllers\CatalogController::class, 'store']); // store data
-// Route::get('/catalogs/{catalog}/edit', [App\Http\Controllers\CatalogController::class, 'edit']); // show edit page
-// Route::put('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'update']); // update data
-// Route::delete('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'destroy']); // delete data
+// Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']); //? Show main page
+// Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']); //? show create page
+// Route::post('/catalogs', [App\Http\Controllers\CatalogController::class, 'store']); //? store data
+// Route::get('/catalogs/{catalog}/edit', [App\Http\Controllers\CatalogController::class, 'edit']); //? show edit page
+// Route::put('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'update']); //? update data
+// Route::delete('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'destroy']); //? delete data
 // End Catalog's Routes
 
 // Catalog's Route (New)
@@ -63,3 +63,4 @@ Route::resource('dashboard', DashboardController::class);
 // Transaction's Route
 Route::resource('transactions', TransactionController::class);
 Route::get('/api/transactions', [TransactionController::class, 'api']);
+Route::get('spaties', [TransactionController::class, 'setRole']);

@@ -215,6 +215,7 @@
                                     </p>
                                 </a>
                             </li>
+                            @role('admin')
                             <li class="nav-item">
                                 <a href="{{ url('transactions') }}"
                                     class="nav-link {{ Request::is('transactions*') ? 'active' : '' }}">
@@ -224,6 +225,7 @@
                                     </p>
                                 </a>
                             </li>
+                            @endrole
                         </ul>
                     </nav>
                 </div>
@@ -253,7 +255,7 @@
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">
-                <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+                <strong>Copyright &copy; 2021-2022 <a href="#">Library Task | Laravue Eduwork</a>.</strong>
                 All rights reserved.
                 <div class="float-right d-none d-sm-inline-block">
                     <b>Version</b> 3.1.0
