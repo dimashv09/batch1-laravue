@@ -13,6 +13,6 @@ class Catalog extends Model
 	//cara ke 2 create data
 
 	public function books() {
-		return $this->hasMany(Book::class, 'catalog_id');
+		return $this->hasMany('App\Models\Book','catalog_id');
 	}
 }

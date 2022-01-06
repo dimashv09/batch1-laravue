@@ -36,10 +36,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Dashboard</a>
+      
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">kontak</a>
+        
       </li>
       </ul>
 
@@ -139,7 +139,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('publishers/') }}" class="nav-link {{ (request()->is('publisher')) ? 'active' : '' }}">
+              <a href="{{ url('publishers') }}" class="nav-link {{ (request()->is('publisher')) ? 'active' : '' }}">
                 <i class="fas fa-handshake"></i>
                 <p>Publisher</p>
               </a>

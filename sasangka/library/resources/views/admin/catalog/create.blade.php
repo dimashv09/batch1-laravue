@@ -1,6 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'catalogs')
-@section('wrapper-title', 'catalogs - Create')
+@section('title', 'Catalog')
 
 @section('content')
 	<div class="row">
@@ -13,7 +12,7 @@
               </div>
              
               <form action="{{	url('catalogs')}}"method="post">
-              	@csrf
+                @csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for=>Name</label>

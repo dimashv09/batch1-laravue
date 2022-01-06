@@ -31,7 +31,7 @@
 		</div>
     </div>
 	<!-- Modal create -->
-	<div class="modal fade" id="modal-crud">
+	<!-- <div class="modal fade" id="modal-crud">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -49,7 +49,7 @@
 								<label for="name">isbn</label>
 								<input type="number" name="isbn" class="form-control @error('isbn') is-invalid @enderror" placeholder="ISBN" :value="singleBook.isbn">
 								@error('isbn')
-									<div class="text-danger mt-1">*{{ $message }}</div>
+									<div class="text-danger mt-1">*{{ $message }}</div> -->
 								@enderror
 							</div>
 							<div class="form-group">

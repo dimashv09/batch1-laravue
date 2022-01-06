@@ -7,21 +7,20 @@ use Illuminate\Http\Request;
 
 class CatalogController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
-       $catalogs = Catalog::all();
-
-       // return $catalogs; tes data dr database
-       return view('admin.catalog.index',compact('catalogs'));
+        $catalogs = Catalog::with('books')->get();
+        return view('admin.catalog.catalog', compact('catalogs'));
     }
 
     /**
@@ -41,24 +40,16 @@ class CatalogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-        //keamaanan this
-        $this->validate($request,[
-            'name'      =>['required'],
-        ]);
-
-        // $catalog = new Catalog;
-        // $catalog->name = $request->name;
-        // $catalog->save();
-        //cara save data 1
-
+    {
+       // $catalog = new Catalog;
+       // $catalog->name = $request->name;
+       // $catalog->save();
+        
         Catalog::create($request->all());
-        // cara ke 2 diatas lebih simpel jgn lupa tambahkan proteec filabe di model catalog
 
-        return redirect ('catalogs');
-
+       return redirect('catalog');
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -69,7 +60,7 @@ class CatalogController extends Controller
     {
         //
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -80,7 +71,7 @@ class CatalogController extends Controller
     {
         return view('admin.catalog.edit', compact('catalog'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -90,16 +81,15 @@ class CatalogController extends Controller
      */
     public function update(Request $request, Catalog $catalog)
     {
-         $this->validate($request,[
-            'name'      =>['required'],
+        $this->validate($request, [
+            'name' => ['required',]
         ]);
 
-        $catalogs->update($request->all());
-        
+        $catalog->update($request-> all());
 
-        return redirect ('catalogs');
+        return redirect('catalogs');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -108,9 +98,7 @@ class CatalogController extends Controller
      */
     public function destroy(Catalog $catalog)
     {
-        // Catalog::destroy($catalog->id);
-        $catalog->delete(); // Delete data with specific ID
-
-        return redirect('catalogs')->with('success', 'Catalog has been Deleted');
+        $catalog->delete();
+        return redirect('catalogs');
     }
 }

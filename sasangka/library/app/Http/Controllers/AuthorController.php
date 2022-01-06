@@ -12,10 +12,32 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
+    
     public function index()
     {
-        $authors = Author::all();
-        return view ('admin.author.index') ;
+         $author = Author::all();
+
+        return view('admin.author.author');compact('authors'));
+    }
+
+    public function api() {
+        
+        //$authors = Author::all();
+
+        // foreach($authors as $key => $author) {
+        //  $author->date = convert_date($author->created_at);
+        // }
+
+        //$datatables = datatables()->of($authors)
+                    // ->addColumn('date', function($author) {
+                    //     return convert_date($author->created_at);
+                    // })->addIndexColumn();
+
+        // return $datatables->make(true);
     }
 
     /**
@@ -36,7 +58,14 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => ['required', 'min:3'],
+            'phone_number' => ['required', 'min:10'],
+            'email' => ['required', 'email', 'unique:publishers'],
+            'address' => ['required']
+        ]);
+        Author::create($request->all());
+        return redirect('authors');
     }
 
     /**
@@ -70,7 +99,14 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $this->validate($request, [
+            'name' => ['required', 'min:3'],
+            'phone_number' => ['required', 'min:10'],
+            'email' => ['required', 'email', 'unique:publishers,email,'.$author->id],
+            'address' => ['required']
+        ]);
+        $author->update($request->all());
+        return redirect('authors');
     }
 
     /**
@@ -81,6 +117,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+        return redirect('authors');
     }
 }

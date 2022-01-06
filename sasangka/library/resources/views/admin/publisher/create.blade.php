@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title', 'Publisher')
-@section('wrapper-title', 'Publisher - Edit')
+@section('wrapper-title', 'Publisher - Create')
 @section('content')
 	<div class="container">
 		<div class="row">

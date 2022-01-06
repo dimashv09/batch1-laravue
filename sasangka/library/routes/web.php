@@ -22,16 +22,16 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
 //publisher
-Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
-Route::get('/publishers/create',[App\Http\Controllers\PublisherController::class, 'create']);
-Route::post('/publishers') [App\Http\Controllers\PublisherController::class, 'store']);
-Route::get('/publishers/{publisher}/edit')[App\Http\Controllers\PublisherController::class,'edit']);
-Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update']);
-Route::delete('/publisher/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy']);
-
+Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index'])->name('Publishers');
+Route::get('/publishers/create', [App\Http\Controllers\PublisherController::class, 'create'])->name('Publisher Create');
+Route::post('/publishers', [App\Http\Controllers\PublisherController::class, 'store'])->name('Publisher Store');
+Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherController::class, 'edit'])->name('Publisher Edit');
+Route::patch('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update'])->name('Publisher Update');
+Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy'])->name('Publisher Delete');
 
 //author
 Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
+
 
 //books
 Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);

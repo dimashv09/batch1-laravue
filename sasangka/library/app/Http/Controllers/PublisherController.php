@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,17 +14,9 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publishers = publisher::all();
-         //return $publishers; //cek data DB
-        return view('admin.publisher.index',compact('publishers'));
-    }
-
-    public function api()
-    {
-        // $publishers = publisher::all();
-        // $datatables = datatables()->of($publishers)->addIndexColumn();
-
-        // return $datatables->make(true);
+        return view('admin.publisher.index');
+        $publishers = Publisher::all();
+        return view('admin.publisher.index', compact('publishers'));
     }
 
     /**
@@ -49,18 +37,7 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation data
-        $validator = $request->validate([
-            'name' => 'required|min:3|max:32',
-            'email' => 'required|unique:publishers',
-            'phone_number' => 'required|unique:publishers|min:12|max:15',
-            'address' => 'required'
-        ]);
-
-        // Insert validated data into database
-        Publisher::create($validator);
-
-        return redirect('publishers')->with('success', 'New publisher data has been Added');
+        //
     }
 
     /**
@@ -82,7 +59,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-         return view('admin.publisher.edit', compact('publisher'));
+        return view('admin.publisher.edit', compact('publisher'));
     }
 
     /**
@@ -94,18 +71,7 @@ class PublisherController extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        Validation data
-        $validator = $request->validate([
-            'name' => 'required|min:3|max:32',
-            'email' => "required|email:dns|unique:publishers,email,{$publisher->id}",
-            'phone_number' => "required|unique:publishers,phone_number,{$publisher->id}|min:12|max:15",
-            'address' => 'required'
-        ]);
-
-        Insert validated data into database
-        $publisher->update($validator);
-
-        return redirect('publishers')->with('success', 'publisher data has been Updated');
+         return redirect('publishers')->with('success', 'publisher has been Updated');
     }
 
     /**
@@ -116,9 +82,6 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        Delete data with specific ID
-        $publisher->delete();
-
-        return redirect('publishers')->with('success', 'Publisher data has been Deleted');
+        //
     }
 }
