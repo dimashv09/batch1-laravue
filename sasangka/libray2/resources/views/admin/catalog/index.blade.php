@@ -7,7 +7,8 @@
 		<div class="row">
 			<div class="card w-100">
 				<div class="card-header">
-					<a href="{{ url('catalogs/create') }}" class="btn btn-sm btn-primary">Create new catalog</a>
+					<a href="{{ url('catalogs/create') }}" 
+					class="btn btn-sm btn-primary">Create new catalog</a>
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body">

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Catalog')
+@section('title','Catalog')
 
 
 @section('content')
@@ -29,5 +29,5 @@
             </div>
            </div>
           </div>
-            <!-- /.card -->
+
 @endsection

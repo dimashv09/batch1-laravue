@@ -41,7 +41,15 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name'=>['required'],
+            'phone_number'=>['required'],
+            'email'=>['required'],
+            'address'=>['required'],
+        ]);
+        
+        Author::create($request->all());
+        return redirect('authors');
     }
 
     /**
