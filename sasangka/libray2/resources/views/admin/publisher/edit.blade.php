@@ -18,6 +18,20 @@
                     <label for=>Name</label>
                     <input type="text"name="name"class="form-control"  placeholder="Enter name
                      " required="" value="{{$publisher->name}}">
+                     <div class="form__group">
+                      <label>Email</label>
+                      <input type="text" class="form-control" placeholder="Enter email name email" value=""required=""  value="{{$publisher->email}}">
+                      <div class="form__group">
+                     </div>
+                      <label>Phone Number</label>
+                      <input type="text" class="form-control" placeholder="Enter email phone_number" name="phone_number" value=""required=""  value="{{$publisher->phone_number}}">
+                      <div class="form__group">
+                     </div>
+                      <label>Address</label>
+                      <input type="text" class="form-control" placeholder="Enter addres" name="address" value=""required=""  value="{{$publisher->addres}}">
+                      <div class="form__group">
+                     </div>
+                  </div>
                   </div>
             
             
