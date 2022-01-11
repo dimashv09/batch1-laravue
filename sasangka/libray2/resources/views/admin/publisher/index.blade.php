@@ -14,8 +14,11 @@
         <div class="row">
             <div class="card w-100 overflow-auto">
                 <div class="card-header">
-                    <a href="#" data-target="#modal-default" data-toggle="modal" class="btn btn-sm btn-primary pull-right">Create new publisher</a>
-                </div>
+                    <a href="{{ url('publishers/create') }}" 
+					class="btn btn-sm btn-primary">Create new Publishers</a>
+                    {{-- <a href="#" data-target="#modal-default" data-toggle="modal" class="btn btn-sm btn-primary pull-right">Create new publisher</a>
+                </div> --}}
+
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="dataTable" class="table table-bordered table-striped w-100">
@@ -43,14 +46,16 @@
                                 <td>{{ $publisher->address }}</td>
                                 <td style="text-align: center">
                                     {{ count($publisher->books) }}</td>
-
-                                
-                                <td class="d-flex" style="gap: .5rem">
-                                    <a href="#" @click="editData({{ $publisher }})"  class="btn btn-sm btn-warning text-white">Edit</a>
-                                    <a href="#" @click="deleteData({{ $publisher->id }})"  class="btn btn-sm btn-danger text-white">Delete</a>
-                                </td>
-                            </tr>   
-                            @endforeach
+                                    <td class="d-flex" style="gap: .5rem">
+                              <a href="{{ url('publishers/'.$publisher->id.'/edit') }}" class="btn btn-sm btn-warning text-white">Edit</a>
+									<form action="{{ url('publishers/'.$publisher->id) }}" method="POST">
+										@csrf
+										@method('delete')
+										<button type="submit" class="btn btn-sm btn-danger text-white" onclick="return confirm('Are you sure want to delete this data?')">Delete</button>
+                                    </form>
+								</td>
+							</tr>	
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -86,12 +91,12 @@
                      <div class="form__group">
                     </div>
                      <label>Address</label>
-                     <input type="text" class="form-control" name="addres" value=""required="">
+                     <input type="text" class="form-control" name="address" value=""required="">
                      <div class="form__group">
                     </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>

@@ -47,12 +47,11 @@ class CatalogController extends Controller
             'name'      =>['required'],
         ]);
         
-
+        //cara save data 1
         // $catalog = new Catalog;
         // $catalog->name = $request->name;
         // $catalog->save();
-        //cara save data 1
-
+        
         Catalog::create($request->all());
         // cara ke 2 diatas lebih simpel jgn lupa tambahkan proteec filabe di model catalog
 

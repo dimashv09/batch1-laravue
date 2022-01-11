@@ -10,14 +10,14 @@
                 <h3 class="card-title">Edit Publisher</h3>
               </div>
              
-              <form action="{{url('catalogs/'.$catalog->id)}}"method="post">
+              <form action="{{url('publisher/'.$publisher->id)}}"method="post">
               	@csrf
               	{{method_field('PUT')}}
                 <div class="card-body">
                   <div class="form-group">
                     <label for=>Name</label>
                     <input type="text"name="name"class="form-control"  placeholder="Enter name
-                     " required="" value="{{$catalog->name}}">
+                     " required="" value="{{$publisher->name}}">
                   </div>
             
             

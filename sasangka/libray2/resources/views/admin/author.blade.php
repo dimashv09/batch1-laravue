@@ -75,12 +75,12 @@
 						 <div class="form__group">
 						</div>
 						 <label>Address</label>
-						 <input type="text" class="form-control" name="addres" value=""required="">
+						 <input type="text" class="form-control" name="address" value=""required="">
 						 <div class="form__group">
 						</div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
 					</div>
 				</form>
 			</div>

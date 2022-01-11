@@ -25,10 +25,10 @@ class PublisherController extends Controller
 
     public function api()
     {
-        $publishers = Publisher::all();
-        $datatables = datatables()->of($publishers)->addIndexColumn();
+        // $publishers = Publisher::all();
+        // $datatables = datatables()->of($publishers)->addIndexColumn();
 
-        return $datatables->make(true);
+        // return $datatables->make(true);
     }
 
     /**
@@ -38,7 +38,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view ('admin.publisher.create');
     }
 
     /**
@@ -49,18 +49,7 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation data
-        $validator = $request->validate([
-            'name' => 'required|min:3|max:32',
-            'email' => 'required|unique:publishers',
-            'phone_number' => 'required|unique:publishers|min:12|max:15',
-            'address' => 'required'
-        ]);
-
-        // Insert validated data into database
-        Publisher::create($validator);
-
-        return redirect('publishers')->with('success', 'New publisher data has been Added');
+        return $request;
     }
 
     /**
@@ -82,7 +71,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        //
+        return view('admin.publisher.edit',compact('publishers'));
     }
 
     /**
@@ -95,17 +84,15 @@ class PublisherController extends Controller
     public function update(Request $request, Publisher $publisher)
     {
         //Validation data
-        $validator = $request->validate([
-            'name' => 'required|min:3|max:32',
-            'email' => "required|email:dns|unique:publishers,email,{$publisher->id}",
-            'phone_number' => "required|unique:publishers,phone_number,{$publisher->id}|min:12|max:15",
-            'address' => 'required'
+        //keamaanan this
+        $this->validate($request,[
+            'name'      =>['required'],
         ]);
+        
+        Publisher::create($request->all());
+        // cara ke 2 diatas lebih simpel jgn lupa tambahkan proteec filabe di model catalog
 
-        // Insert validated data into database
-        $publisher->update($validator);
-
-        return redirect('publishers')->with('success', 'publisher data has been Updated');
+        return redirect ('publishers');
     }
 
     /**

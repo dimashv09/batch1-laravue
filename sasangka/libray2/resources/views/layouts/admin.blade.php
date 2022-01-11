@@ -133,7 +133,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('catalogs/create') }}" class="nav-link {{ (request()->is('catalogs')) ? 'active' : '' }}">
+              <a href="{{ url('catalogs') }}" class="nav-link {{ (request()->is('catalogs')) ? 'active' : '' }}">
                 <i class="fas fa-door-closed"></i>
                 <p>Catalog</p>
               </a>
@@ -141,7 +141,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('publishers/') }}" class="nav-link {{ (request()->is('Publisher')) ? 'active' : '' }}">
+              <a href="{{ url('publishers') }}" class="nav-link {{ (request()->is('Publisher')) ? 'active' : '' }}">
                 <i class="fas fa-handshake"></i>
                 <p>Publisher</p>
               </a>

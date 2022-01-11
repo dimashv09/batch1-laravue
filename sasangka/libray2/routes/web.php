@@ -27,13 +27,14 @@ Route::post('/publishers', [App\Http\Controllers\PublisherControlle::class, 'sto
 Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherControlle::class, 'edit']);
 Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherControlle::class, 'update']);
 Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherControlle::class, 'destroy']);
- 
+
 //author
 // Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
 //books
 Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
 //member
-Route::get('/members', [App\Http\Controllers\MemberController::class, 'index']);
+Route::get('members', [App\Http\Controllers\MemberController::class, 'index']);
+
 //catalog
 // Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
 // Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']);
@@ -44,3 +45,4 @@ Route::get('/members', [App\Http\Controllers\MemberController::class, 'index']);
 
 Route::resource('/catalogs',App\Http\Controllers\CatalogController::class);
 Route::resource('/authors',App\Http\Controllers\AuthorController::class);
+Route::resource('/members', App\Http\Controllers\MemberController::class,);

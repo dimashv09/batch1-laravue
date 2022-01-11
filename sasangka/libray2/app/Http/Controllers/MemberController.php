@@ -65,7 +65,8 @@ class MemberController extends Controller
         $member = new Member();
         $member->create($request->all());
 
-        return response()->json($member);
+        return redirect('members');
+
     }
 
     /**
