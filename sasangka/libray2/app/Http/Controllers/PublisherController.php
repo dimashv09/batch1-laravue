@@ -49,7 +49,14 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        //keamaanan this
+        $this->validate($request,[
+            'name'      =>['required'],
+        ]);
+        Publisher::create($request->all());
+
+        return redirect ('publishers');
+
     }
 
     /**
@@ -71,7 +78,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        return view('admin.publisher.edit',compact('publishers'));
+        return view('admin.publisher.edit',compact('publisher'));
     }
 
     /**

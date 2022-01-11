@@ -18,6 +18,19 @@
                     <label for=>Name</label>
                     <input type="text"name="name"class="form-control"  placeholder="Enter name
                      " required="">
+                     <div class="form__group">
+                      <label>Email</label>
+                      <input type="text" class="form-control" name="email" value=""required="">
+                      <div class="form__group">
+                     </div>
+                      <label>Phone Number</label>
+                      <input type="text" class="form-control" name="phone_number" value=""required="">
+                      <div class="form__group">
+                     </div>
+                      <label>Address</label>
+                      <input type="text" class="form-control" name="address" value=""required="">
+                      <div class="form__group">
+                     </div>
                   </div>
             
                 <!-- /.card-body -->

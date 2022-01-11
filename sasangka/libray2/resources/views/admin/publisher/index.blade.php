@@ -40,6 +40,7 @@
                             <tr>
                                 <td>{{ $key+1}}</td>
                                 
+                                
                                 <td>{{ $publisher->name }}</td>
                                 <td>{{ $publisher->email }}</td>
                                 <td>{{ $publisher->phone_number }}</td>

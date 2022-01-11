@@ -10,7 +10,7 @@
                 <h3 class="card-title">Edit Publisher</h3>
               </div>
              
-              <form action="{{url('publisher/'.$publisher->id)}}"method="post">
+              <form action="{{url('publishers/'.$publisher->id)}}"method="post">
               	@csrf
               	{{method_field('PUT')}}
                 <div class="card-body">
