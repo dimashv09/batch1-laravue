@@ -52,10 +52,13 @@ class PublisherController extends Controller
         //keamaanan this
         $this->validate($request,[
             'name'      =>['required'],
+			'email' => ['required'],
+            'phone_number' => ['required'],
+			'address' => ['required']
         ]);
         Publisher::create($request->all());
 
-        return redirect ('publishers');
+        return redirect ('publishers'); 
 
     }
 
@@ -91,12 +94,14 @@ class PublisherController extends Controller
     public function update(Request $request, Publisher $publisher)
     {
         $this->validate($request,[
-            'name','email','phone_number','addres'    =>['required'],
+            'name'      =>['required'],
+			'email' => ['required'],
+            'phone_number' => ['required'],
+			'address' => ['required']
         ]);
-        
         $publisher->update($request->all());
 
-        return redirect ('publishers');
+        return redirect ('publishers'); 
     }
 
     /**

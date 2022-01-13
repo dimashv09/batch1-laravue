@@ -11,7 +11,8 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<a href="#" data-target="#modal-default" data-toggle="modal" class="btn btn-sm btn-primary pull-right">Create New Author</a>
+					<a href="#" @click="addData()"  
+					class="btn btn-sm btn-primary pull-right">Create New Author</a>
 				</div>
 					<!-- /.card-header -->
                 <div class="card-body">
@@ -35,8 +36,8 @@
 									<td>{{ $author->phone_number }}</td>
 									<td>{{ $author->address }}</td>
 									<td class="text-right">
-				<a href="#"class="btn btn-warning btn-sm">Edit</a>
-				<a href="#"class="btn btn-danger btn-sm">Delete</a>
+				<a href="#"@click="editData({{ $author }})" class="btn btn-warning btn-sm">Edit</a>
+				<a href="#"@click="deleteData()" class="btn btn-danger btn-sm">Delete</a>
 								</td>
 							</tr>
 						 @endforeach
@@ -60,7 +61,10 @@
               </button>
             </div>
             <div class="modal-body">
-				@csrf 
+				@csrf
+
+				<input type="hidden" name="_method" value="PUT" v-if="editStatus">
+
 						<div class="form__group">
 						<label>Name</label>
 						 <input type="text" class="form-control" name="name" value=""required="">
@@ -90,7 +94,51 @@
 </div>
 </div>			
 @endsection
-
-@section('js')
-	 
+@section('js') 
+	<script type="text/javascrip">
+		var authorVue = new Vue({
+			el: "#authorVue",
+			data: {
+				data: {},
+				actionUrl,'{{ url ('authors') }}',
+				editStatus: false
+			},
+			mounted: function() {
+				
+			},
+			methods: {
+				addData() {
+					this.data = []
+					actionUrl,'{{ url ('authors') }}',
+					this.editStatus = false
+					$('#modal-crud').modal();
+				},
+				editData(event, row) {
+					this.data = this.data;
+					actionUrl,'{{ url ('authors') }}',actionUrl,'{{ url ('authors') }}'+'/'+ id;
+					this.editStatus = true
+					$('#modal-crud').modal();
+				},
+				deleteData(event, id) {
+					actionUrl,'{{ url ('authors') }}'+'/'+ id;
+					if (confirm('Are you sure?')) {
+						$(event.target).parents('tr').remove();
+						axios.post(this.actionUrl + '/' + id, {_method: 'DELETE'}).then(response => {
+							location.reload();
+						})
+					}
+				},
+				submitForm(event, id) {
+					const _this = this
+					event.preventDefault();
+					var url = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id
+					axios.post(url, new FormData($(event.target)[0])).then(response => {
+						$('#modal-crud').modal('hide')
+						_this.table.ajax.reload();
+					})
+				}
+			}
+		})
+	</script>
+		
 @endsection

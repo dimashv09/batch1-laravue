@@ -18,8 +18,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
 
-    @section('css')
-  
+    @yield('css')  
   
   </head>
   <body class="hold-transition sidebar-mini layout-fixed">
@@ -244,6 +243,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    @section('js')
+    @yield('js')
   </body>
 </html>

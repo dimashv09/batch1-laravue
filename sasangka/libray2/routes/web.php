@@ -20,6 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 //home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+//transaction
+Route::get('/transactions', [App\Http\Controllers\TransactionControllers::class, 'index']);
 //publisher
 Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
 Route::get('/publishers/create',[App\Http\Controllers\PublisherController::class, 'create']);
@@ -28,19 +30,15 @@ Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherContro
 Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update']);
 Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy']);
 
-//author
+//author   
 Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
-Route::get('/authors', [App\Http\Controllers\PublisherController::class, 'index']);
-Route::get('authors',[App\Http\Controllers\PublisherController::class, 'create']);
-Route::post('/authors', [App\Http\Controllers\PublisherController::class, 'store']);
-Route::get('/authors/{authors}/edit', [App\Http\Controllers\PublisherController::class, 'edit']);
-Route::put('/authors/{authors}', [App\Http\Controllers\PublisherController::class, 'update']);
-Route::delete('/authors/{authors}', [App\Http\Controllers\PublisherController::class, 'destroy']);
+Route::resource('/authors',App\Http\Controllers\AuthorController::class);
+
 //books
 Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
 //member
 Route::get('members', [App\Http\Controllers\MemberController::class, 'index']);
-
+Route::resource('/members', App\Http\Controllers\MemberController::class,);
 //catalog
 // Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
 // Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']);
@@ -48,7 +46,6 @@ Route::get('members', [App\Http\Controllers\MemberController::class, 'index']);
 // Route::get('/catalogs/{catalog}/edit', [App\Http\Controllers\CatalogController::class, 'edit']);
 // Route::put('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'update']);
 // Route::delete('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'destroy']);
-
 Route::resource('/catalogs',App\Http\Controllers\CatalogController::class);
-Route::resource('/authors',App\Http\Controllers\AuthorController::class);
-Route::resource('/members', App\Http\Controllers\MemberController::class,);
+
+

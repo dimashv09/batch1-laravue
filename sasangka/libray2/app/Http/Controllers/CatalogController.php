@@ -9,6 +9,7 @@ class CatalogController extends Controller
 {
     public function __construct()
     {
+        //keamanan jika sudah logon
         $this->middleware('auth');
     }
     /**

@@ -9,7 +9,9 @@ class AuthorController extends Controller
 {
     public function __construct()
     {
+        //keamanan jika sudah login
         $this->middleware('auth');
+        
     }
         /**
      * Display a listing of the resource.
@@ -43,9 +45,9 @@ class AuthorController extends Controller
     {
        
         $this->validate($request, [
-			'name' => ['required', 'min:3'],
-			'phone_number' => ['required', 'min:10'],
-			'email' => ['required', 'email', 'unique:publishers'],
+			'name' => ['required'],
+			'phone_number' => ['required'],
+			'email' => ['required', 'email'],
 			'address' => ['required']
 		]);
 		Author::create($request->all());
@@ -71,7 +73,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        // return view('author',compact('authors'));
+        return view('author.admin.author.edit',compact('authors'));
     }
 
     /**
@@ -84,9 +86,9 @@ class AuthorController extends Controller
     public function update(Request $request, Author $author)
     {
         $this->validate($request, [
-			'name' => ['required', 'min:3'],
-			'phone_number' => ['required', 'min:10'],
-			'email' => ['required', 'email', 'unique:publishers,email,'.$author->id],
+			'name' => ['required'],
+			'phone_number' => ['required'],
+			'email' => ['required'],
 			'address' => ['required']
 		]);
 		$author->update($request->all());
