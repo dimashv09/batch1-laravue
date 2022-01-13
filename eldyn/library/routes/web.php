@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransactionController;
@@ -68,7 +69,7 @@ Route::resource('/transactions', App\Http\Controllers\TransactionController::cla
         'destroy' => 'transaction.destroy'
 	]
 ]);
-// Route::patch('/transactions/update/{transaction}', [TransactionController::class, 'update'])->name('transaction.update');
+ROute::get('test_spatie', [AdminController::class, 'test_spatie']);
 
 Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']);
 Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 'api']);

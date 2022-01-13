@@ -10,6 +10,7 @@
 @endsection
 
 @section('content')
+    {{-- @role('employee') --}}
 	<div class="container" id="transactionsVue">
 		<div class="row">
 			<div class="card w-100 overflow-auto">
@@ -95,6 +96,7 @@
 		</div>
 
 	</div>
+    {{-- @endrole --}}
 @endsection
 
 @section('js')

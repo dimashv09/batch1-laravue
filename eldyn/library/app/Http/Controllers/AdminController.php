@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Book;
 use App\Models\Member;
 use App\Models\Publisher;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class AdminController extends Controller
 {
     public function dashboard() {
-		$total_members = Member::count(); 
-		$total_books = Book::count(); 
-		$total_transactions = Transaction::whereMonth('date_start', date('m'))->count(); 
-		$total_publishers = Publisher::count(); 
+		$total_members = Member::count();
+		$total_books = Book::count();
+		$total_transactions = Transaction::whereMonth('date_start', date('m'))->count();
+		$total_publishers = Publisher::count();
 
 		// Chart donut
 		$data_donut = Book::select(DB::raw("COUNT(publisher_id) as total"))
@@ -49,4 +54,26 @@ class AdminController extends Controller
 		}
 		return view('home', compact('total_members', 'total_books', 'total_transactions', 'total_publishers'));
 	}
+
+    public function test_spatie() {
+        // $role = Role::create(['name' => 'employee']);
+        // $permission = Permission::create(['name' => 'borrowing index']);
+
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        // $user = Auth::user();
+        // return $user;
+
+        $user = Auth::user();
+        $user->assignRole('employee');
+        return $user;
+
+        // $user = User::with('roles')->get();
+        // return $user;
+
+        // $user = Auth::user();
+        // $user->removeRole('employee');
+        // return $user;
+    }
 }

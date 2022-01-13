@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Requests\TransactionStore;
 use App\Models\Book;
 use App\Models\Member;
 use App\Models\TransactionDetail;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class TransactionController extends Controller
 {
@@ -24,7 +27,12 @@ class TransactionController extends Controller
     public function index()
     {
         // return date('Y m d');
-        return view('admin.transaction.index');
+        if (Auth::user()->role('employee')) {
+            return view('admin.transaction.index');
+        } else {
+            // return view('home');
+            return abort('403');
+        }
     }
 
 	public function api() {

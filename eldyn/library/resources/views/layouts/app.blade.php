@@ -15,10 +15,8 @@
 		<link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
 	</head>
 	<body class="hold-transition login-page">
-	
-		<!-- <main class="py-4"> -->
-			@yield('content')
-		<!-- </main> -->
+
+        @yield('content')
 
 	<!-- jQuery -->
 	<script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
