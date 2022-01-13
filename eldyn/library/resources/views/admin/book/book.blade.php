@@ -171,29 +171,7 @@
 					$('#modal-crud').modal();
 				},
 				deleteData(id) {
-					// if (confirm('Are you sure?')) {
-					// 	axios.post(actionUrl + '/' + id, {_method: 'DELETE'}).then(response => {
-					// 		alert("Data has been removed")
-					// 		this.get_books()
-					// 	})
-					// }
-					// Swal.fire({
-					// 	title: 'Delete!',
-					// 	text: 'Are you sure want to delete this data?',
-					// 	icon: 'error',
-					// 	confirmButtonText: 'Delete',
-					// 	denyButtonText: 'Cancel'
-					// }).then((result) {
-					// 	if (result.isConfirmed) {    
-					// 		axios.post(actionUrl + '/' + id, {_method: 'DELETE'}).then(response => {
-					// 			Swal.fire('Saved!', '', 'success')  
-					// 			this.get_books()
-					// 		})
-					// 	} else if (result.isDenied) {    
-					// 		Swal.fire('Changes are not saved', '', 'info')  
-					// 	}
-					// })
-					Swal.fire({  
+					Swal.fire({
 						title: 'Delete!',
 						text: 'Are you sure want to delete this data?',
 						icon: 'question',
@@ -203,16 +181,16 @@
 						cancelButtonText: 'Cancel',
 						confirmButtonText: 'Delete',
 						reverseButtons: true
-					}).then((result) => {  
-						/* Read more about isConfirmed, isDenied below */  
-						if (result.isConfirmed) {    
+					}).then((result) => {
+						/* Read more about isConfirmed, isDenied below */
+						if (result.isConfirmed) {
 							axios.post(actionUrl + '/' + id, {_method: 'DELETE'}).then(response => {
-								Swal.fire('Deleted!', '', 'success')  
+								Swal.fire('Deleted!', '', 'success')
 								this.get_books()
 							})
-							// Swal.fire('Saved!', '', 'success')  
-						// } else if (result.isDenied) {    
-						// 	Swal.fire('Changes are not saved', '', 'info')  
+							// Swal.fire('Saved!', '', 'success')
+						// } else if (result.isDenied) {
+						// 	Swal.fire('Changes are not saved', '', 'info')
 						}
 					});
 				},

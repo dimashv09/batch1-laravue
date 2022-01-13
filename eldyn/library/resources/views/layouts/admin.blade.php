@@ -17,6 +17,9 @@
 		<link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+      <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
 		@yield('css')
 	</head>
@@ -73,9 +76,28 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-					<i class="fas fa-th-large"></i>
-				</a>
+				<a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    @if (count(late_notification()))
+                    <span class="badge badge-warning navbar-badge">{{ count(late_notification()) }}</span>
+                    @endif
+                    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right w-auto">
+                        <span class="dropdown-item dropdown-header">Notification</span>
+                        <div class="dropdown-divider"></div>
+                        @foreach (late_notification() as $data)
+                        <a href="{{ route( 'transaction.show', ['transaction' => $data['transaction'] ] )}}" class="dropdown-item">
+                            <i class="fas fa-exclamation-circle mr-2"></i> {{ $data["member"] }} haven't returned the book yet
+                            <p class="text-muted text-sm">{{ $data["delay"] }} days</p>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        @endforeach
+                        @if (count(late_notification()))
+                            <a href="#" class="dropdown-item dropdown-footer">Total {{ count(late_notification()) }} data</a>
+                        @else
+                            <a href="#" class="dropdown-item dropdown-footer">No data found</a>
+                        @endif
+                    </div>
+                </a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -102,7 +124,12 @@
 				<!-- Sidebar user panel (optional) -->
 				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 					<div class="image">
-					<img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+                    {{-- @if (Auth::user()->avatar) --}}
+                    {{-- <img src="{{ Auth::user()->avatar }}" referrerPolicy="no-referrer" class="user-photo rounded-circle" alt=""> --}}
+                    {{-- @else --}}
+                    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}" referrerPolicy="no-referrer" class="user-photo rounded-circle" alt="">
+                    {{-- @endif --}}
+					{{-- <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image"> --}}
 					</div>
 					<div class="info">
 					<a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -130,6 +157,12 @@
 							<a href="{{ url('dashboard') }}" class="nav-link {{ (request()->is('dashboard')) ? 'active' : '' }}">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>Dashboard</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ url('transactions') }}" class="nav-link {{ (request()->is('transactions*')) ? 'active' : '' }}">
+								<i class="nav-icon fas fa-cash-register"></i>
+								<p>Transactions</p>
 							</a>
 						</li>
 						<li class="nav-item">
@@ -239,6 +272,8 @@
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<!-- ChartJS -->
 		<script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 		@yield('js')
 	</body>
 </html>
