@@ -28,6 +28,6 @@ class Book extends Model
 
     public function transactionDetail()
     {
-        return $this->belongsTo(TransactionDetail::class);
+        return $this->hasOne(TransactionDetail::class, 'book_id');
     }
 }

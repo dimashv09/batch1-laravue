@@ -5,6 +5,8 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionDetailController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -48,3 +50,11 @@ Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']
 
 // dashboard
 Route::resource('dashboard', DashboardController::class);
+
+// Transaction
+Route::resource('transactions', TransactionController::class);
+Route::get('/api/transactions', [App\Http\Controllers\TransactionController::class, 'api']);
+
+// TransactionDetails
+Route::resource('transaction_details', TransactionDetailController::class);
+Route::get('/api/transaction_details', [App\Http\Controllers\TransactionDetailController::class, 'api']);

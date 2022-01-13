@@ -17,6 +17,11 @@ class TransactionDetailController extends Controller
         //
     }
 
+    public function api()
+    {
+       
+    }
+
     /**
      * Show the form for creating a new resource.
      *

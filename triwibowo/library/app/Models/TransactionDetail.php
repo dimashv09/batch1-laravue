@@ -8,14 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class TransactionDetail extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     public function transaction()
     {
         return $this->belongsTo(Transaction::class, 'transaction_id');
     }
 
-    public function books()
+    public function book()
     {
-        return $this->hasMany(Book::class, 'book_id');
+        return $this->belongsTo(Book::class, 'book_id');
     }
 }
