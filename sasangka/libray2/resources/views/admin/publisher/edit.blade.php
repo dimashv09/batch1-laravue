@@ -20,11 +20,11 @@
                      " required="" value="{{$publisher->name}}">
                      <div class="form__group">
                       <label>Email</label>
-                      <input type="text" class="form-control" placeholder="Enter email name email" value=""required=""  value="{{$publisher->email}}">
+                      <input type="text" class="form-control" placeholder="Enter email"  name="email" value=""required=""  value="{{$publisher->Email}}">
                       <div class="form__group">
                      </div>
                       <label>Phone Number</label>
-                      <input type="text" class="form-control" placeholder="Enter email phone_number" name="phone_number" value=""required=""  value="{{$publisher->phone_number}}">
+                      <input type="text" class="form-control" placeholder="Enter  phone_number" name="phone_number" value=""required=""  value="{{$publisher->phone_number}}">
                       <div class="form__group">
                      </div>
                       <label>Address</label>

@@ -133,6 +133,11 @@
               </a>
             </li>
             <li class="nav-item">
+              <a href="{{ url('transactions') }}" class="nav-link {{ (request()->is('transactions*')) ? 'active' : '' }}">
+                <i class="fas fa-handshake"></i>
+            <p>Transaction</p> 
+            </a>
+          </li>
               <a href="{{ url('catalogs') }}" class="nav-link {{ (request()->is('catalogs')) ? 'active' : '' }}">
                 <i class="fas fa-door-closed"></i>
                 <p>Catalog</p>
@@ -142,26 +147,28 @@
             </li>
             <li class="nav-item">
               <a href="{{ url('publishers') }}" class="nav-link {{ (request()->is('Publisher')) ? 'active' : '' }}">
-                <i class="fas fa-handshake"></i>
+                <i class="fas fa-edit"></i>
                 <p>Publisher</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{ url('authors') }}" class="nav-link {{ (request()->is('authors*')) ? 'active' : '' }}">
                 <i class="fab fa-adversal"></i>
-                <p>Authors</p>
+                <p>Author</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{ url('books') }}" class="nav-link {{ (request()->is('books*')) ? 'active' : '' }}">
                 <i class="fas fa-book-open"></i>
-                <p>Books</p>
+                <p>Book</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{ url('members') }}" class="nav-link {{ (request()->is('members*')) ? 'active' : '' }}">
                 <i class="fas fa-address-card"></i>
-                <p>Members</p>
+                <p>Member</p>
+              </a>
+            </li>
               </a>
             </li>
           </ul>

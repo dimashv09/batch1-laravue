@@ -41,14 +41,14 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name'=>['required'],
-            'phone_number'=>['required'],
-            'email'=>['required'],
-            'address'=>['required'],
-        ]);
-        
-        Author::create($request->all());
+       
+        $this->validate($request, [
+			'name' => ['required', 'min:3'],
+			'phone_number' => ['required', 'min:10'],
+			'email' => ['required', 'email', 'unique:publishers'],
+			'address' => ['required']
+		]);
+		Author::create($request->all());
         return redirect('authors');
     }
 
@@ -71,7 +71,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        // return view('author',compact('authors'));
     }
 
     /**
@@ -83,9 +83,15 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $this->validate($request, [
+			'name' => ['required', 'min:3'],
+			'phone_number' => ['required', 'min:10'],
+			'email' => ['required', 'email', 'unique:publishers,email,'.$author->id],
+			'address' => ['required']
+		]);
+		$author->update($request->all());
+		return redirect('authors');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -94,6 +100,8 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+		return redirect('authors');
     }
 }
+

@@ -90,14 +90,11 @@ class PublisherController extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        //Validation data
-        //keamaanan this
         $this->validate($request,[
-            'name'      =>['required'],
+            'name','email','phone_number','addres'    =>['required'],
         ]);
         
-        Publisher::create($request->all());
-        // cara ke 2 diatas lebih simpel jgn lupa tambahkan proteec filabe di model catalog
+        $publisher->update($request->all());
 
         return redirect ('publishers');
     }

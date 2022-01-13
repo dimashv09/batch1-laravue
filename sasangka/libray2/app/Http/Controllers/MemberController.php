@@ -16,9 +16,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $member = new Member();
-
-        return view('admin.member.index');
+		return view('admin.member.index');
     }
 
     /**

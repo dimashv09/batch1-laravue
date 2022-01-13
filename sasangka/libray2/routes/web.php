@@ -29,7 +29,13 @@ Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherController:
 Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy']);
 
 //author
-// Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
+Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
+Route::get('/authors', [App\Http\Controllers\PublisherController::class, 'index']);
+Route::get('authors',[App\Http\Controllers\PublisherController::class, 'create']);
+Route::post('/authors', [App\Http\Controllers\PublisherController::class, 'store']);
+Route::get('/authors/{authors}/edit', [App\Http\Controllers\PublisherController::class, 'edit']);
+Route::put('/authors/{authors}', [App\Http\Controllers\PublisherController::class, 'update']);
+Route::delete('/authors/{authors}', [App\Http\Controllers\PublisherController::class, 'destroy']);
 //books
 Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
 //member
