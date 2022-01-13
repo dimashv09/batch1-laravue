@@ -23,15 +23,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 //transaction
 Route::get('/transactions', [App\Http\Controllers\TransactionControllers::class, 'index']);
 //publisher
-Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
-Route::get('/publishers/create',[App\Http\Controllers\PublisherController::class, 'create']);
-Route::post('/publishers', [App\Http\Controllers\PublisherController::class, 'store']);
-Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherController::class, 'edit']);
-Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update']);
-Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy']);
+// Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
+// Route::get('/publishers/create',[App\Http\Controllers\PublisherController::class, 'create']);
+// Route::post('/publishers', [App\Http\Controllers\PublisherController::class, 'store']);
+// Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherController::class, 'edit']);
+// Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update']);
+// Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy']);
+Route::resource('/publishers',App\Http\Controllers\PublisherController::class);
+
 
 //author   
-Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
 Route::resource('/authors',App\Http\Controllers\AuthorController::class);
 
 //books

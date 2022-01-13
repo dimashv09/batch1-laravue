@@ -28,12 +28,15 @@
                        " required="" value="{{$publisher->phone_number}}">
                        <div class="form__group">
                         <label for=>Address</label>
-                        <input type="text"name="address"class="form-control"  placeholder="Enter address
+                        <input type="text"name="address"class="form-control"  placeholder="Enter 
                          " required="" value="{{$publisher->address}}">
                          <div class="form__group">
                      </div>
                   </div>
                   </div>
+            
+            
+
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>

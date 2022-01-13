@@ -16,8 +16,8 @@
                 <div class="card-header">
                     <a href="{{ url('publishers/create') }}" 
 					class="btn btn-sm btn-primary">Create new Publishers</a>
-                    {{-- <a href="#" data-target="#modal-default" data-toggle="modal" class="btn btn-sm btn-primary pull-right">Create new publisher</a>
-                </div> --}}
+                    <a href="#" data-target="#modal-default" data-toggle="modal" class="btn btn-sm btn-primary pull-right">Create new Modal publisher</a>
+                </div>
 
                 <!-- /.card-header -->
                 <div class="card-body">

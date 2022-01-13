@@ -11,8 +11,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<a href="#" @click="addData()"  
-					class="btn btn-sm btn-primary pull-right">Create New Author</a>
+					<a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Author</a>
 				</div>
 					<!-- /.card-header -->
                 <div class="card-body">
@@ -36,7 +35,7 @@
 									<td>{{ $author->phone_number }}</td>
 									<td>{{ $author->address }}</td>
 									<td class="text-right">
-				<a href="#"@click="editData({{ $author }})" class="btn btn-warning btn-sm">Edit</a>
+				<a href="#"@click="editData" class="btn btn-warning btn-sm">Edit</a>
 				<a href="#"@click="deleteData()" class="btn btn-danger btn-sm">Delete</a>
 								</td>
 							</tr>
@@ -47,8 +46,7 @@
 			</div>
 		</div>
 	</div>	
-	<!-- Modal -->
-	<div class="modal fade show" id="modal-default"> 
+	<div class="modal fade show" id="modal"> 
 		<div class="modal-dialog">
           <div class="modal-content">
 			  <form method="post" action="{{ url ('authors') }}" autocomplete="off">
@@ -95,9 +93,9 @@
 </div>			
 @endsection
 @section('js') 
-	<script type="text/javascrip">
-		var authorVue = new Vue({
-			el: "#authorVue",
+	<script type="text/javascript">
+		var controller = new Vue({
+			el: "#controller",
 			data: {
 				data: {},
 				actionUrl,'{{ url ('authors') }}',
@@ -108,16 +106,16 @@
 			},
 			methods: {
 				addData() {
-					this.data = []
-					actionUrl,'{{ url ('authors') }}',
-					this.editStatus = false
-					$('#modal-crud').modal();
+					// this.data = []
+					// actionUrl,'{{ url ('authors') }}',
+					// this.editStatus = false
+					$( '#modal').modal();
 				},
 				editData(event, row) {
 					this.data = this.data;
 					actionUrl,'{{ url ('authors') }}',actionUrl,'{{ url ('authors') }}'+'/'+ id;
 					this.editStatus = true
-					$('#modal-crud').modal();
+					$('#modal').modal();
 				},
 				deleteData(event, id) {
 					actionUrl,'{{ url ('authors') }}'+'/'+ id;
@@ -133,7 +131,7 @@
 					event.preventDefault();
 					var url = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id
 					axios.post(url, new FormData($(event.target)[0])).then(response => {
-						$('#modal-crud').modal('hide')
+						$('#modal').modal('hide')
 						_this.table.ajax.reload();
 					})
 				}

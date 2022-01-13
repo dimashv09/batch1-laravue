@@ -20,15 +20,15 @@
                      " required="">
                      <div class="form__group">
                       <label>Email</label>
-                      <input type="text" class="form-control" name="email" value=""required="">
+                      <input type="text" name="email"class="form-control" placeholder="Enter email" value=""required="">
                       <div class="form__group">
                      </div>
                       <label>Phone Number</label>
-                      <input type="text" class="form-control" name="phone_number" value=""required="">
+                      <input type="text" class="form-control" name="Enter phone_number"  placeholder="phone_number" value=""required="">
                       <div class="form__group">
                      </div>
                       <label>Address</label>
-                      <input type="text" class="form-control" name="address" value=""required="">
+                      <input type="text" class="form-control" name="Enter address"  placeholder="Enter addres" value=""required="">
                       <div class="form__group">
                      </div>
                   </div>

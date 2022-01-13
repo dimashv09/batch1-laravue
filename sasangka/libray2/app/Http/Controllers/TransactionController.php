@@ -14,7 +14,7 @@ class TransactionControllers extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.create.edit.index');
     }
 
     /**

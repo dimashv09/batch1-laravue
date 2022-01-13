@@ -47,7 +47,7 @@ class AuthorController extends Controller
         $this->validate($request, [
 			'name' => ['required'],
 			'phone_number' => ['required'],
-			'email' => ['required', 'email'],
+			'email' => ['required'],
 			'address' => ['required']
 		]);
 		Author::create($request->all());
@@ -73,7 +73,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        return view('author.admin.author.edit',compact('authors'));
+        return view('author',compact('authors'));
     }
 
     /**
