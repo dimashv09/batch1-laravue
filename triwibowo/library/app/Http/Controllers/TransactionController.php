@@ -6,21 +6,32 @@ use App\Models\Book;
 use App\Models\Member;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('admin.transaction.index', [
-            'judul' => 'Transaction'
-        ]);
+    {   
+        if (auth()->user()->role('petugas')){
+            return view('admin.transaction.index', [
+                'judul' => 'Transaction'
+            ]);
+        }else{
+            return abort('403');
+        }
+       
     }
 
     public function api(Request $request)
@@ -217,8 +228,25 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
+        $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)
+        ->delete();
         $transaction->delete();
 
-        return redirect('transactions')->with('success', 'Transaction data has been Deleted');
+        // return redirect('transactions')->with('success', 'Transaction data has been Deleted');
+    }
+
+    public function test_spatie(){
+        // $role = Role::create(['name' => 'petugas']);
+        // $permission = Permission::create(['name' => 'index peminjaman']);
+
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        $user = User::with('roles')->get();
+        return $user;
+
+        // $user = auth()->user();
+        // $user->assignRole('petugas');
+        // return $user;
     }
 }

@@ -58,3 +58,8 @@ Route::get('/api/transactions', [App\Http\Controllers\TransactionController::cla
 // TransactionDetails
 Route::resource('transaction_details', TransactionDetailController::class);
 Route::get('/api/transaction_details', [App\Http\Controllers\TransactionDetailController::class, 'api']);
+
+// admin
+Route::get('transaction', [App\Http\Controllers\AdminController::class, 'transaction']);
+
+Route::get('test_spatie', [App\Http\Controllers\TransactionController::class, 'test_spatie']);
