@@ -133,7 +133,7 @@
                 $('#modal-default').modal();
             },
             deleteData(id) {
-                this.actionUrl='{{ url ('authors') }}'+'/'+ id;
+                this.actionUrl='{{ url ('publishers') }}'+'/'+ id;
                 if (confirm("Are you sure?")) {
                     axios.post(this.actionUrl,{_method: 'DELETE'}).then(response => {
                         location.reload();
