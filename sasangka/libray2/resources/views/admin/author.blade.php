@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('header','Author')
+@section('wrapper-title', 'Authors')
 
 @section('css')
 	

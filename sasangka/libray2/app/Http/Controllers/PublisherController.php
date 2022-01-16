@@ -38,7 +38,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return view ('admin.publisher.create');
+        // return view ('admin.publisher.create');
     }
 
     /**
@@ -81,7 +81,8 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        return view('admin.publisher.edit',compact('publisher'));
+        return view('admin.publisher.index', compact('publisher'));
+
     }
 
     /**
@@ -102,6 +103,7 @@ class PublisherController extends Controller
         $publisher->update($request->all());
 
         return redirect ('publishers'); 
+        
     }
 
     /**

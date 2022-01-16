@@ -104,7 +104,7 @@ class AuthorController extends Controller
     {
         $author->delete(); // Delete data with specific ID
 
-        return redirect('authors')->with('success', 'Catalog has been Deleted');
+        return redirect('authors')->with('success', 'Author has been Deleted');
     }
 }
 
