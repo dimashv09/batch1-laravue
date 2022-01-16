@@ -108,12 +108,13 @@
 				addData() {
 					this.data = {};
 					this.actionUrl='{{ url ('authors') }}';
-					// this.editStatus = false
+					this.editStatus = false
 					$( '#modal').modal();
 				},
 				editData(data) {
 					this.data = data;
 					this.actionUrl = '{{ url ('authors') }}'+'/'+ data.id;
+					this.editStatus = true
 					$('#modal').modal();
 				},
 				deleteData(id) {
