@@ -35,8 +35,8 @@
 									<td>{{ $author->phone_number }}</td>
 									<td>{{ $author->address }}</td>
 									<td class="text-right">
-				<a href="#"@click="editData" class="btn btn-warning btn-sm">Edit</a>
-				<a href="#"@click="deleteData()" class="btn btn-danger btn-sm">Delete</a>
+				<a href="#"@click="editData({{ $author }})" class="btn btn-warning btn-sm">Edit</a>
+				<a href="#"@click="deleteData({{ $author->id}})" class="btn btn-danger btn-sm">Delete</a>
 								</td>
 							</tr>
 						 @endforeach
@@ -49,7 +49,7 @@
 	<div class="modal fade show" id="modal"> 
 		<div class="modal-dialog">
           <div class="modal-content">
-			  <form method="post" action="{{ url ('authors') }}" autocomplete="off">
+			  <form method="post" :action="actionUrl" autocomplete="off">
             <div class="modal-header">
 
               <h4 class="modal-title">Author</h4>
@@ -65,19 +65,19 @@
 
 						<div class="form__group">
 						<label>Name</label>
-						 <input type="text" class="form-control" name="name" value=""required="">
+						 <input type="text" class="form-control" name="name" :value="data.name"required="">
 						</div>
 						<div class="form__group">
 						 <label>Email</label>
-						 <input type="text" class="form-control" name="email" value=""required="">
+						 <input type="text" class="form-control" name="email":value="data.email" required="">
 						 <div class="form__group">
 						</div>
 						 <label>Phone Number</label>
-						 <input type="text" class="form-control" name="phone_number" value=""required="">
+						 <input type="text" class="form-control" name="phone_number":value="data.phone_number" required="">
 						 <div class="form__group">
 						</div>
 						 <label>Address</label>
-						 <input type="text" class="form-control" name="address" value=""required="">
+						 <input type="text" class="form-control" name="address":value="data.address" required="">
 						 <div class="form__group">
 						</div>
             <div class="modal-footer justify-content-between">
@@ -98,7 +98,7 @@
 			el: "#controller",
 			data: {
 				data: {},
-				actionUrl,'{{ url ('authors') }}',
+				actionUrl:'{{ url ('authors') }}',
 				editStatus: false
 			},
 			mounted: function() {
@@ -106,37 +106,26 @@
 			},
 			methods: {
 				addData() {
-					// this.data = []
-					// actionUrl,'{{ url ('authors') }}',
+					this.data = {};
+					this.actionUrl='{{ url ('authors') }}';
 					// this.editStatus = false
 					$( '#modal').modal();
 				},
-				editData(event, row) {
-					this.data = this.data;
-					actionUrl,'{{ url ('authors') }}',actionUrl,'{{ url ('authors') }}'+'/'+ id;
-					this.editStatus = true
+				editData(data) {
+					this.data = data;
+					this.actionUrl = '{{ url ('authors') }}'+'/'+ data.id;
 					$('#modal').modal();
 				},
-				deleteData(event, id) {
-					actionUrl,'{{ url ('authors') }}'+'/'+ id;
-					if (confirm('Are you sure?')) {
-						$(event.target).parents('tr').remove();
-						axios.post(this.actionUrl + '/' + id, {_method: 'DELETE'}).then(response => {
+				deleteData(id) {
+					this.actionUrl='{{ url ('authors') }}'+'/'+ id;
+					if (confirm("Are you sure?")) {
+						axios.post(this.actionUrl,{_method: 'DELETE'}).then(response => {
 							location.reload();
-						})
+						});
 					}
-				},
-				submitForm(event, id) {
-					const _this = this
-					event.preventDefault();
-					var url = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id
-					axios.post(url, new FormData($(event.target)[0])).then(response => {
-						$('#modal').modal('hide')
-						_this.table.ajax.reload();
-					})
 				}
 			}
-		})
+		});
 	</script>
 		
 @endsection
