@@ -161,8 +161,7 @@
         methods: {
             getBooks() {
                 // Using Axios instead of Ajax
-                axios
-                    .get(apiUrl)
+                axios.get(apiUrl)
                     .then(response => this.books = response.data)
                     .catch(error => console.log(error))
             },

@@ -25,7 +25,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->can('index transaction')) {
+        // return auth()->user()->hasRole('admin');
+        if (auth()->user()->hasRole('admin')) {
             return view('admin.transaction.index');
         } else {
             return abort('403');

@@ -21,13 +21,13 @@ use App\Http\Controllers\TransactionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
 // Start Catalog's Routes (Old)
 // Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']); //? Show main page
@@ -58,7 +58,7 @@ Route::resource('books', BookController::class);
 Route::get('/api/books', [BookController::class, 'api']);
 
 // Dashboard's Route
-Route::resource('dashboard', DashboardController::class);
+Route::resource('/', DashboardController::class);
 
 // Transaction's Route
 Route::resource('transactions', TransactionController::class);

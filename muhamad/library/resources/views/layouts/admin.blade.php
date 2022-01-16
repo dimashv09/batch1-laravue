@@ -117,7 +117,7 @@
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
-                <a href="{{ url('home') }}" class="brand-link">
+                <a href="{{ url('/') }}" class="brand-link">
                     <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                         class="brand-image img-circle elevation-3" style="opacity: .8">
                     <span class="brand-text font-weight-light">Muhamad Libray</span>
@@ -132,20 +132,7 @@
                                 alt="User Image">
                         </div>
                         <div class="info">
-                            <a href="{{ url('home') }}" class="d-block">{{ auth()->user()->name }}</a>
-                        </div>
-                    </div>
-
-                    <!-- SidebarSearch Form -->
-                    <div class="form-inline">
-                        <div class="input-group" data-widget="sidebar-search">
-                            <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                                aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-sidebar">
-                                    <i class="fas fa-search fa-fw"></i>
-                                </button>
-                            </div>
+                            <a href="{{ url('/') }}" class="d-block">{{ auth()->user()->name }}</a>
                         </div>
                     </div>
 
@@ -153,17 +140,16 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                             data-accordion="false">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ url('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-home"></i>
-                                    <p>
-                                        Home
-                                    </p>
-                                </a>
-                            </li>
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>
+                                Home
+                            </p>
+                            </a>
+                            </li> --}}
                             <li class="nav-item">
-                                <a href="{{ url('dashboard') }}"
-                                    class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
+                                <a href="{{ url('/') }}" class="nav-link {{ Request::is('/') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-chart-line"></i>
                                     <p>
                                         Dashboard
@@ -172,7 +158,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('catalogs') }}"
-                                    class="nav-link {{ Request::is('catalogs') ? 'active' : '' }}">
+                                    class="nav-link {{ Request::is('catalogs*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-table"></i>
                                     <p>
                                         Catalog
@@ -181,7 +167,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('members') }}"
-                                    class="nav-link {{ Request::is('members') ? 'active' : '' }}">
+                                    class="nav-link {{ Request::is('members*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>
                                         Members
@@ -190,7 +176,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('authors') }}"
-                                    class="nav-link {{ Request::is('authors') ? 'active' : '' }}">
+                                    class="nav-link {{ Request::is('authors*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-feather-alt"></i>
                                     <p>
                                         Authors
@@ -199,7 +185,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('publishers') }}"
-                                    class="nav-link {{ Request::is('publishers') ? 'active' : '' }}">
+                                    class="nav-link {{ Request::is('publishers*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-dolly-flatbed"></i>
                                     <p>
                                         Publishers
@@ -208,7 +194,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('books') }}"
-                                    class="nav-link {{ Request::is('books') ? 'active' : '' }}">
+                                    class="nav-link {{ Request::is('books*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-book"></i>
                                     <p>
                                         Books
