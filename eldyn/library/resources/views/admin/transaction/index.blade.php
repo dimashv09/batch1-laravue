@@ -10,12 +10,20 @@
 @endsection
 
 @section('content')
-    {{-- @role('employee') --}}
 	<div class="container" id="transactionsVue">
 		<div class="row">
 			<div class="card w-100 overflow-auto">
-				<div class="card-header">
+				<div class="card-header d-flex justify-content-between align-items-center">
 					<a href="{{ url('transactions/create') }}" class="btn btn-sm btn-primary">Create new transaction</a>
+                    <div class="d-inline-block">
+                        <select name="status" class="form-control" id="filter-status" @change="filterStatus">
+                            <option value="">All</option>
+                            <option value="1">Returned</option>
+                            <option value="0">Not yet returned</option>
+                        </select>
+                        {{-- <select name="" class="form-control" id="filter-s">
+                        </select> --}}
+                    </div>
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body">
@@ -96,7 +104,6 @@
 		</div>
 
 	</div>
-    {{-- @endrole --}}
 @endsection
 
 @section('js')
@@ -132,6 +139,7 @@
 		var transactionsVue = new Vue({
 			el: "#transactionsVue",
 			data: {
+                status: 'all',
 				dataList: [],
 				data: {},
 				actionUrl,
@@ -140,15 +148,40 @@
 			},
 			mounted() {
 				this.datatable();
+                // $('#filter-status').on('change', function() {
+                //     let status = $('#filter-status').val();
+                //     const table = $('#dataTable').DataTable();
+                //     if (status == '') {
+                //         console.log('all');
+                //         $('#dataTable').DataTable().ajax.url(apiUrl).load()
+                //     } else {
+                //         console.log(`${apiUrl}?status=${status}`);
+                //         $('#dataTable').DataTable().ajax.url(`${apiUrl}?status=${status}`).load()
+                //     }
+                // })
 			},
 			methods: {
-				datatable() {
-					const _this = this;
+                datatable() {
+                    const _this = this;
 					_this.table = $('#dataTable').DataTable({
+                        "bLengthChange": false,
+                        "bFilter": false,
 						ajax: this.apiUrl,
 						columns,
 					})
 				},
+                filterStatus() {
+                    // console.log(this.status)
+                    let status = $('#filter-status').val();
+                    const table = $('#dataTable').DataTable();
+                    if (status == '') {
+                        console.log('all');
+                        table.ajax.url(apiUrl).load()
+                    } else {
+                        console.log(`${apiUrl}?status=${status}`);
+                        table.ajax.url(`${apiUrl}?status=${status}`).load()
+                    }
+                },
 				addData() {
 					this.data = []
 					this.editStatus = false
@@ -191,4 +224,17 @@
 			}
 		})
 	</script>
+    <script>
+        // $('#filter-status').on('change', function() {
+        //     let status = $('#filter-status').val();
+        //     if (status == '') {
+        //         console.log('all');
+        //         $('#dataTable').DataTable().ajax.url(apiUrl).load()
+        //     } else {
+        //         console.log(`${apiUrl}?status=${status}`);
+        //         $('#dataTable').DataTable().ajax.url(`${apiUrl}?status=${status}`).load()
+        //     }
+        // })
+
+    </script>
 @endsection

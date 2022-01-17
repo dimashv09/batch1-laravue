@@ -75,7 +75,7 @@ class TransactionController extends Controller
                     })
                     //  tambahkan kolom status
                     ->editColumn('status', function($transactions) {
-                        $status = ($transactions->status) ? "Returned" : "Not yet returned" ;
+                        $status = ($transactions->status) ? "1" : "0" ;
                         return $status;
                     })
                     ->removeColumn(['member_id', 'created_at', 'updated_at']) // hapus kolom member_id
@@ -115,6 +115,11 @@ class TransactionController extends Controller
             $details['transaction_id'] = $transaction->id;
             $details['quantity'] = count(array($details['book_id']));
             TransactionDetail::create($details);
+			$book_id = Book::find($book);
+			$book_id->decrement('quantity', $details['quantity']);
+			if ($book_id->quantity < 0) {
+                return 0;
+			}
         }
         // return $details;
         return redirect(route('transaction.index'));
@@ -156,14 +161,26 @@ class TransactionController extends Controller
     public function update(Request $request, Transaction $transaction)
     {
         $data = $request->all();
+        // return $data;
         $transaction->update($data);
-        // return $data['books'];
 
         TransactionDetail::where('transaction_id', $transaction->id)->delete();
         foreach($data['books'] as $book) {
             $details['book_id'] = (int)$book;
             $details['quantity'] = count(array($details['book_id']));
             $transaction->transactionDetail()->where('transaction_id', $transaction->id)->create($details);
+            $transaction_selected = Transaction::find($transaction->id);
+            $book_id = Book::find($book);
+            if ($transaction->wasChanged('status')) {
+                if ($transaction->status) {
+                    $book_id->increment('quantity');
+                } else {
+                    $book_id->decrement('quantity', $details['quantity']);
+                    }
+                // }
+            } else {
+                $book_id->getOriginal('quantity');
+            }
         }
         return redirect(route('transaction.index'));
     }
