@@ -51,10 +51,10 @@ class PublisherController extends Controller
     {
         //keamaanan this
         $this->validate($request,[
-            'name'      =>['required'],
-			'email' => ['required'],
-            'phone_number' => ['required'],
-			'address' => ['required']
+            'name' => ['required', 'min:3'],
+			'phone_number' => ['required', 'min:10'],
+			'email' => ['required', 'email', 'unique:publishers'],
+			'address' => ['required'],
         ]);
         Publisher::create($request->all());
 
@@ -95,9 +95,9 @@ class PublisherController extends Controller
     public function update(Request $request, Publisher $publisher)
     {
         $this->validate($request,[
-            'name'      =>['required'],
-			'email' => ['required'],
-            'phone_number' => ['required'],
+            'name' => ['required', 'min:3'],
+			'phone_number' => ['required', 'min:10'],
+			'email' => ['required', 'email', 'unique:publishers,email,'.$publisher->id],
 			'address' => ['required']
         ]);
         $publisher->update($request->all());
