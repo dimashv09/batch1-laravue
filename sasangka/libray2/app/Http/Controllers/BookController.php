@@ -18,9 +18,17 @@ class BookController extends Controller
     public function index()
     {
         $publishers = Publisher::all();
-        $catalogs = Catalog::all();
-        $authors = Author::all();
-        return view('admin.book.index', compact(['publishers', 'catalogs', 'authors']));
+         $catalogs = Catalog::all();
+         $authors = Author::all();
+        return view('admin.book',compact('publishers','author','catalogs'));
+    }
+
+    public function api()
+    {
+        $books = Book:all();
+
+        return json_encode($books);
+
     }
 
     // public function api() {
