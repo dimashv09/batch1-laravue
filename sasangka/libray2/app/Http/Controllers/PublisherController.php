@@ -25,10 +25,10 @@ class PublisherController extends Controller
 
     public function api()
     {
-        // $publishers = Publisher::all();
-        // $datatables = datatables()->of($publishers)->addIndexColumn();
+         $publishers = Publisher::all();
+         $datatables = datatables()->of($publishers)->addIndexColumn();
 
-        // return $datatables->make(true);
+        return $datatables->make(true);
     }
 
     /**

@@ -34,6 +34,9 @@ Route::resource('/publishers',App\Http\Controllers\PublisherController::class);
 
 //author   
 Route::resource('/authors',App\Http\Controllers\AuthorController::class);
+Route::get('/api/authors',[App\Http\Controllers\AuthorController::class,'api']);
+Route::get('/api/publishers',[App\Http\Controllers\PublisherController::class,'api']);
+
 
 //books
 Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
