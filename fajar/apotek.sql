@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Jan 2022 pada 11.39
+-- Waktu pembuatan: 21 Jan 2022 pada 12.10
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.0.13
 
@@ -59,7 +59,7 @@ CREATE TABLE `transaksi` (
   `pembeli_id` int(11) NOT NULL,
   `obat_id` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `total_bayar` float NOT NULL
+  `total_bayar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -82,7 +82,9 @@ ALTER TABLE `pembeli`
 -- Indeks untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_pembeli` (`pembeli_id`),
+  ADD KEY `fk_obat` (`obat_id`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -105,6 +107,17 @@ ALTER TABLE `pembeli`
 --
 ALTER TABLE `transaksi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD CONSTRAINT `fk_obat` FOREIGN KEY (`obat_id`) REFERENCES `obat` (`id`),
+  ADD CONSTRAINT `fk_pembeli` FOREIGN KEY (`pembeli_id`) REFERENCES `pembeli` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
