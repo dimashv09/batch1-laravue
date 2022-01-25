@@ -1,13 +1,12 @@
 @extends('layouts.admin')
-@section('header','Author')
-@section('wrapper-title', 'Authors')
+@section('title', 'Publishers')
+@section('wrapper-title', 'Publishers')
 
 @section('css')
-  <!-- DataTables -->
-  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endsection
 
 @section('content')
@@ -16,7 +15,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<a href="#" @click="addData()" class="btn btn-sm btn-primary">Create New Author</a>
+					<a href="#" @click="addData()" class="btn btn-sm btn-primary">Create New Publisher</a>
 				</div>
 					<!-- /.card-header -->
                 <div class="card-body">
@@ -42,7 +41,7 @@
           <div class="modal-content">
 			  <form method="post" :action="actionUrl"autocomplete="off" @submit="submitForm($event,data.id)">
             <div class="modal-header">
-              <h4 class="modal-title">Author</h4>
+              <h4 class="modal-title">Publisher</h4>
 
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -98,8 +97,8 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script type="text/javascript">
-		var actionUrl = "{{ url('authors') }}";
-		var apiUrl = "{{ url('api/authors') }}";
+var actionUrl = "{{ url('publishers') }}";
+		var apiUrl = "{{ url('api/publishers') }}";
 
 		var columns = [{
 		        data: 'DT_RowIndex',
@@ -129,8 +128,8 @@
 		    {
 				render: function (index, row, data, meta) {
 					return `
-						<button onclick="authorVue.editData(event, ${meta.row})"  class="btn btn-sm btn-warning text-white">Edit</button>
-						<button onclick="authorVue.deleteData(event, ${data.id})"  class="btn btn-sm btn-danger text-white">Delete</button>
+						<button onclick="publisherVue.editData(event, ${meta.row})"  class="btn btn-sm btn-warning text-white">Edit</button>
+						<button onclick="publisherVue.deleteData(event, ${data.id})"  class="btn btn-sm btn-danger text-white">Delete</button>
 					`;
 				}, 
 				orderable: false, 
@@ -138,7 +137,7 @@
 				class: 'text-center' 
 			}
 		];
-		var authorVue = new Vue({
+		var publisherVue = new Vue({
 			el: "#controller",
 			data: {
 				dataList: [],
@@ -165,7 +164,7 @@
 				},
 				addData() {
 					this.data = {};
-					this.actionUrl='{{ url('authors') }}';
+					this.actionUrl='{{ url('publishers') }}';
 					this.editStatus = false;
 					$('#modalmadul').modal();
 				},
@@ -193,42 +192,5 @@
 				}
 			}
 		})
-	</script>
-
-// <!-- CRUD VUE js 2 -->
-// <script type="text/javascript">
-// 		var controller = new Vue({
-// 			el: "#controller",
-// 			data: {
-// 				data: {},
-// 				actionUrl:'{{ url ('authors') }}',
-// 				editStatus: false
-// 			},
-// 			mounted: function() {
-
-// 			},
-// 			methods: {
-// 				addData() {
-// 					this.data = {};
-// 					this.actionUrl='{{ url ('authors') }}';
-// 					this.editStatus = false
-// 					$( '#modal').modal();
-// 				},
-// 				editData(data) {
-// 					this.data = data;
-// 					this.actionUrl = '{{ url ('authors') }}'+'/'+ data.id;
-// 					this.editStatus = true
-// 					$('#modal').modal();
-// 				},
-// 				deleteData(id) {
-// 					this.actionUrl='{{ url ('authors') }}'+'/'+ id;
-// 					if (confirm("Are you sure?")) {
-// 						axios.post(this.actionUrl,{_method: 'DELETE'}).then(response => {
-// 							location.reload();
-// 						});
-// 					}
-// 				}
-// 			}
-// 		});
-// 	</script>
+</script>
 @endsection

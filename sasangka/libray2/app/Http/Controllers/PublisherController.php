@@ -20,14 +20,14 @@ class PublisherController extends Controller
     {
         $publishers = Publisher::all();
          //return $publishers; //cek data DB
-        return view('admin.publisher.index',compact('publishers'));
+        return view('admin.publisher',compact('publishers'));
     }
 
     public function api()
     {
          $publishers = Publisher::all();
          $datatables = datatables()->of($publishers)->addIndexColumn();
-
+ 
         return $datatables->make(true);
     }
 
