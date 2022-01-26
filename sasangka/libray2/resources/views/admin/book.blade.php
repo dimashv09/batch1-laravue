@@ -25,10 +25,10 @@
 	
 <hr>
 <div class="row">
-	 <div class="col-md-3 col-sm-6 col-xs-12" v-for="books in filteredList">
+	 <div class="col-md-4 col-sm-7 col-xs-8" v-for="book in filteredList">
 	 <div class="info-box">
 		 <div class="info-box-content">
-			 <span class="info-box-text h3">@{{ book.title }} ( @{{ book.qty }})</span>
+			 <span class="info-box-text h3">@{{ book.title }} (@{{ book.quantity }}) </span>
 			 <span class="info-box-number">Rp.@{{ numberWithSpaces(book.price) }},-<small></small><span>
 			 </div>
 			</div>
@@ -41,11 +41,10 @@
 @section('js')
 <script type="text/javascript">
 		var actionUrl = '{{ url('books') }}';
-		   var apiUrl = '{{ url('api/books')}}';
+		var apiUrl = '{{ url('api/books')}}';
 		  
-		 
 		var app = new Vue({
-			el: "#controller",
+			el: '#controller',
 			data: {
 				books:[],
 				search: ''
@@ -58,7 +57,7 @@
 					const _this = this;
 					$.ajax({
 						url: apiUrl,
-						method: 'GET'
+						method: 'GET',
 						success:function (data) {
 							_this. books = JSON.parse(data);	
 						},
@@ -66,13 +65,14 @@
 							console.log(eror);
 						}
 					});
+				},
 				numberWithSpaces (x) {
 					return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,".");
 				}
 			},
 			computed:{
 				filteredList(){
-					return this.books.filter(books=>{
+					return this.books.filter(book=> { 
 						return book.title.toLowerCase().includes(this.search.toLowerCase())
 					})
 				}
