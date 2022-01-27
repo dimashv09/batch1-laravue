@@ -26,7 +26,7 @@
 <hr>
 <div class="row">
 	 <div class="col-md-4 col-sm-7 col-xs-8" v-for="book in filteredList">
-	 <div class="info-box">
+	 <div class="info-box" v-on:click="editData(book)">
 		 <div class="info-box-content">
 			 <span class="info-box-text h3">@{{ book.title }} (@{{ book.quantity }}) </span>
 			 <span class="info-box-number">Rp.@{{ numberWithSpaces(book.price) }},-<small></small><span>
@@ -39,58 +39,75 @@
 
 <!-- Modal  -->
 <div class="modal fade" id="modal-book">
-	<div classa"modal-dialog">
-	  <div classa"modal-content">
+	<div class="modal-dialog">
+	  <div class="modal-content">
 		  <form method="post" action="" autocomplete="off">
-			<div class"modal-header">
+			<div class="modal-header">
 			  <h4 class="modal-title">Book</h4>
-			  <button type="button" class="close" data-dismiss="modal" aria-label-"Close">
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			  </button>
 			</div>
-			<div class-"modal-body">
+			<div class="modal-body">
 			  @csrf
+
+			  <input type="hidden" name="_method" value="PUT" v-If="editStatus">
 
 			  <div class="form-group">
 				<label>ISBN</Label>
-				<input type="number" class="form-control" name="isbn" required="">
-			  </div>
-
-			  <div class"form-group">
-				<label>Title</label>
-				<input type="text" class="form-control" name="title" required="">
+				<input type="number" class="form-control" name="isbn" required="" :value="book.isbn">
 			  </div>
 
 			  <div class="form-group">
-				<label>Tahun</label>
-				<input type="number" class="form-control" name="year" required="">
+				<label>Title</label>
+				<input type="text" class="form-control" name="title" required="" :value="book.title">
+			  </div>
+
+			  <div class="form-group">
+				<label>Year</label>
+				<input type="number" class="form-control" name="year" required="" :value="book.year">
 			  </div>
 
 			  <div class="form-group">
 				<label>Publisher</label>
+				<select name="publisher_id" class="form-control">
+					@foreach($publishers as $publisher)
+					<option :selected="book.publisher_id" == {{ $publisher->id }} value="{{ $publisher->id }}"> {{ $publisher->name }}</option>
+					@endforeach
+				</select>
 			  </div>
 
 			  <div class="form-group">
-				<label>Pengarang</label>
+				<label>Author</label>
+				<select name="author_id" class="form-control">
+					@foreach($authors as $author)
+					<option :selected="book.author_id" == {{ $author->id }} value="{{ $author->id }}"> {{ $author->name }}</option>
+					@endforeach
+				</select>
 			  </div>
 
 			  <div class="form-group">
 				<label>Katalog</label>
+				<select name="catalog_id" class="form-control">
+					@foreach($catalogs as $catalog)
+					<option :selected="book.catalog_id" == {{ $catalog->id }} value="{{ $catalog->id }}"> {{ $catalog->name }}</option>
+					@endforeach
+				</select>
 			  </div>
 
 				<div class="form-group">
 			    <label>Qty Stock</label>
-			   <input type="number" class="form-control" name="qty" required="">
+			   <input type="number" class="form-control" name="qty" required="" :value="book.quantity">
 				</div>
 
 				<div class="form-group">
 			     <label> Harga Pinjam/ <label>
-				<input type="nuaber" class="form-control" name="price" required="">
+				<input type="nuaber" class="form-control" name="price" required="" :value="book.price">
 				</div>  
 
 				</div>
 			   <div class="modal-footer justify-content-between">
-				<button type="button" class="btn btn-default bg-danger">Delete</button>
+				<button type="button" class="btn btn-default bg-danger" v-if="editStatus" v-on:click"deleteData(book.id)">Delete</button>
 				 <button type="submit" class="btn btn-primary">Save changes</button>
 </div>
 </form>
@@ -112,7 +129,9 @@
 			el: '#controller',
 			data: {
 				books:[],
-				search: ''
+				search: '',
+				book:{},
+				editStatus: false
 			},
 			mounted: function() {
 				this.get_books();
@@ -132,8 +151,18 @@
 					});
 				},
 				addData() {
+					this.book = {};
+					this.editStatus = false;
 					$('#modal-book').modal();
-				}
+				},
+				editData(book) {
+					this.book = book;
+					this.editStatus = true;
+					$('#modal-book').modal();
+				},
+				deleteData(id) {
+					console.log(id);
+				},
 				numberWithSpaces (x) {
 					return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,".");
 				}
