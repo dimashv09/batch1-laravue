@@ -19,7 +19,7 @@
 									<th style="text-align:center"> Name</th>
 									<th style="text-align:center"> Total Books</th>
 									<th style="text-align:center"> Created At</th>
-									<th style="text-align:center"> CRUD</th>
+									<th style="text-align:center"> Action</th>
 								
 							</tr>
 						</thead>
@@ -29,7 +29,7 @@
 								<td>{{ $key+1}}</td>
 								<td>{{ $catalog->name }}</td>
 								<td style="text-align: center">{{ count($catalog->books) }}</td>
-								<td>{{ date('d/m/Y', strtotime( $catalog->created_at ))}}</td>
+								<td class="text center">{{ convert_date( $catalog->created_at) }}</td>
 								<td class="d-flex" style="gap: .5rem">
 									<a href="{{ url('catalogs/'.$catalog->id.'/edit') }}" class="btn btn-sm btn-warning text-white">Edit</a>
 									<form action="{{ url('catalogs/'.$catalog->id) }}" method="POST">
