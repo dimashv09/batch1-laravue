@@ -26,7 +26,8 @@ class BookController extends Controller
     public function api()
     {
         $books = Book::all();
-
+        
+        
         return json_encode($books);
 
     }
@@ -56,20 +57,23 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'isbn' => ['required', 'integer'],
-            'title' => ['required'],
-            'year' => ['required', 'integer'],
-            'publisher_id' => ['required', 'integer'],
-            'author_id' => ['required', 'integer'],
-            'catalog_id' => ['required', 'integer'],
-            'quantity' => ['required', 'integer'],
-            'price' => ['required', 'integer']
+        // Validation Data
+        $validator = $request->validate([
+            'isbn' => 'required|unique:books|max:10',
+            'title' => 'required',
+            'year' => 'required|min:2|max:4',
+            'publisher_id' => 'required',
+            'author_id' => 'required',
+            'catalog_id' => 'required',
+            'qty' => 'required|min:1|max:4',
+            'price' => 'required|min:1|max:11',
         ]);
-        Book::create($request->all());
-        return redirect('books');
-    }
 
+        // Insert validated data into database
+        $book = Book::create($validator);
+
+        return response()->json($book);
+    }
     /**
      * Display the specified resource.
      *
@@ -101,18 +105,21 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $this->validate($request, [
-            'isbn' => ['required', 'integer'],
-            'title' => ['required'],
-            'year' => ['required', 'integer'],
-            'publisher_id' => ['required', 'integer'],
-            'author_id' => ['required', 'integer'],
-            'catalog_id' => ['required', 'integer'],
-            'quantity' => ['required', 'integer'],
-            'price' => ['required', 'integer']
+        $validator = $request->validate([
+            'isbn' => "required|unique:books,isbn,{$book->id}|max:9",
+            'title' => 'required',
+            'year' => 'required|min:2|max:4',
+            'publisher_id' => 'required',
+            'author_id' => 'required',
+            'catalog_id' => 'required',
+            'qty' => 'required|min:1|max:4',
+            'price' => 'required|min:1|max:11',
         ]);
-        $book->update($request->all());
-        return redirect('books');
+
+        // Insert validated data into database
+        $book->update($validator);
+
+        return redirect('books')->with('success', 'book data has been Updated');
     }
 
     /**
@@ -124,6 +131,5 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-        return redirect('books');
     }
 }

@@ -27,13 +27,9 @@ class AuthorController extends Controller
     {
         $authors = Author::all();
         
-        foreach ($authors as $key => $author) {
-            $author->date = convert_date($author->create_at);
-        }
-
         $datatables = datatables()->of($authors)
-                                ->addIndexColumn('date',function($author) {
-                                    return convert_date($author->create_at);
+                                ->editColumn('created_at',function($members){
+                                    return convert_date($members->create_at);
                                 })->addIndexColumn();
 
         return $datatables->make(true);

@@ -28,7 +28,7 @@
 								<th class="text-center">Email</th>
 								<th>Phone Number</th>
 								<th class="text-center">Address</th>
-								<th class="text-center">Created At</th>
+								<th class="text-center">Created_At</th>
 								<th class="text-center">Action</th>
 							</tr>
 						</thead>
@@ -128,7 +128,7 @@
 		        orderable: true
 		    },
 			{
-			    data: 'date',
+			    data: 'created_at',
 		        class: 'text-center',
 		        orderable: true
 		    },
