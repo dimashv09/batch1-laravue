@@ -1,0 +1,10 @@
+1. SELECT * FROM dokter
+2. SELECT * FROM obat ORDER BY nama_obat ASC
+3. SELECT * FROM obat ORDER BY nama_obat DESC
+4. SELECT nama_obat, komposisi FROM dokter
+5. SELECT * FROM pasien WHERE nama_pasien LIKE 'A%'
+6. SELECT id, manufaktur FROM obat WHERE nama_obat LIKE '%AN%'
+7. SELECT id_perusahaan, COUNT(id) as total_obat FROM obat GROUP BY id_perusahaan
+8. SELECT id_perusahaan, SUM(id) as total_jumlah_id FROM obat GROUP BY id_perusahaan
+9. SELECT * FROM transaksi WHERE tanggal_beli > '2022-02-24'
+10. SELECT * FROM transaksi WHERE total_harga_obat >= 300
