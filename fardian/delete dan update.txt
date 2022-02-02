@@ -1,0 +1,5 @@
+1. UPDATE obat SET nama_obat = 'Decolgenz' WHERE id = '1'
+2. UPDATE obat SET komposisi = 'Habatusauda' WHERE id = '4'
+3. UPDATE dokter SET nama_dokter = 'MARCELINUS' WHERE spesialis_dokter = 'UMUM'
+4. DELETE FROM obat WHERE id = '11'
+5. DELETE FROM obat WHERE nama_obat = 'Decolgenz'
