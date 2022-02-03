@@ -29,7 +29,7 @@ class AuthorController extends Controller
         
         $datatables = datatables()->of($authors)
                                 ->editColumn('created_at',function($members){
-                                    return convert_date($members->create_at);
+                                    return convert_date($members->created_at);
                                 })->addIndexColumn();
 
         return $datatables->make(true);

@@ -37,7 +37,7 @@
 			</div>
 		</div>
 	</div>
-	
+  <!-- MODAL -->
 	<div class="modal fade show" id="modalmadul">
 		<div class="modal-dialog">
           <div class="modal-content">

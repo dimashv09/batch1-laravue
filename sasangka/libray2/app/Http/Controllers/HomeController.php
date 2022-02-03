@@ -158,6 +158,7 @@ class HomeController extends Controller
         $data20 = Member::select('*')
                 ->whereMonth('created_at', '>=', 6)
                 ->get();
+                
 
         ///return $data4;
         return view('home');
