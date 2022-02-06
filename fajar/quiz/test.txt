@@ -1,0 +1,25 @@
+SELECT * FROM `anggota` WHERE role LIKE '%ADMIN%' GROUP BY id_anggota ASC;
+
+SELECT * FROM `anggota` WHERE role NOT LIKE '%ADMIN%' GROUP BY id_anggota ASC;
+
+SELECT anggota.id_anggota, nama FROM `anggota` WHERE NOT EXISTS(SELECT * FROM peminjaman WHERE peminjaman.id_anggota = anggota.id_anggota) GROUP by anggota.id_anggota;
+
+SELECT anggota.id_anggota,nama ,telp FROM `anggota` JOIN peminjaman ON peminjaman.id_anggota=anggota.id_anggota WHERE EXISTS (SELECT * FROM peminjaman WHERE peminjaman.id_anggota = anggota.id_anggota) GROUP by anggota.id_anggota;
+
+SELECT anggota.id_anggota,nama ,telp FROM `anggota` JOIN peminjaman ON peminjaman.id_anggota=anggota.id_anggota JOIN detail_peminjaman on peminjaman.id_pinjam=detail_peminjaman.id_pinjam WHERE qty>1 GROUP by anggota.id_anggota;
+
+SELECT nama , telp, alamat, tgl_pinjam, tgl_kembali FROM `anggota` JOIN peminjaman ON peminjaman.id_anggota=anggota.id_anggota ORDER by nama ASC;
+
+SELECT nama , telp, alamat, tgl_pinjam, tgl_kembali FROM `anggota` JOIN peminjaman ON peminjaman.id_anggota=anggota.id_anggota WHERE month(tgl_kembali)='06' ORDER by nama ASC;
+
+SELECT nama , telp, alamat, tgl_pinjam, tgl_kembali FROM `anggota` JOIN peminjaman ON peminjaman.id_anggota=anggota.id_anggota WHERE month(tgl_pinjam)='05' ORDER by nama ASC;
+
+SELECT nama , telp, alamat, tgl_pinjam, tgl_kembali FROM `anggota` JOIN peminjaman ON peminjaman.id_anggota=anggota.id_anggota WHERE month(tgl_pinjam)='05' AND month(tgl_kembali)='05' ORDER by nama ASC;
+
+SELECT nama , telp, alamat, tgl_pinjam, tgl_kembali FROM `anggota` JOIN peminjaman ON peminjaman.id_anggota=anggota.id_anggota WHERE alamat LIKE '%bandung%' ORDER by nama ASC;
+
+SELECT nama , telp, alamat, tgl_pinjam, tgl_kembali FROM `anggota` JOIN peminjaman ON peminjaman.id_anggota=anggota.id_anggota WHERE alamat LIKE '%Bandung%' AND sex='P';
+
+SELECT nama, telp, alamat, tgl_pinjam, tgl_kembali, isbn ,qty FROM `anggota` JOIN peminjaman ON peminjaman.id_anggota=anggota.id_anggota JOIN detail_peminjaman on peminjaman.id_pinjam=detail_peminjaman.id_pinjam WHERE qty>1 GROUP by nama ORDER BY nama ASC;
+
+SELECT nama, telp, alamat, tgl_pinjam, tgl_kembali, detail_peminjaman.isbn, qty, judul, harga_pinjam,(qty*harga_pinjam) AS harga_total FROM `anggota` JOIN peminjaman ON peminjaman.id_anggota=anggota.id_anggota JOIN detail_peminjaman on peminjaman.id_pinjam=detail_peminjaman.id_pinjam JOIN buku ON detail_peminjaman.isbn=buku.isbn ORDER BY nama ASC;
