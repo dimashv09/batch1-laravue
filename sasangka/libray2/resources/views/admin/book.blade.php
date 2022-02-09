@@ -5,45 +5,41 @@
 
 @endsection
 @section('content')
-    <div id="controller">
-        <div class="row">
-            <div class="row w-100 mb-3">
-                <div class="col-md-5 ml-auto">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </div>
-                        <input type="text" class="form-control" autocomplete="off" placeholder="Search from title"
-                            v-model="search">
+<div id="controller">
+    <div class="row">
+        <div class="row w-100 mb-3">
+            <div class="col-md-5 ml-auto">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
-                </div>
-
-                <div class="col-md-2 mr-auto">
-                    <button class="btn btn-primary" @click="addData()">Create a new book</button>
+                    <input type="text" class="form-control" autocomplete="off" placeholder="Search from title"
+                        v-model="search">
                 </div>
             </div>
-        </div>
-        <hr>
-        <!-- Boxes of Books -->
-        <div class="row">
-            <div class="col-lg-4" v-for="book in filteredList">
-                <div class="small-box bg-blue" v-on:click="editData(book)">
-                    <div class="inner">
-                        <span class="info-box-text h3">@{{ book.title }} (@{{ book.quantity }}) </span>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <p class="small-box-footer">Rp. @{{ numberWithSpaces(book.price) }}</p>
-                </div>
+
+            <div class="col-md-2 mr-auto">
+                <button class="btn btn-primary" @click="addData()">Create a new book</button>
             </div>
         </div>
     </div>
-
+    <hr>
+    <!-- Boxes of Books -->
+    <div class="row">
+        <div class="col-lg-4" v-for="book in filteredList">
+            <div class="small-box bg-blue" v-on:click="editData(book)">
+                <div class="inner">
+                    <span class="info-box-text h3">@{{ book.title }} (@{{ book.quantity }}) </span>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <p class="small-box-footer">Rp. @{{ numberWithSpaces(book.price) }}</p>
+            </div>
+        </div>
+    </div>
     <!-- Modal  -->
     <div class="modal fade" id="modal-book">
-        <div class="modal-dialog">
-        <div id="controller">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -52,81 +48,99 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form :action="action" method="POST" v-on:submit="submitForm( $event, data.id )">
+                <form :action="actionUrl" method="post" @submit.prevent="submitted($event,bookID)">
                     <div class="modal-body">
-
                         @csrf
 
                         <input type="hidden" name="_method" value="PUT" v-if="editStatus">
-                    </div> 
-                    
-                    <!-- modal-header end -->
-                    
-                    <div class="modal-body ">
-                        <div class="mb-3">
-                          <label for="isbn" class="form-label">ISBN</label>
-                          <input type="number" name="isbn" id="isbn" class="form-control" :value="data.isbn">
+
+                        <div class="form-group">
+                            <label for="isbn">ISBN</label>
+                            <input type="number" class="form-control form-control-sm" id="isbn"
+                                placeholder="Enter Book's ISBN" name="isbn" required :value="book.isbn">
                         </div>
-                        <div class="mb-3">
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control form-control-sm" id="title"
-                                required :value="book.title">
+                                placeholder="Enter Book's Title" name="title" required :value="book.title">
                         </div>
 
-                        <div class="form-group">
-                            <label>Year</label>
-                            <input type="number" class="form-control"  name="year"  required="" :value="book.year">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="year">Year</label>
+                                    <input type="text" class="form-control form-control-sm" id="year"
+                                        placeholder="Enter Book's Year Released" name="year" required
+                                        :value="book.year">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="publisher">Publisher</label>
+                                    <select name="publisher_id" id="publisher" class="form-control form-control-sm">
+                                        @foreach ($publishers as $publisher)
+                                        <option :selected="book.publisher_id == {{ $publisher->id }}"
+                                            value="{{ $publisher->id }}">{{ $publisher->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label>Publisher</label>
-                            <select name="publisher_id" class="form-control">
-                                @foreach ($publishers as $publisher)
-                                    <option :selected="book.publisher_id"{{ $publisher->id }}
-                                        value="{{ $publisher->id }}"> {{ $publisher->name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="author">Author</label>
+                                    <select name="author_id" id="author" class="form-control form-control-sm">
+                                        @foreach ($authors as $author)
+                                        <option :selected="book.author_id == {{ $author->id }}"
+                                            value="{{ $author->id }}">{{ $author->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="catalog">Catalog</label>
+                                    <select name="catalog_id" id="catalog" class="form-control form-control-sm">
+                                        @foreach ($catalogs as $catalog)
+                                        <option :selected="book.catalog_id == {{ $catalog->id }}"
+                                            value="{{ $catalog->id }}">{{ $catalog->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label>Author</label>
-                            <select name="author_id" class="form-control">
-                                @foreach ($authors as $author)
-                                    <option :selected="book.author_id"{{ $author->id }} value="{{ $author->id }}">
-                                        {{ $author->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Catalog</label>
-                            <select name="catalog_id" class="form-control">
-                                @foreach ($catalogs as $catalog)
-                                    <option :selected="book.catalog_id"{{ $catalog->id }} value="{{ $catalog->id }}">
-                                        {{ $catalog->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="qty">Quantity Stock</label>
-                            <input type="number" class="form-control form-control-sm" id="qty"
-                                name="qty" required :value="book.quantity">
-                        </div>
-
-                        <div class="form-group">
-                            <label> Harga Pinjam<label>
-                                    <input type="number" class="form-control" name="price" required="" :value="book.price">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="qty">Quantity of Stock</label>
+                                    <input type="number" class="form-control form-control-sm" id="quantity"
+                                        placeholder="Enter Book's Quantity of Stock" name="quantity" required
+                                        :value="book.quantity">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="price">Harga Pinjam</label>
+                                    <input type="number" class="form-control form-control-sm" id="price"
+                                        placeholder="Enter Book's Price" name="price" required :value="book.price">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-danger" v-if="editStatus" v-on:click="deleteData(target,book.id)">Delete</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-danger" v-if="editStatus"
+                            v-on:click="deleteData(target,bookID)">Delete</button>
+                        <button type="submit" class="btn btn-primary" @submit.prevent="submitted($event, book.id)">Save
+                            changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    </div>
+</div>
+</div>
+
 
 
 @endsection
@@ -170,7 +184,7 @@
                     $('#modal-book').modal();
                 },
                 editData(book) {
-                    this.book = this.book;
+                    this.book = book;
                     this.editStatus = true
                     $('#modal-book').modal();
                 },
@@ -209,5 +223,5 @@
                 }
             }
         })
-    </script>
+</script>
 @endsection
