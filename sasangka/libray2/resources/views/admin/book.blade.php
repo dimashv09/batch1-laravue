@@ -48,7 +48,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form :action="actionUrl" method="post" @submit.prevent="submitted($event,bookID)">
+                <form :action="actionUrl" method="post" @submit.prevent="submitform($event,book.id)">
                     <div class="modal-body">
                         @csrf
 
@@ -130,8 +130,8 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-danger" v-if="editStatus"
-                            v-on:click="deleteData(target,bookID)">Delete</button>
-                        <button type="submit" class="btn btn-primary" @submit.prevent="submitted($event, book.id)">Save
+                            v-on:click="deleteData(target,book.id)">Delete</button>
+                        <button type="submit" class="btn btn-primary" @submit.prevent="submitform($event, book.id)">Save
                             changes</button>
                     </div>
                 </form>
@@ -215,7 +215,7 @@
                 submitForm(event,id) {
                     event.preventDefault()
                     const _this = this
-                    var url = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id
+                    var url = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + book.id
                     axios.post(url, new FormData($(event.target)[0])).then(response => {
                         $('#modal-book').modal('hide')
                         _this.table.ajax.reload();
