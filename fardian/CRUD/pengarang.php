@@ -15,16 +15,16 @@
 <body>
 
 <center>
-    <a href="buku.php">Buku</a> |
-    <a href="penerbit.php">Penerbit</a> |
-    <a href="pengarang.php">Pengarang</a> |
-    <a href="katalog.php">Katalog</a>
+    <a class='btn btn-dark' href="buku.php">Buku</a> |
+    <a class='btn btn-dark' href="penerbit.php">Penerbit</a> |
+    <a class='btn btn-dark' href="pengarang.php">Pengarang</a> |
+    <a class='btn btn-dark' href="katalog.php">Katalog</a>
     <hr>
 </center>
 
-<a href="add_pengarang.php">Add New Pengarang</a><br/><br/>
+<a class='btn btn-secondary' href="add_pengarang.php">Add New Pengarang</a><br/><br/>
  
-    <table class="table" width='80%' border=1>
+    <table class="table table-dark" width='80%' border=1>
  
     <tr>
         <th>Kode Pengarang</th> 
