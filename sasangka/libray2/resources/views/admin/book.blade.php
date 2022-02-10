@@ -148,10 +148,8 @@
 
 @section('js')
 <script type="text/javascript">
-    var actionUrl = '{{ url('
-    books ') }}';
-    var apiUrl = '{{ url('
-    api / books ') }}';
+    var actionUrl = '{{ url('books ') }}';
+    var apiUrl = '{{ url(' api / books ') }}';
     var app = new Vue({
                 el: '#controller',
                 data: {
@@ -170,66 +168,68 @@
                     get_books() {
                         const _this = this;
                         $.ajax({
-                                    url: apiUrl,
-                                    method: 'GET',
-                                    success: function (data) {
-                                        _this.books = JSON.parse(data);
-                                    },
-                                    eror: function (eror) {
-                                        console.log(eror);
-                                    },
-                                    numberWithSpaces(num) {
-                                        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                    }
-                                    addData() {
-                                        this.book = {};
-                                        this.editStatus = false;
-                                        $('#modal-book').modal();
-                                    },
-                                    editData(book) {
-                                        this.book = book;
-                                        this.editStatus = true
-                                        $('#modal-book').modal();
-                                    },
-                                    deleteData(target, id) {
-                                        this.action += "/" + id;
-                                        const _this = this;
-                                        if (confirm("Apakah Anda yakin ingin menghapusnya?")) {
-                                            axios
-                                                .post(this.action, {
-                                                    _method: "DELETE"
-                                                })
-                                                .then((response) => {
-                                                    this.message = "Data berhasil dihapus";
-                                                    $("#modal-book").modal("hide");
-                                                    Swal.fire(this.message);
-                                                    this.getBook();
-                                                })
-                                        }
-                                    },
-                                    submitform(event, id) {
-                                        event.preventDefault();
-                                        const _this = this;
-                                        if (this.editStatus) {
-                                            axios
-                                                .post(this.actionUrl + "/" + id, this.book)
-                                                .then((response) => {
-                                                    this.message = "Data berhasil diubah";
-                                                    $("#modal-book").modal("hide");
-                                                    Swal.fire(this.message);
-                                                    this.getBook();
-                                                });
-                                        } else {
-                                            axios
-                                                .post(this.actionUrl, this.book)
-                                                .then((response) => {
-                                                    this.message = "Data berhasil ditambahkan";
-                                                    $("#modal-book").modal("hide");
-                                                    Swal.fire(this.message);
-                                                    this.getBook();
-                                                });
-                                        }
-                                    }
+                            url: apiUrl,
+                            method: 'GET',
+                            success: function (data) {
+                                _this.books = JSON.parse(data);
+                            },
+                            eror: function (eror) {
+                                console.log(eror);
+                            },
+                            numberWithSpaces(num) {
+                                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            },
+                            addData() {
+                                this.book = {};
+                                this.editStatus = false;
+                                $('#modal-book').modal();
+                            },
+                            editData(book) {
+                                this.book = book;
+                                this.editStatus = true
+                                $('#modal-book').modal();
+                            },
+                            deleteData(target, id) {
+                                this.action += "/" + id;
+                                const _this = this;
+                                if (confirm("Apakah Anda yakin ingin menghapusnya?")) {
+                                    axios
+                                        .post(this.action, {
+                                            _method: "DELETE"
+                                        })
+                                        .then((response) => {
+                                            this.message = "Data berhasil dihapus";
+                                            $('#modal-book').modal('hide');
+                                            Swal.fire(this.message);
+                                            this.getBook();
+                                        })
                                 }
+                            },
+                            submitform(event, id) {
+                                event.preventDefault();
+                                const _this = this;
+                                if (this.editStatus) {
+                                    axios
+                                        .post(this.actionUrl + "/" + id, this.book)
+                                        .then((response) => {
+                                            this.message = "Data berhasil diubah";
+                                            $('#modal-book').modal('hide');
+                                            Swal.fire(this.message);
+                                            this.getBook();
+                                        });
+                                } else {
+                                    axios
+                                        .post(this.actionUrl, this.book)
+                                        .then((response) => {
+                                                this.message = "Data berhasil ditambahkan";
+                                                $('#modal-book').modal('hide');
+                                                Swal.fire(this.message);
+                                                this.getBook();
+                                            })
+                        }
+                    })
+            }
+        }
+    })
 </script>
 @endsection
