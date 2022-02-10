@@ -59,7 +59,7 @@ class BookController extends Controller
             'publisher_id' => 'required',
             'author_id' => 'required',
             'catalog_id' => 'required',
-            'qty' => 'required|min:1|max:4',
+            'quantity' => 'required|min:1|max:4',
             'price' => 'required|min:1|max:11',
         ]);
 
@@ -108,7 +108,7 @@ class BookController extends Controller
             'publisher_id' => 'required',
             'author_id' => 'required',
             'catalog_id' => 'required',
-            'qty' => 'required|min:1|max:4',
+            'quantity' => 'required|min:1|max:4',
             'price' => 'required|min:1|max:11',
         ]);
 
