@@ -229,8 +229,15 @@
                                         this.getBook();
                                     })
                                 }
+                        },
+                     computed : {
+                        filteredList() {
+                            return this.books.filter((book) => {
+                                return book.title.toLowerCase().includes(this.search.toLowerCase())
+                            })
                         }
                     }
-                })
+                }
+            })
 </script>
 @endsection
