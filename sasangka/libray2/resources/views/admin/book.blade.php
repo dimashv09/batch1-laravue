@@ -176,10 +176,17 @@
                             eror: function (eror) {
                                 console.log(eror);
                             }
-                        });
+                        })
                     },
                     numberWithSpaces(num) {
                         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
+                    },
+                    computed: {
+                        filteredList() {
+                            return this.books.filter(book => {
+                                return book.title.toLowerCase().includes(this.search.toLowerCase())
+                            })
                     },
                     addData() {
                         this.book = {};
@@ -229,15 +236,8 @@
                                         this.getBook();
                                     })
                                 }
-                        },
-                     computed : {
-                        filteredList() {
-                            return this.books.filter((book) => {
-                                return book.title.toLowerCase().includes(this.search.toLowerCase())
-                            })
                         }
                     }
-                }
-            })
+                })
 </script>
 @endsection
