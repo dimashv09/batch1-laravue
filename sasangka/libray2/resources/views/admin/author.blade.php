@@ -172,8 +172,7 @@
             },
             addData() {
                 this.data = {};
-                this.actionUrl = '{{ url('
-                authors ') }}';
+                this.actionUrl = '{{ url(' authors ') }}';
                 this.editStatus = false;
                 $('#modalmadul').modal();
             },
