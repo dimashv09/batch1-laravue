@@ -176,43 +176,18 @@
                             eror: function (eror) {
                                 console.log(eror);
                             }
-                        })
-                    },
-                    numberWithSpaces(num) {
-                        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        });
                     },
                     addData() {
                         this.book = {};
                         this.editStatus = false;
                         $('#modal-book').modal();
-                    }
+
                     },
                     editData(book) {
                         this.book = book;
                         this.editStatus = true
                         $('#modal-book').modal();
-                    },
-                computed: {
-                        filteredList() {
-                            return this.books.filter(book => {
-                                return book.title.toLowerCase().includes(this.search.toLowerCase())
-                            })
-                    },
-                submitform(event, id) {
-                        event.preventDefault();
-                        const _this = this;
-                        $.ajax({
-                            url: apiUrl + '/' + id,
-                            method: 'PUT',
-                            data: $('#form-book').serialize(),
-                            success: function (data) {
-                                _this.get_books();
-                                $('#modal-book').modal('hide');
-                            },
-                            error: function (eror) {
-                                console.log(eror);
-                            }
-                        })
                     },
                     deleteData(target, id) {
                         const _this = this;
@@ -226,9 +201,35 @@
                             error: function (eror) {
                                 console.log(eror);
                             }
-                        })
+                        });
+                    },
+                    numberWithSpaces(num) {
+                        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    },
+                    submitform(event, id) {
+                        event.preventDefault();
+                        const _this = this;
+                        $.ajax({
+                            url: apiUrl + '/' + id,
+                            method: 'PUT',
+                            data: $('#form-book').serialize(),
+                            success: function (data) {
+                                _this.get_books();
+                                $('#modal-book').modal('hide');
+                            },
+                            error: function (eror) {
+                                console.log(eror);
+                            }
+                        });
                     }
-                }
-            })
+                },
+            computed: {
+            filteredList() {
+                return this.books.filter(book => {
+                    return book.title.toLowerCase().includes(this.search.toLowerCase())
+                })
+            }
+        }
+    })
 </script>
 @endsection

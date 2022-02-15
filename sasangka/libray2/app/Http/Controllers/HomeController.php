@@ -117,7 +117,7 @@ class HomeController extends Controller
                 ->join('transaction_details', 'transaction_details.transaction_id', 'transactions.id')
                 ->join('books', 'books.id', 'transaction_details.book_id')
                 ->get();
-                
+
         // No 14
         $data14 = Member::select('members.name', 'members.phone_number', 'members.address', 'transactions.date_start', 'transactions.date_end', 'books.isbn', 'transaction_details.quantity', 'books.title', 'publishers.name', 'authors.name', 'catalogs.name')
                 ->join('transactions', 'transactions.member_id', 'members.id')
@@ -158,7 +158,7 @@ class HomeController extends Controller
         $data20 = Member::select('*')
                 ->whereMonth('created_at', '>=', 6)
                 ->get();
-                
+
 
         ///return $data4;
         return view('home');

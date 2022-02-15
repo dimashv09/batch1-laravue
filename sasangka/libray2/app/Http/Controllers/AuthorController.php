@@ -11,7 +11,7 @@ class AuthorController extends Controller
     {
         //keamanan jika sudah login
         $this->middleware('auth');
-        
+
     }
         /**
      * Display a listing of the resource.
@@ -22,11 +22,11 @@ class AuthorController extends Controller
     {
         return view ('admin.author');
     }
-    
+
     public function api()
     {
         $authors = Author::all();
-        
+
         $datatables = datatables()->of($authors)
                                 ->editColumn('created_at',function($members){
                                     return convert_date($members->created_at);
@@ -35,7 +35,7 @@ class AuthorController extends Controller
         return $datatables->make(true);
 
     }
- 
+
 
     /**
      * Show the form for creating a new resource.
@@ -55,7 +55,7 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $this->validate($request, [
 			'name' => ['required', 'min:3'],
 			'phone_number' => ['required', 'min:10'],
@@ -119,4 +119,3 @@ class AuthorController extends Controller
         return redirect('authors')->with('success', 'Author has been Deleted');
     }
 }
-

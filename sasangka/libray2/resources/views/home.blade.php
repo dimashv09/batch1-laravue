@@ -140,7 +140,7 @@
       data: donutData,
       options: donutOptions
     })
-    
+
     //- PIE CHART -
     //-------------
     // Get context with jQuery - using jQuery's .get() method.

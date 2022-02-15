@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 //transaction
 Route::get('/transactions', [App\Http\Controllers\TransactionControllers::class, 'index']);
-//author  
+//author
 Route::resource('/authors',App\Http\Controllers\AuthorController::class);
 Route::get('/api/authors',[App\Http\Controllers\AuthorController::class,'api']);
 //publisher
@@ -37,5 +37,4 @@ Route::resource('/members', App\Http\Controllers\MemberController::class,);
 Route::get('/api/members',[App\Http\Controllers\MembersController::class,'api']);
 //catalog
 Route::resource('/catalogs',App\Http\Controllers\CatalogController::class);
-
 
