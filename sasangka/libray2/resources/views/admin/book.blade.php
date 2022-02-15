@@ -180,64 +180,55 @@
                     },
                     numberWithSpaces(num) {
                         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    }
-                    },
-                    computed: {
-                        filteredList() {
-                            return this.books.filter(book => {
-                                return book.title.toLowerCase().includes(this.search.toLowerCase())
-                            })
                     },
                     addData() {
                         this.book = {};
                         this.editStatus = false;
                         $('#modal-book').modal();
+                    }
                     },
                     editData(book) {
                         this.book = book;
                         this.editStatus = true
                         $('#modal-book').modal();
                     },
-                    deleteData(target, id) {
-                        this.action += "/" + id;
-                        const _this = this;
-                        if (confirm("Apakah Anda yakin ingin menghapusnya?")) {
-                            axios
-                                .post(this.action, {
-                                    _method: "DELETE"
-                                })
-                                .then((response) => {
-                                    this.message = "Data berhasil dihapus";
-                                    $('#modal-book').modal('hide');
-                                    Swal.fire(this.message);
-                                    this.getBook();
-                                })
-                        }
+                computed: {
+                        filteredList() {
+                            return this.books.filter(book => {
+                                return book.title.toLowerCase().includes(this.search.toLowerCase())
+                            })
                     },
-                    submitform(event, id) {
+                submitform(event, id) {
                         event.preventDefault();
                         const _this = this;
-                        if (this.editStatus) {
-                            axios
-                                .post(this.actionUrl + "/" + id, this.book)
-                                .then((response) => {
-                                    this.message = "Data berhasil diubah";
-                                    $('#modal-book').modal('hide');
-                                    Swal.fire(this.message);
-                                    this.getBook();
-                                });
-                        } else {
-                            axios
-                                .post(this.actionUrl, this.book)
-                                .then((response) => {
-                                        this.message = "Data berhasil ditambahkan";
-                                        $('#modal-book').modal('hide');
-                                        Swal.fire(this.message);
-                                        this.getBook();
-                                    })
-                                }
-                        }
+                        $.ajax({
+                            url: apiUrl + '/' + id,
+                            method: 'PUT',
+                            data: $('#form-book').serialize(),
+                            success: function (data) {
+                                _this.get_books();
+                                $('#modal-book').modal('hide');
+                            },
+                            error: function (eror) {
+                                console.log(eror);
+                            }
+                        })
+                    },
+                    deleteData(target, id) {
+                        const _this = this;
+                        $.ajax({
+                            url: apiUrl + '/' + id,
+                            method: 'DELETE',
+                            success: function (data) {
+                                _this.get_books();
+                                $('#modal-book').modal('hide');
+                            },
+                            error: function (eror) {
+                                console.log(eror);
+                            }
+                        })
                     }
-                })
+                }
+            })
 </script>
 @endsection
