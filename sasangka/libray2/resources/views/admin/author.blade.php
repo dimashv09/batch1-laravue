@@ -100,8 +100,8 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script type="text/javascript">
-    var actionUrl = "{{ url('authors') }}";
-    var apiUrl = "{{ url('api/authors') }}";
+    var actionUrl = "{{ url('authors')}}";
+    var apiUrl = "{{url('api/authors')}}";
 
     var columns = [{
             data: 'DT_RowIndex',
@@ -171,10 +171,10 @@
                 })
             },
             addData() {
-                this.data = {};
-                this.actionUrl = '{{ url(' authors ') }}';
-                this.editStatus = false;
-                $('#modalmadul').modal();
+    		this.data = {};
+    		this.actionUrl='{{ url ('authors') }}';
+    		this.editStatus = false
+    		$( '#modalmadul').modal();
             },
             editData(event, row) {
                 this.data = this.dataList[row]

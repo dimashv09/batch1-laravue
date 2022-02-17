@@ -35,7 +35,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade show" id="modalmadul">
 		<div class="modal-dialog">
           <div class="modal-content">
@@ -131,10 +131,10 @@ var actionUrl = "{{ url('publishers') }}";
 						<button onclick="publisherVue.editData(event, ${meta.row})"  class="btn btn-sm btn-warning text-white">Edit</button>
 						<button onclick="publisherVue.deleteData(event, ${data.id})"  class="btn btn-sm btn-danger text-white">Delete</button>
 					`;
-				}, 
-				orderable: false, 
-				width: '160px', 
-				class: 'text-center' 
+				},
+				orderable: false,
+				width: '160px',
+				class: 'text-center'
 			}
 		];
 		var publisherVue = new Vue({

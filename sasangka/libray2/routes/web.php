@@ -21,7 +21,7 @@ Auth::routes();
 //home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 //transaction
-Route::get('/transactions', [App\Http\Controllers\TransactionControllers::class, 'index']);
+Route::get('api/transactions', [App\Http\Controllers\TransactionControllers::class, 'index']);
 //author
 Route::resource('/authors',App\Http\Controllers\AuthorController::class);
 Route::get('/api/authors',[App\Http\Controllers\AuthorController::class,'api']);
