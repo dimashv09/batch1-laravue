@@ -31,8 +31,8 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-	public function dashboard() {
-		$total_members = Member::count();
+	public function home() {
+		$total_members =Member::count();
 		$total_books = Book::count();
 		$total_transactions = Transaction::whereMonth('date_start', date('m'))->count();
 		$total_publishers = Publisher::count();

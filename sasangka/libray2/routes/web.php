@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 //home
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'Home'])->name('home');
 //transaction
 Route::get('api/transactions', [App\Http\Controllers\TransactionControllers::class, 'index']);
 //author
