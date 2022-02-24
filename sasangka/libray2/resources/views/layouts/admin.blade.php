@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    @yield('css')  
-  
+    @yield('css')
+
   </head>
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -131,7 +131,7 @@
             <li class="nav-item">
               <a href="{{ url('transactions') }}" class="nav-link {{ (request()->is('transactions*')) ? 'active' : '' }}">
                 <i class="fas fa-handshake"></i>
-            <p>Transaction</p> 
+            <p>Transaction</p>
             </a>
           </li>
               <a href="{{ url('catalogs') }}" class="nav-link {{ (request()->is('catalogs')) ? 'active' : '' }}">
@@ -240,6 +240,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('js')
   </body>
 </html>

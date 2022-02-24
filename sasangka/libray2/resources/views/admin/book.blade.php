@@ -17,7 +17,6 @@
                         v-model="search">
                 </div>
             </div>
-
             <div class="col-md-2 mr-auto">
                 <button class="btn btn-primary" @click="addData()">Create a new book</button>
             </div>
@@ -204,7 +203,7 @@
                             .then(response => {
                                 $('#modal-book').modal('hide')
                                 Swal.fire("Book has been Deleted")
-                                this.getBooks();
+                                this.get_books();
                             })
                         }
                     })
@@ -219,7 +218,7 @@
                     .then(() => {
                         $('#modal-book').modal('hide')
                         Swal.fire(successMessage)
-                        this.getBooks();
+                        this.get_books();
                     })
                     .catch((error) => {
                         if (error.response) {
