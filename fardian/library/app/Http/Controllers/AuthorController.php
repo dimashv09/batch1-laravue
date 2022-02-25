@@ -46,11 +46,11 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         
-        $this->validate($request,[
-            'name'  => ['required'],
-            'email' => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
+        $validatedData = $request->validate([
+            'name' => 'required|min:5',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
         ]);
 
         Author::create($request->all());
@@ -93,11 +93,11 @@ class AuthorController extends Controller
     {
         // return $request;
 
-        $this->validate($request,[
-            'name'  => ['required'],
-            'email' => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
+        $validatedData = $request->validate([
+            'name' => 'required|min:5',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
         ]);
 
         $author->update($request->all());

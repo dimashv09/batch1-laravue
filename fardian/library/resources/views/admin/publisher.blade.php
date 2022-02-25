@@ -54,7 +54,7 @@
 
                         <div class="form-group">
                           <label>Name</label>
-                          <input type="text" class="form-control" name="name" :value="data.name" required="">
+                          <input placeholder="Min 5 Character" type="text" class="form-control" name="name" :value="data.name" required="">
                         </div>
                         <div class="form-group">
                           <label>Email</label>

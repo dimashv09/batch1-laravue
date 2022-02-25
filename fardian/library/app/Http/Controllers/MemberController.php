@@ -45,12 +45,12 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name'  => ['required'],
-            'gender'  => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
-            'email' => ['required'],
+        $validatedData = $request->validate([
+            'name' => 'required|min:5',
+            'gender' => 'max:1',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'email' => 'required',
         ]);
 
         Member::create($request->all());
@@ -89,12 +89,12 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-        $this->validate($request,[
-            'name'  => ['required'],
-            'gender'  => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
-            'email' => ['required'],
+        $validatedData = $request->validate([
+            'name' => 'required|min:5',
+            'gender' => 'max:1',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'email' => 'required',
         ]);
 
         $member->update($request->all());

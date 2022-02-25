@@ -14,7 +14,7 @@
   <div class="col-12">
   <div class="card"> 
     <div class="card-header">
-                <a href="#" @click="addData()" data-target="#modal-default" data-toggle="modal" class="btn btn-sm btn-primary pull-right">Create New Author</a>
+                <a href="#" @click="addData()" data-target="#modal-default" data-toggle="modal" class="btn btn-sm btn-primary pull-right">Create New Member</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -54,16 +54,15 @@
 
                         <div class="form-group">
                           <label>Name</label>
-                          <input type="text" class="form-control" name="name" :value="data.name" required="">
+                          <input placeholder="Min 5 Character" type="text" class="form-control" name="name" :value="data.name" required="">
                         </div>
                         <div class="icheck-primary d-inline">
-                        <input type="radio" id="radioPrimary1" name="gender" :value="data.gender" required="">
-                        <label for="radioPrimary1"> Female </label>
-                        </div>
-                        <br>
+                        <input type="radio" id="radioPrimary1" name="gender" value="M">
+                        <label for="radioPrimary1">Male</label>
+                        </div><br>
                         <div class="icheck-primary d-inline">
-                        <input type="radio" id="radioPrimary1" name="gender" :value="data.gender" required="">
-                        <label for="radioPrimary1"> Male </label>
+                        <input type="radio" id="radioPrimary1" name="gender" value="F">
+                        <label for="radioPrimary1">Female</label>
                         </div>
                         <div class="form-group">
                           <label>Phone Number</label>

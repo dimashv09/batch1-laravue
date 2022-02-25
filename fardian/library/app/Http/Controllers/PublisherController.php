@@ -46,11 +46,11 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name'  => ['required'],
-            'email' => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
+        $validatedData = $request->validate([
+            'name' => 'required|min:5',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
         ]);
 
         Publisher::create($request->all());
@@ -89,11 +89,11 @@ class PublisherController extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        $this->validate($request,[
-            'name'  => ['required'],
-            'email' => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
+        $validatedData = $request->validate([
+            'name' => 'required|min:5',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
         ]);
 
         $publisher->update($request->all());

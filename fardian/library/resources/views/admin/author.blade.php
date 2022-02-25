@@ -53,7 +53,8 @@
 
                         <div class="form-group">
                           <label>Name</label>
-                          <input type="text" class="form-control" name="name" :value="data.name" required="">
+                          <input placeholder="Min 5 Character" id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" :value="data.name" required="">
+                          <span class="text-danger" id="nameError"></span>
                         </div>
                         <div class="form-group">
                           <label>Email</label>
