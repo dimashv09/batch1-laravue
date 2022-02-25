@@ -31,6 +31,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/book', [App\Http\Controllers\BookController::class, 'index']);
 Route::get('/member', [App\Http\Controllers\MemberController::class, 'index']);
 
+Route::get('/api/author', [App\Http\Controllers\AuthorController::class, 'api']);
+Route::get('/api/publisher', [App\Http\Controllers\PublisherController::class, 'api']);
+Route::get('/api/member', [App\Http\Controllers\MemberController::class, 'api']);
+
 Route::resource('/author', App\Http\Controllers\AuthorController::class);
 // Route::get('/author', [App\Http\Controllers\AuthorController::class, 'index']);
 // Route::get('/author/create', [App\Http\Controllers\AuthorController::class, 'create']);
