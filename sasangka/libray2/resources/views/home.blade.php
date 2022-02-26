@@ -96,7 +96,7 @@
             </div>
             <div class="card-body">
                 <div class="chart">
-                    <canvas id="barChart"
+                    <canvas id="pieChart"
                         style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
             </div>
@@ -106,10 +106,6 @@
         @endsection
         <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
-        <script text="text/javascript">
-            @section('js')
-
-        </script>
 
         <script>
             // Data Donut Chart
@@ -159,7 +155,7 @@
                 //Create pie or douhnut chart
                 // You can switch between pie and douhnut using the method below.
                 new Chart(pieChartCanvas, {
-                    type: 'pie',
+                    type: 'bar',
                     data: pieData,
                     options: pieOptions
                 })
@@ -169,7 +165,7 @@
                     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
                         'September', 'October', 'November', 'December'
                     ],
-                    datasets: JSON.parse(data_bar)
+                    datasets: JSON.parse(data_donut)
                 }
                 var barChartCanvas = $('#barChart').get(0).getContext('2d')
                 var barChartData = $.extend(true, {}, barChartData)

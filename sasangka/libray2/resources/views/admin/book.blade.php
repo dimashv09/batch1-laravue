@@ -129,7 +129,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-danger" v-if="editStatus"
-                            v-on:click="deleteData(target,book.id)">Delete</button>
+                            v-on:click="deleteData(book.id)">Delete</button>
                         <button type="submit" class="btn btn-primary" @submit.prevent="submitform($event, book.id)">Save
                             changes</button>
                     </div>
