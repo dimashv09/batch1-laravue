@@ -17,33 +17,42 @@ $buku = mysqli_query($mysqli, "SELECT *, nama_pengarang, nama_penerbit, katalog.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
 
-    <center>
-        <a href="index.php">Buku</a> |
-        <a href="#">Penerbit</a> |
-        <a href="#">Pengarang</a> |
-        <a href="#">Katalog</a>
-        <hr>
-    </center>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="index.php">Buku</a>
+                    <a class="nav-link" href="../penerbit/index.php">Penerbit</a>
+                    <a class="nav-link" href="../pengarang/index.php">Pengarang</a>
+                    <a class="nav-link" href="../katalog/index.php">Katalog</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <a href="create.php">Add New Buku</a><br><br>
+    <div class="container mt-3">
+        <a class="btn btn-primary" href="create.php">Add New Buku</a>
+        <br><br>
 
-    <table width='80%' border=1>
-        <tr>
-            <th>ISBN</th>
-            <th>Judul</th>
-            <th>Tahun</th>
-            <th>Pengarang</th>
-            <th>Penerbit</th>
-            <th>Katalog</th>
-            <th>Stok</th>
-            <th>Harga Pinjam</th>
-            <th>Aksi</th>
-        </tr>
-        <?php  
+        <table class="table table-striped table-bordered" width='80%' border=1>
+            <tr>
+                <th>ISBN</th>
+                <th>Judul</th>
+                <th>Tahun</th>
+                <th>Pengarang</th>
+                <th>Penerbit</th>
+                <th>Katalog</th>
+                <th>Stok</th>
+                <th>Harga Pinjam</th>
+                <th>Aksi</th>
+            </tr>
+            <?php  
         while($buku_data = mysqli_fetch_array($buku)) :
             echo "<tr>";
             echo "<td>".$buku_data['isbn']."</td>";
@@ -54,10 +63,12 @@ $buku = mysqli_query($mysqli, "SELECT *, nama_pengarang, nama_penerbit, katalog.
             echo "<td>".$buku_data['nama_katalog']."</td>";    
             echo "<td>".$buku_data['qty_stok']."</td>";    
             echo "<td>".$buku_data['harga_pinjam']."</td>";    
-            echo "<td><a href='edit.php?isbn=$buku_data[isbn]'>Edit</a> | <a href='delete.php?isbn=$buku_data[isbn]'>Delete</a></td></tr>";        
+            echo "<td><a href='edit.php?isbn=$buku_data[isbn]'class='btn btn-info'>Edit</a>
+            <a href='delete.php?isbn=$buku_data[isbn]'class='btn btn-danger'>Delete</a></td></tr>";        
         endwhile;
         ?>
-    </table>
+        </table>
+    </div>
 
 </body>
 
