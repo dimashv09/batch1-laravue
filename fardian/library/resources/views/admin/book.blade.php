@@ -152,7 +152,7 @@
                 $('#modal-default').modal();
             },
             deleteData(id){
-            this.actionUrl = '{{ url('book') }}'+'/'+id;
+            // this.actionUrl = '{{ url('book') }}'+'/'+id;
             if (confirm("Are you sure?")) {
               axios.post(this.actionUrl, {_method: 'DELETE'}).then(response =>{
                 alert('Data has been removed');
