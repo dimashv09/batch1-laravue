@@ -148,16 +148,22 @@
             editData(book){
                 this.book = book;
                 this.editStatus = true;
+                this.actionUrl = this.actionUrl+"/"+book.id;
                 $('#modal-default').modal();
             },
-            deleteData(event,id){
-                if (confirm("Are you sure?")) {
-                $(event.target).parents('tr').remove();
-                axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response =>{
-                    alert('Data has been removed');
-            });
+            deleteData(id){
+            this.actionUrl = '{{ url('book') }}'+'/'+id;
+            if (confirm("Are you sure?")) {
+              axios.post(this.actionUrl, {_method: 'DELETE'}).then(response =>{
+                alert('Data has been removed');
+                location.reload();
+              });
+          //   $(event.target).book.remove();
+          //   axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response =>{
+          //   alert('Data has been removed');
+          // });
         }
-            },
+     },
             numberWithCommas(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
