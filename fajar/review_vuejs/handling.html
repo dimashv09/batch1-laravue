@@ -29,6 +29,11 @@
         <button @click="say('bye Fajar')">Say bye</button>
     </div>
 
+    <div id="app4">
+        <button @click="warn('Form cannot be submitted yet.', $event)">
+            Submit
+        </button>
+    </div>
 
 
     <script src="https://unpkg.com/vue@3"></script>
@@ -68,6 +73,15 @@
                 }
             }
         }).mount('#app3')
+
+        Vue.createApp({
+            methods: {
+                warn(message, event) {
+                    // now we have access to the native event
+                    alert(message)
+                }
+            }
+        }).mount('#app4')
     </script>
 </body>
 
