@@ -40,7 +40,7 @@ SELECT buku.*, nama_penerbit FROM `penerbit` left JOIN buku ON penerbit.id_pener
 SELECT id_pengarang , COUNT(id_pengarang) AS total FROM `buku` WHERE id_pengarang="PG05";
 
 SELECT * FROM `buku` WHERE harga_pinjam>10000;
-
+ 
 SELECT * FROM `buku` WHERE id_penerbit="PN01" AND qty_stok>10;
 
 SELECT * FROM `anggota` WHERE tgl_entry LIKE '%2022-06%';
