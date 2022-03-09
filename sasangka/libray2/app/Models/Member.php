@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
-	protected $fillable = ['name', 'gender', 'phone_number', 'email', 'address'];
-	
-	public function user() {
-		return $this->hasOne(User::class, 'member_id');
-	}
+    // Get User for the Member
+    public function user()
+    {
+        return $this->hasOne(User::class, 'member_id');
+    }
 
-	
+    // Get the Transaction for the Member
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'member_id');
+    }
 }

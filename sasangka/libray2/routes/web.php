@@ -1,6 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\TransactionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +41,8 @@ Route::resource('/publishers',App\Http\Controllers\PublisherController::class);
 Route::resource('/books', App\Http\Controllers\BookController::class);
 Route::get('/api/books',[App\Http\Controllers\BookController::class,'api']);
 //member
-Route::get('members', [App\Http\Controllers\MemberController::class, 'index']);
-Route::resource('/members', App\Http\Controllers\MemberController::class,);
-Route::get('/api/members',[App\Http\Controllers\MembersController::class,'api']);
+Route::resource('members', MemberController::class);
+Route::get('/api/members', [MemberController::class, 'api']);
 //catalog
 Route::resource('/catalogs',App\Http\Controllers\CatalogController::class);
 

@@ -11,15 +11,37 @@
 
 @section('content')
 <div id="controller">
+    <!-- Data Table -->
+    <div class="row">
+        <div class="col-12">
+            <!-- Displaying The Success Message of Modifying DataBase -->
+            @if (session()->has('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+
+            <!-- Displaying The Validation Errors -->
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <h4 class="py-3">Oops, There's something wrong!</h4>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <div class="card">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-10">
-                            <a href="#" @click="addData()" class="btn btn-primary pull-right">Add new Member</a>
+                            <a href="#" @click="addData()" class="btn btn-primary">Add new Member</a>
                         </div>
                         <div class="col-2">
                             <select class="form-control" name="filter">
-                                <option value="0">--Filter--</option>
+                                <option value="">--Filter--</option>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
                             </select>
@@ -49,7 +71,7 @@
     </div>
 
     <!-- Modal Popup -->
-    <div class="modal fade" id="modal-default">
+    <div class="modal fade" id="modalmadul">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -61,7 +83,7 @@
                 <form :action="actionUrl" method="post" @submit.prevent="submittedForm($event, data.id)">
                     <div class="modal-body">
                         @csrf
-                        <input type="hidden" name="_method" value="PUT" v-if="status" />
+                        <input type="hidden" name="method" value="PUT" v-if="status" />
 
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -124,17 +146,36 @@
 <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script type="text/javascript">
-        const actionUrl = `{{ url('members'); }}`
-        const apiUrl = `{{ url('api/members'); }}`
-           var columns = [
-        {data: 'name',class:'text-center',orderable: true},
-        {data: 'sex',class:'text-center',orderable: true},
-        {data: 'phone',class:'text-center',orderable: true},
-        {data: 'address',class:'text-center',orderable: true},
-        {data: 'email', class:'text-center',orderable: true},
-        {render: function(index, row,data,meta){
-           /* html */
+<script src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<!-- Page specific script -->
+<script>
+    $(function () {
+        $("#dataTable").DataTable();
+    });
+</script>
+
+<script>
+      var actionUrl = `{{ url('members'); }}`
+      var apiUrl = `{{ url('api/members'); }}`
+
+        var columns = [
+        {data: 'DT_RowIndex', orderable: true},
+        {data: 'name', orderable: false},
+        {data: 'gender', orderable: false},
+        {data: 'phone_number', orderable: false},
+        {data: 'address', orderable: false},
+        {data: 'email', orderable: false},
+        {data: 'date', orderable: false},
+        {render: function(index, row, data, meta) {
+        /* html */
         return `
         <a href="#" class="badge bg-warning p-2 mb-2" onclick="controller.editData(event, ${meta.row})">
             Edit</a>
@@ -143,19 +184,21 @@
         }, width: '130px', orderable: false}
         ]
 </script>
+
 <!-- CRUD VueJs -->
 <script src="{{ asset("js/data.js") }}"></script>
- <!-- Gender's Filter Script -->
-<script type="text/javascript">
+
+<!-- Gender's Filter Script -->
+<script>
     $('select[name=filter]').on('change', function() {
         gender = $('select[name=filter]').val();
 
-        if (gender == '') {
+        if (gender== '') {
             controller.table.ajax.url(apiUrl).load()
         } else {
             controller.table.ajax.url(`${apiUrl}?gender=${gender}`).load()
         }
-    });
+    })
 </script>
 
 @endsection

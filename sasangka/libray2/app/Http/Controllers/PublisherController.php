@@ -27,7 +27,7 @@ class PublisherController extends Controller
     {
          $publishers = Publisher::all();
          $datatables = datatables()->of($publishers)->addIndexColumn();
- 
+
         return $datatables->make(true);
     }
 
@@ -58,7 +58,7 @@ class PublisherController extends Controller
         ]);
         Publisher::create($request->all());
 
-        return redirect ('publishers'); 
+        return redirect ('publishers');
 
     }
 
@@ -102,8 +102,8 @@ class PublisherController extends Controller
         ]);
         $publisher->update($request->all());
 
-        return redirect ('publishers'); 
-        
+        return redirect ('publishers');
+
     }
 
     /**
