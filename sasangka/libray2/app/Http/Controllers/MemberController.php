@@ -32,11 +32,11 @@ class MemberController extends Controller
         $datatables = datatables()
                         ->of($members)
                         ->editColumn('created_at', function($members){
-                            return custom_date($members->created_at);
+                            return convert_date($members->created_at);
                         })
                         ->addIndexColumn();
-
         return $datatables->make(true);
+
     }
 
     /**
