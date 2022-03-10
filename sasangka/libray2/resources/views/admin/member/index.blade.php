@@ -71,7 +71,7 @@
     </div>
 
     <!-- Modal Popup -->
-    <div class="modal fade" id="modalmadul">
+    <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -163,7 +163,7 @@
 </script>
 
 <script>
-      var actionUrl = `{{ url('members'); }}`
+      var actionUrl = `{{ ('members'); }}`
       var apiUrl = `{{ url('api/members'); }}`
 
         var columns = [
@@ -181,22 +181,19 @@
             Edit</a>
         <a href="#" class="badge bg-danger p-2 mb-2" onclick="controller.deleteData(event, ${data.id})">
             Delete</a>`
-        }, width: '130px', orderable: false}
+        }, width: '100px', orderable: false}
         ]
 </script>
-
-<!-- CRUD VueJs -->
-<script src="{{ asset("js/data.js") }}"></script>
-
+<script src="{{ asset("js/dataku.js") }}"></script>
 <!-- Gender's Filter Script -->
 <script>
     $('select[name=filter]').on('change', function() {
         gender = $('select[name=filter]').val();
 
-        if (gender== '') {
-            controller.table.ajax.url(apiUrl).load()
+        if (sex == '') {
+            controller.table.ajax.url(actionUrl).load()
         } else {
-            controller.table.ajax.url(`${apiUrl}?gender=${gender}`).load()
+            controller.table.ajax.url(`${actionUrl}?gender=${gender}`).load()
         }
     })
 </script>

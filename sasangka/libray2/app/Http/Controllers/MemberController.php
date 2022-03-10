@@ -21,8 +21,8 @@ class MemberController extends Controller
         return view('admin.member.index');
     }
 
-	public function api() {
-
+    public function api(Request $request)
+    {
         if ($request->gender) {
             $members = Member::where('gender', $request->gender)->get();
         } else {
@@ -30,14 +30,14 @@ class MemberController extends Controller
         }
 
         $datatables = datatables()
-        ->of($members)
-        ->addColumn('date', function ($member) {
-            return convertDate($member->created_at);
-        })
-        ->addIndexColumn();
+                        ->of($members)
+                        ->editColumn('created_at', function($members){
+                            return custom_date($members->created_at);
+                        })
+                        ->addIndexColumn();
 
-    return $datatables->make(true);
-	}
+        return $datatables->make(true);
+    }
 
     /**
      * Show the form for creating a new resource.
