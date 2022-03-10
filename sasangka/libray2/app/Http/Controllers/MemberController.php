@@ -35,6 +35,7 @@ class MemberController extends Controller
                             return convert_date($members->created_at);
                         })
                         ->addIndexColumn();
+
         return $datatables->make(true);
 
     }

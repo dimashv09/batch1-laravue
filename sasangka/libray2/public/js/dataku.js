@@ -49,10 +49,10 @@ const controller = new Vue({
         },
         submittedForm(event, id) {
             const _this = this;
-            let actionUrl = this.status ?
+            var actionUrl = this.status ?
                 `${this.actionUrl}/${id}` :
                 this.actionUrl;
-            let successMessage = this.status ?
+            var successMessage = this.status ?
                 "Data has been Updated" :
                 "Data has been Added";
 
@@ -66,9 +66,9 @@ const controller = new Vue({
                 .catch((error) => {
                     if (error.response) {
                         // get all error messages
-                        let errorMessage = error.response.data.errors;
+                        var errorMessage = error.response.data.errors;
                         // extract each error then insert it into error box
-                        let errorBox = "";
+                        var errorBox = "";
                         $.each(errorMessage, function(key, val) {
                             errorBox += `<p clas='text-danger'> ${val}</p> <br>`;
                         });

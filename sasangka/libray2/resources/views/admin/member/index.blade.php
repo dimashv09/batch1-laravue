@@ -63,7 +63,9 @@
                                 <th class="align-middle" style="width: 80px;">Action</th>
                             </tr>
                         </thead>
-
+                        <head>
+                            <link rel="stylesheet" type="text/css" href="/path/to/css/jquery.dataTables.css">
+                            <script type="text/javascript" charset="utf8" src="/path/to/js/jquery.dataTables.js"></script>
                     </table>
                 </div>
             </div>
@@ -190,7 +192,7 @@
     $('select[name=filter]').on('change', function() {
         gender = $('select[name=filter]').val();
 
-        if (sex == '') {
+        if (sex == '0') {
             controller.table.ajax.url(actionUrl).load()
         } else {
             controller.table.ajax.url(`${actionUrl}?gender=${gender}`).load()
