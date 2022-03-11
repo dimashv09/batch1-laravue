@@ -187,17 +187,17 @@
         ]
 </script>
 <script src="{{ asset("js/dataku.js") }}"></script>
-<!-- Gender's Filter Script -->
+<!-- Gender Filter  -->
 <script>
     $('select[name=filter]').on('change', function() {
         gender = $('select[name=filter]').val();
 
-        if (sex == '0') {
-            controller.table.ajax.url(actionUrl).load()
+        if (sex == 0 ) {
+            controller.table.ajax.url(actionUrl).load();
         } else {
-            controller.table.ajax.url(`${actionUrl}?gender=${gender}`).load()
+            controller.table.ajax.url(`${actionUrl}?sex=$sex`).load();
         }
-    })
+    });
 </script>
 
 @endsection
