@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Publisher;
+use App\Models\Catalog;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PublisherController extends Controller
+class CatalogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        return view('admin.publisher.index');
+        return view('admin.catalog.index');
     }
 
     /**
@@ -42,10 +42,10 @@ class PublisherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Publisher  $publisher
+     * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function show(Publisher $publisher)
+    public function show(Catalog $catalog)
     {
         //
     }
@@ -53,10 +53,10 @@ class PublisherController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Publisher  $publisher
+     * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Publisher $publisher)
+    public function edit(Catalog $catalog)
     {
         //
     }
@@ -65,10 +65,10 @@ class PublisherController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Publisher  $publisher
+     * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Publisher $publisher)
+    public function update(Request $request, Catalog $catalog)
     {
         //
     }
@@ -76,10 +76,10 @@ class PublisherController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Publisher  $publisher
+     * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Publisher $publisher)
+    public function destroy(Catalog $catalog)
     {
         //
     }

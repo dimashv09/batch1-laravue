@@ -148,10 +148,58 @@
                         <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <a href="{{url('home')}}" class="nav-link">
+                                <i class="nav-icon  fa fa-home"></i>
                                 <p>
                                     Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('member')}}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Member
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('catalog')}}" class="nav-link">
+                                <i class="nav-icon fas fa-boxes"></i>
+                                <p>
+                                    Catalog
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('book')}}" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Book
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('author')}}" class="nav-link">
+                                <i class="nav-icon fas fa-user-edit"></i>
+                                <p>
+                                    Author
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('publisher')}}" class="nav-link">
+                                <i class="nav-icon fas fa-paper-plane"></i>
+                                <p>
+                                    Publisher
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('transaction')}}" class="nav-link">
+                                <i class="nav-icon fas fa-wallet"></i>
+                                <p>
+                                    Transaction
                                 </p>
                             </a>
                         </li>
@@ -167,7 +215,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">@yield('header')</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
