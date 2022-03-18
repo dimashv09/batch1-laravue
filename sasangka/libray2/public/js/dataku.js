@@ -8,14 +8,20 @@ const controller = new Vue({
         status: false,
     },
     mounted: function() {
-        this.fetchDataTable();
+        this.datatable();
     },
     methods: {
-        fetchDataTable: function() {
-            axios.get(this.apiUrl).then(response => {
-                this.datas = response.data;
-            });
-
+        datatable() {
+            const _this = this;
+            _this.table = $('#dataTable').DataTable({
+                ajax: {
+                    url: _this.apiUrl,
+                    type: 'GET'
+                },
+                columns,
+            }).on('xhr', function () {
+                _this.dataList = _this.table.ajax.json().data;
+            })
         },
         addData() {
             this.data = {};

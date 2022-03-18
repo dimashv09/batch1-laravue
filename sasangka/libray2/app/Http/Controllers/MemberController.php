@@ -17,7 +17,8 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $members = Member::all();
         return view('admin.member.index');
     }
 

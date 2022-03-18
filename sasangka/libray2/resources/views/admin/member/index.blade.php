@@ -63,9 +63,6 @@
                                 <th class="align-middle" style="width: 80px;">Action</th>
                             </tr>
                         </thead>
-                        <head>
-                            <link rel="stylesheet" type="text/css" href="/path/to/css/jquery.dataTables.css">
-                            <script type="text/javascript" charset="utf8" src="/path/to/js/jquery.dataTables.js"></script>
                     </table>
                 </div>
             </div>
@@ -175,7 +172,7 @@
         {data: 'phone_number', orderable: false},
         {data: 'address', orderable: false},
         {data: 'email', orderable: false},
-        {data: 'date', orderable: false},
+        {data: 'created_at', orderable: false},
         {render: function(index, row, data, meta) {
         /* html */
         return `
