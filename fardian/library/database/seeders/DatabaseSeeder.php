@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
             CatalogSeeder::class,
             PublisherSeeder::class,
             MemberSeeder::class,
-            BookSeeder::class
+            BookSeeder::class,
+            TransactionSeeder::class,
+            TransactionDetailSeeder::class
         ]);
     }
 }

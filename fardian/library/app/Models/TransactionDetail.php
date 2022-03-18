@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransactionDetail extends Model
 {
-    use HasFactory;
+    public function book(){
+        return $this->belongsTo('App\Models\Publisher', 'book_id');
+    }
 }
