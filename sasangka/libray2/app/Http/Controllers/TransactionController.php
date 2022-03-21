@@ -9,8 +9,6 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class TransactionController extends Controller
 {
@@ -221,30 +219,5 @@ class TransactionController extends Controller
         $transaction->delete();
 
         return redirect('transactions')->with('success', 'Transaction data has been Deleted');
-    }
-
-    public function setRole()
-    {
-        // //? Setting Role and it's Permission
-        // $role = Role::create(['name' => 'admin']);
-        // $permission = Permission::create(['name' => 'index transaction']);
-
-        // //? Assigning permission into a role
-        // $role->givePermissionTo($permission);
-        // $permission->assignRole($role);
-
-        //? Create Role for User
-        // $user = auth()->user();
-        // $user->assignRole('admin');
-        // return $user;
-
-        //? Show Users with their Role
-        $user = User::with('roles')->get();
-        return $user;
-
-        //? Delete Role of User
-        // $user = auth()->user();
-        // $user->removeRole('admin');
-        // return $user;
     }
 }
