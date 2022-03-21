@@ -29,20 +29,29 @@ Route::get('/', function () {
 Auth::routes();
 //home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'Home'])->name('home');
-//transaction
-Route::get('api/transactions', [App\Http\Controllers\TransactionControllers::class, 'index']);
+
+
+// Transaction
+Route::resource('transactions', TransactionController::class);
+Route::get('/api/transactions', [App\Http\Controllers\TransactionController::class, 'api']);
+
+
 //author
 Route::resource('/authors',App\Http\Controllers\AuthorController::class);
 Route::get('/api/authors',[App\Http\Controllers\AuthorController::class,'api']);
+
 //publisher
 Route::get('/api/publishers',[App\Http\Controllers\PublisherController::class,'api']);
 Route::resource('/publishers',App\Http\Controllers\PublisherController::class);
+
 //books
 Route::resource('/books', App\Http\Controllers\BookController::class);
 Route::get('/api/books',[App\Http\Controllers\BookController::class,'api']);
+
 //member
 Route::resource('members', MemberController::class);
 Route::get('/api/members', [MemberController::class, 'api']);
+
 //catalog
 Route::resource('/catalogs',App\Http\Controllers\CatalogController::class);
 

@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-2">
                             <select class="form-control" name="filter">
-                                <option value="">--Filter--</option>
+                                <option value="0">--Filter--</option>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
                             </select>
@@ -185,14 +185,14 @@
 </script>
 <script src="{{ asset("js/dataku.js") }}"></script>
 <!-- Gender Filter  -->
-<script>
-    $('select[name=filter]').on('change', function() {
-        gender = $('select[name=filter]').val();
+<script type="text/javascript">
+    $('select[name=sex]').on('change', function() {
+        sex = $('select[name=sex]').val();
 
         if (sex == 0 ) {
             controller.table.ajax.url(actionUrl).load();
         } else {
-            controller.table.ajax.url(`${actionUrl}?sex=$sex`).load();
+            controller.table.ajax.url(`${actionUrl}+'?sex='+sex`).load();
         }
     });
 </script>
