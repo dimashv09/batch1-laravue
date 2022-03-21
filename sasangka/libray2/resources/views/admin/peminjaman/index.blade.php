@@ -84,7 +84,7 @@
 
     <script>
         $(function() {
-            $("#datatable").DataTable({
+            $("#dataTable").DataTable({
                     "Destroy": true
                 })
                 .buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
