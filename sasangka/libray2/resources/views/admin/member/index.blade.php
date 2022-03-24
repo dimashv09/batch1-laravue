@@ -82,7 +82,7 @@
                 <form :action="actionUrl" method="post" @submit.prevent="submittedForm($event, data.id)">
                     <div class="modal-body">
                         @csrf
-                        <input type="hidden" name="method" value="PUT" v-if="status" />
+                        <input type="hidden" name="method" value="PUT" v-if="status">
 
                         <div class="form-group">
                             <label for="name">Name</label>

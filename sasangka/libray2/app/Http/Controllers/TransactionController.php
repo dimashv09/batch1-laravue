@@ -82,8 +82,8 @@ class TransactionController extends Controller
         // return $request->book_id;
         // Validation data
         $request->validate([
-            'member_id' => 'required',
-            'date_start' => 'required',
+            'member_id' =>'required',
+            'date_start' =>'required',
             'date_end' => 'required',
             'book_id' => 'required',
         ]);
@@ -131,7 +131,7 @@ class TransactionController extends Controller
         $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
 
         // return $transaction->member->id;
-        return view('admin.transaction.show', compact('transaction', 'books', 'transactionDetails'));
+        return view('admin.peminjaman.show', compact('transaction', 'books', 'transactionDetails'));
     }
 
     /**
@@ -147,7 +147,7 @@ class TransactionController extends Controller
         $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
         // return $transactionDetails;
 
-        return view('admin.transaction.edit', compact('members', 'books', 'transaction', 'transactionDetails'));
+        return view('admin.peminjaman.edit', compact('members', 'books', 'transaction', 'transactionDetails'));
     }
 
     /**
