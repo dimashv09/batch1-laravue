@@ -16,6 +16,13 @@
     <div class="card-header">
                 <a href="#" @click="addData()" data-target="#modal-default" data-toggle="modal" class="btn btn-sm btn-primary pull-right">Create New Member</a>
               </div>
+              <div class="col-md-2">
+                <select class="form-control" name="gender">
+                  <option value="3">All Type Sex</option>
+                  <option value="F">Female</option>
+                  <option value="M">Male</option>
+                </select>
+              </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="datatable" class="table table-stripted table-bordered">
@@ -128,4 +135,16 @@
 </script>
 <!-- CRUD JS -->
 <script src="{{ asset('js/data.js') }}"></script>
+<!-- Filter JS -->
+<script type="text/javascript">
+  $('select[name=gender]').on('change', function() {
+    gender = $('select[name=gender]').val();
+
+    if (gender == 0){
+      _this.table.ajax.reload();
+    }else{
+     _this.table.ajax.url(actionUrl+'?gender='+gender).load();
+    }
+  });
+</script>
 @endsection
