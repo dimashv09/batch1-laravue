@@ -86,6 +86,7 @@ class TransactionController extends Controller
             'date_start' =>'required',
             'date_end' => 'required',
             'book_id' => 'required',
+            'status' => 'required',
         ]);
 
         try {
@@ -94,6 +95,7 @@ class TransactionController extends Controller
                 'member_id' => $request->member_id,
                 'date_start' => $request->date_start,
                 'date_end' => $request->date_end,
+                'status' => false,
             ]);
             // Insert Transaction Details data into database
             if ($transactions) {
@@ -176,7 +178,7 @@ class TransactionController extends Controller
                     'member_id' => $request->member_id,
                     'date_start' => $request->date_start,
                     'date_end' => $request->date_end,
-                    'status' => $request->status,
+                    'status' => 0,
                 ]);
 
             if ($transactions) {
