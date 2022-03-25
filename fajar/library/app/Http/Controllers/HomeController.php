@@ -52,11 +52,12 @@ class HomeController extends Controller
                 ->get();
 
                         //belom paham
-        $data5 = Member::selectRaw('members.*', 'transactions.member_id',
-                'COUNT(transactions.member_id) as total')
+        $data5 = Member::select('members.*', 
+                'transactions.member_id')
+                ->selectRaw('count(transactions.member_id) as total')
                 ->join('transactions', 'members.id', '=', 'transactions.member_id')
                 ->groupBy('transactions.member_id')
-                ->havingRaw('transactions.member_id', '>', 1)
+                ->having('transactions.member_id', '>', ' 1')
                 ->get();
 
         $data6 = Member::select('members.name', 'members.address' ,'members.phone_number', 
