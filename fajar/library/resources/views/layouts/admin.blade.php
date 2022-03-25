@@ -148,7 +148,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="{{url('home')}}" class="nav-link">
+                            <a href="{{url('home')}}" class="nav-link {{request()->is('home') ? 'active' : ''}}">
                                 <i class="nav-icon  fa fa-home"></i>
                                 <p>
                                     Home
@@ -156,7 +156,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('member')}}" class="nav-link">
+                            <a href="{{url('member')}}" class="nav-link {{request()->is('member') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Member
@@ -164,7 +164,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('catalog')}}" class="nav-link">
+                            <a href="{{url('catalog')}}" class="nav-link {{request()->is('catalog') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-boxes"></i>
                                 <p>
                                     Catalog
@@ -172,7 +172,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('book')}}" class="nav-link">
+                            <a href="{{url('book')}}" class="nav-link {{request()->is('book') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
                                     Book
@@ -180,7 +180,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('author')}}" class="nav-link">
+                            <a href="{{url('author')}}" class="nav-link {{request()->is('author') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-user-edit"></i>
                                 <p>
                                     Author
@@ -188,7 +188,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('publisher')}}" class="nav-link">
+                            <a href="{{url('publisher')}}" class="nav-link {{request()->is('publisher') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-paper-plane"></i>
                                 <p>
                                     Publisher
@@ -196,7 +196,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('transaction')}}" class="nav-link">
+                            <a href="{{url('transaction')}}" class="nav-link {{request()->is('transaction') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-wallet"></i>
                                 <p>
                                     Transaction
