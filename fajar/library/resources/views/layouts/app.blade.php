@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,14 +15,14 @@
     <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
 </head>
 <body class="hold-transition login-page">
-@yield('content')
-<!-- /.login-box -->
+    @yield('content')
+    <!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
+    <!-- jQuery -->
+    <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
 </body>
 </html>
