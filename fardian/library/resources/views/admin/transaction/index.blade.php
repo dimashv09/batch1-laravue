@@ -18,7 +18,7 @@
               </div>
               
               <div class="col-md-2">
-                <select class="form-control" name="status">
+                <select class="form-control" name="status_filter">
                   <option value="">All Status</option>
                   <option value="0">Not Been Restored</option>
                   <option value="1">Has Been Returned</option>
@@ -151,13 +151,13 @@
 </script>
 <!-- Filter Status JS -->
 <script type="text/javascript">
-  $('select[name=status]').on('change', function() {
-    status = $('select[name=status]').val();
+  $('select[name=status_filter]').on('change', function() {
+    status_filter = $('select[name=status_filter]').val();
 
-    if (status == null){
+    if (status_filter == null){
       controller.table.ajax.url(apiUrl).load();
     }else{
-      controller.table.ajax.url(apiUrl+'?status='+status).load();
+      controller.table.ajax.url(apiUrl+'?status_filter='+status_filter).load();
     }
   });
 </script>
