@@ -86,7 +86,6 @@ class TransactionController extends Controller
             'date_start' =>'required',
             'date_end' => 'required',
             'book_id' => 'required',
-            'status' => 'required',
         ]);
 
         try {
@@ -95,7 +94,6 @@ class TransactionController extends Controller
                 'member_id' => $request->member_id,
                 'date_start' => $request->date_start,
                 'date_end' => $request->date_end,
-                'status' => false,
             ]);
             // Insert Transaction Details data into database
             if ($transactions) {
@@ -105,7 +103,6 @@ class TransactionController extends Controller
                         'book_id' => $book,
                         'quantity' => 1,
                     ]);
-
                     // update Books Stock
                     $books = Book::find($book);
                     $books->quantity -= 1;
@@ -167,8 +164,8 @@ class TransactionController extends Controller
             'member_id' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
-            'status' => 'required',
             'book_id' => 'required',
+            'status' => 'required',
         ]);
 
         try {
@@ -179,7 +176,7 @@ class TransactionController extends Controller
                     'date_start' => $request->date_start,
                     'date_end' => $request->date_end,
                     'status' => 0,
-                ]);
+                ]); 
 
             if ($transactions) {
                 // Delete all matched transaction Details
@@ -206,7 +203,7 @@ class TransactionController extends Controller
             return $error;
         }
 
-        return redirect('transactions')->with('success', 'Transaction data has been Updated');
+        return redirect('peminjaman')->with('success', 'Transaction data has been Updated');
     }
 
     /**
@@ -220,6 +217,6 @@ class TransactionController extends Controller
         // Delete data with specific ID
         $transaction->delete();
 
-        return redirect('transactions')->with('success', 'Transaction data has been Deleted');
+        return redirect('peminjaman')->with('success', 'Transaction data has been Deleted');
     }
 }

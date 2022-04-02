@@ -6,7 +6,7 @@
 <style>
     /* For Buttons */
     .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        border-color: #343a40;
+        border-color: #ffbc04;
         background-color: #0d6efd;
     }
 </style>
