@@ -9,6 +9,8 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class TransactionController extends Controller
 {
@@ -23,8 +25,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('admin.peminjaman.index');
-        
+            return view('admin.peminjaman.index');
+ 
     }
 
     public function api(Request $request)
@@ -82,8 +84,8 @@ class TransactionController extends Controller
         // return $request->book_id;
         // Validation data
         $request->validate([
-            'member_id' =>'required',
-            'date_start' =>'required',
+            'member_id' => 'required',
+            'date_start' => 'required',
             'date_end' => 'required',
             'book_id' => 'required',
         ]);
@@ -103,6 +105,7 @@ class TransactionController extends Controller
                         'book_id' => $book,
                         'quantity' => 1,
                     ]);
+
                     // update Books Stock
                     $books = Book::find($book);
                     $books->quantity -= 1;
@@ -130,7 +133,7 @@ class TransactionController extends Controller
         $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
 
         // return $transaction->member->id;
-        return view('admin.peminjaman.show', compact('transaction', 'books', 'transactionDetails'));
+        return view('admin.transaction.show', compact('transaction', 'books', 'transactionDetails'));
     }
 
     /**
@@ -164,8 +167,8 @@ class TransactionController extends Controller
             'member_id' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
-            'book_id' => 'required',
             'status' => 'required',
+            'book_id' => 'required',
         ]);
 
         try {
@@ -175,8 +178,8 @@ class TransactionController extends Controller
                     'member_id' => $request->member_id,
                     'date_start' => $request->date_start,
                     'date_end' => $request->date_end,
-                    'status' => 0,
-                ]); 
+                    'status' => $request->status,
+                ]);
 
             if ($transactions) {
                 // Delete all matched transaction Details
@@ -203,7 +206,7 @@ class TransactionController extends Controller
             return $error;
         }
 
-        return redirect('peminjaman')->with('success', 'Transaction data has been Updated');
+        return redirect('transactions')->with('success', 'Transaction data has been Updated');
     }
 
     /**
@@ -217,6 +220,31 @@ class TransactionController extends Controller
         // Delete data with specific ID
         $transaction->delete();
 
-        return redirect('peminjaman')->with('success', 'Transaction data has been Deleted');
+        return redirect('transactions')->with('success', 'Transaction data has been Deleted');
+    }
+
+    public function setRole()
+    {
+        // //? Setting Role and it's Permission
+        // $role = Role::create(['name' => 'admin']);
+        // $permission = Permission::create(['name' => 'index transaction']);
+
+        // //? Assigning permission into a role
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        //? Create Role for User
+        // $user = auth()->user();
+        // $user->assignRole('admin');
+        // return $user;
+
+        //? Show Users with their Role
+        $user = User::with('roles')->get();
+        return $user;
+
+        //? Delete Role of User
+        // $user = auth()->user();
+        // $user->removeRole('admin');
+        // return $user;
     }
 }
