@@ -92,15 +92,7 @@
       {data: 'qty', class: 'text-center', orderable: true},
       {data: 'total_price', class: 'text-center', orderable: true},
       {data: 'status_borrow', class: 'text-center', orderable: true},
-      {render: function (index, row, data, meta){
-        return `
-        <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
-        Edit
-        </a>
-        <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
-        Delete
-        </a>`;
-          }, orderable: false, width: '200px', class: 'text-center'},
+      {data: 'action', orderable: false, width: '200px', class: 'text-center'},
     ];
 </script>
 <!-- CRUD JS -->
@@ -134,6 +126,10 @@
           _this.datas = _this.table.ajax.json().data;
         });
       },
+      editData(event, row) {
+        this.data = this.datas[row];
+        console.log(this.data);
+     },
    },
   });
 </script>

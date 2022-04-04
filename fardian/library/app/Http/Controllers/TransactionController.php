@@ -17,20 +17,20 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+       
         return view('admin.transaction.index');
     }
 
     public function api(Request $request){
 
         if ($request->status_filter == null){
-            $datas = Transaction::select('transactions.date_start','transactions.date_end','members.name','transaction_details.qty',Transaction::raw('(transaction_details.qty * books.price) as total_price'),Transaction::raw('(transactions.date_end - transactions.date_start) as long_borrow'),Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow"))
+            $datas = Transaction::select('transactions.id','transactions.date_start','transactions.date_end','members.name','transaction_details.qty',Transaction::raw('(transaction_details.qty * books.price) as total_price'),Transaction::raw('(transactions.date_end - transactions.date_start) as long_borrow'),Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow"))
                                 ->join('members','members.id','=','transactions.member_id')
                                 ->join('transaction_details','transaction_details.transaction_id','=','transactions.id')
                                 ->join('books','books.id','=','transaction_details.book_id')
                                 ->get();
         }else{
-            $datas = Transaction::select('transactions.date_start','transactions.date_end','members.name','transaction_details.qty',Transaction::raw('(transaction_details.qty * books.price) as total_price'),Transaction::raw('(transactions.date_end - transactions.date_start) as long_borrow'),Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow"))
+            $datas = Transaction::select('transactions.id','transactions.date_start','transactions.date_end','members.name','transaction_details.qty',Transaction::raw('(transaction_details.qty * books.price) as total_price'),Transaction::raw('(transactions.date_end - transactions.date_start) as long_borrow'),Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow"))
                                 ->join('members','members.id','=','transactions.member_id')
                                 ->join('transaction_details','transaction_details.transaction_id','=','transactions.id')
                                 ->join('books','books.id','=','transaction_details.book_id')
@@ -38,7 +38,20 @@ class TransactionController extends Controller
                                 ->get();
         }
 
-        $datatables = datatables()->of($datas)->addIndexColumn();
+        $datatables = datatables()->of($datas)->
+                                    addColumn('action', function($datas){
+                                    return '
+                                    <a href="#" class="btn btn-info btn-sm">
+                                    Detail
+                                    </a>
+                                    <a href="transaction/'.$datas->id.'/edit" class="btn btn-warning btn-sm">
+                                    Edit
+                                    </a>
+                                    <a href="transaction/delete'.$datas->id.'" class="btn btn-danger btn-sm"s>
+                                    Delete
+                                    </a>
+                                    ';
+                                    })->addIndexColumn();
 
         return $datatables->make(true);
     }
@@ -46,21 +59,34 @@ class TransactionController extends Controller
     public function api2(Request $request){
 
          if ($request->date_filter){
-            $datas = Transaction::select('transactions.date_start','transactions.date_end','members.name','transaction_details.qty',Transaction::raw('(transaction_details.qty * books.price) as total_price'),Transaction::raw('(transactions.date_end - transactions.date_start) as long_borrow'),Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow"))
+            $datas = Transaction::select('transactions.id','transactions.date_start','transactions.date_end','members.name','transaction_details.qty',Transaction::raw('(transaction_details.qty * books.price) as total_price'),Transaction::raw('(transactions.date_end - transactions.date_start) as long_borrow'),Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow"))
                                 ->join('members','members.id','=','transactions.member_id')
                                 ->join('transaction_details','transaction_details.transaction_id','=','transactions.id')
                                 ->join('books','books.id','=','transaction_details.book_id')
                                 ->whereMonth('transactions.date_start', $request->date_filter)
                                 ->get();
         }else{
-            $datas = Transaction::select('transactions.date_start','transactions.date_end','members.name','transaction_details.qty',Transaction::raw('(transaction_details.qty * books.price) as total_price'),Transaction::raw('(transactions.date_end - transactions.date_start) as long_borrow'),Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow"))
+            $datas = Transaction::select('transactions.id','transactions.date_start','transactions.date_end','members.name','transaction_details.qty',Transaction::raw('(transaction_details.qty * books.price) as total_price'),Transaction::raw('(transactions.date_end - transactions.date_start) as long_borrow'),Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow"))
                                 ->join('members','members.id','=','transactions.member_id')
                                 ->join('transaction_details','transaction_details.transaction_id','=','transactions.id')
                                 ->join('books','books.id','=','transaction_details.book_id')
                                 ->get();
         }
 
-        $datatables = datatables()->of($datas)->addIndexColumn();
+        $datatables = datatables()->of($datas)->
+                                    addColumn('action', function($datas){
+                                    return '
+                                    <a href="#" class="btn btn-info btn-sm">
+                                    Detail
+                                    </a>
+                                    <a href="transaction/edit'.$datas->id.'" class="btn btn-warning btn-sm">
+                                    Edit
+                                    </a>
+                                    <a href="transaction/delete'.$datas->id.'" class="btn btn-danger btn-sm"s>
+                                    Delete
+                                    </a>
+                                    ';
+                                    })->addIndexColumn();
 
         return $datatables->make(true);
     }
@@ -96,22 +122,17 @@ class TransactionController extends Controller
         ]);
 
         if($transaction){
-            TransactionDetail::create([
-                'transaction_id' => $transaction->id,
-                'book_id' => $request->book_id,
-                'qty' => 1
-            ]);
-        }
-            if (is_array($request->book_id) || is_object($request->book_id))
-                {
-                    foreach ($request->book_id as $id)
-                    {
-                        $book = Book::where('id', $id)->get();
+            foreach ($request->book_id as $id)
+            {
+                TransactionDetail::create([
+                    'transaction_id' => $transaction->id,
+                    'book_id' => $id,
+                    'qty' => 1
+                ]);
 
-                        $book->qty -= 1;
-                        $book->save();
-                    }
-                }
+                Book::where('id', $id)->decrement('qty');
+            }
+        }
         return redirect('transaction');
     }
 
@@ -134,7 +155,14 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        $transactions = Transaction::select('*')
+                                    ->get();
+        $books = Book::select('*')
+                            ->where('books.qty','>=','1')
+                            ->get();
+        $members = Member::select('*')
+                            ->get();
+        return view('admin.transaction.edit', compact('books','members','transaction')); 
     }
 
     /**
