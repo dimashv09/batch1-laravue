@@ -155,14 +155,14 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        $transactions = Transaction::select('*')
-                                    ->get();
         $books = Book::select('*')
                             ->where('books.qty','>=','1')
                             ->get();
         $members = Member::select('*')
                             ->get();
-        return view('admin.transaction.edit', compact('books','members','transaction')); 
+        $transactionDetails = TransactionDetail::where('transaction_id',$transaction->member_id)
+                                                ->get();
+        return view('admin.transaction.edit', compact('books','members','transaction','transactionDetails')); 
     }
 
     /**
@@ -174,7 +174,25 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $transaction->update([
+            'member_id' => $request->member_id,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
+            'status' => $request->status
+        ]);
+
+        if($transaction){
+            foreach ($request->book_id as $id)
+            {
+                TransactionDetail::update([
+                    'transaction_id' => $transaction->id,
+                    'book_id' => $id
+                ]);
+
+                Book::where('id', $id)->increment('qty');
+            }
+        }
+        return redirect('transaction');
     }
 
     /**
