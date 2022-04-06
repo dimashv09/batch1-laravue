@@ -26,23 +26,28 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter Name" value="{{old('name')}}">
+                        <input type="text" name="name" class="form-control" placeholder="Enter Name"
+                            value="{{old('name')}}">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Enter Email" required value="{{old('email')}}">
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email" required
+                            value="{{old('email')}}">
                     </div>
                     <div class="form-group">
                         <label for="phone_number">Phone Number</label>
-                        <input type="text" name="phone_number" class="form-control" placeholder="Enter Phone Number" required value="{{old('phone_number')}}">
+                        <input type="text" name="phone_number" class="form-control" placeholder="Enter Phone Number"
+                            required value="{{old('phone_number')}}">
                     </div>
                     <div class="form-group">
                         <label>Address</label>
-                        <textarea class="form-control" name="adress" id="exampleFormControlTextarea3" rows="7" value="{{old('address')}}"></textarea>
+                        <textarea class="form-control" name="address" id="exampleFormControlTextarea3" rows="7"
+                            value="{{old('address')}}"></textarea>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
+                </div>
             </form>
         </div>
 
