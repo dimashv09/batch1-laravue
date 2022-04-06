@@ -17,40 +17,42 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit Transaction</h3>
+                <h3 class="card-title">Detail Transaction</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ url('transaction/'.$transaction->id) }}" method="post">
+              <form action="{{ url('transaction) }}" method="post">
                 @csrf
                 {{ method_field('PUT') }}
               <div class="card-body">
                 <div class="form-group">
                         <label>Member</label>
+                        <div class="form-group">
+                            <label>Name</label>
+                            @foreach($members as $member)
+                                <input type="text" name="name" class="form-control" placeholder="Enter Name" required="" value="{{ $member->id }}" {{ $transaction->member_id == $member->id ? 'selected' : ''}}>{{ $member->name }}>
+                            @endforeach
+                        </div>
                         <select name="member_id" class="form-control">
                            @foreach($members as $member)
-                           <option value="{{ $member->id }}" {{ $transaction->member_id == $member->id ? 'selected' : ''}}>{{ $member->name }}</option>
+                           <option disabled value="{{ $member->id }}" {{ $transaction->member_id == $member->id ? 'selected' : ''}}>{{ $member->name }}</option>
                             @endforeach
                         </select>
                  </div>
                 <!-- Date -->
                 <div class="form-group">
                           <label>Transaction Start</label>
-                          <input type="date" class="form-control" name="date_start" value="{{ old('date_start', $transaction->date_start) }}" required>
-                </div>
-                <div class="form-group">
-                          <label>Transaction End</label>
-                          <input type="date" class="form-control" name="date_end" value="{{ old('date_end', $transaction->date_end) }}" required>
+                          <input type="date" class="form-control" name="date_start" value="{{ old('date_start', $transaction->date_start) }}" disabled>
                 </div>
                   <div class="select2-blue">
                           <label>Book</label>
                           <select name="book_id[]" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
                             @foreach ($books as $key => $book)
                             @if (old('book_id'))
-                            <option value="{{ $book->id }}" {{ in_array($book->id, old('book_id')) ? 'selected' : '' }}>
+                            <option disabled value="{{ $book->id }}" {{ in_array($book->id, old('book_id')) ? 'selected' : '' }}>
                                 {{ $book->title }}</option>
                             @else
-                            <option value="{{ $book->id }}" @foreach($transactionDetails as $transactions)
+                            <option disabled value="{{ $book->id }}" @foreach($transactionDetails as $transactions)
                                 {{ $transactions->book_id == $book->id ? 'selected' : '' }} @endforeach>
                                 {{ $book->title }}
                             </option>
@@ -71,7 +73,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="close" class="btn btn-primary">Close</button>
                 </div>
               </form>
             </div>

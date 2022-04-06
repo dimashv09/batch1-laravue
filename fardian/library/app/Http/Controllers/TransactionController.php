@@ -41,13 +41,13 @@ class TransactionController extends Controller
         $datatables = datatables()->of($datas)->
                                     addColumn('action', function($datas){
                                     return '
-                                    <a href="#" class="btn btn-info btn-sm">
+                                    <a href="transaction/'.$datas->id.'/show" class="btn btn-info btn-sm">
                                     Detail
                                     </a>
                                     <a href="transaction/'.$datas->id.'/edit" class="btn btn-warning btn-sm">
                                     Edit
                                     </a>
-                                    <a href="transaction/delete'.$datas->id.'" class="btn btn-danger btn-sm"s>
+                                    <a href="transaction/'.$datas->id.'/delete" class="btn btn-danger btn-sm"s>
                                     Delete
                                     </a>
                                     ';
@@ -76,13 +76,13 @@ class TransactionController extends Controller
         $datatables = datatables()->of($datas)->
                                     addColumn('action', function($datas){
                                     return '
-                                    <a href="#" class="btn btn-info btn-sm">
+                                    <a href="transaction/'.$datas->id.'/show" class="btn btn-info btn-sm">
                                     Detail
                                     </a>
-                                    <a href="transaction/edit'.$datas->id.'" class="btn btn-warning btn-sm">
+                                    <a href="transaction/'.$datas->id.'/edit" class="btn btn-warning btn-sm">
                                     Edit
                                     </a>
-                                    <a href="transaction/delete'.$datas->id.'" class="btn btn-danger btn-sm"s>
+                                    <a href="transaction/'.$datas->id.'/delete" class="btn btn-danger btn-sm"s>
                                     Delete
                                     </a>
                                     ';
@@ -144,7 +144,15 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        // Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow")->get();
+        $books = Book::select('*')
+                      ->where('books.qty','>=','1')
+                      ->get();
+        $members = Member::select('*')
+                          ->get();
+        $transactionDetails = TransactionDetail::where('transaction_id',$transaction->member_id)
+                                                ->get();
+        return view('admin.transaction.show', compact('books','members','transaction','transactionDetails'));
     }
 
     /**
@@ -184,8 +192,8 @@ class TransactionController extends Controller
         if($transaction){
             foreach ($request->book_id as $id)
             {
-                TransactionDetail::update([
-                    'transaction_id' => $transaction->id,
+                TransactionDetail::where('transaction_id', $transaction->id)
+                ->update([
                     'book_id' => $id
                 ]);
 
@@ -203,6 +211,8 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+
+        return redirect('transaction');
     }
 }

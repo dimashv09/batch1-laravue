@@ -126,10 +126,6 @@
           _this.datas = _this.table.ajax.json().data;
         });
       },
-      editData(event, row) {
-        this.data = this.datas[row];
-        console.log(this.data);
-     },
    },
   });
 </script>
