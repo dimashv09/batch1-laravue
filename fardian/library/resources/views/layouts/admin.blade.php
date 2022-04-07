@@ -38,17 +38,20 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
+      @php
+        $notification = notification();
+      @endphp
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge">{{$notification['count']}}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">Notification</span>
           <div class="dropdown-divider"></div>
-          @foreach (notification() as $transaction)
+          @foreach ($notification['transaction'] as $transaction)
           <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> {{ $transaction->name }}
+            <i class="fas fa-envelope mr-2"></i> {{ $transaction->member->name }}
             <span class="float-right text-muted text-sm">Late!</span>
           </a>
           @endforeach

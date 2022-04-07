@@ -21,65 +21,54 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ url('transaction) }}" method="post">
+              <form action="{{ url('transaction') }}" method="post">
                 @csrf
-                {{ method_field('PUT') }}
               <div class="card-body">
                 <div class="form-group">
-                        <label>Member</label>
-                        <div class="form-group">
-                            <label>Name</label>
-                            @foreach($members as $member)
-                                <input type="text" name="name" class="form-control" placeholder="Enter Name" required="" value="{{ $member->id }}" {{ $transaction->member_id == $member->id ? 'selected' : ''}}>{{ $member->name }}>
-                            @endforeach
-                        </div>
-                        <select name="member_id" class="form-control">
+                  <label>Name</label>
+                        <select disabled onlyread name="member_id" class="form-control">
                            @foreach($members as $member)
-                           <option disabled value="{{ $member->id }}" {{ $transaction->member_id == $member->id ? 'selected' : ''}}>{{ $member->name }}</option>
+                           <option value="{{ $member->id }}">{{ $member->name }}</option>
                             @endforeach
                         </select>
                  </div>
                 <!-- Date -->
                 <div class="form-group">
                           <label>Transaction Start</label>
-                          <input type="date" class="form-control" name="date_start" value="{{ old('date_start', $transaction->date_start) }}" disabled>
+                          <input disabled onlyread type="text" class="form-control" name="date_start" value="{{ $transaction->date_start }}">
                 </div>
-                  <div class="select2-blue">
-                          <label>Book</label>
-                          <select name="book_id[]" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                <div class="form-group">
+                        <label>Book</label><br>
+                        <select multiple name="book_id[]" disabled>
                             @foreach ($books as $key => $book)
                             @if (old('book_id'))
-                            <option disabled value="{{ $book->id }}" {{ in_array($book->id, old('book_id')) ? 'selected' : '' }}>
+                            <option value="{{ $book->id }}" {{ in_array($book->id, old('book_id')) ? 'selected' : '' }}>
                                 {{ $book->title }}</option>
                             @else
-                            <option disabled value="{{ $book->id }}" @foreach($transactionDetails as $transactions)
+                            <option value="{{ $book->id }}" @foreach($transactionDetails as $transactions)
                                 {{ $transactions->book_id == $book->id ? 'selected' : '' }} @endforeach>
                                 {{ $book->title }}
                             </option>
                             @endif
                             @endforeach
-                          </select>
+                        </select>
+                      </div>
+                  <div class="form-group">
+                      <label>Status</label>
+                           <input disabled onlyread type="text" name="name" class="form-control" placeholder="Enter Name" value="{{ $transaction->status == 1 ? 'Has Been Returned' : 'Not Been Returned'}}">
                   </div>
-                  <div class="form-check">
-                          <input class="form-check-input" type="radio" name="status" value="1" {{ ($transaction->status == '1') ? 'checked' : '' }}>
-                          <label class="form-check-label">Has Been Returned</label>
-                </div>
-                <div class="form-check">
-                          <input class="form-check-input" type="radio" name="status" value="0" {{ ($transaction->status == '0') ? 'checked' : '' }}>
-                          <label class="form-check-label">Not Been Restored</label>
-                </div>
                 </div>
               </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="close" class="btn btn-primary">Close</button>
+                  <a href="{{ url('transaction') }}" class="btn btn-primary">Close</a>
                 </div>
               </form>
             </div>
 @endsection
 
-@section ('js')
+@section('js')
 <!-- Select2 -->
 <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- date-range-picker -->

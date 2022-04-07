@@ -41,15 +41,17 @@ class TransactionController extends Controller
         $datatables = datatables()->of($datas)->
                                     addColumn('action', function($datas){
                                     return '
-                                    <a href="transaction/'.$datas->id.'/show" class="btn btn-info btn-sm">
+                                    <a href="'.route("transaction.show", $datas->id).'" class="btn btn-info btn-sm">
                                     Detail
                                     </a>
-                                    <a href="transaction/'.$datas->id.'/edit" class="btn btn-warning btn-sm">
+                                    <a href="'.route("transaction.edit", $datas->id).'" class="btn btn-warning btn-sm">
                                     Edit
                                     </a>
-                                    <a href="transaction/'.$datas->id.'/delete" class="btn btn-danger btn-sm"s>
-                                    Delete
-                                    </a>
+                                    <form action="'.route("transaction.destroy", $datas->id).'" method="POST">
+                                        <input type="hidden" name="_token" value="'.csrf_token().'">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
                                     ';
                                     })->addIndexColumn();
 
@@ -76,15 +78,17 @@ class TransactionController extends Controller
         $datatables = datatables()->of($datas)->
                                     addColumn('action', function($datas){
                                     return '
-                                    <a href="transaction/'.$datas->id.'/show" class="btn btn-info btn-sm">
+                                    <a href="'.route("transaction.show", $datas->id).'" class="btn btn-info btn-sm">
                                     Detail
                                     </a>
-                                    <a href="transaction/'.$datas->id.'/edit" class="btn btn-warning btn-sm">
+                                    <a href="'.route("transaction.edit", $datas->id).'" class="btn btn-warning btn-sm">
                                     Edit
                                     </a>
-                                    <a href="transaction/'.$datas->id.'/delete" class="btn btn-danger btn-sm"s>
-                                    Delete
-                                    </a>
+                                    <form action="'.route("transaction.destroy", $datas->id).'" method="POST">
+                                        <input type="hidden" name="_token" value="'.csrf_token().'">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
                                     ';
                                     })->addIndexColumn();
 
@@ -144,7 +148,6 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        // Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow")->get();
         $books = Book::select('*')
                       ->where('books.qty','>=','1')
                       ->get();
@@ -211,7 +214,7 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        $transaction->delete();
+        $transaction->transactionDetail()->delete();
 
         return redirect('transaction');
     }

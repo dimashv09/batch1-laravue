@@ -14,4 +14,8 @@ class Transaction extends Model
     public function transactionDetail(){
         return $this->hasOne('App\Models\TransactionDetail', 'transaction_id');
     }
+
+    public function member(){
+        return $this->belongsTo(Member::class);
+    }
 }

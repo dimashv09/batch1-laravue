@@ -8,11 +8,14 @@ use App\Models\Member;
     }
     function notification(){
         $date = date('Y-m-d');
-        return $transaction = Transaction::select('members.name')
-                                          ->join('members','members.id','=','transactions.member_id')
-                                          ->where('transactions.status','=','0')
+        $transaction = Transaction::where('transactions.status','=','0')
                                           ->where('transactions.date_end','>',$date)
                                           ->get();
+        $data = [
+            'transaction' => $transaction,
+            'count' => $transaction->count()
+        ];
+        return $data;
         
     }
 
