@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+
 <component id="controller">
   <div class="card">
       <div class="card-header">
@@ -63,6 +64,7 @@
     </div>
   </div>    
 </component>
+
 @endsection
 
 @section('js')

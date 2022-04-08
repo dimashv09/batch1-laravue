@@ -17,12 +17,15 @@ class TransactionController extends Controller
      */
     public function index()
     {
-       
-        return view('admin.transaction.index');
+        if(auth()->user()->can('index transaction')){
+            return view('admin.transaction.index');
+        }else{
+            return abort('403');
+        }
     }
 
     public function api(Request $request){
-
+        if(auth()->user()->can('index transaction')){
         if ($request->status_filter == null){
             $datas = Transaction::select('transactions.id','transactions.date_start','transactions.date_end','members.name','transaction_details.qty',Transaction::raw('(transaction_details.qty * books.price) as total_price'),Transaction::raw('(transactions.date_end - transactions.date_start) as long_borrow'),Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow"))
                                 ->join('members','members.id','=','transactions.member_id')
@@ -55,11 +58,14 @@ class TransactionController extends Controller
                                     ';
                                     })->addIndexColumn();
 
-        return $datatables->make(true);
+            return $datatables->make(true);
+        } else {
+            return abort('403');
+        }
     }
 
     public function api2(Request $request){
-
+        if(auth()->user()->can('index transaction')){
          if ($request->date_filter){
             $datas = Transaction::select('transactions.id','transactions.date_start','transactions.date_end','members.name','transaction_details.qty',Transaction::raw('(transaction_details.qty * books.price) as total_price'),Transaction::raw('(transactions.date_end - transactions.date_start) as long_borrow'),Transaction::raw("(CASE WHEN transactions.status ='1' THEN 'Has Been Returned' WHEN transactions.status = '0' THEN 'Not Been Restored' ELSE '-' END) as status_borrow"))
                                 ->join('members','members.id','=','transactions.member_id')
@@ -92,7 +98,10 @@ class TransactionController extends Controller
                                     ';
                                     })->addIndexColumn();
 
-        return $datatables->make(true);
+            return $datatables->make(true);
+        } else {
+            return abort('403');
+        }
     }
 
     /**

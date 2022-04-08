@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\TransactionDetail;
 use App\Models\Transaction;
 use App\Models\Author;
@@ -9,6 +10,8 @@ use App\Models\Catalog;
 use App\Models\Publisher;
 use App\Models\Book;
 use App\Models\Member;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -48,6 +51,33 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function test_spatie(){
+        // $role = Role::create(['name' => 'officer']);
+        // $permission = Permission::create(['name' => 'index transaction']);
+
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        $user = auth()->user();
+        $user->assignRole('officer');
+        return $user;
+        
+        // $user = User::where('id', 2)->first();
+        // $user->assignRole('officer');
+        // return $user;
+        
+        // $user = auth()->user();
+        // $user->removeRole('officer');
+
+        // $user = User::where('id', 2)->first();
+        // $user->removeRole('officer');
+
+        // $user = User::with('roles')->get();
+        // return $user;
+
+
     }
 
     /**

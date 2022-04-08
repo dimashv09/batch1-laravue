@@ -34,6 +34,7 @@ Route::get('/api/member', [App\Http\Controllers\MemberController::class, 'api'])
 Route::get('/api/book', [App\Http\Controllers\BookController::class, 'api']);
 Route::get('/api/transaction', [App\Http\Controllers\TransactionController::class, 'api']);
 Route::get('/api2/transaction', [App\Http\Controllers\TransactionController::class, 'api2']);
+Route::get('/test_spatie/home', [App\Http\Controllers\HomeController::class, 'test_spatie']);
 
 Route::resource('/home', App\Http\Controllers\HomeController::class);
 Route::resource('/author', App\Http\Controllers\AuthorController::class);
