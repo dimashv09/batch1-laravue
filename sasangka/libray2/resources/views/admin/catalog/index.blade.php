@@ -12,15 +12,14 @@
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body">
-					<table class="table table-bordered">
+					<table class="table table-bordered" >
 						<thead>
 							<tr>
-									<th style="width: 10px">#</th>
+									<th style="width: 1px">#</th>
 									<th style="text-align:center"> Name</th>
 									<th style="text-align:center"> Total Books</th>
 									<th style="text-align:center"> Created At</th>
 									<th style="text-align:center"> Action</th>
-								
 							</tr>
 						</thead>
 						<tbody>

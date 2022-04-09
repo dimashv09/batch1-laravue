@@ -86,10 +86,10 @@
 </script>
 
 <script>
-    const actionUrl = `{{ url('transactions'); }}`
-    const apiUrl = `{{ url('api/transactions'); }}`
+    var actionUrl = `{{ url('transactions'); }}`
+    var apiUrl = `{{ url('api/transactions'); }}`
 
-    let columns = [
+    var columns = [
         {data: 'DT_RowIndex', orderable: true},
         {data: 'date_start', orderable: false},
         {data: 'date_end', orderable: false},

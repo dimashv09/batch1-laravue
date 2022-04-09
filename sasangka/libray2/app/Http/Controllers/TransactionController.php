@@ -133,7 +133,7 @@ class TransactionController extends Controller
         $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
 
         // return $transaction->member->id;
-        return view('admin.transaction.show', compact('transaction', 'books', 'transactionDetails'));
+        return view('admin.peminjaman.show', compact('transaction', 'books', 'transactionDetails'));
     }
 
     /**
@@ -144,12 +144,12 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
+     //create edit transaction
         $members = Member::all();
         $books = Book::where('quantity', '>=', 1)->get();
         $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
-        // return $transactionDetails;
 
-        return view('admin.peminjaman.edit', compact('members', 'books', 'transaction', 'transactionDetails'));
+        return view('admin.peminjaman.edit', compact('transaction', 'members', 'books', 'transactionDetails'));
     }
 
     /**
@@ -178,7 +178,7 @@ class TransactionController extends Controller
                     'member_id' => $request->member_id,
                     'date_start' => $request->date_start,
                     'date_end' => $request->date_end,
-                    'status' => 0, 
+                    'status' => $request-> status, 
                 ]);
 
             if ($transactions) {
@@ -217,9 +217,13 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
+        
+        $deleteTransactionDetail = TransactionDetail::where('transaction_id', $transaction->id);
+        $deleteTransaction = Transaction::find($transaction->id);
         // Delete data with specific ID
-        $transaction->delete();
+        if($deleteTransactionDetail->delete()){
+            $deleteTransaction->delete();
+        }
 
-        return redirect('transactions')->with('success', 'Transaction data has been Deleted');
     }
 }
