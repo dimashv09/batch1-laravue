@@ -9,10 +9,14 @@ class Catalog extends Model
 {
     use HasFactory;
 
-	protected $fillable = ['name'];
-	//cara ke 2 create data
+    // protect all column that's not in this array against Mess-Assignment
+    // protected $fillable = ['name'];
+    // protect only this column against Mess-Assignment
+    protected $guarded = ['id'];
 
-	public function books() {
-		return $this->hasMany(Book::class, 'catalog_id');
-	}
+    // Get the Books for the Catalog
+    public function books()
+    {
+        return $this->hasMany(Book::class, 'catalog_id');
+    }
 }

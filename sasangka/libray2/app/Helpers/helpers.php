@@ -4,10 +4,7 @@ use App\Models\Transaction;
 
 
     function  convert_date ($value) {
-        // dd($value);
         return date ( 'H:i:s - d M Y', strtotime( $value));
-
-
     }
 
     function dateDifference($date_1, $date_2, $differenceFormat = '%a')
@@ -34,4 +31,16 @@ function transactionAlert()
     }
 
     return $data;
+    function notification(){
+        $date = date('Y-m-d');
+        $transaction = Transaction::where('transactions.status','=','0')
+                                          ->where('transactions.date_end','>',$date)
+                                          ->get();
+        $data = [
+            'transaction' => $transaction,
+            'count' => $transaction->count()
+        ];
+        return $data;
+        
+    }
 }

@@ -23,7 +23,12 @@ class TransactionController extends Controller
      */
     public function index()
     {
+         // return auth()->user()->hasRole('admin');
+        //  if (auth()->user()->hasRole('admin')) {
             return view('admin.peminjaman.index');
+        // } else {
+        //     return abort('403');
+        // }
  
     }
 
@@ -224,6 +229,30 @@ class TransactionController extends Controller
         if($deleteTransactionDetail->delete()){
             $deleteTransaction->delete();
         }
+    }
 
+    public function setRole()
+    {
+        //? Setting Role and it's Permission
+        $role = Role::create(['name' => 'admin']);
+        $permission = Permission::create(['name' => 'index peminjaman']);
+
+        // //? Assigning permission into a role
+        $role->givePermissionTo($permission);
+        $permission->assignRole($role);
+
+        //? Create Role for User
+        $user = auth()->user();
+        $user->assignRole('admin');
+        return $user;
+
+        // ? Show Users with their Role
+        $user = User::with('roles')->get();
+        return $user;
+
+        //? Delete Role of User
+        $user = auth()->user();
+        $user->removeRole('admin');
+        return $user;
     }
 }

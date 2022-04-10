@@ -54,3 +54,6 @@ Route::get('/api/members', [MemberController::class, 'api']);
 
 //catalog
 Route::resource('/catalogs',App\Http\Controllers\CatalogController::class);
+
+//spatie Transaction
+Route::get('spaties', [TransactionController::class, 'setRole']);

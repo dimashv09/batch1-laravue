@@ -1,58 +1,62 @@
 @extends('layouts.admin')
-@section('title', 'Catalogs')
-@section('wrapper-title', 'Catalogs')
+
+@section('header', 'Catalog')
 
 @section('content')
-	<div class="container">
-		<div class="row">
-			<div class="card w-100">
-				<div class="card-header">
-					<a href="{{ url('catalogs/create') }}" 
-					class="btn btn-sm btn-primary">Create new catalog</a>
-				</div>
-				<!-- /.card-header -->
-				<div class="card-body">
-					<table class="table table-bordered" >
-						<thead>
-							<tr>
-									<th style="width: 1px">#</th>
-									<th style="text-align:center"> Name</th>
-									<th style="text-align:center"> Total Books</th>
-									<th style="text-align:center"> Created At</th>
-									<th style="text-align:center"> Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach ($catalogs as $key => $catalog)
-							<tr>
-								<td>{{ $key+1}}</td>
-								<td>{{ $catalog->name }}</td>
-								<td style="text-align: center">{{ count($catalog->books) }}</td>
-								<td class="text center">{{ convert_date( $catalog->created_at) }}</td>
-								<td class="d-flex" style="gap: .5rem">
-									<a href="{{ url('catalogs/'.$catalog->id.'/edit') }}" class="btn btn-sm btn-warning text-white">Edit</a>
-									<form action="{{ url('catalogs/'.$catalog->id) }}" method="POST">
-										@csrf
-										@method('delete')
-										<button type="submit" class="btn btn-sm btn-danger text-white" onclick="return confirm('Are you sure want to delete this data?')">Delete</button>
-									</form>
-								</td>
-							</tr>	
-							@endforeach
-						</tbody>
-					</table>
-				</div>
-				<!-- /.card-body -->
-				<div class="card-footer clearfix">
-					<ul class="pagination pagination-sm m-0 float-right">
-						<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            @if (session()->has('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+            <div class="card-header">
+                <a href="{{ route('catalogs.create') }}" class="btn btn-primary">Create new Catalog</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="align-middle" style="width: 10px;">#</th>
+                            <th class="align-middle">Name</th>
+                            <th class="align-middle">Total of Books</th>
+                            {{-- <th>Create Date1</th> --}}
+                            {{-- <th>Create Date2</th> --}}
+                            <th class="align-middle">Create Date</th>
+                            <th class="align-middle text-center" style="width: 130px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($catalogs as $catalog)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $catalog->name }}</td>
+                            <td>{{ count($catalog->books) }}</td>
+                            {{-- <td>{{ $catalog->created_at->diffForHumans() }}</td> --}}
+                            {{-- <td>{{ $catalog->created_at->isoFormat('dddd D') }}</td> --}}
+                            <td>{{ date('d M Y', strtotime($catalog->created_at)) }}</td>
+                            <td class="text-center">
+                                <a href="{{ route("catalogs.edit",$catalog->id) }}" class="badge bg-warning p-2 mb-2">
+                                    edit</a>
+
+                                <form action="{{ route("catalogs.destroy", $catalog->id) }}" method="post"
+                                    class="d-inline">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="badge bg-danger p-2 border-0"
+                                        onclick=" return confirm('Are you sure?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
 @endsection
