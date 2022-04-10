@@ -68,23 +68,35 @@
                         </form>
                     </div>
                 </li>
-                <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
+                 <!-- Notifications Dropdown Menu -->
+                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge"></span>
+                        <i class="far fa-bell"></i>
+                        @if (transactionAlert())
+                        <span class="badge badge-danger navbar-badge">{{ count(transactionAlert()) }}</span>
+                        @endif
                     </a>
+
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                        <i class="fas fa-th-large"></i>
-                    </a>
+                        <span class="dropdown-item dropdown-header">
+                            Transaction Alerts
+                        </span>
+                        <div class="dropdown-divider"></div>
+                        @foreach (transactionAlert() as $note)
+                        <a href="{{ route( 'transactions.show', $note['transaction'])}}" class="dropdown-item">
+                            <i class="fas fa-book mr-2"></i> {{ $note["member"] }}
+                            <span class="float-right text-muted text-sm">{{ $note["day_late"] }} Days</span>
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+                        @endforeach
+                        @if (transactionAlert())
+                        <a href="#" class="dropdown-item dropdown-footer">There's {{ count(transactionAlert()) }}
+                            notification</a>
+                        @else
+                        <a href="#" class="dropdown-item dropdown-footer">There's No notifications</a>
+                        @endif
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
@@ -207,7 +219,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a
-                                        href="{{ request()->route()->uri }}">{{ Route::currentRouteName() }}</a></li>
+                                        href="{{ request()->route()->url }}">{{ Route::currentRouteName() }}</a></li>
                                 <li class="breadcrumb-item active">Admin</li>
                             </ol>
                         </div><!-- /.col -->
