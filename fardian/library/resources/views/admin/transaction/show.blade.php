@@ -28,7 +28,7 @@
                   <label>Name</label>
                         <select disabled onlyread name="member_id" class="form-control">
                            @foreach($members as $member)
-                           <option value="{{ $member->id }}">{{ $member->name }}</option>
+                           <option value="{{ $member->id }}" {{ $transaction->member_id == $member->id ? 'selected' : ''}}>{{ $member->name }}</option>
                             @endforeach
                         </select>
                  </div>
@@ -36,6 +36,8 @@
                 <div class="form-group">
                           <label>Transaction Start</label>
                           <input disabled onlyread type="text" class="form-control" name="date_start" value="{{ $transaction->date_start }}">
+                          <label>Transaction End</label>
+                          <input disabled onlyread type="text" class="form-control" name="date_end" value="{{ $transaction->date_end }}">
                 </div>
                 <div class="form-group">
                         <label>Book</label><br>

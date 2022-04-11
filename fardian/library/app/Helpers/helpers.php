@@ -9,7 +9,7 @@ use App\Models\Member;
     function notification(){
         $date = date('Y-m-d');
         $transaction = Transaction::where('transactions.status','=','0')
-                                          ->where('transactions.date_end','>',$date)
+                                          ->where('transactions.date_end','<',$date)
                                           ->get();
         $data = [
             'transaction' => $transaction,

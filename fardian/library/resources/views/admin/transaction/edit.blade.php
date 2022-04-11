@@ -57,14 +57,17 @@
                             @endif
                             @endforeach
                           </select>
-                  </div>
-                  <div class="form-check">
+                  </div><br>
+                  <div class="form-group">
+                  <label> Status </label>
+                    <div class="form-check">
                           <input class="form-check-input" type="radio" name="status" value="1" {{ ($transaction->status == '1') ? 'checked' : '' }}>
                           <label class="form-check-label">Has Been Returned</label>
-                </div>
-                <div class="form-check">
+                  </div>
+                  <div class="form-check">
                           <input class="form-check-input" type="radio" name="status" value="0" {{ ($transaction->status == '0') ? 'checked' : '' }}>
                           <label class="form-check-label">Not Been Restored</label>
+                  </div>
                 </div>
                 </div>
               </div>

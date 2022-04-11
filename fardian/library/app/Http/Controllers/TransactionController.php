@@ -162,7 +162,7 @@ class TransactionController extends Controller
                       ->get();
         $members = Member::select('*')
                           ->get();
-        $transactionDetails = TransactionDetail::where('transaction_id',$transaction->member_id)
+        $transactionDetails = TransactionDetail::where('transaction_id',$transaction->id)
                                                 ->get();
         return view('admin.transaction.show', compact('books','members','transaction','transactionDetails'));
     }
@@ -180,7 +180,7 @@ class TransactionController extends Controller
                             ->get();
         $members = Member::select('*')
                             ->get();
-        $transactionDetails = TransactionDetail::where('transaction_id',$transaction->member_id)
+        $transactionDetails = TransactionDetail::where('transaction_id',$transaction->id)
                                                 ->get();
         return view('admin.transaction.edit', compact('books','members','transaction','transactionDetails')); 
     }
@@ -198,7 +198,7 @@ class TransactionController extends Controller
             'member_id' => $request->member_id,
             'date_start' => $request->date_start,
             'date_end' => $request->date_end,
-            'status' => $request->status
+            'status' => $request->status,
         ]);
 
         if($transaction){
