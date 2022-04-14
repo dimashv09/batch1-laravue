@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin Role',
             'email' => 'admin@role.test',
             'password' => bcrypt('12345678')
-`
+
         ]);
 
         $Admin->assignRole('admin');
