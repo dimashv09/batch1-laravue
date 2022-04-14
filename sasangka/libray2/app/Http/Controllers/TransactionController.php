@@ -23,12 +23,12 @@ class TransactionController extends Controller
      */
     public function index()
     {
-         // return auth()->user()->hasRole('admin');
-        //  if (auth()->user()->hasRole('admin')) {
+        //  return auth()->user()->hasRole('admin');
+         if (auth()->user()->hasRole('admin')) {
             return view('admin.peminjaman.index');
-        // } else {
-        //     return abort('403');
-        // }
+        } else {
+            return abort('403');
+        }
  
     }
 

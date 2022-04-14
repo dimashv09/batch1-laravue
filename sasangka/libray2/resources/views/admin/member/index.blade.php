@@ -40,7 +40,7 @@
                             <a href="#" @click="addData()" class="btn btn-primary">Add new Member</a>
                         </div>
                         <div class="col-2">
-                            <select class="form-control" name="filter">
+                            <select class="form-control" name="sex">
                                 <option value="0">--Filter--</option>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
@@ -162,8 +162,8 @@
 </script>
 
 <script>
-      var actionUrl = `{{ ('members'); }}`
-      var apiUrl = `{{ url('api/members'); }}`
+      var actionUrl= `{{ ('members'); }}`
+      var apiUrl  = `{{ url('api/members'); }}`
 
         var columns = [
         {data: 'DT_RowIndex', orderable: true},
@@ -190,9 +190,9 @@
         sex = $('select[name=sex]').val();
 
         if (sex == 0 ) {
-            controller.table.ajax.url(actionUrl).load();
+            controller.table.ajax.url(apiUrl).load();
         } else {
-            controller.table.ajax.url(`${actionUrl}+'?sex='+sex`).load();
+            controller.table.ajax.url(apiUrl+'?sex='+sex).load();
         }
     });
 </script>

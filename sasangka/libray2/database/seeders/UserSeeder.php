@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-Use App\User;
+Use App\Models\User;
 use Illuminate\Database\Seeder;
 
 
@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin Role',
             'email' => 'admin@role.test',
             'password' => bcrypt('12345678')
-
+`
         ]);
 
         $Admin->assignRole('admin');

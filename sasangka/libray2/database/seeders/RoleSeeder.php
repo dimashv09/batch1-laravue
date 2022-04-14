@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Traits\HasRoles;
-
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {

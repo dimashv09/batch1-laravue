@@ -25,7 +25,7 @@ class MemberController extends Controller
     public function api(Request $request)
     {
         if ($request->sex) {
-            $datas = Member::where('sex', $request->sex)->get();
+            $datas = Member::where('gender', $request->sex)->get();
         } else {
             $datas = Member::all();
         }
