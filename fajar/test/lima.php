@@ -1,19 +1,27 @@
 <?php
 
-function fungsi($angka)
-{
-    if($angka == 4){
-        echo "$angka Maka Hasilnya adalah : empat";
-    }elseif ($angka == 20){
-        echo "$angka Maka Hasilnya adalah : dua puluh";
-    }elseif ($angka == 39){
-        echo "$angka Maka Hasilnya adalah : tiga puluh sembilan";
-    }elseif ($angka == 39){
-        echo "$angka Maka Hasilnya adalah : tiga puluh sembilan";
-    }elseif ($angka == 104){
-        echo "$angka Maka Hasilnya adalah : silahkan masukkan bilangan 1-100";
-    }
+$data = ["satu", "dua","tiga","empat","lima","enam","tujuh","delapan","sembilan","sepulu","sebelas"];
+
+$b = "belas";
+$p = "puluh";
+$x = 99;
+$nil = "";
+
+
+
+if ($x === 0) {
+    $nil = "nol";
+}elseif ($x < 12) {
+    $nil = $data[$x-1];
+}elseif($x < 20){
+    $nil = $data[$x-(10+1)] . " $b";
+}elseif($x < 100){
+    $nil = $data[($x/10)-1] . " $p " . $data[$x%10-1];
+}elseif($x == 100){
+    $nil = "seratus ";
+}else {
+    $nil = "masukan 1-100";
 }
 
-echo fungsi(104) . "<br>";
-echo fungsi(4) . "<br>";
+
+print $x ."<br>".$nil;
