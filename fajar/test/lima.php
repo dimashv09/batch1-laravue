@@ -1,6 +1,6 @@
 <?php
 
-$data = ["satu", "dua","tiga","empat","lima","enam","tujuh","delapan","sembilan","sepulu","sebelas"];
+$data = ["","satu", "dua","tiga","empat","lima","enam","tujuh","delapan","sembilan","sepulu","sebelas"];
 
 $b = "belas";
 $p = "puluh";
@@ -12,11 +12,11 @@ $nil = "";
 if ($x === 0) {
     $nil = "nol";
 }elseif ($x < 12) {
-    $nil = $data[$x-1];
+    $nil = $data[$x];
 }elseif($x < 20){
-    $nil = $data[$x-(10+1)] . " $b";
+    $nil = $data[$x-(10)] . " $b";
 }elseif($x < 100){
-    $nil = $data[($x/10)-1] . " $p " . $data[$x%10-1];
+    $nil = $data[$x/(10)] . " $p " . $data[$x%10];
 }elseif($x == 100){
     $nil = "seratus ";
 }else {
