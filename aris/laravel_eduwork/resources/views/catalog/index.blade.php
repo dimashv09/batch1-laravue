@@ -6,8 +6,8 @@
 <div class="card">
 <div class="card-header">
       <!-- ngga bisa detail -->
-   <!--  <a href="{{ url('/catalogs/create') }}" class="btn btn-primary pull-right">Create New Catalog</a> -->
-   <a href="{{ url('/create') }}" class="btn btn-primary pull-right">Create New Catalog</a>
+    <a href="{{ url('catalogs/create') }}" class="btn btn-primary pull-right">Create New Catalog</a>
+   <!-- <a href="{{ url('/create') }}" class="btn btn-primary pull-right">Create New Catalog</a> -->
 <div class="card-tools">
 <div class="input-group input-group-sm" style="width: 150px;">
 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -27,6 +27,7 @@
 <th>Name</th>
 <th>Total Books</th>
 <th>Created At</th>
+<th>Actions</th>
 </tr>
 </thead>
 @foreach($catalogs as $key => $catalog)
@@ -36,6 +37,14 @@
 <td>{{ $catalog->name }}</td>
 <td>{{ count($catalog->books) }}</td>
 <td>{{ date('H:i:s - d M Y', strtotime($catalog->created_at)) }}</td>
+<td>
+    <a href="{{ url('catalogs/edit/'.$catalog->id) }}" class="btn btn-warning btn-sm">Edit</a>
+    <form action="{{ url('catalogs/delete',['id'=> $catalog->id]) }}" method="post">
+        <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure?')">
+        @method('delete')
+        @csrf
+    </form>
+</td>
 @endforeach
 </tr>
 </tbody>

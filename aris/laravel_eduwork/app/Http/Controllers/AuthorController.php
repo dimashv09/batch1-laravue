@@ -14,7 +14,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view('author.index');
+        $authors = Author::all();
+        return view('author.index', compact('authors'));
     }
 
     /**
@@ -24,7 +25,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+         return view('author.create');
     }
 
     /**
@@ -36,6 +37,21 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         //
+        $author = new Author();
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required',
+            'phone_number'=>'required',
+            'address' =>'required',
+        ]);
+
+        $author->name = $request->name;
+        $author->email = $request->email;
+        $author->phone_number = $request->phone_number;
+        $author->address = $request->address;
+        $author->save();
+
+        return redirect('authors');
     }
 
     /**

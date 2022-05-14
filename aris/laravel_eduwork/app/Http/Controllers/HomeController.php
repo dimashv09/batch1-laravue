@@ -78,7 +78,7 @@ class HomeController extends Controller
         //no 17
         // $data17 = Book::select(count('books.publisher_id'),'as','jumlah publisher'))->where('publishers.publisher_id','=','pg05')->get();
 
-        $data17 = DB::table('books')->select(DB::raw('COUNT(publisher_id) as jumlah publisher'))->join('publishers','publishers.id','=','books.publisher_id')->where('publisher_id','=','6')->get();
+        $data17 = DB::table('books')->select(DB::raw('COUNT(publisher_id) as jumlah_publisher'))->join('publishers','publishers.id','=','books.publisher_id')->where('publisher_id','=','6')->get();
 
         //no 18
         $data18 = Book::select('*')->where('books.price','>','10000')->get();
@@ -100,7 +100,7 @@ class HomeController extends Controller
 
         // return $data;
         // return $data2;
-        // return $data17;
+        return $data13;
         return view('home');
 
     }

@@ -37,7 +37,16 @@ class CatalogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $catalog = new Catalog();
+        
+        $this->validate($request,[
+            'name' => ['required'],
+        ]);
+        
+        $catalog->name = $request->name;
+        $catalog->save();
+
+        return redirect('catalogs');
     }
 
     /**
@@ -59,7 +68,8 @@ class CatalogController extends Controller
      */
     public function edit(Catalog $catalog)
     {
-        //
+        
+        return view('catalog.edit', compact('catalog'));
     }
 
     /**
@@ -71,7 +81,16 @@ class CatalogController extends Controller
      */
     public function update(Request $request, Catalog $catalog)
     {
-        //
+        
+        
+        $this->validate($request,[
+            'name' => ['required'],
+        ]);
+        
+       
+        $catalog->update($request->all());
+
+        return redirect('catalogs');
     }
 
     /**
@@ -82,6 +101,8 @@ class CatalogController extends Controller
      */
     public function destroy(Catalog $catalog)
     {
-        //
+        $catalog->delete();
+
+        return redirect('catalogs');
     }
 }
