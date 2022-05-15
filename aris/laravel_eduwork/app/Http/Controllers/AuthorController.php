@@ -73,7 +73,8 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        // $author = Author::find($author);
+        return view('author.edit', compact('author'));
     }
 
     /**
@@ -85,7 +86,17 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $this->validate($request,[
+            'name' => ['required'],
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'address' => ['required'],
+        ]);
+        
+       
+        $author->update($request->all());
+
+        return redirect('authors');
     }
 
     /**

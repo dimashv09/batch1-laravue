@@ -40,7 +40,7 @@ class CatalogController extends Controller
         $catalog = new Catalog();
         
         $this->validate($request,[
-            'name' => ['required'],
+            'name' => ['required|max:150'],
         ]);
         
         $catalog->name = $request->name;

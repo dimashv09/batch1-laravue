@@ -40,9 +40,9 @@ class PublisherController extends Controller
         $publisher = new Publisher();
 
         $this->validate($request,[
-            'name' => ['required'],
-            'email' => ['required'],
-            'phone_number' => ['required'],
+            'name' => ['required|max:150'],
+            'email' => ['required|max:50'],
+            'phone_number' => ['required|max:15'],
             'address' => ['required'],
         ]);
 
