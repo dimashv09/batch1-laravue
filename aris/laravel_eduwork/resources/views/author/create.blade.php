@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 @section('header', 'Author')
 @section('content')
+
+@section('css')
+
+@endsection
 <div class="row">
           <!-- left column -->
           <div class="col-md-6">
@@ -37,4 +41,8 @@
             </div>
            
     
+@endsection
+
+@section('js')
+
 @endsection
