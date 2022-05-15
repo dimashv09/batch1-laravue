@@ -43,7 +43,7 @@
 <td>{{ date('H:i:s - d M Y', strtotime($author->created_at)) }}</td>
 <td>
     <a href="{{ route('authors.edit',$author->id) }}" class="btn btn-warning btn-sm">Edit</a>
-    <form action="{{ url('authors/delete/'. $author->id) }}" method="post">
+    <form action="{{ route('authors.destroy', $author->id) }}" method="post">
         <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure?')">
         @method('delete')
         @csrf
