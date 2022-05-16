@@ -1,0 +1,10 @@
+1. SELECT Kode_Obat,Kode_Kategori FROM `obat`
+2. SELECT * FROM `transaksi` WHERE waktu_Transaksi;
+3. SELECT * FROM `transaksi` WHERE Tanggal_Transaksi > 2022-05-05;
+4. SELECT * FROM `detail_transaksi` WHERE Harga < 20000;
+5. SELECT * FROM `detail_transaksi` WHERE Harga >= 20000;
+6. SELECT * FROM `pembeli`
+7. SELECT * FROM `pembeli` WHERE Nama_Pembeli;
+8. SELECT * FROM `obat` WHERE Harga_supplier > 50000;
+9. SELECT Nama_Barang, Tanggal_Expired, Stok_Barang FROM `obat`;
+10. SELECT * FROM `obat` WHERE Stok_Barang >100;
