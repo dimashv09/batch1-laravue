@@ -20,8 +20,16 @@ class AuthorController extends Controller
 
     public function index()
     {
+        
+        return view('author.index');
+    }
+
+    public function api()
+    {
         $authors = Author::all();
-        return view('author.index', compact('authors'));
+        $datatables = datatables()->of($authors)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -45,9 +53,9 @@ class AuthorController extends Controller
         //
         $author = new Author();
         $this->validate($request,[
-            'name'=>'required',
-            'email'=>'required',
-            'phone_number'=>'required',
+            'name'=>'required|max:50',
+            'email'=>'required|max:50',
+            'phone_number'=>'required|max:15',
             'address' =>'required',
         ]);
 
@@ -93,10 +101,10 @@ class AuthorController extends Controller
     public function update(Request $request, Author $author)
     {
         $this->validate($request,[
-            'name' => ['required'],
-            'email' => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
+            'name'=>'required|max:50',
+            'email'=>'required|max:50',
+            'phone_number'=>'required|max:15',
+            'address' =>'required',
         ]);
         
        

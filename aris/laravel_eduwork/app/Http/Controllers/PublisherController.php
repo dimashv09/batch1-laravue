@@ -40,10 +40,10 @@ class PublisherController extends Controller
         $publisher = new Publisher();
 
         $this->validate($request,[
-            'name' => ['required|max:150'],
-            'email' => ['required|max:50'],
-            'phone_number' => ['required|max:15'],
-            'address' => ['required'],
+            'name' => 'required|max:150',
+            'email' => 'required|max:50',
+            'phone_number' => 'required|max:15',
+            'address' => 'required',
         ]);
 
         $publisher->name = $request->name;
@@ -52,7 +52,7 @@ class PublisherController extends Controller
         $publisher->address = $request->address;
         $publisher->save();
 
-        return redirect('publisher');
+        return redirect('publishers');
     }
 
     /**
@@ -85,21 +85,22 @@ class PublisherController extends Controller
      * @param  \App\Models\Publisher  $publisher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Publisher $publisher, $id)
+    public function update(Request $request, Publisher $publisher)
     {
-        $publisher = Publisher::find($id);
+        // $publisher = Publisher::find($publisher);
         $this->validate($request,[
-            'name' => 'required',
-            'email' => 'required',
-            'phone_number' => 'required',
+            'name' => 'required|max:150',
+            'email' => 'required|max:50',
+            'phone_number' => 'required|max:15',
             'address' => 'required',
         ]);
 
-        $publisher->name = $request->name;
-        $publisher->email = $request->email;
-        $publisher->phone_number = $request->phone_number;
-        $publisher->address = $request->address;
-        $publisher->save();
+        // $publisher->name = $request->name;
+        // $publisher->email = $request->email;
+        // $publisher->phone_number = $request->phone_number;
+        // $publisher->address = $request->address;
+        $publisher->update($request->all());
+        // $publisher->save();
 
         return redirect('publishers');
 
@@ -111,9 +112,9 @@ class PublisherController extends Controller
      * @param  \App\Models\Publisher  $publisher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Publisher $publisher, $id)
+    public function destroy(Publisher $publisher)
     {
-        $publisher = Publisher::find($id);
+        // $publisher = Publisher::find($id);
         $publisher->delete();
         return redirect('publishers');
     }

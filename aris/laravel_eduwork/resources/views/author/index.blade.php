@@ -2,7 +2,10 @@
 @section('header', 'Catalog')
 @section('content')
 @section('css')
-
+        <!-- DataTables -->
+ <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endsection
 <div id="controller">
             <div class="row">
@@ -24,8 +27,8 @@
             </div>
             </div>
             </div>
-            <div class="card-body table-responsive p-0">
-             <table class="table table-hover text-nowrap">
+            <div class="card-body">
+             <table id="datatables" class="table table-striped table-bordered">
             <thead>
             <tr>
             <th>No</th>
@@ -37,27 +40,7 @@
             <th>Actions</th>
             </tr>
             </thead>
-            @foreach($authors as $key => $author)
-            <tbody>
-            <tr>
-            <td>{{$key+1}}</td>
-            <td>{{ $author->name }}</td>
-            <td>{{ $author->email }}</td>
-            <td>{{ $author->phone_number }}</td>
-            <td>{{ $author->address }}</td>
-            <td>{{ date('H:i:s - d M Y', strtotime($author->created_at)) }}</td>
-            <td>
-                <a href="#" @click="editData({{$author}})" class="btn btn-warning btn-sm">Edit</a>
-                <a href="#" @click="deleteData({{$author->id}})" class="btn btn-danger btn-sm">Delete</a>
-                <!-- <form action="{{ route('authors.destroy', $author->id) }}" method="post">
-                    <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure?')">
-                    @method('delete')
-                    @csrf
-                </form> -->
-            </td>
-            @endforeach
-            </tr>
-            </tbody>
+            
             </table>
 
             </div>
@@ -112,47 +95,74 @@
 </div>
 @endsection
 @section('js')
+
+<!-- DataTables -->
+<script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{asset('assets/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script>
+    
+    var actionUrl = '{{ url('authors') }}';
+    var apiUrl = '{{ url('api/authors') }}';
+
+    var columns = [
+    {data: 'DT_RowIndex', class: 'text-center', orderable: true},
+    {data: 'name', class: 'text-center', orderable: true},
+    {data: 'email', class: 'text-center', orderable: true},
+    {data: 'phone_number', class: 'text-center', orderable: true},
+    {data: 'address', class: 'text-center', orderable: true},
+    {render: function(index, row, data, meta) {
+        return `
+            <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData("event, ${meta.row})">
+            Edit
+            </a>
+            <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+            Delete</a>
+    `}, orderable: false, width: '200px', class='text-center'},
+    ];
+
+    console.log(apiUrl);
 
     var controller = new Vue({
         el: '#controller',
         data: {
+                datas: [],
                 data: {},
-                actionUrl : '{{ route('authors.store') }}',
-                editStatus : false
+                actionUrl,
+                apiUrl,
+                editStatus : false,
             
 
             },
             mounted: function () {
+                this.datatable();
             },
             methods: {
-                addData() {
-                    // console.log('Add Data');
-                    this.actionUrl = '{{ route('authors.store') }}';
-                    this.data = {};
-                    this.editStatus = false;
-                    $('#modal-default').modal();
-                    
-                },
-                editData(data) {
-                    // console.log(data);
-                    this.data = data;
-                    this.actionUrl = '{{ route('authors.store') }}'+'/'+data.id;
-                    this.editStatus = true;
-                   $('#modal-default').modal();
+                datatable() {
 
-                },
-                deleteData(id) {
-                    // console.log(id);
-                    this.actionUrl = '{{ route('authors.store') }}'+'/'+id;
-                    if (confirm("Are you sure ?")) {
-                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response => {
-                            location.reload();
-                        });
-                    }
-                }
+                    const _this = this;
+                    _this.table = $('#datatables').DataTable({
+                        ajax: {
+                            url: _this.apiUrl,
+                            type: 'GET',
 
-            }
+                        },
+                        columns: columns
+                    }).on('xhr', function() {
+                        _this.datas = _this.table.ajax.json().data;
+                    });
+                   // console.log(apiUrl);
+                },
+             }      
     });
 </script>
 @endsection

@@ -65,7 +65,11 @@ class HomeController extends Controller
         $data12 = Member::select('members.name','members.phone_number','members.address','transactions.date_start','transactions.date_end','books.isbn','transaction_details.qty')->join('transactions','transactions.member_id','=','members.id')->join('transaction_details','transaction_details.transaction_id','=','transactions.id')->join('books','books.id','=','transaction_details.book_id')->groupBy('transaction_details.qty')->count('transaction_details.qty','>','1');
 
         //no 13
-        // $data13 = Member::select('members.name','members.phone_number','members.address','transactions.date_start','transactions.date_end','transaction_details.id','transaction_details.qty','books.title','books.price','*','transaction_details.qty')->join('transactions','transactions.member_id','=','members.id')->join('transaction_details','transaction_details.transaction_id','=','transactions.id')->join('books','books.isbn','=','transaction_details.isbn')->get();
+        $data13 = DB::table('members')
+        ->select('members.name','members.phone_number','members.address','transactions.date_start','transactions.date_end','transaction_details.id','transaction_details.qty','books.title',DB::raw('books.price * transaction_details.qty as total'))
+        ->join('transactions','transactions.member_id','=','members.id')
+        ->join('transaction_details','transaction_details.transaction_id','=','transactions.id')
+        ->join('books','books.isbn','=','transaction_details.book_id')->get();
 
         $data14 = Member::select('members.name','members.phone_number','members.address','transactions.date_start','transactions.date_end','transaction_details.qty','books.title','publishers.name','authors.name','catalogs.name')->join('transactions','transactions.member_id','=','members.id')->join('transaction_details','transaction_details.transaction_id','=','transactions.id')->join('books','books.id','=','transaction_details.book_id')->join('publishers','publishers.id','books.publisher_id')->join('authors','authors.id','=','books.author_id')->join('catalogs','catalogs.id','=','books.catalog_id')->get();
 
@@ -100,7 +104,7 @@ class HomeController extends Controller
 
         // return $data;
         // return $data2;
-        return $data13;
+        // return $data13;
         return view('home');
 
     }
