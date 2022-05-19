@@ -1,68 +1,186 @@
 @extends('layouts.admin')
 @section('header', 'Book')
 @section('content')
-<div class="row">
-<div class="col-12">
-<div class="card">
-<div class="card-header">
-<h3 class="card-title">Responsive Hover Table</h3>
-<div class="card-tools">
-<div class="input-group input-group-sm" style="width: 150px;">
-<input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-<div class="input-group-append">
-<button type="submit" class="btn btn-default">
-<i class="fas fa-search"></i>
-</button>
-</div>
-</div>
-</div>
-</div>
-<div class="card-body table-responsive p-0">
- <table class="table table-hover text-nowrap">
-<thead>
-<tr>
-<th>ID</th>
-<th>User</th>
-<th>Date</th>
-<th>Status</th>
-<th>Reason</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>183</td>
-<td>John Doe</td>
-<td>11-7-2014</td>
-<td><span class="tag tag-success">Approved</span></td>
-<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-</tr>
-<tr>
-<td>219</td>
-<td>Alexander Pierce</td>
-<td>11-7-2014</td>
-<td><span class="tag tag-warning">Pending</span></td>
-<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-</tr>
-<tr>
-<td>657</td>
-<td>Bob Doe</td>
-<td>11-7-2014</td>
-<td><span class="tag tag-primary">Approved</span></td>
-<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-</tr>
-<tr>
-<td>175</td>
-<td>Mike Doe</td>
-<td>11-7-2014</td>
-<td><span class="tag tag-danger">Denied</span></td>
-<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-</tr>
-</tbody>
-</table>
-</div>
+<div id="controller">
+    <div class="row">
+        <div class="col-md-5 offset-md-3">
+            <div class="input-group mb-3">
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input type="text" class="form-control" autocomplete="off" placeholder="Search from title" v-model="search">
+            </div>
+        </div>
+        <div class="col-mb-2">
+            <button class="btn btn-primary" @click="addData()">Create New Book</button>
+        </div>
+    </div>
+    <hr>
+
+    
+
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12" v-for="book in filteredList">
+           <div class="info-box" v-on:click="controller.editData(book)">
+               <div class="info-box-content">
+                   <span class="info-box-text h3">@{{ book.title }} ( @{{ book.qty }} )</span>
+                   <span class="info-box-number">Rp. @{{ number(book.price) }} ,-</span>
+               </div>
+           </div> 
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form :action="actionUrl" method="post" autocomplete="off" @submit.prevent="submitForm($event, data.id)" >
+                <div class="modal-header">
+                  <h4 class="modal-title">Default Modal</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                     <input type="hidden" name="_method" value="PUT" v-if="editStatus">
+                      <div class="form-group">
+                        <label>ISBN</label>
+                        <input type="text" name="isbn"  class="form-control" placeholder="Input ISBN" required="" :value="book.isbn">
+                      </div>
+                      <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" name="title"  class="form-control" placeholder="Input Title" required="" :value="book.title">
+                      </div>
+                      <div class="form-group">
+                        <label>Year</label>
+                        <input type="number" name="year"  class="form-control" placeholder="Input Year" required="" :value="book.year">
+                      </div>
+                      <div class="form-group">
+                        <label>Publisher</label>
+                       <select name="publisher_id" class="form-control">
+                        @foreach($publishers as $publisher)
+                           <option :selected="book.publisher_id == {{ $publisher->id }}" value="{{ $publisher->id }}">{{ $publisher->name }}</option>
+                        @endforeach
+                       </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Author</label>
+                        <select name="author_id" class="form-control">
+                        @foreach($authors as $author)
+                           <option :selected="book.author_id == {{ $author->id }}" value="{{ $author->id }}">{{ $author->name }}</option>
+                        @endforeach
+                       </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Catalog</label>
+                        <select name="catalog_id" class="form-control">
+                        @foreach($catalogs as $catalog)
+                           <option :selected="book.catalog_id == {{ $catalog->id }}" value="{{ $catalog->id }}">{{ $catalog->name }}</option>
+                        @endforeach
+                       </select>
+                      </div>
+                      <div class="form-group">
+                        <label>QTY</label>
+                        <input type="number" name="qty"  class="form-control" placeholder="Input QTY" required="" :value="book.qty">
+                      </div>
+                      <div class="form-group">
+                        <label>Price</label>
+                        <input type="text" name="price"  class="form-control" placeholder="Input Price" required="" :value="book.price">
+                      </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-danger" v-if="editStatus" v-on:click="deleteData(book.id)">Delete</button>
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+              </div>
+              <!-- /.modal-content -->
+           
+            <!-- /.modal-dialog -->
+          </div>
 
 </div>
+@endsection
 
-</div>
-</div>
+@section('js')
+<script>
+    var actionUrl = '{{ url('books') }}';
+    var apiUrl = '{{ url('api/books') }}';
+
+    var controller = new Vue({
+        el: '#controller',
+        data: {
+            books: [],
+            book: {},
+            actionUrl,
+            search: '',
+            editStatus : false,
+           
+        },
+        mounted: function () {
+            this.get_books();
+        },
+        methods: {
+            get_books() {
+                const _this = this;
+                $.ajax({
+                    url: apiUrl,
+                    method: 'GET',
+                    success: function (data) {
+                        _this.books = JSON.parse(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            },
+            addData() 
+        {
+
+            this.book = {};
+            this.actionUrl = '{{ url('books') }}';
+             this.editStatus = false;
+            $('#modal-default').modal();
+        },
+        editData(book)
+        {
+            this.book = book;
+           this.editStatus = true;
+
+            $('#modal-default').modal();
+        },
+        deleteData(id)
+        {
+            if (confirm("Are you sure ?")) {
+                        $(event.target).parents('tr').remove();
+                            axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response => {
+                            // location.reload();
+                            alert('Data has been removed');
+                    });
+                }
+        },
+        submitForm(event, id){
+            event.preventDefault();
+            const _this = this;
+            var actionUrl = ! this.editStatus ? this.actionUrl: `${this.actionUrl}/${id}`;
+            axios.post(actionUrl, new FormData($(event.target)[0])).then(response=>{
+                $('#modal-default').modal('hide');
+                _this.get_books();
+            });
+
+        },
+            number(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+        },
+        computed: {
+            filteredList() {
+                return this.books.filter(book => {
+                    return book.title.toLowerCase().includes(this.search.toLowerCase())
+                    
+                })
+            }
+        }
+    })
+</script>
 @endsection

@@ -36,11 +36,9 @@
             <th>Email</th>
             <th>Phone Number</th>
             <th>Address</th>
-            <th>Created At</th>
             <th>Actions</th>
             </tr>
             </thead>
-            
             </table>
 
             </div>
@@ -52,7 +50,7 @@
         <div class="modal fade" id="modal-default">
             <div class="modal-dialog">
               <div class="modal-content">
-                <form :action="actionUrl" method="post" autocomplete="off">
+                <form :action="actionUrl" method="post" autocomplete="off" @submit="submitForm($event, data.id)">
                 <div class="modal-header">
                   <h4 class="modal-title">Default Modal</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -110,7 +108,6 @@
 <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script>
-    
     var actionUrl = '{{ url('authors') }}';
     var apiUrl = '{{ url('api/authors') }}';
 
@@ -122,15 +119,13 @@
     {data: 'address', class: 'text-center', orderable: true},
     {render: function(index, row, data, meta) {
         return `
-            <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData("event, ${meta.row})">
+            <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
             Edit
             </a>
-            <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+            <a href="#" class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
             Delete</a>
-    `}, orderable: false, width: '200px', class='text-center'},
+    `}, orderable: false, width: '200px', class:'text-center'},
     ];
-
-    console.log(apiUrl);
 
     var controller = new Vue({
         el: '#controller',
@@ -148,21 +143,110 @@
             },
             methods: {
                 datatable() {
-
                     const _this = this;
                     _this.table = $('#datatables').DataTable({
                         ajax: {
                             url: _this.apiUrl,
                             type: 'GET',
-
                         },
                         columns: columns
                     }).on('xhr', function() {
                         _this.datas = _this.table.ajax.json().data;
-                    });
-                   // console.log(apiUrl);
+                    }); 
                 },
-             }      
+                addData() {
+                    this.data = {};
+                    this.actionUrl = '{{ url('authors') }}';
+                    this.editStatus = false;
+                    $('#modal-default').modal();
+                },
+                editData(event, row) {
+                    this.data = this.datas[row];
+                    // console.log(this.data)
+                    // this.actionUrl = '{{ url('authors') }}'+'/'+this.data.id;
+                    this.editStatus = true;
+                    $('#modal-default').modal();
+                },
+                deleteData(event, id) {
+                    if (confirm("Are you sure ?")) {
+                        $(event.target).parents('tr').remove();
+                            axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response => {
+                            // location.reload();
+                            alert('Data has been removed');
+                    });
+                }
+             },
+             submitForm(event, id){
+                event.preventDefault();
+                const _this = this;
+                var actionUrl = ! this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
+                axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                    $('#modal-default').modal('hide');
+                    _this.table.ajax.reload();
+                });
+             },
+        }      
     });
+
+    // var controller = new Vue({
+    //     el: '#controller',
+    //     data: {
+    //             datas: [],
+    //             data: {},
+    //             actionUrl,
+    //             apiUrl,
+    //             editStatus : false,
+            
+
+    //         },
+    //         mounted: function () {
+    //             this.datatable();
+    //         },
+    //         methods: {
+    //             datatable() {
+    //                 const _this = this;
+    //                 _this.table = $('#datatables').DataTable({
+    //                     ajax: {
+    //                         url: _this.apiUrl,
+    //                         type: 'GET',
+    //                     },
+    //                     columns: columns
+    //                 }).on('xhr', function() {
+    //                     _this.datas = _this.table.ajax.json().data;
+    //                 }); 
+    //             },
+    //             addData() {
+    //                 this.data = {};
+    //                 this.actionUrl = '{{ url('authors') }}';
+    //                 this.editStatus = false;
+    //                 $('#modal-default').modal();
+    //             },
+    //             editData(event, row) {
+    //                 this.data = this.datas[row];
+    //                 // console.log(this.data)
+    //                 // this.actionUrl = '{{ url('authors') }}'+'/'+this.data.id;
+    //                 this.editStatus = true;
+    //                 $('#modal-default').modal();
+    //             },
+    //             deleteData(event, id) {
+    //                 if (confirm("Are you sure ?")) {
+    //                     $(event.target).parents('tr').remove();
+    //                         axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response => {
+    //                         // location.reload();
+    //                         alert('Data has been removed');
+    //                 });
+    //             }
+    //          },
+    //          submitForm(event, id){
+    //             event.preventDefault();
+    //             const _this = this;
+    //             var actionUrl = ! this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
+    //             axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+    //                 $('#modal-default').modal('hide');
+    //                 _this.table.ajax.reload();
+    //             });
+    //          },
+    //     }      
+    // });
 </script>
 @endsection

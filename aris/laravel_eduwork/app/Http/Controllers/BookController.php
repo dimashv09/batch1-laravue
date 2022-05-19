@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Models\Publisher;
+use App\Models\Author;
+use App\Models\Catalog;
 
 class BookController extends Controller
 {
@@ -14,9 +17,19 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with('publisher')->get();
-        return $books;
-        return view('book.index');
+        // $books = Book::with('publisher')->get();
+        $publishers = Publisher::all();
+        $authors = Author::all();
+        $catalogs = Catalog::all();
+        
+        return view('book.index', compact('publishers','authors','catalogs'));
+    }
+
+    public function api() 
+    {
+        $books = Book::all();
+
+        return json_encode($books);
     }
 
     /**
@@ -38,6 +51,28 @@ class BookController extends Controller
     public function store(Request $request)
     {
         //
+        $book = new Book();
+        $this->validate($request,[
+            'isbn'=>'required',
+            'title'=>'required',
+            'year'=>'required',
+            'qty'=>'required',
+            'price'=>'required',
+            
+        ]);
+
+        $book->isbn = $request->isbn;
+        $book->title = $request->title;
+        $book->year = $request->year;
+        $book->publisher_id = $request->publisher_id;
+        $book->author_id = $request->author_id;
+        $book->catalog_id = $request->catalog_id;
+        $book->qty = $request->qty;
+        $book->price = $request->price;
+        $book->save();
+
+        return redirect('books');
+
     }
 
     /**
@@ -72,6 +107,18 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         //
+        $this->validate($request,[
+            'isbn'=>'required',
+            'title'=>'required',
+            'year'=>'required',
+            'qty'=>'required',
+            'price'=>'required',
+            
+        ]);
+
+        $book->update($request->all());
+
+        return redirect('books');
     }
 
     /**

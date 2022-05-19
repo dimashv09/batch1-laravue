@@ -41,9 +41,13 @@ Route::delete('catalogs/delete/{catalog}',[CatalogController::class, 'destroy'])
 // Route::get('/authors',[AuthorController::class, 'index']);
 Route::resource('/publishers', PublisherController::class);
 Route::resource('/authors', AuthorController::class);
+Route::resource('/members',MemberController::class);
+Route::resource('/books',BookController::class);
+
 
 Route::get('/api/authors',[AuthorController::class, 'api']);
+Route::get('/api/publishers',[PublisherController::class, 'api']);
+Route::get('/api/members',[MemberController::class, 'api']);
+Route::get('/api/books',[BookController::class, 'api']);
 
-Route::get('/members',[MemberController::class, 'index']);
-Route::get('/books',[BookController::class, 'index']);
 Route::get('/publishers',[PublisherController::class, 'index']);

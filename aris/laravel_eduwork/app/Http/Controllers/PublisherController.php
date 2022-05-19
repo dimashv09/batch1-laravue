@@ -19,6 +19,14 @@ class PublisherController extends Controller
         return view('publisher.index',compact('publishers'));
     }
 
+    public function api()
+    {
+        $publishers = Publisher::all();
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+
+        return $datatables->make(true);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

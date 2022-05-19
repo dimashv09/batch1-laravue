@@ -20,6 +20,14 @@ class MemberController extends Controller
         return view('member.index');
     }
 
+    public function api()
+    {
+        $members = Member::all();
+        $datatables = datatables()->of($members)->addIndexColumn();
+
+        return $datatables->make(true);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,6 +47,23 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         //
+        $member = new Member();
+        $this->validate($request,[
+            'name'=>'required|max:50',
+            'gender'=>'required|max:2',
+            'phone_number'=>'required|max:15',
+            'address' =>'required',
+            'email'=>'required|max:50',
+        ]);
+
+        $member->name = $request->name;
+        $member->gender = $request->gender;
+        $member->phone_number = $request->phone_number;
+        $member->address = $request->address;
+        $member->email = $request->email;
+        $member->save();
+
+        return redirect('members');
     }
 
     /**
@@ -73,6 +98,23 @@ class MemberController extends Controller
     public function update(Request $request, Member $member)
     {
         //
+        
+        $this->validate($request,[
+            'name'=>'required|max:50',
+            'gender'=>'required|max:2',
+            'phone_number'=>'required|max:15',
+            'address' =>'required',
+            'email'=>'required|max:50',
+        ]);
+
+        // $member->name = $request->name;
+        // $member->gender = $request->gender;
+        // $member->phone_number = $request->phone_number;
+        // $member->address = $request->address;
+        // $member->email = $request->email;
+        $member->update($request->all());
+
+        return redirect('members');
     }
 
     /**
@@ -84,5 +126,8 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         //
+        $member->delete();
+
+        return redirect('members');
     }
 }
