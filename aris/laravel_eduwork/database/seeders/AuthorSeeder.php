@@ -17,7 +17,7 @@ class AuthorSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i=0; $i < 20 ; $i++) { 
+        for ($i=0; $i < 100 ; $i++) { 
             $author = new Author;
 
             $author->name = $faker->name;
