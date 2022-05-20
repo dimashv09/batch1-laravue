@@ -33,7 +33,7 @@
     <div class="modal fade" id="modal-default">
             <div class="modal-dialog">
               <div class="modal-content">
-                <form :action="actionUrl" method="post" autocomplete="off" @submit.prevent="submitForm($event, data.id)" >
+                <form :action="actionUrl" method="post" autocomplete="off" @submit.prevent="submitForm($event, book.id)" >
                 <div class="modal-header">
                   <h4 class="modal-title">Default Modal</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -89,7 +89,7 @@
                       </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-danger" v-if="editStatus" v-on:click="deleteData(book.id)">Delete</button>
+                  <button type="submit" class="btn btn-danger" v-if="editStatus" v-on:click="deleteData(book.id)">Delete</button>
                   <button type="submit" class="btn btn-primary">Save</button>
                 </div>
                 </form>
@@ -149,7 +149,7 @@
 
             $('#modal-default').modal();
         },
-        deleteData(id)
+        deleteData(event, id)
         {
             if (confirm("Are you sure ?")) {
                         $(event.target).parents('tr').remove();
