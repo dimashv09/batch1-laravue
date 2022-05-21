@@ -149,13 +149,15 @@
 
             $('#modal-default').modal();
         },
-        deleteData(event, id)
+        deleteData(id)
         {
             if (confirm("Are you sure ?")) {
                         $(event.target).parents('tr').remove();
                             axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response => {
                             // location.reload();
+                            _this.get_books();
                             alert('Data has been removed');
+                            
                     });
                 }
         },
