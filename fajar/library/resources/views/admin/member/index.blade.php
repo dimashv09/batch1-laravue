@@ -3,10 +3,6 @@
 @section('header', 'Member')
 
 @section('content')
-<<<<<<< HEAD
-
-ini halaman Member
-=======
 <div id="controller">
     <div class="card">
         <div class="card-header">
@@ -80,6 +76,5 @@ ini halaman Member
                     </div>
                 </form>
             </div>
->>>>>>> parent of e32c733 (error crud book)
 
-@endsection
+            @endsection
