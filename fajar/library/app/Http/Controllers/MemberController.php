@@ -70,7 +70,21 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
+<<<<<<< HEAD
         //
+=======
+        $this->validate($request,[
+            'name' => 'required',
+            'gender' => 'required',
+            'phone_number' => 'required|unique:members',
+            'address' => '',
+            'email' => 'required|unique:members'
+        ]); 
+
+
+        $author->update($request->all());
+        return redirect('member');
+>>>>>>> parent of e32c733 (error crud book)
     }
 
     /**
@@ -81,6 +95,10 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
+<<<<<<< HEAD
         //
+=======
+        $author->delete();
+>>>>>>> parent of e32c733 (error crud book)
     }
 }
