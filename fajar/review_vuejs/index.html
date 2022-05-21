@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Component VueJS</title>
+</head>
+
+<body>
+
+    <div id="app" v-if="status == tampil">
+        {{ message }} <br><br>
+        <label v-for="user in users">
+            <p> Nama : {{user.name}}
+                <br>
+                Umur : {{user.age}}
+            </p>
+        </label>
+
+
+    </div>
+
+
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const app = {
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    status: 'tampil',
+                    users: [{
+                            name: 'Ahmad',
+                            age: '24'
+                        },
+                        {
+                            name: 'Fajar',
+                            age: '25'
+                        },
+                        {
+                            name: 'Maulana',
+                            age: '26'
+                        }
+                    ]
+                }
+            }
+        }
+
+        Vue.createApp(app).mount('#app')
+    </script>
+
+</body>
+
+</html>

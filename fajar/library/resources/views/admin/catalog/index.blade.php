@@ -6,8 +6,7 @@
 
 <div class="card">
     <div class="card-header">
-        <a href="{{url('catalog/create')}}" class="btn btn-sm btn-primary pull-right"><i
-                class="fas fa-plus fa-sm text-white-50"></i> Create New Catalog</a>
+        <a href="{{url('catalog/create')}}" class="btn btn-sm btn-primary pull-right"><i class="fas fa-plus fa-sm text-white-50"></i> Create New Catalog</a>
     </div>
 
     <div class="card-body">
@@ -36,8 +35,7 @@
                             <form action="{{route('catalog.destroy', $catalog->id)}}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-sm btn-danger" type="submit" value="Delete"
-                                    onclick="return confirm('Are you sure?')">
+                                <button class="btn btn-sm btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?')">
                                     <i class="fa fa-trash"></i> Delete
                                 </button>
                             </form>

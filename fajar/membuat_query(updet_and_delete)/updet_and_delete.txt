@@ -1,0 +1,9 @@
+1. DELETE FROM `obat` WHERE `id` = 8;
+
+2. UPDATE `pembeli` SET `alamat`='bandung' WHERE `id` = 15;
+
+3. DELETE FROM `pembeli` WHERE `nama` = 'siti saropah';
+
+4. UPDATE `transaksi` SET `jumlah`= 5 WHERE `id` = 3;
+
+5. UPDATE `transaksi` SET `total_bayar`= 3000 WHERE `pembeli_id` = 1;

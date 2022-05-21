@@ -1,0 +1,20 @@
+1. SELECT * FROM obat;
+
+2. SELECT * FROM pembeli;
+
+3. INSERT INTO pembeli VALUES ('','riandy','1995-08-28', 'medan');
+
+4. INSERT INTO pembeli (nama, tgl_lahir) VALUES ('shindy', '1999-08-02');
+
+5. SELECT * FROM `pembeli` WHERE alamat='jakarta';
+
+6. SELECT * FROM `obat`;
+
+7. SELECT * FROM `obat` WHERE stock = 0;
+
+8. INSERT INTO obat VALUES ('','riandy','1995-08-28', 'medan');
+
+9. INSERT INTO obat VALUES ('','aspirin',7 , 'obat sakit kepala', 2000),
+			   ('','komix',20 , 'obat batuk', 1500);
+
+10.DELETE FROM obat WHERE nama_obat='vitamin c';

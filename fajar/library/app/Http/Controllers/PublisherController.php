@@ -16,19 +16,12 @@ class PublisherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() 
+    public function index()
     {
-        return view('admin.publisher.index');
+        $publishers = Publisher::with('books')->get();
+        return view('admin.publisher.index', compact('publishers'));
     }
 
-
-    public function api()
-    {
-        $publishers = Publisher::all();
-        $datatables = datatables()->of($publishers)->addIndexColumn();
-
-        return $datatables->make(true);
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -92,8 +85,8 @@ class PublisherController extends Controller
     {
         $this->validate($request,[
             'name' => 'required',
-            'email' => 'required',
-            'phone_number' => 'required',
+            'email' => 'required|unique:publishers',
+            'phone_number' => 'required|unique:publishers',
             'address' => ''
         ]); 
         
