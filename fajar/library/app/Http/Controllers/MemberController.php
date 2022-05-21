@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -91,13 +96,13 @@ class MemberController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'gender' => 'required',
-            'phone_number' => 'required|unique:members',
+            'phone_number' => 'required',
             'address' => '',
-            'email' => 'required|unique:members'
+            'email' => 'required'
         ]); 
 
 
-        $author->update($request->all());
+        $member->update($request->all());
         return redirect('member');
     }
 
@@ -109,6 +114,7 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        $author->delete();
+        $member->delete();
+        return redirect('member');
     }
 }

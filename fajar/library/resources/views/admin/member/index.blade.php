@@ -21,7 +21,7 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Name</th>
+                            <th>gender</th>
                             <th>Phone Number</th>
                             <th>Address</th>
                             <th>Email</th>
@@ -50,12 +50,12 @@
                         <input type="hidden" name="_method" value="PUT" v-if="editStatus">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" class="form-control" placeholder="Enter Name"
+                            <input type="text" name="name" class="form-control" placeholder="Enter Name" required
                                 :value="data.name">
                         </div>
                         <div class="form-group">
                             <label for="gender">Gender</label>
-                            <input type="text" name="gender" class="form-control" placeholder="Enter Name"
+                            <input type="text" name="gender" class="form-control" placeholder="Enter gender"
                                 :value="data.gender">
                         </div>
                         <div class="form-group">

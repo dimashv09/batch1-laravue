@@ -16,7 +16,7 @@ class PublisherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() 
     {
         return view('admin.publisher.index');
     }
@@ -92,8 +92,8 @@ class PublisherController extends Controller
     {
         $this->validate($request,[
             'name' => 'required',
-            'email' => 'required|unique:publishers',
-            'phone_number' => 'required|unique:publishers',
+            'email' => 'required',
+            'phone_number' => 'required',
             'address' => ''
         ]); 
         

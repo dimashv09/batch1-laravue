@@ -158,7 +158,7 @@
                     })
                 }
             },
-            submitForm(event, id) {
+            submitForm(event, book) {
                 event.preventDefault();
                 const _this = this;
                 var actionUrl = ! this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
