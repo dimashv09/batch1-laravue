@@ -236,7 +236,7 @@
               <li class="nav-item">
                 <a href="{{ url('publishers') }}" class="nav-link {{ request()->is('publishers') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Publishers</p>
+                  <p>Publisher</p>
                 </a>
               </li>
               <li class="nav-item">
