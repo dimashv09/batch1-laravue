@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('header', 'Catalog')
+@section('header', 'Member')
 @section('content')
 @section('css')
         <!-- DataTables -->
@@ -14,15 +14,12 @@
 
             <div class="card-header">
                   <!-- ngga bisa detail -->
-                <a href="#" @click="addData()" class="btn btn-primary pull-right">Create New Catalog</a>
+                <a href="#" @click="addData()" class="btn btn-primary pull-right">Create New Member</a>
                <!-- <a href="{{ url('/create') }}" class="btn btn-primary pull-right">Create New Catalog</a> -->
             <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">
-            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+            
             <div class="input-group-append">
-            <button type="submit" class="btn btn-default">
-            <i class="fas fa-search"></i>
-            </button>
             </div>
             </div>
             </div>
@@ -35,6 +32,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Phone Number</th>
+            <th>Gender</th>
             <th>Address</th>
             <th>Actions</th>
             </tr>
@@ -67,7 +65,10 @@
                       </div>
                       <div class="form-group">
                         <label>Gender</label>
-                        <input type="text" name="gender" :value="data.gender" class="form-control" placeholder="Input Gender" required="">
+                        <select name="gender" :value="data.gender" class="form-control">
+                           <option value="Pria">Pria</option>
+                           <option value="Wanita">Wanita</option>
+                       </select>
                       </div>
                       <div class="form-group">
                         <label>Phone Number</label>
@@ -116,10 +117,11 @@
     var apiUrl = '{{ url('api/members') }}';
 
     var columns = [
+    {data: 'DT_RowIndex', class: 'text-center', orderable: true},
     {data: 'name', class: 'text-center', orderable: true},
-    {data: 'gender', class: 'text-center', orderable: true},
     {data: 'phone_number', class: 'text-center', orderable: true},
     {data: 'address', class: 'text-center', orderable: true},
+    {data: 'gender', class: 'text-center', orderable: true},
     {data: 'email', class: 'text-center', orderable: true},
     {render: function(index, row, data, meta) {
         return `

@@ -50,7 +50,7 @@ class MemberController extends Controller
         $member = new Member();
         $this->validate($request,[
             'name'=>'required|max:50',
-            'gender'=>'required|max:2',
+            'gender'=>'required|max:15',
             'phone_number'=>'required|max:15',
             'address' =>'required',
             'email'=>'required|max:50',
@@ -101,7 +101,7 @@ class MemberController extends Controller
         
         $this->validate($request,[
             'name'=>'required|max:50',
-            'gender'=>'required|max:2',
+            'gender'=>'required|max:15',
             'phone_number'=>'required|max:15',
             'address' =>'required',
             'email'=>'required|max:50',

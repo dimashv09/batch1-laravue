@@ -89,7 +89,7 @@
                       </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                  <button type="submit" class="btn btn-danger" v-if="editStatus" v-on:click="deleteData(book.id)">Delete</button>
+                  <button type="button" class="btn btn-danger" v-if="editStatus" v-on:click="deleteData(book.id)">Delete</button>
                   <button type="submit" class="btn btn-primary">Save</button>
                 </div>
                 </form>
@@ -155,7 +155,7 @@
                         $(event.target).parents('tr').remove();
                             axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response => {
                             // location.reload();
-                            _this.get_books();
+                            this.get_books();
                             alert('Data has been removed');
                             
                     });

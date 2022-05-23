@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('header', 'Catalog')
+@section('header', 'Publisher')
 @section('content')
 @section('css')
         <!-- DataTables -->
@@ -14,15 +14,11 @@
 
             <div class="card-header">
                   <!-- ngga bisa detail -->
-                <a href="#" @click="addData()" class="btn btn-primary pull-right">Create New Catalog</a>
+                <a href="#" @click="addData()" class="btn btn-primary pull-right">Create New Publisher</a>
                <!-- <a href="{{ url('/create') }}" class="btn btn-primary pull-right">Create New Catalog</a> -->
             <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">
-            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
             <div class="input-group-append">
-            <button type="submit" class="btn btn-default">
-            <i class="fas fa-search"></i>
-            </button>
             </div>
             </div>
             </div>

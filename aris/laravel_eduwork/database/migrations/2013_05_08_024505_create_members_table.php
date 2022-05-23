@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 64);
-            $table->char('gender', 1);
+            $table->string('gender');
             $table->char('phone_number', 15);
             $table->text('address');
             $table->string('email', 64);
