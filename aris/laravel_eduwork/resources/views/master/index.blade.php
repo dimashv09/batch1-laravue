@@ -88,6 +88,9 @@
               </div>
               <!-- /.card-body -->
             </div>
+
+
+
            
             <div class="card card-success">
               <div class="card-header">
@@ -111,6 +114,61 @@
             </div>
             <!-- /.card -->
 
+             <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Bar Chart</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="barchart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+           
+
+            <div class="row">
+          <div class="col-12">
+            <!-- interactive chart -->
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="far fa-chart-bar"></i>
+                  Interactive Area Chart
+                </h3>
+
+                <div class="card-tools">
+                  Real time
+                  <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+                    <button type="button" class="btn btn-default btn-sm active" data-toggle="on">On</button>
+                    <button type="button" class="btn btn-default btn-sm" data-toggle="off">Off</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="interactive" style="height: 300px;"></div>
+              </div>
+              <!-- /.card-body-->
+            </div>
+            <!-- /.card -->
+
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+
             </div>
             <!-- /.card -->
 
@@ -130,10 +188,22 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('assets/dist/js/demo.js')}}"></script>
 <!-- Page specific script -->
+
+
+<!-- FLOT CHARTS -->
+<script src="{{ asset('assets/plugins/flot/jquery.flot.js') }}"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="{{ asset('assets/plugins/flot/plugins/jquery.flot.resize.js') }}"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="{{ asset('assets/plugins/flot/plugins/jquery.flot.pie.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('assets/dist/js/demo.js') }}"></script>
 <script>
 
   var label_donut = '{!! json_encode($label_donut) !!}';
   var data_donut = '{!! json_encode($data_donut) !!}';
+  var data_bar = '{!! json_encode($data_bar) !!}';
+  var data_bar2 = '{!! json_encode($data_bar2) !!}';
 
  $(function () {
     /* ChartJS
@@ -173,10 +243,7 @@
       datasets: JSON.parse(data_bar),
     }
 
-    //-------------
-    //- DONUT CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
+   
     
 
 
@@ -202,6 +269,153 @@
       options: barChartOptions
     })
 
+    /*
+     * Flot Interactive Chart
+     * -----------------------
+     */
+    // We use an inline data source in the example, usually data would
+    // be fetched from a server
+    var data        = [],
+        totalPoints = 100
+
+    function getRandomData() {
+
+      if (data.length > 0) {
+        data = data.slice(1)
+      }
+
+      // Do a random walk
+      while (data.length < totalPoints) {
+
+        var prev = data.length > 0 ? data[data.length - 1] : 50,
+            y    = prev + Math.random() * 10 - 5
+
+        if (y < 0) {
+          y = 0
+        } else if (y > 100) {
+          y = 100
+        }
+
+        data.push(y)
+      }
+
+      // Zip the generated y values with the x values
+      var res = []
+      for (var i = 0; i < data.length; ++i) {
+        res.push([i, data[i]])
+      }
+
+      return res
+    }
+
+    var interactive_plot = $.plot('#interactive', [
+        {
+          data: getRandomData(),
+        }
+      ],
+      {
+        grid: {
+          borderColor: '#f3f3f3',
+          borderWidth: 1,
+          tickColor: '#f3f3f3'
+        },
+        series: {
+          color: '#3c8dbc',
+          lines: {
+            lineWidth: 2,
+            show: true,
+            fill: true,
+          },
+        },
+        yaxis: {
+          min: 0,
+          max: 100,
+          show: true
+        },
+        xaxis: {
+          show: true
+        }
+      }
+    )
+
+    var updateInterval = 500 //Fetch data ever x milliseconds
+    var realtime       = 'on' //If == to on then fetch data every x seconds. else stop fetching
+    function update() {
+
+      interactive_plot.setData([getRandomData()])
+
+      // Since the axes don't change, we don't need to call plot.setupGrid()
+      interactive_plot.draw()
+      if (realtime === 'on') {
+        setTimeout(update, updateInterval)
+      }
+    }
+
+    //INITIALIZE REALTIME DATA FETCHING
+    if (realtime === 'on') {
+      update()
+    }
+    //REALTIME TOGGLE
+    $('#realtime .btn').click(function () {
+      if ($(this).data('toggle') === 'on') {
+        realtime = 'on'
+      }
+      else {
+        realtime = 'off'
+      }
+      update()
+    })
+    /*
+     * END INTERACTIVE CHART
+     */
+
+     /*
+     * BAR CHART
+     * ---------
+     */
+
+   var barchartCanvas = $('#barchart').get(0).getContext('2d')
+    var barchartData = $.extend(true, {}, areaChartData)
+    // var temp0 = areaChartData.datasets[0]
+    // var temp1 = areaChartData.datasets[1]
+    // bar-chartData.datasets[0] = temp1
+    // bar-chartData.datasets[1] = temp0
+
+    var barchartOptions = {
+      responsive              : true,
+      maintainAspectRatio     : false,
+      datasetFill             : false
+    }
+
+    new Chart(barchartCanvas, {
+      type: 'bar',
+      data: barchartData,
+      options: barchartOptions
+    })
+
+    var areaChartData = {
+      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      datasets: JSON.parse(data_bar2),
+    }
+
+    var barchartCanvas = $('#barchart').get(0).getContext('2d')
+    var barchartData = $.extend(true, {}, areaChartData)
+    // var temp0 = areaChartData.datasets[0]
+    // var temp1 = areaChartData.datasets[1]
+    // barchartData.datasets[0] = temp1
+    // barchartData.datasets[1] = temp0
+
+    var barchartOptions = {
+      responsive              : true,
+      maintainAspectRatio     : false,
+      datasetFill             : false
+    }
+
+    new Chart(barchartCanvas, {
+      type: 'bar',
+      data: barchartData,
+      options: barchartOptions
+    })
    
   })
 </script>

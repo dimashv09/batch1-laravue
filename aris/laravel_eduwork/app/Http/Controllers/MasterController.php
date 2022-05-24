@@ -7,6 +7,7 @@ use App\Models\Publisher;
 use App\Models\Member;
 use App\Models\Book;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 class MasterController extends Controller
 {
     /**
@@ -25,6 +26,20 @@ class MasterController extends Controller
         $data_donut = Book::select(DB::raw("COUNT(publisher_id) as total"))->groupBy('publisher_id')->orderBy('publisher_id','asc')->pluck('total');
         $label_donut = Publisher::orderBy('publishers.id', 'asc')->join('books', 'books.publisher_id','=','publishers.id')->groupBy('name')->pluck('name');
 
+        $label_bar2 = ['Member'];
+        $data_bar2 = [];
+
+        foreach($label_bar2 as $key=> $value) {
+            $data_bar2[$key]['label'] = $label_bar2[$key];
+            $data_bar2[$key]['backgroundColor'] = 'rgba(65,142,188,13)';
+            $data_month2 = [];
+
+            foreach(range(1, 12) as $month2) {
+                $data_month2[] = Member::select(DB::raw("COUNT(*) as total"))->whereMonth('created_at', $month2)->first()->total;
+            }
+            $data_bar2[$key]['data'] = $data_month2;
+        }
+
         $label_bar = ['Transaction'];
         $data_bar = [];
 
@@ -41,7 +56,7 @@ class MasterController extends Controller
 
         // return $data_bar;
 
-         return view('master.index',compact('total_books','total_publishers','total_transactions','total_members','data_donut','label_donut','data_bar'));
+         return view('master.index',compact('total_books','total_publishers','total_transactions','total_members','data_donut','label_donut','data_bar','data_bar2'));
     }
 
     /**
