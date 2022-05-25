@@ -7,7 +7,6 @@
  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endsection
-@role('petugas')
 <div id="controller">
             <div class="row">
             <div class="col-12">
@@ -89,7 +88,6 @@
   </div>
 </div>
 </div>
-@endrole
 @endsection
 @section('js')
 
