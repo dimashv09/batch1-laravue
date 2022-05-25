@@ -32,6 +32,7 @@ Route::get('/catalogs/edit/{catalog}', [CatalogController::class, 'edit']);
 Route::put('/catalogs/edit/{catalog}', [CatalogController::class, 'update']);
 Route::delete('catalogs/delete/{catalog}',[CatalogController::class, 'destroy']);
 Route::get('/master',[MasterController::class, 'index']);
+Route::get('/test_spatie', [CatalogController::class, 'test_spatie']);
 // Route::get('/publishers',[PublisherController::class, 'index']);
 // Route::get('/publishers/create',[PublisherController::class, 'create']);
 // Route::post('/publishers/create',[PublisherController::class, 'store']);

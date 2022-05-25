@@ -20,8 +20,12 @@ class AuthorController extends Controller
 
     public function index()
     {
-        
-        return view('author.index');
+        if (auth()->user()->can('index transaction')){
+             return view('author.index');
+        }else{
+            return abort('403');
+        }
+       
     }
 
     public function api()

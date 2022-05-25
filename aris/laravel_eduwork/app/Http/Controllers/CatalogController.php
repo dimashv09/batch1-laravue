@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalog;
 use Illuminate\Http\Request;
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use App\Models\User;
 class CatalogController extends Controller
 {
     /**
@@ -17,6 +19,33 @@ class CatalogController extends Controller
         $catalogs = Catalog::with('books')->get();
         // return $catalogs;
         return view('catalog.index',compact('catalogs'));
+    }
+
+    public function test_spatie()
+    {
+        // $role = Role::create(['name' => 'petugas']);
+        // $permission = Permission::create(['name' => 'index transaction']);
+        // $role->givenPermissionTo($permission);
+        // $permission->assignRole($role);
+
+        // $user = auth()->user();
+
+        // return $user;
+
+        // $user = User::with('roles')->get();
+        // return $user;
+
+        // $user = User::where('id', 2)->first();
+        // $user->assignRole('petugas');
+        // return $user;
+
+        $user = auth()->user();
+        $user->assignRole('petugas');
+        return $user;
+
+        //delete roles
+        // $user = auth()->user();
+        // $user->removeRole('petugas');
     }
 
     /**

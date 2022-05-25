@@ -14,8 +14,20 @@
 
             <div class="card-header">
                   <!-- ngga bisa detail -->
+                  <div class="row">
+                        <div class="col-md-10">
                 <a href="#" @click="addData()" class="btn btn-primary pull-right">Create New Member</a>
                <!-- <a href="{{ url('/create') }}" class="btn btn-primary pull-right">Create New Catalog</a> -->
+                        </div>
+                    
+           <div class="col-md-2">
+               <select class="form-control" name="gender">
+                   <option value="0">Semua Gender</option>
+                   <option value="Pria">Pria</option>
+                   <option value="Wanita">Wanita</option>
+               </select>
+           </div>
+       </div>
             <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">
             
@@ -254,5 +266,17 @@
     //          },
     //     }      
     // });
+</script>
+<script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
+<script>
+    $('select[name=gender]').on('change', function() {
+        gender = $('select[name=gender]').val();
+
+        if (gender == 0) {
+            controller.table.ajax.url(actionUrl).load();
+        }else {
+            controller.table.ajax.url(actionUrl+'?gender='+gender).load();
+        }
+    });
 </script>
 @endsection

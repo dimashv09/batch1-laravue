@@ -134,6 +134,7 @@
 
   var label_donut = '{!! json_encode($label_donut) !!}';
   var data_donut = '{!! json_encode($data_donut) !!}';
+  var data_bar = '{!! json_encode($data_bar) !!}';
 
  $(function () {
     /* ChartJS
