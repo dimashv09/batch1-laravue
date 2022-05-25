@@ -25,3 +25,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/buku',BukuController::class);
 Route::get('/api/buku',[BukuController::class, 'api']);
+Route::post('/buku/create',[BukuController::class, 'store']);

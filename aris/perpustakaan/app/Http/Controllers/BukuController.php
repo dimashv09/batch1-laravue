@@ -46,6 +46,23 @@ class BukuController extends Controller
     public function store(Request $request)
     {
         //
+        $buku = new Buku();
+        $this->validate($request,[
+            'isbn'=>'required|max:50',
+            'title'=>'required|max:50',
+            'year'=>'required|max:15',
+            'qty' =>'required',
+            'price'=>'required',
+        ]);
+
+        $buku->isbn = $request->isbn;
+        $buku->title = $request->title;
+        $buku->year = $request->year;
+        $buku->qty = $request->qty;
+        $buku->price = $request->price;
+        $buku->save();
+
+        return redirect('buku');
     }
 
     /**
