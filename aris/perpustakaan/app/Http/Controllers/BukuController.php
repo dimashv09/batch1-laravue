@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\Anggota;
 use Illuminate\Http\Request;
 
 class BukuController extends Controller
@@ -25,6 +26,13 @@ class BukuController extends Controller
         $datatables = datatables()->of($bukus)->addIndexColumn();
 
         return $datatables->make(true);
+    }
+
+    public function data()
+    {
+        //
+       $bukus = Anggota::all();
+        return view('anggota.index', compact('bukus'));
     }
 
     /**
@@ -85,6 +93,17 @@ class BukuController extends Controller
     public function edit(Buku $buku)
     {
         //
+        // $this->validate($request,[
+        //     'isbn'=>'required',
+        //     'title'=>'required',
+        //     'year'=>'required',
+        //     'qty'=>'required',
+        //     'price'=>'required',
+        // ]);
+
+        $buku->update($request->all());
+
+        return redirect('buku');
     }
 
     /**
@@ -97,6 +116,17 @@ class BukuController extends Controller
     public function update(Request $request, Buku $buku)
     {
         //
+        $this->validate($request,[
+            'isbn'=>'required',
+            'title'=>'required',
+            'year'=>'required',
+            'qty'=>'required',
+            'price'=>'required',
+        ]);
+
+        $buku->update($request->all());
+
+        return redirect('buku');
     }
 
     /**
@@ -108,5 +138,8 @@ class BukuController extends Controller
     public function destroy(Buku $buku)
     {
         //
+        $buku->delete();
+
+        return redirect('buku');
     }
 }
