@@ -161,7 +161,7 @@ INSERT INTO `obat` (`kode_obat`, `kode_kategori`, `kode_supplier`, `nama_barang`
 CREATE TABLE `pembeli` (
   `kode_pembeli` int(11) NOT NULL,
   `nama_pembeli` varchar(35) NOT NULL,
-  `slamat` varchar(100) DEFAULT NULL,
+  `alamat` varchar(100) DEFAULT NULL,
   `no_telp` varchar(15) DEFAULT NULL,
   `email` varchar(35) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -192,7 +192,7 @@ CREATE TABLE `supplier` (
   `kode_supplier` int(11) NOT NULL,
   `nama_supplier` varchar(100) NOT NULL,
   `alamat` varchar(255) NOT NULL,
-  `no_Telp` varchar(35) NOT NULL,
+  `no_telp` varchar(35) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `foto` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
