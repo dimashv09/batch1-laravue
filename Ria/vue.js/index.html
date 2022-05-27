@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Basic Component VueJS</title>
+</head>
+
+<body>
+
+    <div id="app" v-if="status == tampil">
+        {{ message }} <br><br>
+        <label v-for="user in users">
+            <p> Nama : {{user.name}}
+                <br>
+                Umur : {{user.age}}
+            </p>
+        </label>
+    </div>
+ </body>
+ </html>
+
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const app = {
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    status: 'tampil',
+                    users: [{
+                            name: 'Ria',
+                            age: '22'
+                        },
+                        {
+                            name: 'Fatimah',
+                            age: '23'
+                        },
+                        {
+                            name: 'Azahra',
+                            age: '24'
+                        }
+                    ]
+                }
+            }
+        }
+
+        Vue.createApp(app).mount('#app')
+    </script>

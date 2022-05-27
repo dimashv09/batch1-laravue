@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Event Handling</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="count+=1">Tambah 1</button>
+        <p>Count is: {{ count }}</p>
+    </div>
+    <hr>
+    <br>
+
+    <div id="app2">
+        <button @click="greet">Greet</button>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div id="app3">
+        <button @click="say('hello Ria')">Say hello</button>
+        <button @click="say('bye Ria')">Say bye</button>
+    </div>
+
+    <div id="app4">
+        <button @click="warn('Form cannot be submitted yet.', $event)">
+            Submit
+        </button>
+    </div>
+
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    count: 0
+                }
+            }
+        }).mount('#app')
+
+
+        Vue.createApp({
+            data() {
+                return {
+                    name: 'Ria'
+                }
+            },
+            methods: {
+                greet(event) {
+                    alert('Hello' +
+                        this.name +
+                        '!')
+                    if (event) {
+                        alert(event.target.tagName)
+                    }
+                }
+            }
+        }).mount('#app2')
+
+
+        Vue.createApp({
+            methods: {
+                say(message) {
+                    alert(message)
+                }
+            }
+        }).mount('#app3')
+
+        Vue.createApp({
+            methods: {
+                warn(message, event) {
+                    // now we have access to the native event
+                    alert(message)
+                }
+            }
+        }).mount('#app4')
+    </script>
+</body>
+
+</html>
