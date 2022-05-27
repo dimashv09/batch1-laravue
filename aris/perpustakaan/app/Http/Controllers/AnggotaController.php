@@ -87,6 +87,15 @@ class AnggotaController extends Controller
     public function edit(Anggota $anggota)
     {
         //
+            $anggota = Anggota::find($id);
+            $anggota->name = $request->name;
+            $anggota->gender = $request->gender;
+            $anggota->phone_number = $request->phone_number;
+            $anggota->address = $request->address;
+            $anggota->email = $request->email;
+            $anggota->save();
+
+        return redirect('anggota');
 
     }
 
@@ -97,21 +106,29 @@ class AnggotaController extends Controller
      * @param  \App\Models\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Anggota $anggota)
+    public function update(Request $request, Anggota $anggota, $id)
     {
-        //
-        $this->validate($request,[
-            'name'=>'required',
-            'gender'=>'required',
-            'phone_number'=>'required',
-            'address'=>'required',
-            'email'=>'required',
+        
+        // $this->validate($request,[
+        //     'isbn'=>'required',
+        //     'title'=>'required',
+        //     'year'=>'required',
+        //     'qty'=>'required',
+        //     'price'=>'required',
+        // ]);
 
-        ]);
+            $anggota = Anggota::find($id);
+            $anggota->name = $request->name;
+            $anggota->gender = $request->gender;
+            $anggota->phone_number = $request->phone_number;
+            $anggota->address = $request->address;
+            $anggota->email = $request->email;
+            $anggota->save();
 
-        $anggota->update($request->all());
 
-        return redirect('anggota');
+        // $anggota->update($request->all());
+
+        return redirect('buku');
     }
 
     /**
@@ -123,8 +140,8 @@ class AnggotaController extends Controller
     public function destroy(Anggota $anggota)
     {
         //
-        $anggota->delete();
+        // $anggota->delete();
 
-        return redirect('anggota');
+        // return redirect('anggota');
     }
 }

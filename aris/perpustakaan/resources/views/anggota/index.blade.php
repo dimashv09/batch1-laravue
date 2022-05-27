@@ -155,11 +155,11 @@
 				$('#modal-default').modal();
 			},
 			editData(event, row) {
-            this.data = this.datas[row];
-            // console.log(this.data)
-            // this.actionUrl = '{{ url('authors') }}'+'/'+this.data.id;
-            this.editStatus = true;
-            $('#modal-default').modal();
+		            this.data = this.datas[row];
+		            // console.log(this.data)
+		            // this.actionUrl = '{{ url('authors') }}'+'/'+this.data.id;
+		            this.editStatus = true;
+		            $('#modal-default').modal();
 	        },
 	        deleteData(event, id){
 	          if (confirm('Are you sure ?')) {

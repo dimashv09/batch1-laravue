@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('header', 'Publisher')
+@section('header', 'Buku')
 @section('content')
 @section('css')
         <!-- DataTables -->
@@ -14,7 +14,7 @@
 
             <div class="card-header">
                   <!-- ngga bisa detail -->
-                <a href="#" @click="addData()" class="btn btn-primary pull-right">Create New Publisher</a>
+                <a href="#" @click="addData()" class="btn btn-primary pull-right">Create New Buku</a>
                <!-- <a href="{{ url('/create') }}" class="btn btn-primary pull-right">Create New Catalog</a> -->
             <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">

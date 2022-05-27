@@ -222,15 +222,15 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
               <li class="nav-item">
-                <a href="{{ url('catalogs') }}" class="nav-link {{ request()->is('catalogs') ? 'active' : ''}}">
+                <a href="{{ url('buku') }}" class="nav-link {{ request()->is('buku') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Catalog</p>
+                  <p>Buku</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('authors') }}" class="nav-link {{ request()->is('authors') ? 'active' : ''}}">
+                <a href="{{ url('anggota') }}" class="nav-link {{ request()->is('anggota') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Author</p>
+                  <p>Anggota</p>
                 </a>
               </li>
               <li class="nav-item">
