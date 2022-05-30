@@ -164,12 +164,28 @@
                 $('#modal-default').modal();
             },
             deleteData(id) {
-                axios.post(this.actionUrl+'/'+id, {_method: 'delete'}).then(response =>{
-                        alert('Data Has been removed');
-                })
 
-                // }
+                if (confirm("Are You Sure ??")){
+                    axios.post(this.actionUrl+'/'+id, {_method: 'delete'}).then(response =>{
+                        $('#modal-default').modal('hide');
+                        this.get_books();
+                        alert('Data Has been removed');
+                    })
+                }
+
             },
+
+            submitForm(event, id) {
+                event.preventDefault();
+                const _this = this;
+                var actionUrl = ! this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
+                axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                    $('#modal-default').modal('hide');
+                    _this.get_books();
+                });
+            },
+
+
             numberWithSpaces(x) {
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }

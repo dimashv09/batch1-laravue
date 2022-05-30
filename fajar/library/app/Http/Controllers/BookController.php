@@ -61,7 +61,7 @@ class BookController extends Controller
 
 
         Book::create($request->all());
-        return redirect('books');
+        return redirect('book');
     }
 
     /**
@@ -120,6 +120,6 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {   
-        $book->delete($id);
+        $book->delete();
     }
 }
