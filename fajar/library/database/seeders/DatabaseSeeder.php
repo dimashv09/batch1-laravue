@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             MemberSeeder::class,
-            BookSeeder::class,
             CatalogSeeder::class,
             AuthorSeeder::class,
-            PublisherSeeder::class
+            PublisherSeeder::class,
+            BookSeeder::class
         ]);
     }
 }

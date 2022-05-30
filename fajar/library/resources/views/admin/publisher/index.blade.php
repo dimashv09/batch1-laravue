@@ -3,79 +3,44 @@
 @section('header', 'Publisher')
 
 
-@push('table')
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#pbls').DataTable();
-    });
-
-</script>
-@endpush
-
-@push('styleTable')
+@section('css')
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-@endpush
+@endsection
+
+
 
 
 @section('content')
-
 <div id="controller">
     <div class="card">
         <div class="card-header">
             <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right"><i
-                    class="fas fa-plus fa-sm text-white-50"></i> Create New publisher</a>
+                    class="fas fa-plus fa-sm text-white-50"></i> Create New Author</a>
         </div>
-
-        <div class="card-body">
-            <div>
-                <table id="pbls" class="table table-bordered table-striped table-responsive-sm">
+        <div class="card-body table-responsive">
+            <div class="">
+                <table id="datatable" class="table table-bordered table-striped table-responsive-sm">
                     <thead>
                         <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center">Name</th>
-                            <th class="text-center">Email</th>
-                            <th class="text-center">Phone Number</th>
-                            <th class="text-center">Address</th>
-                            <th class="text-center">Total Book</th>
-                            <th class="text-center">Created At</th>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            <th>Created At</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($publishers as $key=> $publisher)
-                        <tr>
-                            <td>{{$key+1}}</td>
-                            <td>{{$publisher->name}}</td>
-                            <td>{{$publisher->email}}</td>
-                            <td>{{$publisher->phone_number}}</td>
-                            <td>{{$publisher->address}}</td>
-                            <td class="text-center">{{count($publisher->books)}}</td>
-                            <td>{{date("d M Y , H:i:s",strtotime($publisher->created_at))}}</td>
-                            <td style="width:100px">
-                                <a href="#" @click="editData({{ $publisher }})" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </a>
-                                <a @click="deleteData({{ $publisher->id }})" class="btn btn-sm btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" :action="actionUrl">
+                <form method="post" :action="actionUrl" @submit="submitForm($event, data.id)">
                     <div class="modal-header">
-                        <h4 class="modal-title">publisher</h4>
+                        <h4 class="modal-title">Author</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -110,49 +75,92 @@
                     </div>
                 </form>
             </div>
-
         </div>
-
     </div>
 </div>
 @endsection
 
 @section('js')
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+
+
 <script type="text/javascript">
+    var actionUrl = '{{ url('publisher') }}';
+    var apiUrl = '{{ url('api/publisher') }}';
+    var columns = [
+        {data: 'DT_RowIndex', class: 'text-center', orderable: true},
+        {data: 'name', class: 'text-center', orderable: true},
+        {data: 'email', class: 'text-center', orderable: true},
+        {data: 'phone_number', class: 'text-center', orderable: true},
+        {data: 'address', class: 'text-center', orderable: true},
+        {data: 'created_at', class: 'text-center', orderable: true},//format DD-MM-YY hh:mm
+        {render: function(index, row, data, meta){
+            return `
+                <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event,${meta.row})">
+                    <i class="fa fa-pencil-alt"></i>
+                </a>
+                <a href="#" class="btn btn-danger btn-sm" onclick="controller.deleteData(event,${data.id})">
+                    <i class="fa fa-trash"></i>
+                </a>`;
+        },orderable: false, width:"100px", class:"text-center"},
+    ];
+
+    
     var controller = new Vue({
         el: '#controller',
         data: {
-            data: {},
-            actionUrl: '{{url('publisher')}}',
-            editStatus: false
+            datas: [], //mengambil data publisher
+            data: {},   //untuk crud
+            actionUrl,
+            apiUrl,
+            editStatus: false,
         },
         mounted: function() {
-
+            this.datatable();
         },
         methods: {
+            datatable() {
+                const _this = this;
+                _this.table = $('#datatable').DataTable({
+                    ajax: {
+                        url: _this.apiUrl,
+                        type: 'GET',
+                    },
+                    columns: columns
+                }).on('xhr', function(){
+                    _this.datas = _this.table.ajax.json().data;
+                });
+            },
             addData() {
                 this.data = {};
-                this.actionUrl = '{{url('publisher')}}';
                 this.editStatus= false;
                 $('#modal-default').modal();
             },
-            editData(data) {
-                this.data = data;
-                this.actionUrl = '{{url('publisher')}}'+'/'+data.id;
+            editData(event, row) {
+                this.data = this.datas[row];
                 this.editStatus= true;
                 $('#modal-default').modal();
             },
-            deleteData(id) {
-                this.actionUrl = '{{url ('publisher') }}'+'/'+id;
+            deleteData(event, id) {
+                
                 if (confirm("Are You Sure ??")){
-                    axios.post(this.actionUrl, {_method: 'Delete'}).then(response =>{
-                        location.reload();
+                    $(event.target).parents('tr').remove();
+                    axios.post(this.actionUrl+'/'+id, {_method: 'Delete'}).then(response =>{
+                        alert('Data Has been removed');
                     })
                 }
+            },
+            submitForm(event, id) {
+                event.preventDefault();
+                const _this = this;
+                var actionUrl = ! this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
+                axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                    $('#modal-default').modal('hide');
+                    _this.table.ajax.reload();
+                });
             }
         }
-
     });
-
 </script>
+
 @endsection

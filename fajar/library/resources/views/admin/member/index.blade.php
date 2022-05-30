@@ -2,6 +2,10 @@
 
 @section('header', 'Member')
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+@endsection
+
 @section('content')
 <div id="controller">
     <div class="card">
@@ -76,5 +80,93 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+</div>
+@endsection
 
-            @endsection
+@section('js')
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+<script>
+    // $(function() {
+    //     $('#datatable').DataTable();
+    // });
+</script>
+<script type="text/javascript">
+    var actionUrl = '{{ url('member') }}';
+    var apiUrl = '{{ url('api/member') }}';
+    var columns = [
+        {data: 'DT_RowIndex', class: 'text-center', orderable: true},
+        {data: 'name', class: 'text-center', orderable: true},
+        {data: 'gender', class: 'text-center', orderable: true},
+        {data: 'phone_number', class: 'text-center', orderable: true},
+        {data: 'address', class: 'text-center', orderable: true},
+        {data: 'email', class: 'text-center', orderable: true},
+        {data: 'created_at', class: 'text-center', orderable: true},
+        {render: function(index, row, data, meta){
+            return `
+                <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event,${meta.row})">
+                    <i class="fa fa-pencil-alt"></i>
+                </a>
+                <a href="#" class="btn btn-danger btn-sm" onclick="controller.deleteData(event,${data.id})">
+                    <i class="fa fa-trash"></i>
+                </a>`;
+        },orderable: false, width:"100px", class:"text-center"},
+    ];
+    var controller = new Vue({
+        el: '#controller',
+        data: {
+            datas: [], 
+            data: {},   
+            actionUrl,
+            apiUrl,
+            editStatus: false,
+        },
+        mounted: function() {
+            this.datatable();
+        },
+        methods: {
+            datatable() {
+                const _this = this;
+                _this.table = $('#datatable').DataTable({
+                    ajax: {
+                        url: _this.apiUrl,
+                        type: 'GET',
+                    },
+                    columns: columns
+                }).on('xhr', function(){
+                    _this.datas = _this.table.ajax.json().data;
+                });
+            },
+            addData() {
+                this.data = {};
+                this.editStatus= false;
+                $('#modal-default').modal();
+            },
+            editData(event, row) {
+                this.data = this.datas[row];
+                this.editStatus= true;
+                $('#modal-default').modal();
+            },
+            deleteData(event, id) {
+                
+                if (confirm("Are You Sure ??")){
+                    $(event.target).parents('tr').remove();
+                    axios.post(this.actionUrl+'/'+id, {_method: 'Delete'}).then(response =>{
+                        alert('Data Has been removed');
+                    })
+                }
+            },
+            submitForm(event, id) {
+                event.preventDefault();
+                const _this = this;
+                var actionUrl = ! this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
+                axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                    $('#modal-default').modal('hide');
+                    _this.table.ajax.reload();
+                });
+            }
+        }
+    });
+</script>
+@endsection

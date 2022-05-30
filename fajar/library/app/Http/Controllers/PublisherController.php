@@ -18,8 +18,15 @@ class PublisherController extends Controller
      */
     public function index()
     {
+        return view('admin.publisher.index');
+    }
+
+    public function api()
+    {
         $publishers = Publisher::with('books')->get();
-        return view('admin.publisher.index', compact('publishers'));
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -85,8 +92,8 @@ class PublisherController extends Controller
     {
         $this->validate($request,[
             'name' => 'required',
-            'email' => 'required|unique:publishers',
-            'phone_number' => 'required|unique:publishers',
+            'email' => 'required',
+            'phone_number' => 'required',
             'address' => ''
         ]); 
         

@@ -38,7 +38,7 @@
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" :action="actionUrl" @submit="submitForm($event, bppl.id)">
+                <form method="post" :action="actionUrl" @submit="submitForm($event, book.id)">
                     <div class="modal-header">
                         <h4 class="modal-title">Book</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -133,6 +133,7 @@
             books: [],
             search : '',
             book :{},
+            actionUrl : '{{ url('book')}}',
             editStatus : false
         },
         mounted: function () {
@@ -163,23 +164,11 @@
                 $('#modal-default').modal();
             },
             deleteData(id) {
-                this.book = {};
-                if (confirm("Are You Sure ??")){
-                    $(event.target).parents('tr').remove();
-                    axios.post(this.actionUrl+'/'+id, {_method: 'delete'}).then(response =>{
+                axios.post(this.actionUrl+'/'+id, {_method: 'delete'}).then(response =>{
                         alert('Data Has been removed');
-                    })
+                })
 
-                }
-            },
-            submitForm(event, id) {
-                event.preventDefault();
-                const _this = this;
-                var actionUrl = ! this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
-                axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
-                    $('#modal-default').modal('hide');
-                    _this.book.ajax.reload();
-                });
+                // }
             },
             numberWithSpaces(x) {
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
