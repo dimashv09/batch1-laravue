@@ -25,7 +25,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/buku',BukuController::class);
 Route::resource('/anggota',AnggotaController::class);
-
+Route::resource('/peminjaman', PeminjamanController::class);
 
 Route::get('/api/buku',[BukuController::class, 'api']);
 Route::get('/api/anggota',[AnggotaController::class, 'api']);
+Route::get('/api/peminjaman',[AnggotaController::class, 'api']);

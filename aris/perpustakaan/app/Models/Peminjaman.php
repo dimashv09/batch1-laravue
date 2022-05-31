@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Peminjaman extends Model
 {
     use HasFactory;
+
+    public function anggota()
+    {
+        return $this->hasOne('App\Models\Anggota', 'id_anggota');
+    }
 }

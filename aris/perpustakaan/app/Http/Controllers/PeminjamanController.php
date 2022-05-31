@@ -15,6 +15,8 @@ class PeminjamanController extends Controller
     public function index()
     {
         //
+        $peminjamans = Peminjaman::with('anggota')->get();
+        return view('Peminjaman.index', compact('peminjamans'));
     }
 
     /**
