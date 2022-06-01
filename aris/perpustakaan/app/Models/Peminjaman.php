@@ -11,6 +11,11 @@ class Peminjaman extends Model
 
     public function anggota()
     {
-        return $this->hasOne('App\Models\Anggota', 'id_anggota');
+        return $this->hasOne('App\Models\Peminjaman', 'id_anggota');
+    }
+
+    public function buku()
+    {
+        return $this->hasMany('App\Models\Buku', 'id');
     }
 }

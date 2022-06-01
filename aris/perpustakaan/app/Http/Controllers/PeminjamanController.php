@@ -4,19 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
+use App\Models\Anggota;
+use App\Models\Buku;
 
 class PeminjamanController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response        
      */
     public function index()
     {
         //
+        $anggotas = Anggota::all();
+        $bukus = Buku::all();
         $peminjamans = Peminjaman::with('anggota')->get();
-        return view('Peminjaman.index', compact('peminjamans'));
+        // return $peminjamans;
+        return view('Peminjaman.index', compact('peminjamans','anggotas','bukus'));
     }
 
     /**
@@ -38,6 +43,26 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         //
+        $peminjaman = new Peminjaman();
+
+        $this->validate($request,[
+            'id_anggota' => 'required',
+            'date_start' => 'required',
+            'date_end' => 'required',
+            'status'=>'required',
+            'id_buku' => 'required',
+
+
+        ]);
+
+        $peminjaman->id_anggota = $request->id_anggota;
+        $peminjaman->date_start = $request->date_start;
+        $peminjaman->date_end = $request->date_end;
+        $peminjaman->status = $request->status;
+        $peminjaman->id_buku = $request->id_buku;
+        $peminjaman->save();
+
+        return redirect('peminjaman');
     }
 
     /**

@@ -34,6 +34,7 @@
 					    	<td>{{ $peminjaman->date_start }}</td>
 					    	<td>{{ $peminjaman->date_end }}</td>
 					    	<td>{{ $peminjaman->anggota->name }}</td>
+					    	
 					    </tr>
 					  @endforeach
 					</tbody>
@@ -56,9 +57,10 @@
                 				<div class="form-group row">
 				                    <label class="col-sm-2 col-form-label">Anggota</label>
 				                    <div class="col-sm-10">
-				                	 <select class="form-control">
-				                	 	<option>data1</option>
-				                	 	<option>data2</option>
+				                	 <select name="id_anggota" class="form-control">
+				                	 	@foreach($anggotas as $anggota)
+				                	 	<option value="{{ $anggota->id }}">{{ $anggota->name }}</option>
+				                	 	@endforeach
 				                	 </select>
 				                </div>
 				                </div>
@@ -74,9 +76,11 @@
 											  <div class="form-group row">
 				                    <label class="col-sm-2 col-form-label">Buku</label>
 				                    <div class="col-sm-10">
-				                	  <select class="form-control">
-				                	 	<option>data1</option>
-				                	 	<option>data2</option>
+				                	  <select name="id_buku"class="form-control">
+				                	  	@foreach($bukus as $buku)
+				                	 	<option value="{{$buku->id }}">{{ $buku->title }}</option>
+				                	 	
+				                	 	@endforeach
 				                	 </select>
 				                </div>
 				              </div>
@@ -84,17 +88,17 @@
 				                    <label class="col-sm-2 col-form-label">Status</label>
 				                    <div class="col-sm-10">
 				                	 <div class="form-check">
-												  <input class="form-check-input" type="radio" name="exampleRadios"value="option1" checked>
-												  <label class="form-check-label" for="exampleRadios1">
-												    Sudah Dikembalikan
-												  </label>
-												</div>
-												<div class="form-check">
-												  <input class="form-check-input" type="radio" name="exampleRadios"value="option2">
-												  <label class="form-check-label" for="exampleRadios2">
-												    Belum Dikembalikan
-												  </label>
-												</div>
+							  <input class="form-check-input" type="radio" name="status"value="sudah">
+							  <label class="form-check-label" for="exampleRadios1">
+							    Sudah Dikembalikan
+							  </label>
+							</div>
+							<div class="form-check">
+							  <input class="form-check-input" type="radio" name="status"value="belum" checked>
+							  <label class="form-check-label" for="exampleRadios2">
+							    Belum Dikembalikan
+							  </label>
+							</div>
 				                </div>
 				              </div>
                 			<div class="modal-footer justify-content-between">

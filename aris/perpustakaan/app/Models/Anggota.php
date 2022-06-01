@@ -10,6 +10,11 @@ class Anggota extends Model
     use HasFactory;
 
     protected $table = 'anggotas';
-    // protected $fillable = ['name','gender','phone_number','address','email'];
+    protected $fillable = ['name','gender','phone_number','address','email'];
+
+    //  public function peminjaman()
+    // {
+    //     return $this->belongsTo('App\Models\Peminjaman', 'id_anggota');
+    // }
 
 }
