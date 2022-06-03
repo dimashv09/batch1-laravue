@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
-
+use App\Models\Member;
+use App\Models\Book;
 class TransactionController extends Controller
 {
     /**
@@ -15,6 +16,18 @@ class TransactionController extends Controller
     public function index()
     {
         //
+        $members = Member::all();
+        $books = Book::all();
+        $transactions = Transaction::with('member')->get();
+        $data = Transaction::select('transactions.date_start','transactions.date_end','members.name','books.title')
+        ->join('members','members.id','=','transactions.member_id')
+        ->join('transaction_details','transaction_details.transaction_id','=','transactions.id')
+        ->join('books','books.id','=','transaction_details.book_id')->get();
+        // return $data;
+
+
+          // return $transactions;
+        return view('transaction.index', compact('data','members','books'));
     }
 
     /**
@@ -36,6 +49,26 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         //
+        $transaction = new Transaction();
+
+        $this->validate($request,[
+            'member_id' => 'required',
+            'date_start' => 'required',
+            'date_end' => 'required',
+            'status'=>'required',
+            'book_id' => 'required',
+
+
+        ]);
+
+        $transaction->member_id = $request->member_id;
+        $transaction->date_start = $request->date_start;
+        $transaction->date_end = $request->date_end;
+        $transaction->status = $request->status;
+        $transaction->book_id = $request->book_id;
+        $transaction->save();
+
+        return redirect('peminjaman');
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\MasterController;
+use App\Http\Controllers\TransactionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,7 +46,7 @@ Route::resource('/publishers', PublisherController::class);
 Route::resource('/authors', AuthorController::class);
 Route::resource('/members',MemberController::class);
 Route::resource('/books',BookController::class);
-
+Route::resource('/transactions',TransactionController::class);
 
 Route::get('/api/authors',[AuthorController::class, 'api']);
 Route::get('/api/publishers',[PublisherController::class, 'api']);

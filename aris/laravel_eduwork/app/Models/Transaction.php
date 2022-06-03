@@ -13,4 +13,16 @@ class Transaction extends Model
     {
         return $this->hasOne('App\Models\TransactionDetail', 'transaction_id');
     }
+
+    public function member()
+    {
+        return $this->belongsTo('App\Models\Member', 'member_id');
+    }
+
+    public function book()
+    {
+        return $this->belongsTo('App\Models\Book', 'book_id');
+    }
+
 }
+

@@ -30,4 +30,8 @@ class Book extends Model
     {
         return $this->belongsTo('App\Models\Book', 'catalog_id');
     }
+    public function transaction()
+    {
+        return $this->hasOne('App\Models\Transaction', 'book_id');
+    }
 }
