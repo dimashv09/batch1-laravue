@@ -9,13 +9,16 @@ class Peminjaman extends Model
 {
     use HasFactory;
 
+    protected $table = 'peminjamen';
+
     public function anggota()
     {
-        return $this->hasOne('App\Models\Peminjaman', 'id_anggota');
+        return $this->belongsTo('App\Models\Anggota', 'id_anggota');
     }
 
     public function buku()
     {
-        return $this->hasMany('App\Models\Buku', 'id');
+        return $this->belongsTo('App\Models\Buku', 'id_buku');
+
     }
 }

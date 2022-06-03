@@ -12,9 +12,9 @@ class Anggota extends Model
     protected $table = 'anggotas';
     protected $fillable = ['name','gender','phone_number','address','email'];
 
-    //  public function peminjaman()
-    // {
-    //     return $this->belongsTo('App\Models\Peminjaman', 'id_anggota');
-    // }
+     public function peminjaman()
+    {
+        return $this->hasMany('App/Models/Peminjaman', 'id_anggota');
+    }
 
 }

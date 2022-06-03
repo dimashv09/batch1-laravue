@@ -30,10 +30,14 @@
 					  <tbody>
 					  @foreach($peminjamans as $key=>$peminjaman)
 					    <tr>
-							<td>{{ $key+1 }}</td>
+						<td>{{ $key+1 }}</td>
 					    	<td>{{ $peminjaman->date_start }}</td>
 					    	<td>{{ $peminjaman->date_end }}</td>
 					    	<td>{{ $peminjaman->anggota->name }}</td>
+					    	<td></td>
+					    	<td>{{ count($peminjaman->buku) }}</td>
+					    	<td></td>
+					    	<td>{{ $peminjaman->status }}</td>
 					    	
 					    </tr>
 					  @endforeach

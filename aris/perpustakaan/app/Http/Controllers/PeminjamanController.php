@@ -19,8 +19,8 @@ class PeminjamanController extends Controller
         //
         $anggotas = Anggota::all();
         $bukus = Buku::all();
-        $peminjamans = Peminjaman::with('anggota')->get();
-        // return $peminjamans;
+        $peminjamans = Peminjaman::with('buku','anggota')->get();
+          return $peminjamans;
         return view('Peminjaman.index', compact('peminjamans','anggotas','bukus'));
     }
 
