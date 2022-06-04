@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('member_id');
             $table->date('date_start');
             $table->date('date_end');
+            $table->string('status');
             $table->timestamps();
 
             $table->foreign('member_id')->references('id')->on('members');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\Book;
@@ -50,7 +51,7 @@ class TransactionController extends Controller
     {
         //
         $transaction = new Transaction();
-
+        $transaction_detail = new TransactionDetail();
         $this->validate($request,[
             'member_id' => 'required',
             'date_start' => 'required',
@@ -60,7 +61,7 @@ class TransactionController extends Controller
 
 
         ]);
-
+        $transactiion->transaction_detail->book_id = $request->book_id;
         $transaction->member_id = $request->member_id;
         $transaction->date_start = $request->date_start;
         $transaction->date_end = $request->date_end;

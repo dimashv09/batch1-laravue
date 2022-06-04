@@ -136,7 +136,7 @@
 		data: {
 			datas: [],
 			data: {},
-			actionUrl : '{{ url('peminjaman') }}'
+			actionUrl : '{{ url('transactions') }}'
 		},
 		mounted: function () {
 
@@ -144,7 +144,7 @@
 		methods: {
 			addData() {
 				this.data = {};
-				this.actionUrl = '{{ url('peminjaman') }}';
+				this.actionUrl = '{{ url('transactions') }}';
 				$('#modal-default').modal();
 			},
 
