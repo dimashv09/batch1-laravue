@@ -20,7 +20,7 @@ class Book extends Model
     }
      public function transactiondetail()
     {
-        return $this->belongsTo('App\Model\TransationDetail', 'book_id');
+        return $this->hasMany('App\Models\TransactionDetail','book_id');
     }
     public function author()
     {
@@ -30,8 +30,8 @@ class Book extends Model
     {
         return $this->belongsTo('App\Models\Book', 'catalog_id');
     }
-    public function transaction()
-    {
-        return $this->hasOne('App\Models\Transaction', 'book_id');
-    }
+    // public function transaction()
+    // {
+    //     return $this->hasOne('App\Models\Transaction', 'book_id');
+    // }
 }

@@ -19,16 +19,20 @@ class TransactionController extends Controller
         //
         $members = Member::all();
         $books = Book::all();
-        $transactions = Transaction::with('member')->get();
-        $data = Transaction::select('transactions.date_start','transactions.date_end','members.name','books.title')
-        ->join('members','members.id','=','transactions.member_id')
-        ->join('transaction_details','transaction_details.transaction_id','=','transactions.id')
-        ->join('books','books.id','=','transaction_details.book_id')->get();
-        // return $data;
+        $transactions = Transaction::with('member','details.book')
+        ->get();
+        $transactiondetail = TransactionDetail::with('book')->get();
+        // $transactions = Transaction::with('member')->get();
+        // $data = Transaction::select('transactions.date_start','transactions.date_end','members.name','books.title')
+        // ->join('members','members.id','=','transactions.member_id')
+        // ->join('transaction_details','transaction_details.transaction_id','=','transactions.id')
+        // ->join('books','books.id','=','transaction_details.book_id')->get();
+        // // return $data;
 
 
-          // return $transactions;
-        return view('transaction.index', compact('data','members','books'));
+        //   // return $transactions;
+        // return $transactiondetail;
+        return view('transaction.index', compact('transactions','members','books','transactiondetail'));
     }
 
     /**
@@ -50,8 +54,8 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         //
-        $transaction = new Transaction();
-        $transaction_detail = new TransactionDetail();
+      
+        
         $this->validate($request,[
             'member_id' => 'required',
             'date_start' => 'required',
@@ -61,15 +65,33 @@ class TransactionController extends Controller
 
 
         ]);
-        $transactiion->transaction_detail->book_id = $request->book_id;
-        $transaction->member_id = $request->member_id;
-        $transaction->date_start = $request->date_start;
-        $transaction->date_end = $request->date_end;
-        $transaction->status = $request->status;
-        $transaction->book_id = $request->book_id;
+           // $transaction->member_id = $request->member_id;
+           // $transaction->date_start = $request->date_start;
+           // $transaction->date_end = $request->date_end;
+           // $transaction->status = $request->status;
+           // $transaction->book_id = $request->book_id;
+           // return $transaction;
+
+        $transaction = Transaction::create([
+           'member_id' => $request->member_id,
+           'date_start' => $request->date_start,
+           'date_end' => $request->date_end,
+           'status' => $request->status,
+           'book_id' => $request->book_id,
+
+        ]);
+        // $transaction->save();
+
+       
+        TransactionDetail::create([
+            'transaction_id' => $transaction->id,
+            'book_id' => $request->book_id,
+           
+        ]);
+
         $transaction->save();
 
-        return redirect('peminjaman');
+        return redirect('transactions');
     }
 
     /**
