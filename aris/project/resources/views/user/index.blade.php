@@ -26,6 +26,7 @@
 	        <th>No</th>
 	        <th>Name</th>
 	        <th>Email</th>
+	        <th>Jabatan</th>
 	        <th>Action</th>
 	      </tr>
 	      </thead>
@@ -48,16 +49,25 @@
                     @csrf
                     <input type="hidden" name="_method" value="PUT" v-if="editStatus">
                    <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="Input Name" required="">
+                    <label>Nama</label>
+                    <input type="text" name="name" :value="data.name" class="form-control" placeholder="Input Name" required="">
                   </div>
                   <div class="form-group">
                     <label>Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Input Email" required="">
+                    <input type="email" name="email" :value="data.email" class="form-control" placeholder="Input Email" required="">
+                  </div>
+                  <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password"  :value="data.password" class="form-control" placeholder="Input Password" required="">
+                  </div>
+                  <div class="form-group">
+                    <label>Konfirmasi Password</label>
+                    <input type="password" name="password_confirmation" :value="data.password" class="form-control" placeholder="Input Password" required="">
+                    
                   </div>
                   <div class="form-group">
                     <label>Jabatan</label>
-                    <select name="role" class="form-control">
+                    <select name="role" :value="data.role" class="form-control">
                        <option value="manager">Manager</option>
                        <option value="admin">Admin</option> 
                        <option value="kasir">Kasir</option>  
@@ -108,6 +118,7 @@
 		{data: 'DT_RowIndex', class: 'text-center', orderable: true },
 		{data: 'name', class: 'text-center', orderable: true },
 		{data: 'email', class: 'text-center', orderable: true },
+		{data: 'role', class: 'text-center', orderable: true },
 		{render: function(index, row, data, meta ){
 			return `
 				<a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
@@ -151,6 +162,20 @@
                 $('#modal-default').modal();
                 editStatus: false;
                },
+               editData(event, row){
+               	this.data = this.datas[row];
+               	this.editStatus = true;
+               	$('#modal-default').modal();
+               },
+               deleteData(event, id) {
+                    if (confirm("Are you sure ?")) {
+                        $(event.target).parents('tr').remove();
+                            axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response => {
+                            // location.reload();
+                            alert('Data has been removed');
+                    });
+                }
+             },
                submitForm(event, id){
                 event.preventDefault();
                 const _this = this;
