@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 @section('header', 'Data User')
 @section('content')
 <div class="container text-center">
@@ -11,10 +11,11 @@
         <img class="card-img-top" src="{{ asset('img/images.jpg') }}" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-text">{{$product->name }}</h4>
-          <p class="card-text">Text</p>
+          <p class="card-text">{{$product->description }}</p>
+          <h3>Rp. {{ $product->price }}</h3>
         </div>
         <div class="card-body">
-          <a href="#" class="card-link">Add to cart</a>
+          <a href="{{ url('/add-to-cart/'.$product->id) }}" class="card-link">Add to cart</a>
         </div>
       </div>
     </div>
