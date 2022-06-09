@@ -6,7 +6,8 @@
 
 <div class="card">
     <div class="card-header">
-        <a href="{{url('catalog/create')}}" class="btn btn-sm btn-primary pull-right"><i class="fas fa-plus fa-sm text-white-50"></i> Create New Catalog</a>
+        <a href="{{url('catalog/create')}}" class="btn btn-sm btn-primary pull-right"><i
+                class="fas fa-plus fa-sm text-white-50"></i> Create New Catalog</a>
     </div>
 
     <div class="card-body">
@@ -27,7 +28,7 @@
                         <td>{{$key+1}}</td>
                         <td>{{$catalog->name}}</td>
                         <td class="text-center">{{count($catalog->books)}}</td>
-                        <td class="text-center">{{date("d M Y , H:i:s",strtotime($catalog->created_at))}}</td>
+                        <td class="text-center">{{dateFormat($catalog->created_at)}}</td>
                         <td>
                             <a href="{{url('catalog/'.$catalog->id.'/edit')}}" class="btn btn-warning btn-sm">
                                 <i class="fa fa-pencil-alt"></i>Edit
@@ -35,7 +36,8 @@
                             <form action="{{route('catalog.destroy', $catalog->id)}}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-sm btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?')">
+                                <button class="btn btn-sm btn-danger" type="submit" value="Delete"
+                                    onclick="return confirm('Are you sure?')">
                                     <i class="fa fa-trash"></i> Delete
                                 </button>
                             </form>
