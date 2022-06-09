@@ -102,7 +102,7 @@
         {data: 'phone_number', class: 'text-center', orderable: true},
         {data: 'address', class: 'text-center', orderable: true},
         {data: 'email', class: 'text-center', orderable: true},
-        {data: 'created_at', class: 'text-center', orderable: true},
+        {data: 'date', class: 'text-center', orderable: true},
         {render: function(index, row, data, meta){
             return `
                 <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event,${meta.row})">

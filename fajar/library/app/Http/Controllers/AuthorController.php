@@ -25,10 +25,17 @@ class AuthorController extends Controller
     {
         $authors = Author::all();
 
-        foreach($authors as $key =>$author){
-            $author->date = '0';
-        }
-        $datatables = datatables()->of($authors)->addIndexColumn();
+        // foreach($authors as $key =>$author){
+        //     $author->date = dateFormat($author->created_at);
+        // }    format tanggal menggunakan looping foreach
+
+
+
+
+        $datatables = datatables()->of($authors)
+                        ->addColumn('date', function($author){
+                            return dateFormat($author->created_at);
+                        })->addIndexColumn();
 
         return $datatables->make(true);
     }
