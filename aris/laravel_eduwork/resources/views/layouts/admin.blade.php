@@ -221,6 +221,12 @@
         <ul class="nav nav-pills  flex-column">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               <li class="nav-item">
+                <a href="{{ url('master') }}" class="nav-link {{ request()->is('master') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Master</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="{{ url('catalogs') }}" class="nav-link {{ request()->is('catalogs') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>

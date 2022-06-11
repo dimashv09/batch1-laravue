@@ -77,9 +77,10 @@
                       </div>
                       <div class="form-group">
                         <label>Gender</label>
-                        <select name="gender" :value="data.gender" class="form-control">
-                           <option value="Pria">Pria</option>
-                           <option value="Wanita">Wanita</option>
+                        <select name="gender" id="gender" class="form-control">
+                            <option :selected="data.gender" value="">--Pilih Gender--</option>
+                           <option :selected="data.gender" value="Pria">Pria</option>
+                           <option :selected="data.gender" value="Wanita">Wanita</option>
                        </select>
                       </div>
                       <div class="form-group">
@@ -106,8 +107,7 @@
             <!-- /.modal-dialog -->
           </div>
   </div>
-</div>
-</div>
+
 @endsection
 @section('js')
 
@@ -267,16 +267,16 @@
     //     }      
     // });
 </script>
-<script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
+
 <script>
     $('select[name=gender]').on('change', function() {
         gender = $('select[name=gender]').val();
 
         if (gender == 0) {
-            controller.table.ajax.url(actionUrl).load();
+            controller.table.ajax.url(apiUrl).load()
         }else {
-            controller.table.ajax.url(actionUrl+'?gender='+gender).load();
+            controller.table.ajax.url(apiUrl+'?gender='+gender).load()
         }
-    });
+    })
 </script>
 @endsection
