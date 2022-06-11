@@ -18,7 +18,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div id="app">
@@ -34,21 +33,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                        <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/cart') }}">
-                                        <i class="fa-solid fa-cart-plus text-danger"></i>
-                                    <text class="text-sm text-danger">{{Cart::session(auth()->id())->getContent()->count()}}</text>
-                                    
-                                    </a>
-                                </li>
-                                 
-
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -85,7 +75,7 @@
             </div>
         </nav>
 
-        <main class="py-4 container">
+        <main class="py-4">
             @yield('content')
         </main>
     </div>
