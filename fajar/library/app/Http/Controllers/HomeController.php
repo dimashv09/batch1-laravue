@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+
 use App\Models\Member;
 use App\Models\User;
 use App\Models\Transaction;
 use App\Models\Catalog;
 use App\Models\Book;
+use App\Models\Author;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -168,8 +172,42 @@ class HomeController extends Controller
                 ->get();
 
         // return $data5;
+                $total_publisher = Publisher::count();
+                $total_catalog = Catalog::count();
+                $total_author = Author::count();
+                $total_member = Member::count();
+                $total_book = Book::count();
+                $total_transaction = Transaction::count();
 
+                $data_donut = [$total_publisher, $total_catalog, $total_author, $total_member, $total_book];
 
-        return view('home');
-    }
+                $label_donut = ['Publisher', 'Catalog', 'Author', 'Member', 'Book'];
+
+                // $data_donut = Book::select(DB::raw("COUNT(publisher_id) as total"))-> groupBy('publisher_id')->orderBy('publisher_id', 'asc')->pluck('total');
+
+                // $label_donut = Publisher::orderBy('publishers.id','asc')->join('books', 'books.publisher_id', '=', 'publishers.id')->groupBy('name')->pluck('name');
+
+                //label bar
+
+                $label_bar = ['Loan', 'Return'];
+                $data_bar = [];
+
+                foreach ($label_bar as $key => $value) {
+                        $data_bar[$key]['label'] = $label_bar[$key];
+                        $data_bar[$key]['backgroundColor'] = $key==1 ? 'rgba(60,141,188,0.9)' : 'rgba(210,214,222,1)';
+                        $data_month = [];
+
+                        foreach (range(1,12) as $month) {
+                                if ($key == 0) {
+                                $data_month[] = Transaction::select(DB::raw("count(*) as total"))->whereMonth('date_start', $month)->first()->total;
+                                }else {
+                                $data_month[] = Transaction::select(DB::raw("count(*) as total"))->whereMonth('date_end', $month)->first()->total;
+                                }
+                        }
+
+                        $data_bar[$key]['data'] = $data_month;
+                }
+                
+                return view('home',compact ('total_author','total_book','total_catalog','total_member','total_publisher','total_transaction','label_donut', 'data_donut', 'data_bar'));
+        }
 }
