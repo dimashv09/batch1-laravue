@@ -18,6 +18,7 @@
 	  <div class="card-header">
 	    <a href="#" @click="addData()" class="btn btn-primary btn-sm pull-right">+ Create New Product</a>
 	  </div>
+  
 	  <!-- /.card-header -->
 	  <div class="card-body">
 	    <table id="datatables" class="table table-bordered table-striped">
@@ -27,6 +28,8 @@
 	        <th>Title</th>
 	        <th>Price</th>
 	        <th>Description</th>
+          <th>Quantity</th>
+          <th>Image</th>
 	        <th>Action</th>
 	      </tr>
 	      </thead>
@@ -116,7 +119,11 @@
 		{data: 'price', class: 'text-center', orderable: true },
     {data: 'description', class: 'text-center', orderable: true },
     {data: 'quantity', class: 'text-center', orderable: true },
-		
+		{ data: 'image', class: 'text-center',
+                    render: function( data, type, full, meta ) {
+                        return "<img src=\"/productimage/" + data + "\" width=\"50\"/>";
+                    }
+                },
 		{render: function(index, row, data, meta ){
 			return `
 				<a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
