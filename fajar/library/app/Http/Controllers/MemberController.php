@@ -18,8 +18,15 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        if($request->gender){
+            $datas = Member::where('gender', $request->gender)->get();
+        }else {
+            $datas = Member::all();
+        }
+        
         return view('admin.member.index');
     }
 
