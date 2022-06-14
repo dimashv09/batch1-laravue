@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
@@ -37,7 +39,18 @@ class UserController extends Controller
     public function home()
     {
         $products = Product::paginate(3);
-        return view('user.home', compact('products'));
+       
+        if (Auth::id()) {
+            $user = auth()->user();
+
+            $count = cart::where('name',$user->name)->count();
+            return view('user.home', compact('products','count'));
+        }else{
+            return view('user.home', compact('products'));
+        }
+       
+            
+     
     }
 
     /**

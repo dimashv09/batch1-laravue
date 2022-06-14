@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Sixteen Clothing HTML Template</title>
 
     <!-- Bootstrap core CSS -->
@@ -66,8 +66,15 @@ https://templatemo.com/tm-546-sixteen-clothing
               </li>
               <li class="nav-item">
                  @if (Route::has('login'))
-                
+
                     @auth
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url('showcart') }}">
+                         <i class="fas fa-shopping-cart"></i>
+                           Cart[{{$count}}]</a>
+                    </li>
+
                         <li class="nav-item">
                           <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                            {{ __('Logout') }}

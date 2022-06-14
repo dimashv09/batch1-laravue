@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use App\Models\Cart;
+use App\Models\User;
 class ProductController extends Controller
 {
     /**
@@ -25,6 +28,84 @@ class ProductController extends Controller
     public function create()
     {
         //
+    }
+
+    public function addcart(Request $request, $id)
+    {
+        if (Auth::id()) {
+
+             $user = auth()->user();
+             $product = Product::find($id);
+             $cart = new Cart();
+             $cart->name = $user->name;
+             $cart->phone = $user->phone;
+             $cart->address = $user->address;
+             $cart->product_title = $product->title;
+             $cart->price = $product->price;
+             $cart->quantity = $request->quantity;
+             
+             $cart->save();
+
+
+             return redirect()->back();
+
+
+        }else{
+            return redirect('login');
+        }
+       
+
+
+
+    }
+
+    public function updatecart(Request $request, $id)
+    {
+        if (Auth::id()) {
+
+             $user = auth()->user();
+             $product = Product::find($id);
+             
+
+             dd($user);
+             $cart->name = $user->name;
+             $cart->phone = $user->phone;
+             $cart->address = $user->address;
+             $cart->product_title = $product->title;
+             $cart->price = $product->price;
+             $cart->quantity = $request->quantity;
+             $cart->save();
+
+             return redirect()->back();
+
+
+        }else{
+            return redirect('login');
+        }
+       
+
+
+
+    }
+
+    public function showcart()
+    {
+        if (Auth::id()) {
+            $user = auth()->user();
+            $carts = cart::where('name', $user->name)->get();
+            $count = cart::where('name',$user->name)->count();
+            return view('product.showcart', compact('count','carts'));
+        }
+        
+    }
+
+    public function delete($id)
+    {
+        $cart = cart::find($id);
+
+        $cart->delete();
+
+        return redirect()->back();
     }
 
     public function api(Request $request)
