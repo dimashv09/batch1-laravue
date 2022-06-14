@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
@@ -18,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::all();
+        $users = User::all(); 
         return view('user.index', compact('users'));
     }
 
@@ -35,7 +36,8 @@ class UserController extends Controller
 
     public function home()
     {
-        return view('user.home');
+        $products = Product::paginate(3);
+        return view('user.home', compact('products'));
     }
 
     /**

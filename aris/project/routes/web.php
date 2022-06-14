@@ -25,6 +25,7 @@ Route::resource('/products', ProductController::class);
 Route::get('/', [UserController::class, 'home']);
 Route::get('/api/users',[UserController::class, 'api']);
 Route::get('/api/products',[ProductController::class, 'api']);
+Route::get('/search',[ProductController::class, 'search']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

@@ -35,6 +35,17 @@ class ProductController extends Controller
         return $datatables->make(true);
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            // code...
+        }
+        $products = Product::where('title','Like','%'.$search.'%')->get();
+
+        return view('user.home', compact('products'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
