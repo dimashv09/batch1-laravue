@@ -40,9 +40,36 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function date(Request $request)
     {
         //
+        if ($request->date_start) {
+            $transactions = Transaction::where('date_start', $request->date_start)->get();
+        }else {
+            $transactions = Transaction::all();
+        }
+
+
+        // $transactions = Transaction::all();
+        $datatables = datatables()->of($transactions)->addIndexColumn();
+
+        return $datatables->make(true);
+
+    }
+
+    public function api(Request $request)
+    {
+        if ($request->status) {
+            $transactions = Transaction::where('status', $request->status)->get();
+        }else {
+            $transactions = Transaction::all();
+        }
+
+
+        // $transactions = Transaction::all();
+        $datatables = datatables()->of($transactions)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**

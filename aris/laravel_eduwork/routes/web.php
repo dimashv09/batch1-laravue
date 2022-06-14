@@ -48,6 +48,8 @@ Route::resource('/members',MemberController::class);
 Route::resource('/books',BookController::class);
 Route::resource('/transactions',TransactionController::class);
 
+Route::get('/api/transactions',[TransactionController::class, 'api']);
+Route::get('/date/transactions',[TransactionController::class, 'date']);
 Route::get('/api/authors',[AuthorController::class, 'api']);
 Route::get('/api/publishers',[PublisherController::class, 'api']);
 Route::get('/api/members',[MemberController::class, 'api']);
