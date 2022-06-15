@@ -32,18 +32,20 @@ class ProductController extends Controller
 
     public function addcart(Request $request, $id)
     {
-        if (Auth::id()) {
+        if (auth()->user()) {
 
              $user = auth()->user();
+             // return $user;
              $product = Product::find($id);
              $cart = new Cart();
+             $cart->user_id = $user->id;
              $cart->name = $user->name;
              $cart->phone = $user->phone;
              $cart->address = $user->address;
              $cart->product_title = $product->title;
              $cart->price = $product->price;
              $cart->quantity = $request->quantity;
-             
+             // return $cart;
              $cart->save();
 
 
@@ -61,20 +63,20 @@ class ProductController extends Controller
 
     public function updatecart(Request $request, $id)
     {
-        if (Auth::id()) {
+        if (Auth::user()) {
 
-             $user = auth()->user();
-             $product = Product::find($id);
-             
-
-             dd($user);
-             $cart->name = $user->name;
-             $cart->phone = $user->phone;
-             $cart->address = $user->address;
-             $cart->product_title = $product->title;
-             $cart->price = $product->price;
+             // $user = auth()->user()->id;
+             // $product = Product::find($id);
+             $cart = Cart::find($id);
+             // $cart->name = $user->name;
+             // $cart->phone = $user->phone;
+             // $cart->address = $user->address;
+             // $cart->product_title = $product->title;
+             // $cart->price = $product->price;
              $cart->quantity = $request->quantity;
+             
              $cart->save();
+
 
              return redirect()->back();
 
@@ -90,11 +92,14 @@ class ProductController extends Controller
 
     public function showcart()
     {
-        if (Auth::id()) {
+        if (auth()->user()) {
             $user = auth()->user();
-            $carts = cart::where('name', $user->name)->get();
-            $count = cart::where('name',$user->name)->count();
+            $carts = cart::where('user_id', $user->id)->get();
+            $count = cart::where('user_id',$user->id)->count();
             return view('product.showcart', compact('count','carts'));
+        }else{
+            
+            return redirect('/login');
         }
         
     }
