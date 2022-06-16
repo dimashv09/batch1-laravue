@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\User;
+use App\Models\Order;
 use PDF;
 class ProductController extends Controller
 {
@@ -34,9 +37,11 @@ class ProductController extends Controller
     public function addcart(Request $request, $id)
     {
         if (auth()->user()) {
+            
 
              $user = auth()->user();
-             // return $user;
+            
+          
              $product = Product::find($id);
              $cart = new Cart();
              $cart->user_id = $user->id;
@@ -46,11 +51,9 @@ class ProductController extends Controller
              $cart->product_title = $product->title;
              $cart->price = $product->price;
              $cart->quantity = $request->quantity;
-             // return $cart;
+             
              $cart->save();
-
-
-             return redirect()->back();
+              return redirect()->back();
 
 
         }else{
@@ -59,6 +62,40 @@ class ProductController extends Controller
        
 
 
+
+    }
+
+
+    public function order(Request $request)
+    {
+            $user = auth()->user();
+            // dd($user);
+            $cart = cart::where('user_id', $user->id)->get();
+            // dd($carts);
+            $carts = Cart::where('user_id', Auth::user()->id)->sum('quantity');
+            $count = Cart::where('user_id', Auth::user()->id)->sum('price');
+            // dd($count);
+            $total = Cart::where('user_id', Auth::user()->id)->sum('price');
+
+            // dd($request->product_title);
+            // dd($cart);
+            foreach ( $cart as $key => $data) {
+                // code...
+          
+            $order = new Order();
+            $order->name = $user->name;
+            $order->product_name = $data->product_title;
+            $order->price = $data->price;
+            $order->quantity = $data->quantity;
+            $order->status = 'not delivered';
+            $order->save();
+
+
+           
+        }
+
+        // DB::table('carts')->where('user_id',auth()->user()->id)->delete();
+         return redirect()->back()->with('success','order anda sudah berhasil');
 
     }
 
@@ -126,7 +163,6 @@ class ProductController extends Controller
             $carts = cart::where('user_id', $user->id)->get();
             $count = Cart::where('user_id', Auth::user()->id)->sum('price');
             $total = Cart::where('user_id', Auth::user()->id)->sum('price');
-            
             return view('product.showcart', compact('count','carts','total'));
         }else{
             
@@ -138,10 +174,21 @@ class ProductController extends Controller
 
     public function pdf()
     {
-        $product = Product::all();
-         $pdf = PDF::loadView('product.invoice',compact('product'));
 
-       $pdf->download('invoice.pdf');
+
+        if (auth()->user()) {
+            $user = auth()->user();
+            $carts = cart::where('user_id', $user->id)->get();
+            $count = Cart::where('user_id', Auth::user()->id)->sum('price');
+            $total = Cart::where('user_id', Auth::user()->id)->sum('price');
+            
+            $pdf = PDF::loadView('product.invoice',['carts'=>$carts,'count'=>$count,'total'=>$total])->setPaper('A4','potrait');;
+            return $pdf->download('invoice.pdf');
+        }else{
+            
+            return redirect('/login');
+        }
+       
 
     }
 

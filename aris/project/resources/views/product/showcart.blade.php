@@ -2,8 +2,15 @@
 @section('content')
   <div class="card text-center">
   <div class="card-header">
-    Featured
+    <div class="row">
+      <a class="btn btn-primary btn-sm pull-right" href="{{ url('/invoice') }}">Cetak Invoice</a>
+    </div>
   </div>
+ @if(Session::has('success'))
+    <div class="alert alert-success">
+        {{Session::get('success')}}
+    </div>
+@endif
   <div class="card-body">
     <table class="table table-striped">
   <thead>
@@ -15,6 +22,7 @@
             <th>Action</th>
     </tr>
   </thead>
+ 
   <tbody>
     @foreach($carts as $key=>$cart)
           <tr>
@@ -37,7 +45,11 @@
           @endforeach
   </tbody>
 </table>
-<h3>Total Harga Keseluruhan: {{$total}}</h3>
+<div class="pull-right">
+  <h3>Total Harga Keseluruhan: {{$total}}</h3>
+</div>
+
+<a class="btn btn-primary " href="{{ url('/order') }}">order</a>
 </div>
 </div>
 @endsection

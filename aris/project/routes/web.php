@@ -30,7 +30,8 @@ Route::get('/updatecart/{id}',[ProductController::class, 'updatecart']);
 Route::get('/showcart',[ProductController::class, 'showcart']);
 Route::get('/delete/{id}',[ProductController::class, 'delete']);
 Route::get('/search',[ProductController::class, 'search']);
-Route::get('/pdf',[ProductController::class, 'pdf']);
+Route::get('/invoice',[ProductController::class, 'pdf']);
+Route::get('/order',[ProductController::class, 'order']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

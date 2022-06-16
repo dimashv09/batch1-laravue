@@ -65,20 +65,21 @@ https://templatemo.com/tm-546-sixteen-clothing
                 <a class="nav-link" href="contact.html">Contact Us</a>
               </li>
               <li class="nav-item">
-                
-                @if(auth()->user()->id)
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{ url('showcart') }}">
-                         <i class="fas fa-shopping-cart"></i>
-                           Cart[{{$count}}]</a>
-                    </li>
-                   @else
-                   <li class="nav-item">
-                      <a class="nav-link" href="{{ url('showcart') }}">
-                         <i class="fas fa-shopping-cart"></i>
-                           Cart</a>
-                    </li>
-                    @endif
+                  @if(auth()->user())
+                    @if(auth()->user()->id)
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{ url('showcart') }}">
+                             <i class="fas fa-shopping-cart"></i>
+                               Cart[{{$count}}]</a>
+                        </li>
+                       @else
+                       <li class="nav-item">
+                          <a class="nav-link" href="{{ url('showcart') }}">
+                             <i class="fas fa-shopping-cart"></i>
+                               Cart</a>
+                        </li>
+                        @endif
+                      @endif
 
                  @if (Route::has('login'))
 

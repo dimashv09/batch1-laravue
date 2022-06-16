@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         $products = Product::paginate(3);
        
-        if (Auth::id()) {
+        if (Auth::user()) {
             $user = auth()->user();
 
             $count = cart::where('name',$user->name)->count();
