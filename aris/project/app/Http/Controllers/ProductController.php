@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\User;
+use PDF;
 class ProductController extends Controller
 {
     /**
@@ -68,12 +69,34 @@ class ProductController extends Controller
              // $user = auth()->user()->id;
              // $product = Product::find($id);
              $cart = Cart::find($id);
+              // $cart->total = $cart->price * $cart->quantity;
+               
+       // foreach($carts as $cart){
+       //      $cart->total = $cart->product_price * $cart->cart_list_quantity;
+       //      $cart->total_sum = $cart->sum('total');
+       //  }
              // $cart->name = $user->name;
              // $cart->phone = $user->phone;
              // $cart->address = $user->address;
              // $cart->product_title = $product->title;
              // $cart->price = $product->price;
+
+             $product = Product::select('price')->get();
+             // dd($product);
              $cart->quantity = $request->quantity;
+             $cart->price = $product[0]['price'] * $cart->quantity;
+             // if () {
+             //     // code...
+             // }
+             
+             // dd($total);
+             // $carts->price = $request->price;
+
+             // foreach($carts as $cart){
+             //    $cart->total = $cart->price * $cart->quantity;
+
+             // }
+
              
              $cart->save();
 
@@ -86,7 +109,13 @@ class ProductController extends Controller
         }
        
 
-
+// UPDATE trans t
+//     INNER JOIN (
+//         select user_id, sum(amount) sumAmount
+//         from trans
+//         group by user_id
+//     ) subSum on subSum.user_id = t.user_id
+// SET t.amount = subSum.sumAmount
 
     }
 
@@ -95,13 +124,25 @@ class ProductController extends Controller
         if (auth()->user()) {
             $user = auth()->user();
             $carts = cart::where('user_id', $user->id)->get();
-            $count = cart::where('user_id',$user->id)->count();
-            return view('product.showcart', compact('count','carts'));
+            $count = Cart::where('user_id', Auth::user()->id)->sum('price');
+            $total = Cart::where('user_id', Auth::user()->id)->sum('price');
+            
+            return view('product.showcart', compact('count','carts','total'));
         }else{
             
             return redirect('/login');
         }
         
+    }
+
+
+    public function pdf()
+    {
+        $product = Product::all();
+         $pdf = PDF::loadView('product.invoice',compact('product'));
+
+       $pdf->download('invoice.pdf');
+
     }
 
     public function delete($id)

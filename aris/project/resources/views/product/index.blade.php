@@ -66,7 +66,6 @@
                   <div class="form-group">
                     <label>Quantity</label>
                     <input type="number" name="quantity" :value="data.quantity" class="form-control" placeholder="Input quantity" required="">
-                    
                   </div>
                   <div class="form-group">
                     <label>File</label>

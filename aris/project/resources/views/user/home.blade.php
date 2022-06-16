@@ -66,7 +66,7 @@ https://templatemo.com/tm-546-sixteen-clothing
               </li>
               <li class="nav-item">
                 
-                @if(auth()->user())
+                @if(auth()->user()->id)
                     <li class="nav-item">
                       <a class="nav-link" href="{{ url('showcart') }}">
                          <i class="fas fa-shopping-cart"></i>

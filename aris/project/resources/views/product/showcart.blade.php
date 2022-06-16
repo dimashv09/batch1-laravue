@@ -20,9 +20,12 @@
           <tr>
             <td>{{ $key+1 }}</td>
             <td>{{ $cart->product_title }}</td>
+
             <td>
               <form action="{{url('/updatecart/'.$cart->id)}}" >
                 <input name="quantity" type="number" min="1" value="{{ $cart->quantity }}">
+                <input name="price" type="hidden" min="1" value="{{ $cart->price }}">
+
                 <input class="btn btn-success btn-sm" type="submit" value="save">
               </form>
             </td>
@@ -32,9 +35,9 @@
             </td>
           </tr>
           @endforeach
-   
   </tbody>
 </table>
+<h3>Total Harga Keseluruhan: {{$total}}</h3>
 </div>
 </div>
 @endsection
