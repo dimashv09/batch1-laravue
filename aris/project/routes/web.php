@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,7 +32,14 @@ Route::get('/showcart',[ProductController::class, 'showcart']);
 Route::get('/delete/{id}',[ProductController::class, 'delete']);
 Route::get('/search',[ProductController::class, 'search']);
 Route::get('/invoice',[ProductController::class, 'pdf']);
-Route::get('/order',[ProductController::class, 'order']);
+Route::get('/order',[TransactionController::class, 'order']);
+Route::get('/orders',[ProductController::class, 'orders']);
+Route::get('/payment',[ProductController::class, 'payment']);
+
+Route::resource('/orders',TransactionController::class);
+Route::get('/transaction/{id}',[TransactionController::class, 'update']);
+
+Route::get('/api/orders',[TransactionController::class, 'apiorder']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

@@ -294,8 +294,8 @@
     })
 </script>
 <script>
-    $('select[name=date_start]').on('change', function() {
-        date_start = $('select[name=date_start]').val();
+    $('input[name=date_start]').on('change', function() {
+        date_start = $('input[name=date_start]').val();
         alert('testing')
         if (date_start == 0) {
             controller.table.ajax.url(dateUrl).load()

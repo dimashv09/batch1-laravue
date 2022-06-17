@@ -87,6 +87,7 @@ class ProductController extends Controller
             $order->product_name = $data->product_title;
             $order->price = $data->price;
             $order->quantity = $data->quantity;
+            $order->user_id = $user->id;
             $order->status = 'not delivered';
             $order->save();
 
@@ -94,7 +95,41 @@ class ProductController extends Controller
            
         }
 
-        // DB::table('carts')->where('user_id',auth()->user()->id)->delete();
+        DB::table('carts')->where('user_id',auth()->user()->id)->delete();
+         return redirect()->back()->with('success','order anda sudah berhasil');
+
+    }
+
+     public function payment(Request $request)
+    {
+            $user = auth()->user();
+            // dd($user);
+            $cart = cart::where('user_id', $user->id)->get();
+            // dd($carts);
+            $carts = Cart::where('user_id', Auth::user()->id)->sum('quantity');
+            $count = Cart::where('user_id', Auth::user()->id)->sum('price');
+            // dd($count);
+            $total = Cart::where('user_id', Auth::user()->id)->sum('price');
+
+            // dd($request->product_title);
+            // dd($cart);
+            foreach ( $cart as $key => $data) {
+                // code...
+          
+            $order = new Order();
+            $order->name = $user->name;
+            $order->product_name = $data->product_title;
+            $order->price = $data->price;
+            $order->quantity = $data->quantity;
+            $order->user_id = $user->id;
+            $order->status = 'not delivered';
+            $order->save();
+
+
+           
+        }
+
+        DB::table('carts')->where('user_id',auth()->user()->id)->delete();
          return redirect()->back()->with('success','order anda sudah berhasil');
 
     }
@@ -154,6 +189,20 @@ class ProductController extends Controller
 //     ) subSum on subSum.user_id = t.user_id
 // SET t.amount = subSum.sumAmount
 
+    }
+
+
+    public function orders()
+    {
+        return view('product.order');
+    }
+
+     public function apiorder(Request $request)
+    {
+        $orders = Order::all();
+        $datatables = datatables()->of($orders)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     public function showcart()
