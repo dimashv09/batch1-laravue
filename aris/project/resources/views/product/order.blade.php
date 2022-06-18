@@ -91,15 +91,14 @@
           @endforeach
   </tbody>
 </table>
-<div class="pull-right">
- 
 </div>
+	<div class="card-body">
+<div class="row">
+      <a class="btn btn-primary btn-sm pull-right" href="{{ url('/invoice') }}">{{$count }}</a>
+    </div>
+	</div>
 
-<a class="btn btn-primary " href="{{ url('/order') }}">order</a>
 </div>
-</div>
-
-       
 </div>
 @endsection
 @section('js')

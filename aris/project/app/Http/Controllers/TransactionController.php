@@ -18,8 +18,9 @@ class TransactionController extends Controller
     {
         //
         $orders = Order::all();
+        $count = Transaction::where('user_id', Auth::user()->id)->sum('price');
         $transactions = Transaction::all();
-        return view('product.order', compact('orders','transactions'));
+        return view('product.order', compact('orders','transactions','count'));
     }
 
      public function apiorder(Request $request)
