@@ -36,7 +36,7 @@ Route::get('/order',[TransactionController::class, 'order']);
 Route::get('/orders',[ProductController::class, 'orders']);
 Route::get('/payment',[ProductController::class, 'payment']);
 
-Route::resource('/orders',TransactionController::class);
+Route::get('/order/product',[ProductController::class, 'order']);
 Route::get('/transaction/{id}',[TransactionController::class, 'update']);
 
 Route::get('/api/orders',[TransactionController::class, 'apiorder']);

@@ -95,7 +95,7 @@ class ProductController extends Controller
            
         }
 
-        DB::table('carts')->where('user_id',auth()->user()->id)->delete();
+       $car = Cart::where('user_id',auth()->user()->id)->delete();
          return redirect()->back()->with('success','order anda sudah berhasil');
 
     }

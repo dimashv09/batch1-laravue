@@ -49,7 +49,7 @@
   <h3>Total Harga Keseluruhan: {{$total}}</h3>
 </div>
 
-<a class="btn btn-primary " href="{{ url('/order') }}">order</a>
+<a class="btn btn-primary " href="{{ url('/order/product') }}">order</a>
 </div>
 </div>
 @endsection

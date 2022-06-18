@@ -51,9 +51,53 @@
 	      	@endforeach
 	      </tbody>
 	    </table>
+
 	  </div>
 	</div>
+<div class="card text-center">
+  <div class="card-header">
+    <div class="row">
+      <a class="btn btn-primary btn-sm pull-right" href="{{ url('/invoice') }}">Cetak Invoice</a>
+    </div>
+  </div>
+ @if(Session::has('success'))
+    <div class="alert alert-success">
+        {{Session::get('success')}}
+    </div>
+@endif
+  <div class="card-body">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Action</th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+    @foreach($transactions as $key=>$transaction)
+          <tr>
+            <td>{{ $key+1 }}</td>
+            <td>{{ $transaction->product_name }}</td>
+            <td>{{ $transaction->quantity }}</td>
+            <td>{{ $transaction->price }}</td>
+            <td>
+              <a class="btn btn-danger btn-sm" href="{{ url('/delete/'.$transaction->id) }}">Delete</a>
+            </td>
+          </tr>
+          @endforeach
+  </tbody>
+</table>
+<div class="pull-right">
+ 
+</div>
 
+<a class="btn btn-primary " href="{{ url('/order') }}">order</a>
+</div>
+</div>
 
        
 </div>
