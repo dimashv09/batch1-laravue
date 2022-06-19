@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use PDF;
+
 class TransactionController extends Controller
 {
     /**
@@ -14,13 +16,31 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $orders = Order::all();
-        $count = Transaction::where('user_id', Auth::user()->id)->sum('price');
+        $count = Transaction::sum('price');
         $transactions = Transaction::all();
-        return view('product.order', compact('orders','transactions','count'));
+        $transaction = Transaction::first();
+        $datas = $request->harga;
+        $data = '';
+        $data = $datas;
+
+        $total = $data -= $count;
+        return view('product.order', compact('orders','transactions','count','transaction','total','datas'));
+    }
+
+
+    public function updateharga(Request $request)
+    {
+        $transaction = Transaction::sum('price');
+
+        $data = $request->harga;
+
+        $total = $data -= $transaction;
+       
+        return view('product.order', compact('total'));
     }
 
      public function apiorder(Request $request)
@@ -50,6 +70,49 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+     public function pdf(Request $request)
+    {
+
+
+        if (auth()->user()) {
+            $transactions = Transaction::all();
+            $date = date('d M Y');
+            foreach($transactions as $transaction){
+                $transaction->name;
+            }
+            $count = Transaction::sum('price');
+            $datas = $request->harga;
+            $data = '';
+            $data = $datas;
+            $total = $data -= $count;
+            
+            $pdf = PDF::loadView('product.invoice',compact('transactions','count','total','datas','transaction','date'))->setPaper('A4','potrait');;
+            return $pdf->download('invoice.pdf');
+        }else{
+            
+            return redirect('/login');
+        }
+    }
+
+    public function report(Request $request)
+    {
+        $orders = Order::onlyTrashed()->get();
+        
+        $count = Order::onlyTrashed()
+        ->whereDate('deleted_at','Y-m-d');
+        $total_order = Order::onlyTrashed()
+        ->select(DB::raw("COUNT(*) as total"))
+        ->GroupBy(DB::raw("Day(deleted_at)"))
+        
+        ->pluck('total');
+
+        $day = Order::onlyTrashed()
+        ->select(DB::raw("DAYNAME(deleted_at) as day "))
+        ->GroupBy(DB::raw("DAYNAME(deleted_at)"))
+        ->pluck('day');
+        return view('product.report', compact('orders','count', 'total_order', 'day'));
     }
 
     /**
@@ -101,14 +164,30 @@ class TransactionController extends Controller
        
     }
 
+    public function deletetransaction(Request $request)
+    {
+        $transactions = Transaction::all();
+            foreach($transactions as $transaction){
+        $transaction->delete();
+        
+    }
+   
+   
+        return redirect()->back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaction $transaction)
+    public function destroy(Transaction $transaction,$id)
     {
         //
+        $transaction = Transaction::find($id);
+        $transaction->delete();
+
+        return redirect()->back();
     }
 }

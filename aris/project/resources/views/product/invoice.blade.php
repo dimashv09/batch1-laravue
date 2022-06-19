@@ -112,8 +112,8 @@
 
                             <td>
                                 Invoice #: 123<br>
-                                Created: January 1, 2015<br>
-                                Due: February 1, 2015
+                                Created: {{$date}}<br>
+                                Due: {{$date}}
                             </td>
                         </tr>
                     </table>
@@ -133,7 +133,7 @@
 
                             <td>
                                 Acme Corp.<br>
-                                {{auth()->user()->name}}<br>
+                                {{$transaction->name}}<br>
                                 john@example.com
                             </td>
                         </tr>
@@ -150,17 +150,19 @@
                     Price
                 </td>
             </tr>
-             @foreach($carts as $key=>$cart)
+             @foreach($transactions as $key=>$transaction)
             <tr class="item">
-               <td>{{ $cart->product_title }}</td>
-               <td>{{ $cart->price }}</td>
+               <td>{{ $transaction->product_name }}</td>
+               <td>{{ $transaction->price }}</td>
             </tr>
              @endforeach
             <tr class="total">
                 <td></td>
 
                 <td>
-                   Total: Rp. {{$total}}
+                   Total Harga Product: Rp. {{$count}}<br><br>
+                   Total Bayar: Rp. {{$datas}}<br><br>
+                   Total Kembali: Rp. {{$total}}
                 </td>
             </tr>
           

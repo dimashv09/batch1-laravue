@@ -2,9 +2,6 @@
 @section('content')
   <div class="card text-center">
   <div class="card-header">
-    <div class="row">
-      <a class="btn btn-primary btn-sm pull-right" href="{{ url('/invoice') }}">Cetak Invoice</a>
-    </div>
   </div>
  @if(Session::has('success'))
     <div class="alert alert-success">
@@ -49,8 +46,16 @@
   <h3>Total Harga Keseluruhan: {{$total}}</h3>
 </div>
 
-<a class="btn btn-primary " href="{{ url('/order/product') }}">order</a>
+
 </div>
+
+</div>
+<div class="card-body">
+ <div class="row">
+  <div class="col-md-1">
+  <a class="btn btn-primary pull-right " href="{{ url('/order/product') }}">CheckOut</a>
+  </div>
+</div> 
 </div>
 @endsection
 

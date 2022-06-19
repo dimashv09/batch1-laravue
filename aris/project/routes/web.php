@@ -33,12 +33,16 @@ Route::get('/delete/{id}',[ProductController::class, 'delete']);
 Route::get('/search',[ProductController::class, 'search']);
 Route::get('/invoice',[ProductController::class, 'pdf']);
 Route::get('/order',[TransactionController::class, 'order']);
+Route::get('/payment/pdf',[TransactionController::class, 'pdf']);
 Route::get('/orders',[TransactionController::class, 'index']);
 Route::get('/payment',[ProductController::class, 'payment']);
 
 Route::get('/order/product',[ProductController::class, 'order']);
 Route::get('/transaction/{id}',[TransactionController::class, 'update']);
-
+Route::get('/reports',[TransactionController::class, 'report']);
+Route::get('/delete/transaction/{id}',[TransactionController::class, 'destroy']);
+Route::get('/delete_transaction',[TransactionController::class, 'deletetransaction']);
+Route::get('/updateharga',[TransactionController::class, 'index']);
 Route::get('/api/orders',[TransactionController::class, 'apiorder']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

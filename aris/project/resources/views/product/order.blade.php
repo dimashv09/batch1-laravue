@@ -16,7 +16,6 @@
 <div id="controller">
 	  <div class="card">
 	  <div class="card-header">
-	     <a class="btn btn-primary btn-sm pull-right" href="{{ url('/invoice') }}">Cetak Invoice</a>
 	  </div>
   
 	  <!-- /.card-header -->
@@ -46,7 +45,7 @@
 	      		<td>{{$order->quantity}}</td>
 	      		<td>{{$order->price}}</td>
 	      		<td>{{$order->status}}</td>
-	      		<td><a href="{{ url('transaction/'.$order->id) }}" class="btn btn-success btn-sm">Edit</a></td>
+	      		<td><a href="{{ url('transaction/'.$order->id) }}" class="btn btn-success btn-sm">Terima Pesanan</a></td>
 	      	</tr>
 	      	@endforeach
 	      </tbody>
@@ -57,7 +56,21 @@
 <div class="card text-center">
   <div class="card-header">
     <div class="row">
-      <a class="btn btn-primary btn-sm pull-right" href="{{ url('/invoice') }}">Cetak Invoice</a>
+    	<div class="col-md-1">
+      <form action="{{url('/payment/pdf')}}" method="get">
+	     <input type="hidden" name="harga" value="{{$datas}}">
+	     <input type="submit" class="btn btn-primary pull-right" value="Cetak Invoice">
+	   </form>
+    	</div>
+    	<div class="col-md-10">
+    		
+    	</div>
+    	<div class="col-md-1">
+    		<form action="{{ url('/delete_transaction')}}" method="get">
+    			<input type="hidden" name="harga" value="{{$datas}}">
+    			<input class="btn btn-danger btn-sm" type="submit" value="Hapus Transaksi">
+    		</form>
+    	</div>
     </div>
   </div>
  @if(Session::has('success'))
@@ -70,6 +83,7 @@
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th>Name</th>
       <th>Product Name</th>
             <th>Quantity</th>
             <th>Price</th>
@@ -81,11 +95,12 @@
     @foreach($transactions as $key=>$transaction)
           <tr>
             <td>{{ $key+1 }}</td>
+            <td>{{$transaction->name}}</td>
             <td>{{ $transaction->product_name }}</td>
             <td>{{ $transaction->quantity }}</td>
             <td>{{ $transaction->price }}</td>
             <td>
-              <a class="btn btn-danger btn-sm" href="{{ url('/delete/'.$transaction->id) }}">Delete</a>
+              <a class="btn btn-danger btn-sm" href="{{ url('/delete/transaction/'.$transaction->id) }}">Delete</a>
             </td>
           </tr>
           @endforeach
@@ -94,7 +109,23 @@
 </div>
 	<div class="card-body">
 <div class="row">
-      <a class="btn btn-primary btn-sm pull-right" href="{{ url('/invoice') }}">{{$count }}</a>
+      <tr>
+      	<td>
+      		<h4 class="pull-right">Total Harga: Rp.{{$count }}</h4>
+      	</td>
+      	<td>&nbsp;&nbsp;&nbsp;<form action="{{url('/updateharga/')}}" >
+                <input type="number" name="harga" min="0">
+                <input class="btn btn-success btn-sm" type="submit" value="Bayar">
+              </form></td>
+              &nbsp;&nbsp;&nbsp;
+              <td>
+              	<h4>Total Kembalian: Rp. {{$total}}</h4>
+              </td>
+      </tr>
+      
+    </div>
+    <div class="">
+    	
     </div>
 	</div>
 
