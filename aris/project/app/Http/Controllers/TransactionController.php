@@ -88,7 +88,7 @@ class TransactionController extends Controller
             $data = $datas;
             $total = $data -= $count;
             
-            $pdf = PDF::loadView('product.invoice',compact('transactions','count','total','datas','transaction','date'))->setPaper('A4','potrait');;
+            $pdf = PDF::loadView('product.invoice',compact('transactions','count','total','datas','transaction','date'))->setPaper('A4','potrait');
             return $pdf->download('invoice.pdf');
         }else{
             
@@ -154,7 +154,6 @@ class TransactionController extends Controller
             $transaction->price = $order->price;
             $transaction->quantity = $order->quantity;
             $transaction->user_id = $order->user_id;
-            $transaction->status = $order->status;
             $transaction->save();
             $order->delete();
             return redirect()->back();

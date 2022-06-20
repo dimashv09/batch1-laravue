@@ -42,10 +42,11 @@
           @endforeach
   </tbody>
 </table>
-<div class="pull-right">
-  <h3>Total Harga Keseluruhan: {{$total}}</h3>
+<div class="card-body">
+  <div class="col-md-3">
+    <h3>Total Harga Keseluruhan: Rp.{{$total}}</h3>
+  </div>
 </div>
-
 
 </div>
 

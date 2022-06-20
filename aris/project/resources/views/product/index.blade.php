@@ -59,9 +59,9 @@
                     <label>Price</label>
                     <input type="number" name="price" :value="data.price" class="form-control" placeholder="Input price" required="">
                   </div>
-                  <div class="form-group">
-                    <label>Description</label>
-                    <input type="text" name="description"  :value="data.description" class="form-control" placeholder="Input description" required="">
+                   <div class="form-group">
+                    <label for="exampleFormControlTextarea2">Description</label>
+                    <textarea name="description" :value="data.description" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3"></textarea>
                   </div>
                   <div class="form-group">
                     <label>Quantity</label>

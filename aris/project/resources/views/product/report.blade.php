@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('header', 'Pengunjung Web')
+@section('Header', 'Report')
 @section('content')
 @section('css')
         <!-- DataTables -->
@@ -7,10 +7,10 @@
  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endsection
-<div class="container-fluid">
+<!-- <div class="container-fluid">
 	<div class="card">
   <div class="card-header">
-    Download Data Pengunjung Web
+    Download Data Report
   </div>
   <div class="card-body">
     <form action="{{ url('/date/web') }}" method="post">
@@ -20,11 +20,11 @@
 			<input class="btn btn-primary btn-sm" type="submit" value="EXPORT TO EXCEL">
 		</form>
   </div>
-</div>
+</div> -->
 
 	<div class="card">
 	  <div class="card-header">
-	    Table Pengunjung Web
+	    Table Report
 	  </div>
 	  <div class="card-body">
 	   <table id="datatable" class="table table-striped">
@@ -32,21 +32,21 @@
 					    <tr>
 					      <th>No</th>
 					      <th>Tanggal</th>
-					      <th>IP Addess</th>
-					      <th>Country Name</th>
-					      <th>Region Name</th>
-					      <th>City Name</th>
+					      <th>Nama</th>
+					      <th>Nama Product</th>
+					      <th>Quantity</th>
+					      <th>Price</th>
 				    	</tr>
 					  </thead>
 					  <tbody>
-					  @foreach($orders as $key=>$web)
+					  @foreach($orders as $key=>$order)
 					    <tr>
 					    	<td>{{ $key+1}}</td>
-					    	<td>{{ date('H:i:s - d M Y', strtotime($web->created_at)) }}</td>
-					    	<td>{{ $web->name }}</td>
-		            <td>{{ $web->countryName }}</td>
-		            <td>{{ $web->regionName }}</td>
-		            <td>{{ $web->cityName }}</td>
+					    	<td>{{ date('H:i:s - d M Y', strtotime($order->created_at)) }}</td>
+					    	<td>{{ $order->name }}</td>
+		            <td>{{ $order->product_name }}</td>
+		            <td>{{ $order->quantity }}</td>
+		            <td>{{ $order->price }}</td>
 	   			 		</tr>
 					  @endforeach
 					</tbody>
@@ -56,7 +56,7 @@
 	
 		<div class="card">
 	  <div class="card-header">
-	    Data Chart Pengunjung Web
+	    Data Chart Report
 	  </div>
 		<div class="card-body">
 				<div class="col-md-12">
@@ -107,14 +107,14 @@
 	var day = <?php echo json_encode($day) ?>;
 	Highcharts.chart('grafik', {
 		title : {
-			text: 'Data Grafik Pengunjung Web Harian'
+			text: 'Data Grafik Report Harian'
 		},
 		xAxis : {
 			categories : day
 		},
 		yAxis : {
 			title: {
-				text : 'Data Nominal Pengunjung Web Harian'
+				text : 'Data Nominal Report Harian'
 			}
 		},
 		plotOptions: {
@@ -124,7 +124,7 @@
 		},
 		series: [
 		{
-			name: 'Data Nominal Pengunjung Web',
+			name: 'Data Nominal Report',
 			data: web
 		}
 		]

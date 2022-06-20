@@ -84,11 +84,12 @@ class ProductController extends Controller
           
             $order = new Order();
             $order->name = $user->name;
+            $order->phone = $user->phone;
+            $order->address = $user->address;
             $order->product_name = $data->product_title;
             $order->price = $data->price;
             $order->quantity = $data->quantity;
             $order->user_id = $user->id;
-            $order->status = 'not delivered';
             $order->save();
 
 
@@ -118,11 +119,12 @@ class ProductController extends Controller
           
             $order = new Order();
             $order->name = $user->name;
+            $order->phone = $user->phone;
+            $order->address = $user->address;
             $order->product_name = $data->product_title;
             $order->price = $data->price;
             $order->quantity = $data->quantity;
             $order->user_id = $user->id;
-            $order->status = 'not delivered';
             $order->save();
 
 
@@ -333,6 +335,27 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $product = Product::find($id);
+        $this->validate($request,[
+            'title' => 'required',
+            'price'=> 'required',
+            'quantity' => 'required',
+            'file'=> 'required',
+           
+        ]);
+
+        $image = $request->file;
+        $imagename= time().'.'.$image->getClientOriginalExtension();
+        $request->file->move('productimage',$imagename);
+
+         $product->title = $request->title;
+         $product->price = $request->price;
+         $product->description = $request->description;
+         $product->quantity = $request->quantity;
+         $product->image = $imagename;
+         $product->save();
+
+         return redirect('products');
     }
 
     /**

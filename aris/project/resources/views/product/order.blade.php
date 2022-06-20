@@ -30,7 +30,6 @@
           <th>Product Name</th>
           <th>Quantity</th>
           <th>Price</th>
-          <th>Status</th>
 	        <th>Action</th>
 	      </tr>
 	      </thead>
@@ -41,11 +40,10 @@
 	      		<td>{{$order->name }}</td>
 	      		<td>{{$order->phone }}</td>
 	      		<td>{{$order->address }}</td>
-	      		<td>{{$order->product_title}}</td>
+	      		<td>{{$order->product_name}}</td>
 	      		<td>{{$order->quantity}}</td>
 	      		<td>{{$order->price}}</td>
-	      		<td>{{$order->status}}</td>
-	      		<td><a href="{{ url('transaction/'.$order->id) }}" class="btn btn-success btn-sm">Terima Pesanan</a></td>
+	      		<td><a href="{{ url('transaction/'.$order->id) }}" class="btn btn-success btn-sm">Process</a></td>
 	      	</tr>
 	      	@endforeach
 	      </tbody>
@@ -84,6 +82,7 @@
     <tr>
       <th scope="col">#</th>
       <th>Name</th>
+      <th>Phone</th>
       <th>Product Name</th>
             <th>Quantity</th>
             <th>Price</th>
@@ -96,6 +95,7 @@
           <tr>
             <td>{{ $key+1 }}</td>
             <td>{{$transaction->name}}</td>
+            <td>{{$transaction->phone}}</td>
             <td>{{ $transaction->product_name }}</td>
             <td>{{ $transaction->quantity }}</td>
             <td>{{ $transaction->price }}</td>
