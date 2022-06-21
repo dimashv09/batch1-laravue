@@ -7,7 +7,7 @@
 </head>
 
 <?php
-	include_once("file:///C:/xampp/htdocs/ria_class_laravel_eduwork/crud_task/connect.php");
+	include_once("../connect.php");
 	$isbn = $_GET['isbn'];
 
 	$buku = mysqli_query($mysqli, "SELECT * FROM buku WHERE isbn='$isbn'");
