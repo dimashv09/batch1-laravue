@@ -7,7 +7,7 @@
 </head>
 
 <?php
-	include_once("file:///C:/xampp/htdocs/ria_class_laravel_eduwork/crud_task/connect.php");
+	include_once("../connect.php");
     $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit");
     $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang");
     $katalog = mysqli_query($mysqli, "SELECT * FROM katalog");
