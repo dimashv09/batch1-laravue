@@ -1,5 +1,5 @@
 <?php
-include_once("file:///C:/xampp/htdocs/ria_class_laravel_eduwork/crud_task/connect.php");
+include_once("../connect.php");
  
 $id_penerbit = $_GET['id_penerbit'];
  
