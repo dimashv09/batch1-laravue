@@ -1,5 +1,5 @@
 <?php
-	include_once("file:///C:/xampp/htdocs/ria_class_laravel_eduwork/crud_task/connect.php");
+	include_once("../connect.php");
 	$buku = mysqli_query($mysqli, "SELECT buku.*, nama_pengarang, nama_penerbit, katalog.nama as nama_katalog FROM buku
 									LEFT JOIN pengarang ON pengarang.id_pengarang = buku.id_pengarang
 									LEFT JOIN penerbit ON penerbit.id_penerbit = buku.id_penerbit
