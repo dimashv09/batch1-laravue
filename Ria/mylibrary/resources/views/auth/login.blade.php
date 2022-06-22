@@ -65,7 +65,7 @@
         <a href="forgot-password.html">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="register.blade.php" class="text-center">Register a new membership</a>
+        <a href="register" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.card-body -->
