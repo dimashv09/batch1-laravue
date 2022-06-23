@@ -17,12 +17,12 @@ class Member extends Model
     }
     public function transaction()
     {
-        return $this->hasOne('App\Models\Transaction', 'member_id');
+        return $this->hasMany('App\Models\Transaction', 'member_id');
     }
-     public function member()
-    {
-        return $this->hasMany('App/Models/Transaction', 'member_id');
-    }
+    //  public function member()
+    // {
+    //     return $this->hasMany('App/Models/Transaction', 'member_id');
+    // }
 
     
 }

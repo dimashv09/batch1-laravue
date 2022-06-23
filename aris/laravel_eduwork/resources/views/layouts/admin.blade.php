@@ -137,27 +137,27 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          @if(alert())
+          <span class="badge badge-warning navbar-badge">{{ count(alert()) }}</span>
+          @endif
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <span class="dropdown-item dropdown-header">Alert</span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+          @foreach((array) alert() as $alerts)
+          <a href="{{ url('transactions', $alerts['transaction']) }}" class="dropdown-item">
+            <i class="fas fa-envelope mr-2"></i>{{ $alerts["member"]}}
+            <span class="float-right text-muted text-sm">{{$alerts["late"]}}</span>
           </a>
           <div class="dropdown-divider"></div>
+          @endforeach
+          @if(alert())
           <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
+            <i class="fas fa-users mr-2"></i> {{ count(alert())}} Notification
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
+          @else
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          @endif
         </div>
       </li>
       <li class="nav-item">

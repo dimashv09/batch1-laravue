@@ -7,6 +7,7 @@ use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\Book;
+use Carbon\Carbon;
 class TransactionController extends Controller
 {
     /**
@@ -18,7 +19,9 @@ class TransactionController extends Controller
     {
         //
         $members = Member::all();
-        $books = Book::all();
+        $books = Book::select('*')
+        ->where('qty','>','0')->get();
+        
         $transactions = Transaction::with('member','details.book')
         ->get();
         $transactiondetail = TransactionDetail::with('book')->get();
@@ -28,7 +31,7 @@ class TransactionController extends Controller
         // ->join('transaction_details','transaction_details.transaction_id','=','transactions.id')
         // ->join('books','books.id','=','transaction_details.book_id')->get();
         // // return $data;
-
+       
 
         //   // return $transactions;
         // return $transactiondetail;
@@ -46,12 +49,25 @@ class TransactionController extends Controller
         if ($request->date_start) {
             $transactions = Transaction::where('date_start', $request->date_start)->get();
         }else {
-            $transactions = Transaction::all();
+            $transactions = Transaction::with('member','details.book');
         }
 
 
         // $transactions = Transaction::all();
-        $datatables = datatables()->of($transactions)->addIndexColumn();
+        $datatables = datatables()->of($transactions)
+        ->addColumn('duration', function($transaction){
+            return  $date = Carbon::parse($transaction->date_start)->floatDiffInDays($transaction->date_end). " day";
+
+        })
+        ->addColumn('purches', function($transaction) {
+            $purches = $transaction->transactiondetails->sum('book.price');
+            return "Rp." . number_format($purches);
+        })
+        ->addColumn('name', function($transaction) {
+            $name = $transaction->member->name;
+            return $name;
+        })
+        ->addIndexColumn();
 
         return $datatables->make(true);
 
@@ -62,12 +78,31 @@ class TransactionController extends Controller
         if ($request->status) {
             $transactions = Transaction::where('status', $request->status)->get();
         }else {
-            $transactions = Transaction::all();
+            $transactions = Transaction::with('member','details.book');
         }
 
 
         // $transactions = Transaction::all();
-        $datatables = datatables()->of($transactions)->addIndexColumn();
+
+        $datatables = datatables()->of($transactions)
+        ->addColumn('duration', function($transaction){
+            return  $date = Carbon::parse($transaction->date_start)->floatDiffInDays($transaction->date_end). " day";
+
+        })
+        ->addColumn('purches', function($transaction) {
+            $purches = $transaction->transactiondetails->sum('book.price');
+            return "Rp." . number_format($purches);
+        })
+        ->addColumn('name', function($transaction) {
+            $name = $transaction->member->name;
+            return $name;
+        })
+        ->addColumn('qty', function($transaction) {
+            $datas = Transaction::with('details.book');
+            $data = $transaction->qty;
+            return $data;
+        })
+        ->addIndexColumn();
 
         return $datatables->make(true);
     }
