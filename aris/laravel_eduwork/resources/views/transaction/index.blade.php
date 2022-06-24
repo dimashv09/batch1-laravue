@@ -95,8 +95,9 @@
                                   <label class="col-sm-2 col-form-label">Buku</label>
                                   <div class="col-md-10">
                                   <select class="select2 form-control" name="book_id[]" multiple="multiple" data-placeholder="Select a Book" style="width: 100%;">
+
                                    @foreach($books as $book)
-                                    <option :selected="data.book_id" value="{{ $book->id }}">{{ $book->name }}</option>
+                                    <option :selected="data.book_id" value="{{ $book->id }}">{{ $book->title }}</option>
                                     @endforeach
                                   </select>
                                 </div>
@@ -105,13 +106,13 @@
 			                    <label class="col-sm-2 col-form-label">Status</label>
 			                    <div class="col-sm-10">
 			                	 <div class="form-check">
-						  <input class="form-check-input" type="radio" name="status" value="sudah">
+						  <input class="form-check-input" type="radio" name="status" value="sudah" v-model="data.status">
 						  <label class="form-check-label" for="exampleRadios1">
 						    Sudah Dikembalikan
 						  </label>
 						</div>
 						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="status" value="belum">
+						  <input class="form-check-input" type="radio" name="status" value="belum" v-model="data.status">
 						  <label class="form-check-label" for="exampleRadios2">
 						    Belum Dikembalikan
 						  </label>

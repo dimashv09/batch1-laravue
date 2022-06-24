@@ -19,9 +19,8 @@ class TransactionController extends Controller
     {
         //
         $members = Member::all();
-        $books = Book::select('*')
-        ->where('qty','>','0')->get();
-        
+        $books = Book::where('qty','>','0')->get();
+       
         $transactions = Transaction::with('member','details.book')
         ->get();
         $transactiondetail = TransactionDetail::with('book')->get();
@@ -68,9 +67,9 @@ class TransactionController extends Controller
             return $name;
         })
         ->addColumn('qty', function($transaction) {
-            $datas = Transaction::with('details.book');
-            $data = $transaction->qty;
-            return $data;
+            $datas = $transaction->transactiondetails->sum('qty');
+            // $data = $transaction->qty;
+            return $datas;
         })
         ->addIndexColumn();
 
@@ -127,7 +126,7 @@ class TransactionController extends Controller
             'member_id' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
-            'status'=>'required',
+            // 'status'=>'required',
             'book_id' => 'required',
 
 
@@ -143,19 +142,18 @@ class TransactionController extends Controller
            'member_id' => $request->member_id,
            'date_start' => $request->date_start,
            'date_end' => $request->date_end,
-           'status' => $request->status,
-           'book_id' => $request->book_id,
+           'status' => 'belum',
 
         ]);
         // $transaction->save();
 
-       
+       foreach($request->book_id as $book){
         TransactionDetail::create([
             'transaction_id' => $transaction->id,
-            'book_id' => $request->book_id,
+            'book_id' => $book,
            
         ]);
-
+    }
         $transaction->save();
 
         return redirect('transactions');
