@@ -9,7 +9,7 @@ use App\Models\Transaction;
 	}
 
 
-	function alert(){
+	function notificationAlert(){
 		$date = date('Y-m-d');
 		$transactions = Transaction::where('date_end','<','$date')
 		->where('status', 0)->get();
@@ -23,7 +23,7 @@ use App\Models\Transaction;
 			
 		// }
 
-		
+		return $transactions;
 	}
 
 ?>

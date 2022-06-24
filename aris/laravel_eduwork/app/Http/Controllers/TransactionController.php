@@ -103,7 +103,7 @@ class TransactionController extends Controller
         })
         ->addColumn('qty', function($transaction) {
             $datas = Transaction::with('details.book');
-            $data = $transaction->qty;
+            $data = $transaction->transactiondetails->sum('qty');
             return $data;
         })
         ->addIndexColumn();
@@ -126,7 +126,7 @@ class TransactionController extends Controller
             'member_id' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
-            // 'status'=>'required',
+            'status'=>'required',
             'book_id' => 'required',
 
 
@@ -150,6 +150,7 @@ class TransactionController extends Controller
        foreach($request->book_id as $book){
         TransactionDetail::create([
             'transaction_id' => $transaction->id,
+            'qty'=> '1',
             'book_id' => $book,
            
         ]);
