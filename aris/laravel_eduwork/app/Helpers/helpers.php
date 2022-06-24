@@ -18,7 +18,9 @@ use App\Models\Transaction;
 		{
 			$transaction[0]['transaction'] = $transaction->id;
 			$transaction[0]['member'] = $transaction->member->name;
-			$transaction[0]['late'] = dateDifference($transaction->date_end, $date);
+			$transaction[0]['late'] = Carbon::parse($transaction->date_end)->floatDiffInDays($date). " day";
+
+			
 		}
 	}
 

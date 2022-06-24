@@ -3,9 +3,13 @@
 @section('content')
 @section('css')
         <!-- DataTables -->
- <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
- <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
- <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
 @endsection
 <div id="controller">
 	<div class="card">
@@ -79,25 +83,25 @@
 			                </div>
 			                </div>
 			                <div class="form-group row">
-			                	<label class="col-sm-2 col-form-label">Tanggal</label>
-										    <div class="col-sm-4">
-										      <input type="date" name="date_start" :value="data.date_start" class="form-control">
-										    </div>&nbsp; - &nbsp; 
-										    <div class="col-sm-5">
-										      <input type="date" name="date_end" :value="data.date_end" class="form-control">
-										    </div>
-										  </div>
-										  <div class="form-group row">
-			                    <label class="col-sm-2 col-form-label">Buku</label>
-			                    <div class="col-sm-10">
-			                	  <select name="book_id"class="form-control">
-			                	  	@foreach($books as $book)
-			                	 	<option :selected="data.book_id" value="{{$book->id }}">{{ $book->title }}</option>
-			                	 	@endforeach
-			                	 </select>
-			                </div>
-			              </div>
-			                <div class="form-group row">
+		                	 <label class="col-sm-2 col-form-label">Tanggal</label>
+							    <div class="col-sm-4">
+							      <input type="date" name="date_start" :value="data.date_start" class="form-control">
+							    </div>&nbsp; - &nbsp; 
+							    <div class="col-sm-5">
+							      <input type="date" name="date_end" :value="data.date_end" class="form-control">
+							    </div>
+    						  </div>
+							<div class="form-group row">
+                                  <label class="col-sm-2 col-form-label">Buku</label>
+                                  <div class="col-md-10">
+                                  <select class="select2 form-control" name="book_id[]" multiple="multiple" data-placeholder="Select a Book" style="width: 100%;">
+                                   @foreach($books as $book)
+                                    <option :selected="data.book_id" value="{{ $book->id }}">{{ $book->name }}</option>
+                                    @endforeach
+                                  </select>
+                                </div>
+                              </div>
+			                <div class="form-group row" v-if="editStatus">
 			                    <label class="col-sm-2 col-form-label">Status</label>
 			                    <div class="col-sm-10">
 			                	 <div class="form-check">
@@ -140,6 +144,18 @@
 <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+<script>
+    $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+});
+</script>
 <script>
     var actionUrl = '{{ url('transactions') }}';
     var apiUrl = '{{ url('api/transactions') }}';

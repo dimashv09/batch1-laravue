@@ -67,6 +67,11 @@ class TransactionController extends Controller
             $name = $transaction->member->name;
             return $name;
         })
+        ->addColumn('qty', function($transaction) {
+            $datas = Transaction::with('details.book');
+            $data = $transaction->qty;
+            return $data;
+        })
         ->addIndexColumn();
 
         return $datatables->make(true);
