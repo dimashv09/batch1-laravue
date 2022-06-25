@@ -72,6 +72,7 @@
 				</div>
 				<div class="modal-body">
 					 @csrf
+                      <input type="hidden" name="_method" value="PUT" v-if="editStatus">
 					<div class="form-group row">
 			                    <label class="col-sm-2 col-form-label">Anggota</label>
 			                    <div class="col-sm-10">
@@ -94,10 +95,12 @@
 							<div class="form-group row">
                                   <label class="col-sm-2 col-form-label">Buku</label>
                                   <div class="col-md-10">
-                                  <select class="select2 form-control" name="book_id[]" multiple="multiple" data-placeholder="Select a Book" style="width: 100%;">
-
+                                  <select class="select2 form-control" name="book_id[]"  :multiple="true" data-placeholder="Select a Book" style="width: 100%;">
                                    @foreach($books as $book)
-                                    <option :selected="data.book_id" value="{{ $book->id }}">{{ $book->title }}</option>
+                                    <option v-if="createStatus" :selected="data.book_id" v-model="data.book_id" value="{{ $book->id }}">{{ $book->title }}</option>
+                                    <option v-if="editStatus" :selected="data.book_id" v-model="data.book_id" value="{{ $book->id}}" @foreach($transactiondetail as $transaction) 
+                                        {{ $transaction->book_id == $book->id ? 'selected' : ' ' }} @endforeach>{{ $book->title }}</option>
+                                       
                                     @endforeach
                                   </select>
                                 </div>
@@ -176,7 +179,7 @@
             <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
             Edit
             </a>
-            <a href="#" class="btn btn-success btn-sm" onclick="controller.detail(event, ${meta.row})">
+            <a href="${actionUrl}/${data.id}" class="btn btn-success btn-sm">
              <i class="fas fa-eye"></i>
             Detail
             </a>
@@ -193,6 +196,7 @@
                 actionUrl,
                 apiUrl,
                 editStatus : false,
+                createStatus : false,
             
 
             },
@@ -216,6 +220,7 @@
                     this.data = {};
                     this.actionUrl = '{{ url('transactions') }}';
                     this.editStatus = false;
+                    this.createStatus = true;
                     $('#modal-default').modal();
                 },
                 editData(event, row) {
@@ -223,6 +228,7 @@
                     // console.log(this.data)
                     // this.actionUrl = '{{ url('authors') }}'+'/'+this.data.id;
                     this.editStatus = true;
+                    this.createStatus = false;
                     $('#modal-default').modal();
                 },
                 deleteData(event, id) {

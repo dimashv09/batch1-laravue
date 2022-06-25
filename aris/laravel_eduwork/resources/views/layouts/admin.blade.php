@@ -137,23 +137,23 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          @if($transactions)
-          <span class="badge badge-warning navbar-badge">{{ count($transactions) }}</span>
+          @if(notificationAlert())
+          <span class="badge badge-warning navbar-badge">{{ count(notificationAlert()) }}</span>
           @endif
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">Alert</span>
           <div class="dropdown-divider"></div>
-          @foreach( $transactions as $alerts)
-          <a href="{{ url('transactions', $alerts['transaction']) }}" class="dropdown-item">
+          @foreach( notificationAlert() as $alerts)
+          <a href="{{ url('transactions', $alerts['transaction']) }}"   class="dropdown-item">
             <i class="fas fa-envelope mr-2"></i>{{ $alerts["member"]}}
             <span class="float-right text-muted text-sm">{{$alerts["late"]}}</span>
           </a>
           <div class="dropdown-divider"></div>
           @endforeach
-          @if($transactions)
+          @if(notificationAlert())
           <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> {{ count($transactions)}} Notification
+            <i class="fas fa-users mr-2"></i> {{ count(notificationAlert())}} Notification
           </a>
           @else
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>

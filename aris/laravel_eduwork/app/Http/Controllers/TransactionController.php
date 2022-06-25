@@ -126,7 +126,7 @@ class TransactionController extends Controller
             'member_id' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
-            'status'=>'required',
+            'status'=>'belum',
             'book_id' => 'required',
 
 
@@ -150,12 +150,17 @@ class TransactionController extends Controller
        foreach($request->book_id as $book){
         TransactionDetail::create([
             'transaction_id' => $transaction->id,
-            'qty'=> '1',
+            'qty'=> 1,
             'book_id' => $book,
            
         ]);
+
+            $books = Book::find($book);
+            $books->qty -= 1;
+
+            $books->save();
     }
-        $transaction->save();
+
 
         return redirect('transactions');
     }
@@ -169,6 +174,11 @@ class TransactionController extends Controller
     public function show(Transaction $transaction)
     {
         //
+       
+        $books = Book::where('qty', '>=', 1)->get();
+        $transactiondetail = TransactionDetail::where('transaction_id', $transaction->id)->get();
+
+        return view('transaction.detail', compact('transaction','books','transactiondetail'));
     }
 
     /**
@@ -180,6 +190,7 @@ class TransactionController extends Controller
     public function edit(Transaction $transaction)
     {
         //
+        
     }
 
     /**
@@ -192,6 +203,49 @@ class TransactionController extends Controller
     public function update(Request $request, Transaction $transaction)
     {
         //
+         $this->validate($request,[
+            'member_id' => 'required',
+            'date_start' => 'required',
+            'date_end' => 'required',
+            'status'=>'required',
+            'book_id' => 'required',
+
+
+        ]);
+           // $transaction->member_id = $request->member_id;
+           // $transaction->date_start = $request->date_start;
+           // $transaction->date_end = $request->date_end;
+           // $transaction->status = $request->status;
+           // $transaction->book_id = $request->book_id;
+           // return $transaction;
+
+        $transactions = Transaction::find($transaction->id)->update([
+           'member_id' => $request->member_id,
+           'date_start' => $request->date_start,
+           'date_end' => $request->date_end,
+           'status' => $request->status,
+
+        ]);
+        // $transaction->save();
+        if ($transactions) {
+            TransactionDetail::where('transaction_id',$transaction->id)->delete();
+       foreach($request->book_id as $book){
+                TransactionDetail::create([
+                    'transaction_id' => $transaction->id,
+                    'qty'=> '1',
+                    'book_id' => $book,
+                   
+                ]);
+
+                $books = Book::find($book);
+                if ($request->status == 'sudah') {
+                $books->qty += 1;
+                }
+                $books->save();
+            }
+        }
+
+        return redirect('transactions');
     }
 
     /**
@@ -203,5 +257,12 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+        $data = TransactionDetail::where('transaction_id', $transaction->id);
+        $delete = Transaction::find($transaction->id);
+        if ($data->delete()) {
+           $delete->delete();
+        }
+
+        return redirect('transactions');
     }
 }

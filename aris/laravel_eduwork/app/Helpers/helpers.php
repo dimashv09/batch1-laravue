@@ -1,7 +1,7 @@
 <?php 
 
 use App\Models\Transaction;
-
+use Carbon\Carbon;
 
 
 	function dateFormat($value){
@@ -11,19 +11,20 @@ use App\Models\Transaction;
 
 	function notificationAlert(){
 		$date = date('Y-m-d');
-		$transactions = Transaction::where('date_end','<','$date')
-		->where('status', 0)->get();
+		$data = [];
+		$transactions = Transaction::where('date_end','<',$date)
+		->where('status', 'belum')->get();
 
-		// foreach($transactions as $transaction)
-		// {
-		// 	$transaction[0]['transaction'] = $transaction->id;
-		// 	$transaction[0]['member'] = $transaction->member->name;
-		// 	$transaction[0]['late'] = Carbon::parse($transaction->date_end)->floatDiffInDays($date). " day";
+		foreach($transactions as $index=>$transaction)
+		{
+			$data[$index]['transaction'] = $transaction->id;
+			$data[$index]['member'] = $transaction->member->name;
+			$data[$index]['late'] = Carbon::parse($transaction->date_end)->floatDiffInDays($date). " day";
 
 			
-		// }
+		}
 
-		return $transactions;
+		return $data;
 	}
 
 ?>
