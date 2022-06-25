@@ -26,18 +26,9 @@
                 <!-- <a href="{{url('/addcart/'.$product->id)}}" class="btn btn-primary btn-sm pull-right">Add Cart</a> -->
                 <form action="{{url('/addcart/'.$product->id)}}" method="POST">
                   @csrf
-                  <input type="hidden" value="1" min="1" class="form-control" width="100" name="quantity"><br>
+                  <input type="number" value="1" min="1" class="form-control" width="100" name="quantity"><br>
                   <input class="btn btn-primary btn-sm pull-right" type="submit" value="Add Cart">
                 </form>
-                
-                <ul class="stars">
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                </ul>
-                
               </div>
             </div>
           </div>
