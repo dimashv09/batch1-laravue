@@ -38,14 +38,19 @@ Route::get('/orders',[TransactionController::class, 'index']);
 Route::get('/payment',[ProductController::class, 'payment']);
 Route::get('/api/users',[UserController::class, 'api']);
 Route::get('/api/products',[ProductController::class, 'api']);
+Route::get('/updateharga',[ProductController::class, 'showcart']);
 Route::get('/reports',[TransactionController::class, 'report']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
+
+Route::get('/transaction',[TransactionController::class, 'store']);
+
+Route::get('/data/{id}',[TransactionController::class, 'data']);
 Route::get('/order/product',[ProductController::class, 'order']);
 Route::get('/transaction/{id}',[TransactionController::class, 'update']);
 Route::get('/delete/transaction/{id}',[TransactionController::class, 'destroy']);
 Route::get('/delete_transaction',[TransactionController::class, 'deletetransaction']);
-Route::get('/updateharga',[TransactionController::class, 'index']);
+// Route::get('/updateharga',[TransactionController::class, 'index']);
 Route::get('/api/orders',[TransactionController::class, 'apiorder']);
 
 

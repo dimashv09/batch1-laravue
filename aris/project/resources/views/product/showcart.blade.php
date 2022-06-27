@@ -42,14 +42,21 @@
           @endforeach
   </tbody>
 </table>
+</div>
+</div>
+<div class="card">
 <div class="card-body">
-  <div class="col-md-3">
-    <h3>Total Harga Keseluruhan: Rp.{{$total}}</h3>
-  </div>
+  <table>
+    <tr>
+      <td>Total Harga: Rp.{{$total}}&nbsp;&nbsp;&nbsp;</td>
+      <td><form action="{{url('/updateharga/')}}" >
+                <input type="number" name="harga" min="0">
+                <input class="btn btn-success btn-sm" type="submit" value="Bayar">
+              </form></td>
+      <td>&nbsp;&nbsp;&nbsp;Total Kembalian: Rp.{{$transaction}}</td>
+    </tr>
+  </table>
 </div>
-
-</div>
-
 </div>
 <div class="card-body">
  <div class="row">

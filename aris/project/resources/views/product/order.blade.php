@@ -96,8 +96,8 @@
             <td>{{ $key+1 }}</td>
             <td>{{$transaction->name}}</td>
             <td>{{$transaction->phone}}</td>
-            <td>{{ $transaction->product_name }}</td>
-            <td>{{ $transaction->quantity }}</td>
+            <td>{{ $transaction->user_id }}</td>
+            <td>{{ $transaction->product }}</td>
             <td>{{ $transaction->price }}</td>
             <td>
               <a class="btn btn-danger btn-sm" href="{{ url('/delete/transaction/'.$transaction->id) }}">Delete</a>
@@ -119,7 +119,7 @@
               </form></td>
               &nbsp;&nbsp;&nbsp;
               <td>
-              	<h4>Total Kembalian: Rp. {{$total}}</h4>
+              	<h4>Total Kembalian: Rp. {{$total2}}</h4>
               </td>
       </tr>
       

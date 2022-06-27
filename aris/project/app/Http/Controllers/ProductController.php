@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Transaction;
 use PDF;
 class ProductController extends Controller
 {
@@ -37,24 +38,39 @@ class ProductController extends Controller
     public function addcart(Request $request, $id)
     {
         if (auth()->user()) {
-            
+           
 
              $user = auth()->user();
-            
-          
              $product = Product::find($id);
-             $cart = new Cart();
+             // dd($product);
+            $carts = Cart::all();
+          
+            // $cart = [''];
+            // foreach($carts as $cart){
+            //     $cart->product_id;
+            //     $cart->user_id;
+            // }
+            // dd($product);
+            //  if ($product[0]->id != $cart->product_id || $cart->user_id != auth()->user()->id) {
+                  $cart = new Cart();
              $cart->user_id = $user->id;
              $cart->name = $user->name;
              $cart->phone = $user->phone;
              $cart->address = $user->address;
              $cart->product_title = $product->title;
-             $cart->price = $product->price;
+             $cart->product_id = $product->id;
              $cart->quantity = $request->quantity;
-             
+             $cart->price = $product->price * $cart->quantity;
              $cart->save();
-              return redirect()->back();
-
+             return redirect()->back();
+          //    }else{
+             
+          //    $cart = Cart::find($id);
+          //    $cart->quantity = $request->quantity;
+          //    $cart->price = $product->price * $cart->quantity;
+          //    $cart->save();
+          //       return redirect()->back();
+          // }
 
         }else{
             return redirect('login');
@@ -76,7 +92,13 @@ class ProductController extends Controller
             $count = Cart::where('user_id', Auth::user()->id)->sum('price');
             // dd($count);
             $total = Cart::where('user_id', Auth::user()->id)->sum('price');
+            
+            
+            // $transaction = Cart::sum('price');
+            // dd($transaction);
+            //     $data = $request->harga;
 
+            //     $total = $data -= $transaction;
             // dd($request->product_title);
             // dd($cart);
             foreach ( $cart as $key => $data) {
@@ -88,9 +110,16 @@ class ProductController extends Controller
             $order->address = $user->address;
             $order->product_name = $data->product_title;
             $order->price = $data->price;
+            $order->product_id = $data->product_id;
             $order->quantity = $data->quantity;
             $order->user_id = $user->id;
             $order->save();
+
+            $transaction = new Transaction();
+            $transaction->user_id = $order->user_id;
+            $transaction->order_id = $order->id;
+            $transaction->save();
+            
 
 
            
@@ -207,14 +236,18 @@ class ProductController extends Controller
         return $datatables->make(true);
     }
 
-    public function showcart()
+    public function showcart(Request $request)
     {
         if (auth()->user()) {
             $user = auth()->user();
             $carts = cart::where('user_id', $user->id)->get();
             $count = Cart::where('user_id', Auth::user()->id)->sum('price');
-            $total = Cart::where('user_id', Auth::user()->id)->sum('price');
-            return view('product.showcart', compact('count','carts','total'));
+            $total = Cart::where('user_id', Auth::user()->id)->sum('price'); 
+            $data = 0;
+            $data1 = $data + $request->harga;
+            $transaction = $data1 -= $total;
+        
+            return view('product.showcart', compact('count','carts','total','transaction'));
         }else{
             
             return redirect('/login');

@@ -69,7 +69,8 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $transactions = Transaction::with('order')->get();
+        return view('product.order', compact('transactions'));
     }
 
      public function pdf(Request $request)
@@ -126,6 +127,7 @@ class TransactionController extends Controller
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -155,12 +157,20 @@ class TransactionController extends Controller
             $transaction->quantity = $order->quantity;
             $transaction->user_id = $order->user_id;
             $transaction->save();
+
             $order->delete();
             return redirect()->back();
 
 
            
        
+    }
+
+
+    public function data(Request $request,$id)
+    {
+        $data = Order::find($request->user_id);
+        dd($data);
     }
 
     public function deletetransaction(Request $request)
