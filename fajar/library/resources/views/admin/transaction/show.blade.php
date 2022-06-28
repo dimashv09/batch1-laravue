@@ -1,8 +1,11 @@
 @extends('layouts.admin')
 
-@section('header', 'Transaction')
+@section('header', 'Detail Transaction')
 
 @section('css')
+
+<link rel="stylesheet" href="{{asset('assets/plugins/select2/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 @endsection
@@ -10,59 +13,66 @@
 @section('content')
 
 <div id="controller">
-    <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-md-7">
-                    <a href="{{url('transaction/create')}}" class="btn btn-sm btn-primary pull-right"><i
-                            class="fas fa-plus fa-sm text-white-50"></i> Create New Author</a>
-                </div>
-                <div class="col-md-2">
-                    <select id="status" class="form-control" name="status">
-                        <option value="">Filter Status</option>
-                        <option value="1">Sudah Kembali</option>
-                        <option value="2">Belum Kembali</option>
-                    </select>
-                </div>
+    <div class="card container-fluid col-md-6">
+        <div class="card-header border-0">
 
-                <div class="col-md-3">
-                    <div class="input-group date">
-                        <input type="text" class="form-control" id="datepicker" name="date_start"
-                            placeholder="Filter tanggal">
-                        <div class="input-group-append">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
+            <H5 class="font-weight-bold">Detail Transaksi</H5>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label font-weight-bold">Anggota</label>
+                    <div class="col-sm">
+                        <p class="col col-form-label ">
+                            {{$transactions->member->name}}
+                        </p>
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label font-weight-bold">
+                        Anggota
+                    </label>
+                    <div class="col-sm">
+                        <p class="col col-form-label ">
+                            {{$transactions->date_start}}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label font-weight-bold">Buku</label>
+                    <div class="col-sm">
+                        <select class="custom-select" name="" multiple>
+                            @foreach ($transactions->details as $item)
+                            <option value="">{{$item->book->title}}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label font-weight-bold">Status</label>
+                    <div class="col-sm">
+                        @if ($transactions->status == 0)
+                        <p class="col col-form-label">Belum Kembali</p>
+                        @else
+                        <p class="col col-form-label">Sudah Kembali</p>
+                        @endif
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="table-responsive-lg">
-                    <table id="datatable" class="table table-bordered table-striped table-responsive">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Tanggal Pinjam</th>
-                                <th>Tanggal Kembali</th>
-                                <th>Nama Peminjam</th>
-                                <th>Lama Pinjam (hari)</th>
-                                <th>Total Buku</th>
-                                <th>Total bayar</th>
-                                <th>Status</th>
-                                <th class="text-center">Action</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
 
+
 @endsection
 
+
 @section('js')
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<link rel=" stylesheet" href="{{asset('assets/plugins/select2/css/select2.min.css')}}">
+<script src="{{asset('assets/plugins/select2/js/select2.full.min.js')}}"></script>
+
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>\
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 
 <script type="text/javascript">
@@ -80,10 +90,10 @@
         // {data: 'date', class: 'text-center', orderable: true},//format DD-MM-YY hh:mm
         {render: function(index, row, data, meta){
             return `
-                <a href="${actionUrl}/${data.id}" class="btn btn-info btn-sm" onclick="controller.editData(event,${meta.row})">
+                <a href="#" class="btn btn-info btn-sm"">
                     <i class="fa fa-eye"></i>
                 </a>
-                <a href="${actionUrl}/${data.id}/edit" class="btn btn-warning btn-sm" onclick="controller.editData(event,${meta.row})">
+                <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event,${meta.row})">
                     <i class="fa fa-pencil-alt"></i>
                 </a>
                 <a href="#" class="btn btn-danger btn-sm" onclick="controller.deleteData(event,${data.id})">
@@ -103,7 +113,7 @@
             
         },
         mounted: function() {
-            this.datatable();
+            this.get_transactions();
         },
         methods: {
             datatable() {
@@ -150,20 +160,9 @@
     });
 </script>
 <script type="text/javascript">
-    $( "#status" ).on('change', function(){
-            status = $('#status').val();
-            return  controller.table.ajax.url(apiUrl+'?status='+status).load();
-        });
+    //Initialize Select2 Elements
+    $('.select2').select2();
 
-</script>
-
-<script type="text/javascript">
-    $( function() {
-        $( "#datepicker" ).datepicker({dateFormat : 'yy-mm-dd'}).on('change', function(){
-            filter = $('#datepicker').val();
-            return  controller.table.ajax.url(apiUrl+'?filter='+filter).load();
-        });
-    } );
 </script>
 
 @endsection

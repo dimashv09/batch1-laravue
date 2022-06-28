@@ -71,20 +71,27 @@
                     </div>
                 </li>
 
-
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
+                    <a class="nav-link" data-toggle="dropdown">
                         <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
+                        @if (notif())
+                        <span class="badge badge-danger navbar-badge">{{ count(notif()) }}</span>
+                        @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">15 Notifications</span>
+                        <span class="dropdown-item dropdown-header">
+                            Notifications</span>
+                        @foreach (notif() as $item)
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
+                        <p class="dropdown-item">
+                            <i class="fas fa-envelope mr-2"></i>
+                            {{$item['member']}}
+                            melewati batas waktu
+                            {{$item['date']}} hari
+                            <span class="float-right text-muted text-sm">{{$item['date']}} hari</span>
+                        </p>
+                        @endforeach
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item">
                             <i class="fas fa-users mr-2"></i> 8 friend requests
@@ -238,7 +245,6 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-
                     @yield('content')
 
                 </div><!-- /.container-fluid -->

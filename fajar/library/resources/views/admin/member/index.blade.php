@@ -184,12 +184,12 @@
 </script>
 <script type="text/javascript">
     $('select[name=gender]').on('change', function(){
-        gender = $('select[name = gender]').val();
+        gender = $('select[name=gender]').val();
         if (gender == 0) {
-            controller.table.ajax.url(actionUrl).load();
+            controller.table.ajax.url(apiUrl).load();
         } else {
-            controller.table.ajax.url(actionUrl+'?gender='+gender).load();
+            controller.table.ajax.url(apiUrl+'?gender='+gender).load();
         }
-    })
+    });
 </script>
 @endsection

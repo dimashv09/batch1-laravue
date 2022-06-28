@@ -27,13 +27,11 @@ Route::resource('author', App\Http\Controllers\AuthorController::class);
 Route::resource('publisher', App\Http\Controllers\PublisherController::class);
 Route::resource('member', App\Http\Controllers\MemberController::class);
 Route::resource('book', App\Http\Controllers\BookController::class);
+Route::resource('/transaction', App\Http\Controllers\TransactionController::class);
 
 //api data table
 Route::get('/api/author', [App\Http\Controllers\AuthorController::class, 'api']);
 Route::get('/api/publisher', [App\Http\Controllers\PublisherController::class, 'api']);
 Route::get('/api/member', [App\Http\Controllers\MemberController::class, 'api']);
 Route::get('/api/book', [App\Http\Controllers\BookController::class, 'api']);
-
-
-
-Route::get('/transaction', [App\Http\Controllers\TransactionController::class, 'index']);
+Route::get('/api/transaction', [App\Http\Controllers\TransactionController::class, 'api']);

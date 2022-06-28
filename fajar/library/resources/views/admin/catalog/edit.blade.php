@@ -17,7 +17,8 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter Catalog Name" required="" value="{{$catalog->name}}">
+                        <input type="text" name="name" class="form-control" placeholder="Enter Catalog Name" required=""
+                            value="{{$catalog->name}}">
                     </div>
                 </div>
                 <div class="card-footer">
