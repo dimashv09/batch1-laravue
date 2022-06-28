@@ -9,8 +9,13 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    public function order()
+    public function orders()
     {
         return $this->belongsTo('App\Models\Order', 'order_id');
+    }
+
+    public function users()
+    {
+        return $this->hasOne('App\Models\User', 'id','user_id');
     }
 }

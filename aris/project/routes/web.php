@@ -45,9 +45,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/transaction',[TransactionController::class, 'store']);
 
-Route::get('/data/{id}',[TransactionController::class, 'data']);
+Route::get('/data',[TransactionController::class, 'data']);
 Route::get('/order/product',[ProductController::class, 'order']);
-Route::get('/transaction/{id}',[TransactionController::class, 'update']);
+Route::get('/transaction/{user_id}',[TransactionController::class, 'update']);
 Route::get('/delete/transaction/{id}',[TransactionController::class, 'destroy']);
 Route::get('/delete_transaction',[TransactionController::class, 'deletetransaction']);
 // Route::get('/updateharga',[TransactionController::class, 'index']);

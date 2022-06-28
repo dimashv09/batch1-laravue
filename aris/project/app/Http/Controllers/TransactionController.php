@@ -19,16 +19,17 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         //
-        $orders = Order::all();
-        $count = Transaction::sum('price');
+        $orders = Order::select('name','phone','address','user_id')->GroupBy('name','phone','address','user_id')->get();
+        // dd($orders);
+        // $count = Transaction::sum('price');
         $transactions = Transaction::all();
         $transaction = Transaction::first();
         $datas = $request->harga;
         $data = '';
         $data = $datas;
 
-        $total = $data -= $count;
-        return view('product.order', compact('orders','transactions','count','transaction','total','datas'));
+        // $total = $data -= $count;
+        return view('product.order', compact('orders','transactions','transaction','datas'));
     }
 
 
@@ -146,20 +147,22 @@ class TransactionController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction, $id)
+    public function update(Request $request, Transaction $transaction, $user_id)
     {
-         
-            $order = Order::find($id);
-            $transaction = new Transaction();
-            $transaction->name = $order->name;
-            $transaction->product_name = $order->product_name;
-            $transaction->price = $order->price;
-            $transaction->quantity = $order->quantity;
-            $transaction->user_id = $order->user_id;
-            $transaction->save();
+        $transactions = Transaction::with('orders')
+        ->where('user_id',$request->user_id)->get();
+         $count = Order::where('user_id',$request->user_id)->sum('price');
+            return view('product.detail', compact('transactions','count'));
+            // $transaction = new Transaction();
+            // $transaction->name = $order->name;
+            // $transaction->product_name = $order->product_name;
+            // $transaction->price = $order->price;
+            // $transaction->quantity = $order->quantity;
+            // $transaction->user_id = $order->user_id;
+            // $transaction->save();
 
-            $order->delete();
-            return redirect()->back();
+            // $order->delete();
+            // return redirect()->back();
 
 
            
@@ -167,9 +170,9 @@ class TransactionController extends Controller
     }
 
 
-    public function data(Request $request,$id)
+    public function data(Request $request)
     {
-        $data = Order::find($request->user_id);
+        $data = Transaction::select('*')->GroupBy('user_id');
         dd($data);
     }
 

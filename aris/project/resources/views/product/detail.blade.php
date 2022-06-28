@@ -14,37 +14,75 @@
  @endsection
 
 <div id="controller">
-	  <div class="card">
-	  <div class="card-header">
-	  </div>
-  
-	  <!-- /.card-header -->
-	  <div class="card-body">
-	    <table id="datatable" class="table table-bordered table-striped">
-	      <thead>
-	      <tr>
-	        <th>No</th>
-	        <th>Name</th>
-	        <th>Phone</th>
-	        <th>Address</th>
-	        <th>Action</th>
-	      </tr>
-	      </thead>
-	      <tbody>
-	      	@foreach($orders as $key=>$order)
-	      	<tr>
-	      		<td>{{$key+1 }}</td>
-	      		<td>{{$order->name }}</td>
-	      		<td>{{$order->phone }}</td>
-	      		<td>{{$order->address }}</td>
-	      		<td><a href="{{ url('transaction/'.$order->user_id) }}" class="btn btn-success btn-sm">Detail Transaction</a></td>
-	      	</tr>
-	      	@endforeach
-	      </tbody>
-	    </table>
-	  </div>
+<div class="card text-center">
+  <div class="card-header">
+    <div class="row">
+    	<div class="col-md-1">
+      <form action="{{url('/payment/pdf')}}" method="get">
+	     <input type="hidden" name="harga" value="">
+	     <input type="submit" class="btn btn-primary pull-right" value="Cetak Invoice">
+	   </form>
+    	</div>
+    	<div class="col-md-10">
+    		
+    	</div>
+    </div>
+  </div>
+ @if(Session::has('success'))
+    <div class="alert alert-success">
+        {{Session::get('success')}}
+    </div>
+@endif
+  <div class="card-body">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+    @foreach($transactions as $key=>$transaction)
+          <tr>
+            <td>{{ $key+1 }}</td>
+            <td>{{$transaction->orders->name}}</td>
+            <td>{{$transaction->orders->phone}}</td>
+            <td>{{ $transaction->orders->product_name }}</td>
+            <td>{{ $transaction->orders->quantity }}</td>
+            <td>{{ $transaction->orders->price }}</td>
+          </tr>
+          @endforeach
+  </tbody>
+</table>
+</div>
+	<div class="card-body">
+<div class="row">
+      <tr>
+      	<td>
+      		<h4 class="pull-right">Total Harga: Rp. {{$count}}</h4>
+      	</td>
+      	<td>&nbsp;&nbsp;&nbsp;<form action="{{url('/updateharga/')}}" >
+                <input type="number" name="harga" min="0">
+                <input class="btn btn-success btn-sm" type="submit" value="Bayar">
+              </form></td>
+              &nbsp;&nbsp;&nbsp;
+              <td>
+              	<h4>Total Kembalian: Rp. </h4>
+              </td>
+      </tr>
+      
+    </div>
+    <div class="">
+    	
+    </div>
 	</div>
-  
+
+</div>
 </div>
 @endsection
 @section('js')
