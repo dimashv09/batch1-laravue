@@ -60,8 +60,11 @@
 </div>
 <div class="card-body">
  <div class="row">
-  <div class="col-md-1">
-  <a class="btn btn-primary pull-right " href="{{ url('/order/product') }}">CheckOut</a>
+  <div class="col-md-3">
+    <form action="{{ url('/order/product') }}" >
+                <input type="hidden" name="harga" value="{{$datas}}">
+                <input type="submit" class="btn btn-primary" value="CheckOut">
+              </form>
   </div>
 </div> 
 </div>

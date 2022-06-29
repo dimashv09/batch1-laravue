@@ -107,7 +107,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                INVOICE LOGO
+                                INVOICE
                             </td>
 
                             <td>
@@ -129,8 +129,9 @@
                             </td>
 
                             <td>
-                                {{$transaction->name}}<br>
-                                {{$transaction->phone}}
+                                {{$transaction->orders->name}}
+                                <br>
+                                {{$transaction->orders->phone}}
                             </td>
                         </tr>
                     </table>
@@ -145,20 +146,21 @@
                 <td>
                     Price
                 </td>
+
             </tr>
              @foreach($transactions as $key=>$transaction)
             <tr class="item">
-               <td>{{ $transaction->product_name }}</td>
-               <td>Rp.{{ $transaction->price }}</td>
+               <td>{{$transaction->orders->product_name}}</td>
+               <td>Rp.{{ $transaction->orders->price }}</td>
             </tr>
              @endforeach
             <tr class="total">
                 <td></td>
 
                 <td>
-                   Total Harga Product: Rp.{{$count}}<br><br>
-                   Total Bayar: Rp.{{$datas}}<br><br>
-                   Total Kembali: Rp.{{$total}}
+                   Total: Rp.{{$count}}<br><br>
+                   Bayar: Rp.{{$data}}<br><br>
+                   Kembali: Rp.{{$counts}}
                 </td>
             </tr>
           

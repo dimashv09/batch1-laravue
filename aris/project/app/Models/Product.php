@@ -9,4 +9,8 @@ class Product extends Model
 {
     use HasFactory;
    
+   public function cart()
+    {
+        return $this->hasMany('App\Models\Cart', 'Cart_id');
+    }
 }

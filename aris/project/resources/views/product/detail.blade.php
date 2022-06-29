@@ -18,14 +18,33 @@
   <div class="card-header">
     <div class="row">
     	<div class="col-md-1">
-      <form action="{{url('/payment/pdf')}}" method="get">
-	     <input type="hidden" name="harga" value="">
+        @foreach($transactions as $transaction)
+      <form action="{{url('/payment/pdf/'.$transaction->user_id)}}" method="get">
+         @endforeach
 	     <input type="submit" class="btn btn-primary pull-right" value="Cetak Invoice">
 	   </form>
     	</div>
-    	<div class="col-md-10">
-    		
-    	</div>
+      <div class="col-md-8">
+        
+      </div>
+      <div class="col-md-3">
+        @foreach($transactions as $transaction)
+      <form action="{{url('/payment/pdf/'.$transaction->user_id)}}" method="get">
+         @endforeach
+         <div class="form-group row">
+         <div class="col-md-6">
+         <select class="form-control">
+           <option value="sudah">Terbayar</option>
+           <option value="belum">Belum</option>
+         </select>
+       </div>
+       <div class="col-md-3">
+       <input type="submit" class="btn btn-success pull-right" value="Selesaikan Transaksi">
+     </div>
+   </div>
+     </form>
+      </div>
+    	
     </div>
   </div>
  @if(Session::has('success'))
@@ -64,16 +83,8 @@
 <div class="row">
       <tr>
       	<td>
-      		<h4 class="pull-right">Total Harga: Rp. {{$count}}</h4>
+      		<h4 class="pull-right">Total Harga: Rp.{{$count}}<br><br>Total Bayar: Rp.{{$data}}<br><br>Total Kembali: Rp.{{$counts}}</h4>
       	</td>
-      	<td>&nbsp;&nbsp;&nbsp;<form action="{{url('/updateharga/')}}" >
-                <input type="number" name="harga" min="0">
-                <input class="btn btn-success btn-sm" type="submit" value="Bayar">
-              </form></td>
-              &nbsp;&nbsp;&nbsp;
-              <td>
-              	<h4>Total Kembalian: Rp. </h4>
-              </td>
       </tr>
       
     </div>

@@ -39,6 +39,8 @@ class TransactionController extends Controller
 
         $data = $request->harga;
 
+        dd($data);
+
         $total = $data -= $transaction;
        
         return view('product.order', compact('total'));
@@ -79,18 +81,26 @@ class TransactionController extends Controller
 
 
         if (auth()->user()) {
-            $transactions = Transaction::all();
             $date = date('d M Y');
-            foreach($transactions as $transaction){
-                $transaction->name;
-            }
-            $count = Transaction::sum('price');
-            $datas = $request->harga;
-            $data = '';
-            $data = $datas;
-            $total = $data -= $count;
+            $transactions = Transaction::with('orders')
+            ->where('user_id',$request->user_id)->get();
+            // $transaction = Order::with('transaction')
+            // ->where('user_id',$request->user_id)->get();
+             $count = Order::where('user_id',$request->user_id)->sum('price');
+             $totals = Order::select('total')
+             ->where('user_id',$request->user_id)
+             ->GroupBy('total')->get();
+
+             foreach($transactions as $transaction){
+                $transaction->orders->name;
+                $transaction->orders->phone;
+             }
+
             
-            $pdf = PDF::loadView('product.invoice',compact('transactions','count','total','datas','transaction','date'))->setPaper('A4','potrait');
+            $data = $totals[0]['total'];
+            $counts = $data - $count;
+            
+            $pdf = PDF::loadView('product.invoice',compact('transactions','counts','totals','data','count','transaction','date'))->setPaper('A4','potrait');
             return $pdf->download('invoice.pdf');
         }else{
             
@@ -152,7 +162,15 @@ class TransactionController extends Controller
         $transactions = Transaction::with('orders')
         ->where('user_id',$request->user_id)->get();
          $count = Order::where('user_id',$request->user_id)->sum('price');
-            return view('product.detail', compact('transactions','count'));
+         // dd($count);
+         $totals = Order::select('total')
+         ->where('user_id',$request->user_id)
+         ->GroupBy('total')->get();
+
+         
+            $data = $totals[0]['total'];
+            $counts = $data - $count;
+            return view('product.detail', compact('transactions','count','data','counts'));
             // $transaction = new Transaction();
             // $transaction->name = $order->name;
             // $transaction->product_name = $order->product_name;

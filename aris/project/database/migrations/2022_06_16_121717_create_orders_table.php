@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('product_name')->nullable();
             $table->string('quantity')->nullable();
             $table->string('price')->nullable();
+            $table->string('total')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');

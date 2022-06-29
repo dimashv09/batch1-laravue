@@ -33,7 +33,7 @@ Route::resource('/users', UserController::class);
 Route::resource('/products', ProductController::class);
 Route::get('/invoice',[ProductController::class, 'pdf']);
 Route::get('/order',[TransactionController::class, 'order']);
-Route::get('/payment/pdf',[TransactionController::class, 'pdf']);
+Route::get('/payment/pdf/{user_id}',[TransactionController::class, 'pdf']);
 Route::get('/orders',[TransactionController::class, 'index']);
 Route::get('/payment',[ProductController::class, 'payment']);
 Route::get('/api/users',[UserController::class, 'api']);

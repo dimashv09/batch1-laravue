@@ -93,7 +93,7 @@ class ProductController extends Controller
             // dd($count);
             $total = Cart::where('user_id', Auth::user()->id)->sum('price');
             
-            
+            // dd($total);
             // $transaction = Cart::sum('price');
             // dd($transaction);
             //     $data = $request->harga;
@@ -113,6 +113,7 @@ class ProductController extends Controller
             $order->product_id = $data->product_id;
             $order->quantity = $data->quantity;
             $order->user_id = $user->id;
+            $order->total = $request->harga;
             $order->save();
 
             $transaction = new Transaction();
@@ -171,8 +172,13 @@ class ProductController extends Controller
 
              // $user = auth()->user()->id;
              // $product = Product::find($id);
-             $cart = Cart::find($id);
+             $cart = Cart::with('product')->get();
+             $data = $cart->product->id;
+             return $data;
+              
+
               // $cart->total = $cart->price * $cart->quantity;
+             // dd($cart->product);
                
        // foreach($carts as $cart){
        //      $cart->total = $cart->product_price * $cart->cart_list_quantity;
@@ -184,7 +190,7 @@ class ProductController extends Controller
              // $cart->product_title = $product->title;
              // $cart->price = $product->price;
 
-             $product = Product::select('price')->get();
+             $product = Product::find($id);
              // dd($product);
              $cart->quantity = $request->quantity;
              $cart->price = $product[0]['price'] * $cart->quantity;
@@ -243,11 +249,13 @@ class ProductController extends Controller
             $carts = cart::where('user_id', $user->id)->get();
             $count = Cart::where('user_id', Auth::user()->id)->sum('price');
             $total = Cart::where('user_id', Auth::user()->id)->sum('price'); 
+            $datas = $request->harga;
             $data = 0;
             $data1 = $data + $request->harga;
             $transaction = $data1 -= $total;
+
         
-            return view('product.showcart', compact('count','carts','total','transaction'));
+            return view('product.showcart', compact('count','carts','total','transaction','datas'));
         }else{
             
             return redirect('/login');
