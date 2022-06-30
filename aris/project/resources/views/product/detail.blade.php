@@ -28,8 +28,8 @@
         
       </div>
       <div class="col-md-3">
-        @foreach($transactions as $transaction)
-      <form action="{{url('/payment/pdf/'.$transaction->user_id)}}" method="get">
+        @foreach($details as $detail)
+      <form action="{{url('/detail/delete/'.$detail->user_id)}}" method="get">
          @endforeach
          <div class="form-group row">
          <div class="col-md-6">

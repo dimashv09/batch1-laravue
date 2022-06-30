@@ -37,6 +37,7 @@ Route::get('/payment/pdf/{user_id}',[TransactionController::class, 'pdf']);
 Route::get('/orders',[TransactionController::class, 'index']);
 Route::get('/payment',[ProductController::class, 'payment']);
 Route::get('/api/users',[UserController::class, 'api']);
+Route::get('/detail/delete/{user_id}',[TransactionController::class, 'detail']);
 Route::get('/api/products',[ProductController::class, 'api']);
 Route::get('/updateharga',[ProductController::class, 'showcart']);
 Route::get('/reports',[TransactionController::class, 'report']);

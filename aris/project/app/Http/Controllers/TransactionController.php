@@ -110,9 +110,9 @@ class TransactionController extends Controller
 
     public function report(Request $request)
     {
-        $orders = Order::onlyTrashed()->get();
+        $orders = Order::select('name','phone','address','deleted_at')->GroupBy('name','phone','address','user_id','deleted_at')->onlyTrashed()->get();
         
-        $count = Order::onlyTrashed()
+        $count = Order::select('name','phone','address','user_id')->GroupBy('name','phone','address','user_id','deleted_at')->onlyTrashed()
         ->whereDate('deleted_at','Y-m-d');
         $total_order = Order::onlyTrashed()
         ->select(DB::raw("COUNT(*) as total"))
@@ -167,10 +167,14 @@ class TransactionController extends Controller
          ->where('user_id',$request->user_id)
          ->GroupBy('total')->get();
 
-         
+         $details = Order::select('user_id')
+         ->where('user_id',$request->user_id)->get();
+        
+
+        
             $data = $totals[0]['total'];
             $counts = $data - $count;
-            return view('product.detail', compact('transactions','count','data','counts'));
+            return view('product.detail', compact('transactions','count','data','counts','details'));
             // $transaction = new Transaction();
             // $transaction->name = $order->name;
             // $transaction->product_name = $order->product_name;
@@ -185,6 +189,17 @@ class TransactionController extends Controller
 
            
        
+    }
+
+    public function detail(Request $request,$user_id)
+    {
+        $detail = Order::select('id')
+        ->where('user_id',$request->user_id)->get();
+        $details = Transaction::with('orders')->get();
+        $detail->each->delete();
+        $details->each->delete();
+
+        return redirect('orders');
     }
 
 

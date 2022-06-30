@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     use HasFactory;
-
+    use SoftDeletes;
+    
     public function transaction()
     {
         return $this->hasMany('App\Models\Transaction', 'order_id');

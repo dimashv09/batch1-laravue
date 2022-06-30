@@ -33,9 +33,8 @@
 					      <th>No</th>
 					      <th>Tanggal</th>
 					      <th>Nama</th>
-					      <th>Nama Product</th>
-					      <th>Quantity</th>
-					      <th>Price</th>
+					      <th>Phone</th>
+					      <th>Address</th>
 				    	</tr>
 					  </thead>
 					  <tbody>
@@ -44,9 +43,8 @@
 					    	<td>{{ $key+1}}</td>
 					    	<td>{{ date('H:i:s - d M Y', strtotime($order->created_at)) }}</td>
 					    	<td>{{ $order->name }}</td>
-		            <td>{{ $order->product_name }}</td>
-		            <td>{{ $order->quantity }}</td>
-		            <td>{{ $order->price }}</td>
+		            <td>{{ $order->phone }}</td>
+		            <td>{{ $order->address }}</td>
 	   			 		</tr>
 					  @endforeach
 					</tbody>

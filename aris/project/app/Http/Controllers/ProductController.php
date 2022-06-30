@@ -84,6 +84,12 @@ class ProductController extends Controller
 
     public function order(Request $request)
     {
+
+            $this->validate($request,[
+
+                'harga'=>'required',
+
+            ]);
             $user = auth()->user();
             // dd($user);
             $cart = cart::where('user_id', $user->id)->get();
