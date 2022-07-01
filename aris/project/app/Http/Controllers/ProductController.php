@@ -45,13 +45,16 @@ class ProductController extends Controller
              // dd($product);
             $carts = Cart::all();
           
-            // $cart = [''];
-            // foreach($carts as $cart){
-            //     $cart->product_id;
-            //     $cart->user_id;
-            // }
-            // dd($product);
-            //  if ($product[0]->id != $cart->product_id || $cart->user_id != auth()->user()->id) {
+            $cartArray = [];
+
+            foreach($carts as $cart){
+               array_push($cartArray, [
+                    'product_id' => $cart->product_id
+                    ]);
+            }
+            // dd($cartArray);
+            // if (!$cart->isEmpty()) {
+              // if ($product->id != $cart->product_id || $cart->user_id != auth()->user()->id) {
                   $cart = new Cart();
              $cart->user_id = $user->id;
              $cart->name = $user->name;
@@ -65,12 +68,15 @@ class ProductController extends Controller
              return redirect()->back();
           //    }else{
              
-          //    $cart = Cart::find($id);
-          //    $cart->quantity = $request->quantity;
-          //    $cart->price = $product->price * $cart->quantity;
-          //    $cart->save();
+          //    // $cart = Cart::find($id);
+          //    // $cart->quantity = $request->quantity;
+          //    // $cart->price = $product->price * $cart->quantity;
+          //    // $cart->save();
           //       return redirect()->back();
-          // }
+          // }  
+            // }
+           
+             
 
         }else{
             return redirect('login');

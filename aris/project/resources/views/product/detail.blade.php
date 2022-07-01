@@ -32,14 +32,9 @@
       <form action="{{url('/detail/delete/'.$detail->user_id)}}" method="get">
          @endforeach
          <div class="form-group row">
-         <div class="col-md-6">
-         <select class="form-control">
-           <option value="sudah">Terbayar</option>
-           <option value="belum">Belum</option>
-         </select>
-       </div>
+         
        <div class="col-md-3">
-       <input type="submit" class="btn btn-success pull-right" value="Selesaikan Transaksi">
+       <input type="submit" class="btn btn-danger pull-right" value="Selesaikan Transaksi">
      </div>
    </div>
      </form>
