@@ -45,13 +45,13 @@ class ProductController extends Controller
              // dd($product);
             $carts = Cart::all();
           
-            // $cart = [''];
-            // foreach($carts as $cart){
-            //     $cart->product_id;
-            //     $cart->user_id;
-            // }
-            // dd($product);
-            //  if ($product[0]->id != $cart->product_id || $cart->user_id != auth()->user()->id) {
+            $cart = [''];
+            foreach($carts as $cart){
+                $cart->product_id;
+                $cart->user_id;
+            }
+
+             if ($product->id != $cart->product_id || $cart->user_id != auth()->user()->id) {
                   $cart = new Cart();
              $cart->user_id = $user->id;
              $cart->name = $user->name;
@@ -63,14 +63,14 @@ class ProductController extends Controller
              $cart->price = $product->price * $cart->quantity;
              $cart->save();
              return redirect()->back();
-          //    }else{
+             }else{
              
           //    $cart = Cart::find($id);
           //    $cart->quantity = $request->quantity;
           //    $cart->price = $product->price * $cart->quantity;
           //    $cart->save();
-          //       return redirect()->back();
-          // }
+                return redirect()->back();
+          }
 
         }else{
             return redirect('login');
@@ -270,22 +270,30 @@ class ProductController extends Controller
     }
 
 
-    public function pdf()
+    public function pdf(Request $request)
     {
 
 
         if (auth()->user()) {
             $user = auth()->user();
             $carts = cart::where('user_id', $user->id)->get();
+            $date = date('d-M-Y');
+            foreach($carts as $cart){
+                $cart->name;
+                $cart->phone;
+             }
             $count = Cart::where('user_id', Auth::user()->id)->sum('price');
-            $total = Cart::where('user_id', Auth::user()->id)->sum('price');
-            
-            $pdf = PDF::loadView('product.invoice',['carts'=>$carts,'count'=>$count,'total'=>$total])->setPaper('A4','potrait');;
+            $datas = $request->harga;
+            $total = $datas - $count;
+            // dd($request->harga);
+            $pdf = PDF::loadView('product.invoice',['carts'=>$carts,'count'=>$count,'cart'=>$cart,'total'=>$total,'date'=>$date,'datas'=>$datas])->setPaper('A4','potrait');
             return $pdf->download('invoice.pdf');
         }else{
             
             return redirect('/login');
         }
+
+
        
 
     }

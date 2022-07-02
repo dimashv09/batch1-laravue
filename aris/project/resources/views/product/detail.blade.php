@@ -18,11 +18,6 @@
   <div class="card-header">
     <div class="row">
     	<div class="col-md-1">
-        @foreach($transactions as $transaction)
-      <form action="{{url('/payment/pdf/'.$transaction->user_id)}}" method="get">
-         @endforeach
-	     <input type="submit" class="btn btn-primary pull-right" value="Cetak Invoice">
-	   </form>
     	</div>
       <div class="col-md-8">
         
@@ -31,17 +26,7 @@
         @foreach($details as $detail)
       <form action="{{url('/detail/delete/'.$detail->user_id)}}" method="get">
          @endforeach
-         <div class="form-group row">
-         <div class="col-md-6">
-         <select class="form-control">
-           <option value="sudah">Terbayar</option>
-           <option value="belum">Belum</option>
-         </select>
-       </div>
-       <div class="col-md-3">
-       <input type="submit" class="btn btn-success pull-right" value="Selesaikan Transaksi">
-     </div>
-   </div>
+       <input type="submit" class="btn btn-danger" value="Selesaikan Transaksi">
      </form>
       </div>
     	

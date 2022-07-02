@@ -41,7 +41,7 @@
 					  @foreach($orders as $key=>$order)
 					    <tr>
 					    	<td>{{ $key+1}}</td>
-					    	<td>{{ date('H:i:s - d M Y', strtotime($order->created_at)) }}</td>
+					    	<td>{{ date('H:i:s - d M Y', strtotime($order->deleted_at)) }}</td>
 					    	<td>{{ $order->name }}</td>
 		            <td>{{ $order->phone }}</td>
 		            <td>{{ $order->address }}</td>

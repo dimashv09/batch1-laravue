@@ -2,6 +2,14 @@
 @section('content')
   <div class="card text-center">
   <div class="card-header">
+     <div class="row">
+      <div class="col-md-1">
+      <form action="{{ url('/invoice') }}" >
+                <input type="hidden" name="harga" min="0" value="{{$datas}}">
+                <input class="btn btn-primary btn-sm" type="submit" value="Cetak Invoice">
+              </form>
+      </div>
+    </div>
   </div>
  @if(Session::has('success'))
     <div class="alert alert-success">
