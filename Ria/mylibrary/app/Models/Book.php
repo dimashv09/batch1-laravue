@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+
+     public function publisher()
+    {
+        return $this->belongsTo('App\Models\Publisher', 'publisher_id');
+    }
 }

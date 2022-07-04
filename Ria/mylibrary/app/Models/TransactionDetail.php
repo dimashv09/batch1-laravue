@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class TransactionDetail extends Model
 {
     use HasFactory;
+
+    public function books()
+    {
+        return $this->hasMany('App\Models\Book', 'book_id');
+    }
 }
