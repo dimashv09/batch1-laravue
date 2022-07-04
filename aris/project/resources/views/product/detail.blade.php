@@ -26,7 +26,16 @@
         @foreach($details as $detail)
       <form action="{{url('/detail/delete/'.$detail->user_id)}}" method="get">
          @endforeach
+<<<<<<< HEAD
        <input type="submit" class="btn btn-danger" value="Selesaikan Transaksi">
+=======
+         <div class="form-group row">
+         
+       <div class="col-md-3">
+       <input type="submit" class="btn btn-danger pull-right" value="Selesaikan Transaksi">
+     </div>
+   </div>
+>>>>>>> ce971fc2cd3b75018bb5dfcd15c0e5f211fb13bf
      </form>
       </div>
     	

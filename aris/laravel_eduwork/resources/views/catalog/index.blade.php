@@ -2,7 +2,7 @@
 @section('header', 'Catalog')
 @section('content')
 
-@can('index transaction')
+
 <div class="row">
 <div class="col-12">
 <div class="card">
@@ -57,5 +57,4 @@
 
 </div>
 </div>
-@endcan
 @endsection

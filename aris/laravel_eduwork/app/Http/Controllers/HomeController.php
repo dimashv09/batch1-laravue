@@ -62,7 +62,7 @@ class HomeController extends Controller
         $data11 = Member::select('members.name','members.phone_number','members.address','transactions.date_start','transactions.date_end')->join('transactions','transactions.member_id','=','members.id')->where('members.address','like','%bandung%','and','members.gender','=','1')->get();
 
         //no 12
-        $data12 = Member::select('members.name','members.phone_number','members.address','transactions.date_start','transactions.date_end','books.isbn','transaction_details.qty')->join('transactions','transactions.member_id','=','members.id')->join('transaction_details','transaction_details.transaction_id','=','transactions.id')->join('books','books.id','=','transaction_details.book_id')->groupBy('transaction_details.qty')->count('transaction_details.qty','>','1');
+        $data12 = Member::select('members.name','mrs.phone_number','members.address','transactions.date_start','transactions.date_end','books.isbn','transaction_details.qty')->join('transactions','transactions.member_id','=','members.id')->join('transaction_details','transaction_details.transaction_id','=','transactions.id')->join('books','books.id','=','transaction_details.book_id')->groupBy('transaction_details.qty')->count('transaction_details.qty','>','1');
 
         //no 13
         $data13 = DB::table('members')

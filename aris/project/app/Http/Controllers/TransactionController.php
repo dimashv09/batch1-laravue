@@ -111,8 +111,12 @@ class TransactionController extends Controller
     public function report(Request $request)
     {
         $orders = Order::select('name','phone','address','user_id','deleted_at')->GroupBy('name','phone','address','user_id','deleted_at')->onlyTrashed()->get();
+<<<<<<< HEAD
         // dd($orders);
         $count = Order::onlyTrashed()
+=======
+        $count = Order::select('name','phone','address','user_id')->GroupBy('name','phone','address','user_id','deleted_at')->onlyTrashed()
+>>>>>>> ce971fc2cd3b75018bb5dfcd15c0e5f211fb13bf
         ->whereDate('deleted_at','Y-m-d');
         $total_order = Order::onlyTrashed()
         ->select(DB::raw("COUNT(*) as total"))
