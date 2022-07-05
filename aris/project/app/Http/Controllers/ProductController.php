@@ -45,16 +45,13 @@ class ProductController extends Controller
              // dd($product);
             $carts = Cart::all();
           
-            $cartArray = [];
-
+            $cart = [''];
             foreach($carts as $cart){
-               array_push($cartArray, [
-                    'product_id' => $cart->product_id
-                    ]);
+                $cart->product_id;
+                $cart->user_id;
             }
-            // dd($cartArray);
-            // if (!$cart->isEmpty()) {
-              // if ($product->id != $cart->product_id || $cart->user_id != auth()->user()->id) {
+
+             // if ($product->id != $cart->product_id || $cart->user_id != auth()->user()->id) {
                   $cart = new Cart();
              $cart->user_id = $user->id;
              $cart->name = $user->name;
@@ -63,20 +60,18 @@ class ProductController extends Controller
              $cart->product_title = $product->title;
              $cart->product_id = $product->id;
              $cart->quantity = $request->quantity;
+             $cart->total = $product->price;
              $cart->price = $product->price * $cart->quantity;
              $cart->save();
              return redirect()->back();
           //    }else{
              
-          //    // $cart = Cart::find($id);
-          //    // $cart->quantity = $request->quantity;
-          //    // $cart->price = $product->price * $cart->quantity;
-          //    // $cart->save();
+          // //    $cart = Cart::find($id);
+          // //    $cart->quantity = $request->quantity;
+          // //    $cart->price = $product->price * $cart->quantity;
+          // //    $cart->save();
           //       return redirect()->back();
-          // }  
-            // }
-           
-             
+          // }
 
         }else{
             return redirect('login');
@@ -182,62 +177,16 @@ class ProductController extends Controller
     {
         if (Auth::user()) {
 
-             // $user = auth()->user()->id;
-             // $product = Product::find($id);
-             $cart = Cart::with('product')->get();
-             $data = $cart->product->id;
-             return $data;
-              
+            $cart = Cart::find($id);
+            $products = $cart->total;
 
-              // $cart->total = $cart->price * $cart->quantity;
-             // dd($cart->product);
-               
-       // foreach($carts as $cart){
-       //      $cart->total = $cart->product_price * $cart->cart_list_quantity;
-       //      $cart->total_sum = $cart->sum('total');
-       //  }
-             // $cart->name = $user->name;
-             // $cart->phone = $user->phone;
-             // $cart->address = $user->address;
-             // $cart->product_title = $product->title;
-             // $cart->price = $product->price;
-
-             $product = Product::find($id);
-             // dd($product);
-             $cart->quantity = $request->quantity;
-             $cart->price = $product[0]['price'] * $cart->quantity;
-             // if () {
-             //     // code...
-             // }
-             
-             // dd($total);
-             // $carts->price = $request->price;
-
-             // foreach($carts as $cart){
-             //    $cart->total = $cart->price * $cart->quantity;
-
-             // }
-
-             
-             $cart->save();
-
+            $cart->save();
 
              return redirect()->back();
-
 
         }else{
             return redirect('login');
         }
-       
-
-// UPDATE trans t
-//     INNER JOIN (
-//         select user_id, sum(amount) sumAmount
-//         from trans
-//         group by user_id
-//     ) subSum on subSum.user_id = t.user_id
-// SET t.amount = subSum.sumAmount
-
     }
 
 
@@ -276,22 +225,30 @@ class ProductController extends Controller
     }
 
 
-    public function pdf()
+    public function pdf(Request $request)
     {
 
 
         if (auth()->user()) {
             $user = auth()->user();
             $carts = cart::where('user_id', $user->id)->get();
+            $date = date('d-M-Y');
+            foreach($carts as $cart){
+                $cart->name;
+                $cart->phone;
+             }
             $count = Cart::where('user_id', Auth::user()->id)->sum('price');
-            $total = Cart::where('user_id', Auth::user()->id)->sum('price');
-            
-            $pdf = PDF::loadView('product.invoice',['carts'=>$carts,'count'=>$count,'total'=>$total])->setPaper('A4','potrait');;
+            $datas = $request->harga;
+            $total = $datas - $count;
+            // dd($request->harga);
+            $pdf = PDF::loadView('product.invoice',['carts'=>$carts,'count'=>$count,'cart'=>$cart,'total'=>$total,'date'=>$date,'datas'=>$datas])->setPaper('A4','potrait');
             return $pdf->download('invoice.pdf');
         }else{
             
             return redirect('/login');
         }
+
+
        
 
     }

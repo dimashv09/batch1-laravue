@@ -17,13 +17,8 @@
 <div class="card text-center">
   <div class="card-header">
     <div class="row">
-    	<div class="col-md-1">
-        @foreach($transactions as $transaction)
-      <form action="{{url('/payment/pdf/'.$transaction->user_id)}}" method="get">
-         @endforeach
-	     <input type="submit" class="btn btn-primary pull-right" value="Cetak Invoice">
-	   </form>
-    	</div>
+      <div class="col-md-1">
+      </div>
       <div class="col-md-8">
         
       </div>
@@ -31,15 +26,10 @@
         @foreach($details as $detail)
       <form action="{{url('/detail/delete/'.$detail->user_id)}}" method="get">
          @endforeach
-         <div class="form-group row">
-         
-       <div class="col-md-3">
-       <input type="submit" class="btn btn-danger pull-right" value="Selesaikan Transaksi">
-     </div>
-   </div>
+       <input type="submit" class="btn btn-danger" value="Selesaikan Transaksi">
      </form>
       </div>
-    	
+      
     </div>
   </div>
  @if(Session::has('success'))
@@ -74,19 +64,19 @@
   </tbody>
 </table>
 </div>
-	<div class="card-body">
+  <div class="card-body">
 <div class="row">
       <tr>
-      	<td>
-      		<h4 class="pull-right">Total Harga: Rp.{{$count}}<br><br>Total Bayar: Rp.{{$data}}<br><br>Total Kembali: Rp.{{$counts}}</h4>
-      	</td>
+        <td>
+          <h4 class="pull-right">Total Harga: Rp.{{$count}}<br><br>Total Bayar: Rp.{{$data}}<br><br>Total Kembali: Rp.{{$counts}}</h4>
+        </td>
       </tr>
       
     </div>
     <div class="">
-    	
+      
     </div>
-	</div>
+  </div>
 
 </div>
 </div>
@@ -115,9 +105,9 @@
 <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
 <!-- Page specific script -->
 <script>
-	$(function () {
-		$('#datatable').DataTable();
-	});
+  $(function () {
+    $('#datatable').DataTable();
+  });
 </script>
 
 @endsection

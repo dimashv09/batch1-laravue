@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Report;
 use PDF;
 
 class TransactionController extends Controller
@@ -20,31 +21,18 @@ class TransactionController extends Controller
     {
         //
         $orders = Order::select('name','phone','address','user_id')->GroupBy('name','phone','address','user_id')->get();
-        // dd($orders);
-        // $count = Transaction::sum('price');
+
         $transactions = Transaction::all();
         $transaction = Transaction::first();
         $datas = $request->harga;
         $data = '';
         $data = $datas;
 
-        // $total = $data -= $count;
         return view('product.order', compact('orders','transactions','transaction','datas'));
     }
 
 
-    public function updateharga(Request $request)
-    {
-        $transaction = Transaction::sum('price');
-
-        $data = $request->harga;
-
-        dd($data);
-
-        $total = $data -= $transaction;
-       
-        return view('product.order', compact('total'));
-    }
+     
 
      public function apiorder(Request $request)
     {
@@ -84,8 +72,6 @@ class TransactionController extends Controller
             $date = date('d M Y');
             $transactions = Transaction::with('orders')
             ->where('user_id',$request->user_id)->get();
-            // $transaction = Order::with('transaction')
-            // ->where('user_id',$request->user_id)->get();
              $count = Order::where('user_id',$request->user_id)->sum('price');
              $totals = Order::select('total')
              ->where('user_id',$request->user_id)
@@ -110,20 +96,14 @@ class TransactionController extends Controller
 
     public function report(Request $request)
     {
-        $orders = Order::select('name','phone','address','user_id','deleted_at')->GroupBy('name','phone','address','user_id','deleted_at')->onlyTrashed()->get();
-        $count = Order::select('name','phone','address','user_id')->GroupBy('name','phone','address','user_id','deleted_at')->onlyTrashed()
-        ->whereDate('deleted_at','Y-m-d');
-        $total_order = Order::onlyTrashed()
-        ->select(DB::raw("COUNT(*) as total"))
-        ->GroupBy(DB::raw("Day(deleted_at)"))
-        
+        $orders = report::all();
+        $total_order = report::select(DB::raw("COUNT(*) as total"))
+        ->GroupBy(DB::raw("Day(created_at)"))
         ->pluck('total');
-
-        $day = Order::onlyTrashed()
-        ->select(DB::raw("DAYNAME(deleted_at) as day "))
-        ->GroupBy(DB::raw("DAYNAME(deleted_at)"))
+        $day = report::select(DB::raw("DAYNAME(created_at) as day "))
+        ->GroupBy(DB::raw("DAYNAME(created_at)"))
         ->pluck('day');
-        return view('product.report', compact('orders','count', 'total_order', 'day'));
+        return view('product.report', compact('orders', 'total_order', 'day'));
     }
 
     /**
@@ -161,7 +141,6 @@ class TransactionController extends Controller
         $transactions = Transaction::with('orders')
         ->where('user_id',$request->user_id)->get();
          $count = Order::where('user_id',$request->user_id)->sum('price');
-         // dd($count);
          $totals = Order::select('total')
          ->where('user_id',$request->user_id)
          ->GroupBy('total')->get();
@@ -174,18 +153,6 @@ class TransactionController extends Controller
             $data = $totals[0]['total'];
             $counts = $data - $count;
             return view('product.detail', compact('transactions','count','data','counts','details'));
-            // $transaction = new Transaction();
-            // $transaction->name = $order->name;
-            // $transaction->product_name = $order->product_name;
-            // $transaction->price = $order->price;
-            // $transaction->quantity = $order->quantity;
-            // $transaction->user_id = $order->user_id;
-            // $transaction->save();
-
-            // $order->delete();
-            // return redirect()->back();
-
-
            
        
     }
@@ -194,6 +161,16 @@ class TransactionController extends Controller
     {
         $detail = Order::select('id')
         ->where('user_id',$request->user_id)->get();
+        $data = Order::select('name','address','phone')
+        ->where('user_id',$request->user_id)
+        ->GroupBy('name','address','phone')->get();
+       // return $data;
+        $report = new report();
+        $report->name = $data[0]['name'];
+        $report->address = $data[0]['address'];
+        $report->phone = $data[0]['phone'];
+        $report->save();
+
         $details = Transaction::with('orders')->get();
         $detail->each->delete();
         $details->each->delete();

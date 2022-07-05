@@ -14,28 +14,28 @@
  @endsection
 
 <div id="controller">
-	  <div class="card">
-	  <div class="card-header">
-	    <a href="#" @click="addData()" class="btn btn-primary btn-sm pull-right">+ Create New Product</a>
-	  </div>
+    <div class="card">
+    <div class="card-header">
+      <a href="#" @click="addData()" class="btn btn-primary btn-sm pull-right">+ Create New Product</a>
+    </div>
   
-	  <!-- /.card-header -->
-	  <div class="card-body">
-	    <table id="datatables" class="table table-bordered table-striped">
-	      <thead>
-	      <tr>
-	        <th>No</th>
-	        <th>Title</th>
-	        <th>Price</th>
-	        <th>Description</th>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="datatables" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>No</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Description</th>
           <th>Quantity</th>
           <th>Image</th>
-	        <th>Action</th>
-	      </tr>
-	      </thead>
-	    </table>
-	  </div>
-	</div>
+          <th>Action</th>
+        </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
 
 
         <div class="modal fade" id="modal-default">
@@ -109,57 +109,57 @@
 <!-- Page specific script -->
 
 <script>
-	var actionUrl = '{{ url('products') }}';
-	var apiUrl = '{{ url('api/products') }}';
+  var actionUrl = '{{ url('products') }}';
+  var apiUrl = '{{ url('api/products') }}';
 
-	var columns = [
-		{data: 'DT_RowIndex', class: 'text-center', orderable: true },
-		{data: 'title', class: 'text-center', orderable: true },
-		{data: 'price', class: 'text-center', orderable: true },
+  var columns = [
+    {data: 'DT_RowIndex', class: 'text-center', orderable: true },
+    {data: 'title', class: 'text-center', orderable: true },
+    {data: 'price', class: 'text-center', orderable: true },
     {data: 'description', class: 'text-center', orderable: true },
     {data: 'quantity', class: 'text-center', orderable: true },
-		{ data: 'image', class: 'text-center',
+    { data: 'image', class: 'text-center',
                     render: function( data, type, full, meta ) {
                         return "<img src=\"/productimage/" + data + "\" width=\"50\"/>";
                     }
                 },
-		{render: function(index, row, data, meta ){
-			return `
-				<a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
-				Edit
+    {render: function(index, row, data, meta ){
+      return `
+        <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+        Edit
                 </a>
-				<a href="#" class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+        <a href="#" class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
                 Delete</a>
-			`
+      `
 
-		}, orderable: false, width: '200px', class: 'text-center'},
-		];
-		var controller = new Vue({
-			el: '#controller',
-			data: {
-				datas: [],
-				data: {},
-				actionUrl,
-				apiUrl,
+    }, orderable: false, width: '200px', class: 'text-center'},
+    ];
+    var controller = new Vue({
+      el: '#controller',
+      data: {
+        datas: [],
+        data: {},
+        actionUrl,
+        apiUrl,
                 editStatus: false,
 
-			},
-			mounted: function() {
-				this.datatable();
-			},
-			methods: {
-				datatable() {
-					const _this = this;
-					_this.table = $('#datatables').DataTable({
-						ajax: {
-							url: _this.apiUrl,
-							type: 'GET',
-						},
-						columns: columns
-					}).on('xhr', function() {
-						_this.datas = _this.table.ajax.json().data;
-					});
-				},
+      },
+      mounted: function() {
+        this.datatable();
+      },
+      methods: {
+        datatable() {
+          const _this = this;
+          _this.table = $('#datatables').DataTable({
+            ajax: {
+              url: _this.apiUrl,
+              type: 'GET',
+            },
+            columns: columns
+          }).on('xhr', function() {
+            _this.datas = _this.table.ajax.json().data;
+          });
+        },
                addData() {
                 this.data = {};
                 this.actionUrl = '{{ url('products') }}';
@@ -167,9 +167,9 @@
                 editStatus: false;
                },
                editData(event, row){
-               	this.data = this.datas[row];
-               	this.editStatus = true;
-               	$('#modal-default').modal();
+                this.data = this.datas[row];
+                this.editStatus = true;
+                $('#modal-default').modal();
                },
                deleteData(event, id) {
                     if (confirm("Are you sure ?")) {
@@ -189,8 +189,8 @@
                     _this.table.ajax.reload();
                 });
                },
-			}
-		});
+      }
+    });
  
 </script>
 @endsection
