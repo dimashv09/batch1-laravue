@@ -4,13 +4,6 @@
           <div class="col-md-12">
             <div class="section-heading">
               <h2>All Products</h2>
-              <!-- <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
- -->
-              <form action="{{ url('search') }}" method="get" class="form-inline" style="float: right;padding: 10px;">
-                @csrf
-                <input type="search" class="form-control" name="search" placeholder="Search...">
-                <input type="submit" value="Search" class="btn btn-success">
-              </form>
             </div>
           </div>
 

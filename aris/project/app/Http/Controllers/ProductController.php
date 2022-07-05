@@ -40,9 +40,8 @@ class ProductController extends Controller
         if (auth()->user()) {
            
 
-             $user = auth()->user();
-             $product = Product::find($id);
-             // dd($product);
+            $user = auth()->user();
+            $product = Product::find($id);
             $carts = Cart::all();
           
             $cart = [''];
@@ -92,25 +91,13 @@ class ProductController extends Controller
 
             ]);
             $user = auth()->user();
-            // dd($user);
             $cart = cart::where('user_id', $user->id)->get();
-            // dd($carts);
             $carts = Cart::where('user_id', Auth::user()->id)->sum('quantity');
             $count = Cart::where('user_id', Auth::user()->id)->sum('price');
-            // dd($count);
             $total = Cart::where('user_id', Auth::user()->id)->sum('price');
-            
-            // dd($total);
-            // $transaction = Cart::sum('price');
-            // dd($transaction);
-            //     $data = $request->harga;
-
-            //     $total = $data -= $transaction;
-            // dd($request->product_title);
-            // dd($cart);
+    
             foreach ( $cart as $key => $data) {
-                // code...
-          
+               
             $order = new Order();
             $order->name = $user->name;
             $order->phone = $user->phone;
@@ -127,10 +114,7 @@ class ProductController extends Controller
             $transaction->user_id = $order->user_id;
             $transaction->order_id = $order->id;
             $transaction->save();
-            
-
-
-           
+       
         }
 
        $car = Cart::where('user_id',auth()->user()->id)->delete();
@@ -141,19 +125,13 @@ class ProductController extends Controller
      public function payment(Request $request)
     {
             $user = auth()->user();
-            // dd($user);
             $cart = cart::where('user_id', $user->id)->get();
-            // dd($carts);
             $carts = Cart::where('user_id', Auth::user()->id)->sum('quantity');
             $count = Cart::where('user_id', Auth::user()->id)->sum('price');
-            // dd($count);
             $total = Cart::where('user_id', Auth::user()->id)->sum('price');
 
-            // dd($request->product_title);
-            // dd($cart);
             foreach ( $cart as $key => $data) {
-                // code...
-          
+
             $order = new Order();
             $order->name = $user->name;
             $order->phone = $user->phone;
@@ -163,9 +141,7 @@ class ProductController extends Controller
             $order->quantity = $data->quantity;
             $order->user_id = $user->id;
             $order->save();
-
-
-           
+    
         }
 
         DB::table('carts')->where('user_id',auth()->user()->id)->delete();
@@ -179,10 +155,11 @@ class ProductController extends Controller
 
             $cart = Cart::find($id);
             $products = $cart->total;
-
+            $cart->quantity = $request->quantity;
+            $cart->price = $products * $cart->quantity;
             $cart->save();
 
-             return redirect()->back();
+            return redirect()->back();
 
         }else{
             return redirect('login');

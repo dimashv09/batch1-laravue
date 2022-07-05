@@ -81,7 +81,6 @@ class TransactionController extends Controller
                 $transaction->orders->name;
                 $transaction->orders->phone;
              }
-
             
             $data = $totals[0]['total'];
             $counts = $data - $count;
@@ -164,7 +163,7 @@ class TransactionController extends Controller
         $data = Order::select('name','address','phone')
         ->where('user_id',$request->user_id)
         ->GroupBy('name','address','phone')->get();
-       // return $data;
+      
         $report = new report();
         $report->name = $data[0]['name'];
         $report->address = $data[0]['address'];
