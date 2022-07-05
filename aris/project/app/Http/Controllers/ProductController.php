@@ -43,14 +43,31 @@ class ProductController extends Controller
             $user = auth()->user();
             $product = Product::find($id);
             $carts = Cart::all();
+            $cart = Cart::find($id);
+            // dd($cart);
           
-            $cart = [''];
+            $cart = [];
             foreach($carts as $cart){
                 $cart->product_id;
                 $cart->user_id;
             }
 
-             // if ($product->id != $cart->product_id || $cart->user_id != auth()->user()->id) {
+            if(empty($cart)){
+                $cart = new Cart();
+             $cart->user_id = $user->id;
+             $cart->name = $user->name;
+             $cart->phone = $user->phone;
+             $cart->address = $user->address;
+             $cart->product_title = $product->title;
+             $cart->product_id = $product->id;
+             $cart->quantity = $request->quantity;
+             $cart->total = $product->price;
+             $cart->price = $product->price * $cart->quantity;
+             $cart->save();
+             return redirect()->back();
+
+            }else{
+             if ($product->id != $cart->product_id || $cart->user_id != auth()->user()->id) {
                   $cart = new Cart();
              $cart->user_id = $user->id;
              $cart->name = $user->name;
@@ -63,14 +80,11 @@ class ProductController extends Controller
              $cart->price = $product->price * $cart->quantity;
              $cart->save();
              return redirect()->back();
-          //    }else{
+             }else{
              
-          // //    $cart = Cart::find($id);
-          // //    $cart->quantity = $request->quantity;
-          // //    $cart->price = $product->price * $cart->quantity;
-          // //    $cart->save();
-          //       return redirect()->back();
-          // }
+                return redirect()->back();
+          }
+      }
 
         }else{
             return redirect('login');
