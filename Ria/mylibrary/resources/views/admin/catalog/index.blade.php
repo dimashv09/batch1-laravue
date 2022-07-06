@@ -6,7 +6,7 @@
 <div class="col-12">
 <div class="card">
 <div class="card-header">
-<h3 class="card-title">CATALOG</h3>
+<h3 class="card-title">DATA CATALOG</h3>
 <div class="card-tools">
 <div class="input-group input-group-sm" style="width: 150px;">
 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -23,59 +23,24 @@
 <table class="table table-head-fixed text-nowrap">
 <thead>
 <tr>
-<th>ID</th>
-<th>Name</th>
-<th>Created Date</th>
-<th>Update Date</th>
-<th>Description</th>
+<th class="text-center">ID</th>
+<th class="text-center">Name</th>
+<th class="text-center">Total Books</th>
+<th class="text-center">Created Date</th>
+<th class="text-center">Update Date</th>
 </tr>
 </thead>
 <tbody>
+	@foreach($catalogs as $key => $catalog)
 <tr>
-<td>1</td>
-<td>Education</td>
-<td>2022-06-22</td>
-<td>2022-06-22</td>
-<td><span class="tag tag-success">Approved</span></td>
-<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-</tr>
-
-<tr>
-<td>2</td>
-<td>Programing</td>
-<td>2022-06-22</td>
-<td>2022-06-22</td>
-<td><span class="tag tag-success">Approved</span></td>
-<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-</tr>
-
-<tr>
-<td>3</td>
-<td>Biography</td>
-<td>2022-06-22</td>
-<td>2022-06-22</td>
-<td><span class="tag tag-success">Approved</span></td>
-<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-</tr>
-
-<tr>
-<td>4</td>
-<td>Novel</td>
-<td>2022-06-22</td>
-<td>2022-06-22</td>
-<td><span class="tag tag-success">Approved</span></td>
-<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-</tr>
-
-<tr>
-<td>5</td>
-<td>Encyclopedia</td>
-<td>2022-06-22</td>
-<td>2022-06-22</td>
-<td><span class="tag tag-success">Approved</span></td>
-<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+<td class="text-center">{{ $key+1 }}</td>
+<td class="text-center">{{ $catalog->name }}</td>
+<td class="text-center">{{ count($catalog->books) }}</td>
+<td class="text-center">{{ date('H:i:s - d M y', strtotime($catalog->created_at)) }}</td>
+<td class="text-center">{{ date('H:i:s - d M y', strtotime($catalog->updated_at)) }}</td>
 </tr>
 </tbody>
+	@endforeach
 </table>
 </div>
 
