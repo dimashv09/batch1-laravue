@@ -8,6 +8,7 @@
 <div class="card-header">
 <h3 class="card-title">DATA CATALOG</h3>
 <div class="card-tools">
+	<a href="{{ url('catalogs/create') }}" class="btn btn-sm btn-primary pull-left">Create New Catalog</a>
 <div class="input-group input-group-sm" style="width: 150px;">
 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 <div class="input-group-append">
@@ -28,6 +29,7 @@
 <th class="text-center">Total Books</th>
 <th class="text-center">Created Date</th>
 <th class="text-center">Update Date</th>
+<th class="text-center">Action</th>
 </tr>
 </thead>
 <tbody>
@@ -38,6 +40,14 @@
 <td class="text-center">{{ count($catalog->books) }}</td>
 <td class="text-center">{{ date('H:i:s - d M y', strtotime($catalog->created_at)) }}</td>
 <td class="text-center">{{ date('H:i:s - d M y', strtotime($catalog->updated_at)) }}</td>
+<td class="text-center">
+	<a href="{{ url('catalogs/'.$catalog->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+	<form action="{{ url('catalogs', ['id' => $catalog->id]) }}" method="post">
+		<input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are You Sure?')">
+		@method('delete')
+		@csrf
+	</form>
+</td>
 </tr>
 </tbody>
 	@endforeach
