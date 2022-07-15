@@ -25,6 +25,12 @@ class TransactionController extends Controller
     
     public function index()
     {   
+        if (auth()->user()->hasRole('admin')) {
+            return view('admin.transaction.index');
+        } else {
+            return redirect('home');
+        }
+        
         return view('admin.transaction.index');
     }
 
@@ -176,13 +182,13 @@ class TransactionController extends Controller
                     'book_id' => $item,
                     'qty' => 1                    
                 ]);
+                $books = Book::find($item);
+                if($request->status == 1){
+                    $books->qty += 1;
+                    $books->update();
+                }
             }
-            $books = Book::find($item);
-            if($books->qty == 1){
-            $books->qty += 1;
-            $books->update();
-            }
-        }
+    }
         return redirect('transaction');
     }
 

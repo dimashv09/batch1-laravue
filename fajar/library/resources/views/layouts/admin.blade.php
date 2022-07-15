@@ -214,6 +214,7 @@
                                 </p>
                             </a>
                         </li>
+                        @role('admin')
                         <li class="nav-item">
                             <a href="{{url('transaction')}}"
                                 class="nav-link {{request()->is('transaction') ? 'active' : ''}}">
@@ -223,6 +224,7 @@
                                 </p>
                             </a>
                         </li>
+                        @endrole
                         <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
