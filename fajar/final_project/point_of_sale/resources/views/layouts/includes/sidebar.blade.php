@@ -38,7 +38,7 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fa fa-list-alt"></i>
                         <p>
                             Kategori
                         </p>
@@ -46,7 +46,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fab fa-dropbox"></i>
                         <p>
                             Produk
                         </p>
@@ -54,7 +54,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fa fa-address-card"></i>
                         <p>
                             Member
                         </p>
@@ -62,7 +62,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-truck-loading"></i>
                         <p>
                             Supplier
                         </p>
@@ -75,7 +75,7 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-money-bill"></i>
                         <p>
                             Pengeluaran
                         </p>
@@ -89,6 +89,30 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Pembelian
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            Transaksi lama
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-cart-arrow-down"></i>
+                        <p>
+                            Transaksi baru
+                        </p>
+                    </a>
+                </li>
 
                 <li class="header nav-item bg-secondary text-center">
                     Report
@@ -96,7 +120,7 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-file-alt"></i>
                         <p>
                             Laporan
                         </p>
@@ -109,7 +133,7 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-user"></i>
                         <p>
                             User
                         </p>
@@ -117,7 +141,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-cogs"></i>
                         <p>
                             pengaturan
                         </p>
