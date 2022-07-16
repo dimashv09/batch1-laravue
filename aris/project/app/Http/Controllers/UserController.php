@@ -67,12 +67,16 @@ class UserController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'email'=> 'required',
+            'phone' => 'required',
+            'address'=> 'required',
             'role' => 'required',
             'password' => 'required', 'string', 'min:8', 'confirmed',
         ]);
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
         $user->role = $request->role;
         $user->password = Hash::make($request['password']);
         $user->remember_token = Str::random(40);
@@ -122,12 +126,16 @@ class UserController extends Controller
          $this->validate($request,[
             'name' => 'required',
             'email'=> 'required',
+            'phone' => 'required',
+            'address'=> 'required',
             'role' => 'required',
             'password' => 'required', 'string', 'min:8', 'confirmed',
         ]);
 
          $user->name = $request->name;
          $user->email = $request->email;
+         $user->phone = $request->phone;
+         $user->address = $request->address;
          $user->role = $request->role;
          $user->password = $request->password;
          $user->save();

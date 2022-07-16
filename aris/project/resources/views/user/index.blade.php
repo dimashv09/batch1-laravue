@@ -26,6 +26,8 @@
 	        <th>No</th>
 	        <th>Name</th>
 	        <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
 	        <th>Jabatan</th>
 	        <th>Action</th>
 	      </tr>
@@ -49,12 +51,20 @@
                     @csrf
                     <input type="hidden" name="_method" value="PUT" v-if="editStatus">
                    <div class="form-group">
-                    <label>Nama</label>
+                    <label>Name</label>
                     <input type="text" name="name" :value="data.name" class="form-control" placeholder="Input Name" required="">
                   </div>
                   <div class="form-group">
                     <label>Email</label>
                     <input type="email" name="email" :value="data.email" class="form-control" placeholder="Input Email" required="">
+                  </div>
+                  <div class="form-group">
+                    <label>Phone</label>
+                    <input type="number" name="phone" :value="data.phone" class="form-control" placeholder="Input Phone" required="">
+                  </div>
+                  <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" name="address" :value="data.address" class="form-control" placeholder="Input Address" required="">
                   </div>
                   <div class="form-group">
                     <label>Password</label>
@@ -119,6 +129,8 @@
 		{data: 'DT_RowIndex', class: 'text-center', orderable: true },
 		{data: 'name', class: 'text-center', orderable: true },
 		{data: 'email', class: 'text-center', orderable: true },
+    {data: 'phone', class: 'text-center', orderable: true },
+    {data: 'address', class: 'text-center', orderable: true },
 		{data: 'role', class: 'text-center', orderable: true },
 		{render: function(index, row, data, meta ){
 			return `
