@@ -37,7 +37,7 @@
 	      		<td>{{$order->name }}</td>
 	      		<td>{{$order->phone }}</td>
 	      		<td>{{$order->address }}</td>
-	      		<td><a href="{{ url('transaction/'.$order->user_id) }}" class="btn btn-success btn-sm">Detail Transaction</a></td>
+	      		<td><a href="{{ url('transaction/'.$order->detail_id) }}" class="btn btn-success btn-sm">Detail Transaction</a></td>
 	      	</tr>
 	      	@endforeach
 	      </tbody>

@@ -31,7 +31,6 @@ Route::get('/search',[ProductController::class, 'search']);
 Route::group(['middleware' => ['auth','CheckRole:admin']], function(){
 Route::resource('/users', UserController::class);
 Route::resource('/products', ProductController::class);
-Route::get('/invoice',[ProductController::class, 'pdf']);
 Route::get('/order',[TransactionController::class, 'order']);
 Route::get('/payment/pdf/{user_id}',[TransactionController::class, 'pdf']);
 Route::get('/orders',[TransactionController::class, 'index']);
@@ -43,11 +42,12 @@ Route::get('/reports',[TransactionController::class, 'report']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
+Route::get('/invoice',[ProductController::class, 'pdf']);
 Route::get('/transaction',[TransactionController::class, 'store']);
 Route::get('/updateharga',[ProductController::class, 'showcart']);
 Route::get('/data',[TransactionController::class, 'data']);
 Route::get('/order/product',[ProductController::class, 'order']);
-Route::get('/transaction/{user_id}',[TransactionController::class, 'update']);
+Route::get('/transaction/{detail_id}',[TransactionController::class, 'update']);
 Route::get('/delete/transaction/{id}',[TransactionController::class, 'destroy']);
 Route::get('/delete_transaction',[TransactionController::class, 'deletetransaction']);
 // Route::get('/updateharga',[TransactionController::class, 'index']);

@@ -11,6 +11,7 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Transaction;
+use App\Models\Report;
 use PDF;
 class ProductController extends Controller
 {
@@ -98,18 +99,34 @@ class ProductController extends Controller
 
     public function order(Request $request)
     {
+            $invoice = DB::table('invoices')->select('status')
+            ->where('user_id','=',auth()->user()->id)
+            ->get();
 
-            $this->validate($request,[
+            if ($request->total < 0 ) {
+                return redirect()->back()->with('success','Uang yang anda masukan kurang');
+            }
+            if($invoice->isEmpty()){
+               return redirect()->back()->with('success','Harus cetak invoice terlebih dahulu');
 
-                'harga'=>'required',
+            }
 
-            ]);
             $user = auth()->user();
             $cart = cart::where('user_id', $user->id)->get();
             $carts = Cart::where('user_id', Auth::user()->id)->sum('quantity');
             $count = Cart::where('user_id', Auth::user()->id)->sum('price');
             $total = Cart::where('user_id', Auth::user()->id)->sum('price');
-    
+           
+            $transaction = DB::table('transaction_details')->insert([
+                'user_id' => $user->id,
+                
+            ]);
+            // dd($transaction);
+
+            $transaction_detail = DB::table('transaction_details')->select('id')
+            ->where('user_id','=',auth()->user()->id)->get();
+            // dd($transaction_detail);
+
             foreach ( $cart as $key => $data) {
                
             $order = new Order();
@@ -122,15 +139,25 @@ class ProductController extends Controller
             $order->quantity = $data->quantity;
             $order->user_id = $user->id;
             $order->total = $request->harga;
+            $order->detail_id = $transaction_detail[0]->id;
             $order->save();
 
             $transaction = new Transaction();
             $transaction->user_id = $order->user_id;
             $transaction->order_id = $order->id;
+            $transaction->detail_id = $transaction_detail[0]->id;
             $transaction->save();
-       
+
         }
 
+        $report = new Report();
+        $report->name = $user->name;
+        $report->address = $user->address;
+        $report->phone = $user->phone;
+        $report->detail_id = $transaction_detail[0]->id;
+        $report->save();
+        DB::table('transaction_details')->where('user_id','=',auth()->user()->id)->delete();
+        DB::table('invoices')->where('user_id','=',auth()->user()->id)->delete();
        $car = Cart::where('user_id',auth()->user()->id)->delete();
          return redirect()->back()->with('success','order anda sudah berhasil');
 
@@ -219,7 +246,14 @@ class ProductController extends Controller
     public function pdf(Request $request)
     {
 
-
+      if ($request->total < 0 ) {
+                return redirect()->back()->with('success','Uang yang anda masukan kurang');
+            }
+        $data = auth()->user()->id;
+        DB::table('invoices')->insert([
+            'status'=>1,
+            'user_id'=>$data,
+        ]);
         if (auth()->user()) {
             $user = auth()->user();
             $carts = cart::where('user_id', $user->id)->get();

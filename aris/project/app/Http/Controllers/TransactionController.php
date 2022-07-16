@@ -20,7 +20,7 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         //
-        $orders = Order::select('name','phone','address','user_id')->GroupBy('name','phone','address','user_id')->get();
+        $orders = Order::select('name','phone','address','detail_id')->GroupBy('name','phone','address','detail_id')->get();
 
         $transactions = Transaction::all();
         $transaction = Transaction::first();
@@ -66,7 +66,7 @@ class TransactionController extends Controller
 
      public function pdf(Request $request)
     {
-
+        
 
         if (auth()->user()) {
             $date = date('d M Y');
@@ -138,14 +138,15 @@ class TransactionController extends Controller
     public function update(Request $request, Transaction $transaction, $user_id)
     {
         $transactions = Transaction::with('orders')
-        ->where('user_id',$request->user_id)->get();
-         $count = Order::where('user_id',$request->user_id)->sum('price');
+        ->where('detail_id',$request->detail_id)->get();
+        // dd($transactions);
+         $count = Order::where('detail_id',$request->detail_id)->sum('price');
          $totals = Order::select('total')
-         ->where('user_id',$request->user_id)
+         ->where('detail_id',$request->detail_id)
          ->GroupBy('total')->get();
 
-         $details = Order::select('user_id')
-         ->where('user_id',$request->user_id)->get();
+         $details = Order::select('detail_id')
+         ->where('detail_id',$request->detail_id)->get();
         
 
         

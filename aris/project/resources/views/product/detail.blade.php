@@ -22,13 +22,6 @@
       <div class="col-md-8">
         
       </div>
-      <div class="col-md-3">
-        @foreach($details as $detail)
-      <form action="{{url('/detail/delete/'.$detail->user_id)}}" method="get">
-         @endforeach
-       <input type="submit" class="btn btn-danger" value="Selesaikan Transaksi">
-     </form>
-      </div>
       
     </div>
   </div>

@@ -6,6 +6,7 @@
       <div class="col-md-1">
       <form action="{{ url('/invoice') }}" >
                 <input type="hidden" name="harga" min="0" value="{{$datas}}">
+                <input type="hidden" name="total" value="{{$transaction}}">
                 <input class="btn btn-primary btn-sm" type="submit" value="Cetak Invoice">
               </form>
       </div>
@@ -57,7 +58,7 @@
     <tr>
       <td>Total Harga: Rp.{{$total}}&nbsp;&nbsp;&nbsp;</td>
       <td><form action="{{url('/updateharga/')}}" >
-                <input type="number" name="harga" min="0">
+                <input type="number" placeholder="Masukan uang anda..." name="harga" min="0">
                 <input class="btn btn-success btn-sm" type="submit" value="Bayar">
               </form></td>
       <td>&nbsp;&nbsp;&nbsp;Total Kembalian: Rp.{{$transaction}}</td>
@@ -70,6 +71,7 @@
   <div class="col-md-3">
     <form action="{{ url('/order/product') }}" >
                 <input type="hidden" name="harga" value="{{$datas}}">
+                <input type="hidden" name="total" value="{{$transaction}}">
                 <input type="submit" class="btn btn-primary" value="CheckOut">
               </form>
   </div>

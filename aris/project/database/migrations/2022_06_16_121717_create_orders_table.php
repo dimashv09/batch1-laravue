@@ -25,6 +25,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('detail_id')->nullable();
             $table->timestamps();
         });
     }
