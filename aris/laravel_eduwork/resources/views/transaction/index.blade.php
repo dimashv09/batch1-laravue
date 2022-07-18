@@ -15,12 +15,12 @@
 	<div class="card">
 	  <div class="card-header">
 	  	<div class="row">
-	  	<div class="col-md-6">
+	  	<div class="col-md-4">
 	    	   <a href="#" @click="addData()" class="btn btn-primary pull-right">Create New Peminjaman</a>
 		</div>
-		 <div class="col-md-3">
+		 <div class="col-md-4">
 		    	<div class="form-group row">
-	    		<label class="col-md-2">Status : </label>
+	    		<label class="col-md-3">Status : </label>
 	    		<div class="col-md-9">
 		               <select class="form-control" name="status">
 		                   <option value="0">Semua</option>
@@ -31,10 +31,10 @@
 	           	</div>
            	</div>
 
-           	<div class="col-md-3">
+           	<div class="col-md-4">
 	              <div class="form-group row">
-	    		<label class="col-md-3">Tanggal Peminjaman : </label>
-	    		<div class="col-md-9">
+	    		<label class="col-md-4">Tanggal Peminjaman : </label>
+	    		<div class="col-md-8">
 		               <input type="date" class="form-control" name="date_start" value="date_start">
 	       		</div>
 	             </div>
@@ -162,6 +162,7 @@
 </script>
 <script>
     var actionUrl = '{{ url('transactions') }}';
+    var actionEdit = '{{ url('transactions/edit') }}';
     var apiUrl = '{{ url('api/transactions') }}';
     var dateUrl = '{{ url('date/transactions') }}';
 
@@ -176,7 +177,7 @@
     {data: 'duration', class: 'text-center', orderable: true},
     {render: function(index, row, data, meta) {
         return `
-            <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+            <a href="${actionEdit}/${data.id}" class="btn btn-warning btn-sm">
             Edit
             </a>
             <a href="${actionUrl}/${data.id}" class="btn btn-success btn-sm">

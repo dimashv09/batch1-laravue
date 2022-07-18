@@ -47,7 +47,8 @@ Route::resource('/authors', AuthorController::class);
 Route::resource('/members',MemberController::class);
 Route::resource('/books',BookController::class);
 Route::resource('/transactions',TransactionController::class);
-
+Route::get('/transactions/edit/{transaction}',[TransactionController::class, 'edit']);
+Route::put('/transactions/update/{transaction}',[TransactionController::class, 'update']);
 Route::get('/api/transactions',[TransactionController::class, 'api']);
 Route::get('/date/transactions',[TransactionController::class, 'date']);
 Route::get('/api/authors',[AuthorController::class, 'api']);

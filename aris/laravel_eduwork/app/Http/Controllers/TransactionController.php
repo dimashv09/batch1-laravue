@@ -190,6 +190,11 @@ class TransactionController extends Controller
     public function edit(Transaction $transaction)
     {
         //
+        $members = Member::all();
+        $books = Book::where('qty', '>=', 1)->get();
+        $transactiondetail = TransactionDetail::where('transaction_id', $transaction->id)->get();
+        // dd($transaction);
+        return view('transaction.edit', compact('transaction','members','books','transactiondetail'));
         
     }
 
