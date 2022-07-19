@@ -20,3 +20,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::group(['middleware' => 'auth'], function (){
+    Route::get('/category/data', [App\Http\Controllers\CategoryController::class, 'data'])->name('category.data');
+    Route::resource('category', App\Http\Controllers\CategoryController::class);
+    
+    //product
+    Route::get('/product/data', [App\Http\Controllers\ProductController::class, 'data'])->name('product.data');
+    Route::post('/product/deleteSelected', [App\Http\Controllers\ProductController::class, 'deleteSelected'])->name('product.deleteSelected');
+    Route::resource('product', App\Http\Controllers\ProductController::class);
+    
+});

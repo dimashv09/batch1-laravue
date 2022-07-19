@@ -31,4 +31,10 @@ function terbilang ($number) {
     return $terbilang;
 }
 
+
+function tambah_0_first($value, $threshold = null)
+{
+    return sprintf("%0". $threshold . "s", $value);
+}
+
 ?>
