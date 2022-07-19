@@ -1,0 +1,10 @@
+SELECT * FROM obat;
+SELECT * FROM manufaktur;
+SELECT * FROM transaksi;
+SELECT * FROM transaksi_detail;
+SELECT nama_obat FROM obat;
+SELECT nama FROM manufaktur;
+SELECT * FROM obat WHERE id_manufaktur = 1;
+SELECT * FROM obat WHERE id_manufaktur = 4;
+SELECT * FROM transaksi_detail WHERE harga > 3000;
+SELECT * FROM transaksi_detail WHERE qty > 2;
