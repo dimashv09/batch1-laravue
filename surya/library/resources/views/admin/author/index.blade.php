@@ -7,7 +7,8 @@ Author
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">List of Author</h3>
+                <a href="{{ url('authors/create') }}" class="btn btn-primary btn-sm"><span class="fas fa-plus"></span>
+                    Add New Author</a>
             </div>
 
             <div class="card-body">
@@ -31,8 +32,14 @@ Author
                             <td>{{ $author->phone }}</td>
                             <td class="text-center">{{ count($author->books) }}</td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                <a href="#" class="btn btn-warning btn-sm"><span class="fas fa-edit"></span></a>
+                                <a href="{{ url('authors/'. $author->id .'/edit') }}"
+                                    class="btn btn-warning btn-sm">edit</a>
+                                <form action="{{ url('authors', ['id' => $author->id]) }}" method="post">
+                                    <input type="submit" onclick="return confirm('Are you sure?')"
+                                        class="btn btn-danger btn-sm" value="delete">
+                                    @method('delete')
+                                    @csrf
+                                </form>
                             </td>
                         </tr>
                         @endforeach

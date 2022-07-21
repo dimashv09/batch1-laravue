@@ -7,7 +7,8 @@ Catalog
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">List of Catalog</h3>
+                <a href="{{ url('catalogs/create') }}" class="btn btn-primary btn-sm"><span class="fas fa-plus"></span>
+                    Add New Catalog</a>
             </div>
 
             <div class="card-body">
@@ -17,7 +18,7 @@ Catalog
                             <th style="width: 10px">#</th>
                             <th class="text-center">Name</th>
                             <th class="text-center">Total Books</th>
-                            <th class="text-center" style="width: 100px">Action</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,8 +28,14 @@ Catalog
                             <td>{{ $catalog->name }}</td>
                             <td class="text-center">{{ count($catalog->books) }}</td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                <a href="#" class="btn btn-warning btn-sm"><span class="fas fa-edit"></span></a>
+                                <a href="{{ url('catalogs/'. $catalog->id .'/edit') }}"
+                                    class="btn btn-warning btn-sm">edit</a>
+                                <form action="{{ url('catalogs', ['id' => $catalog->id]) }}" method="post">
+                                    <input type="submit" onclick="return confirm('Are you sure?')"
+                                        class="btn btn-danger btn-sm" value="delete">
+                                    @method('delete')
+                                    @csrf
+                                </form>
                             </td>
                         </tr>
                         @endforeach

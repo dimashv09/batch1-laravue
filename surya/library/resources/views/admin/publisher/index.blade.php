@@ -7,7 +7,9 @@ Publisher
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">List of Publisher</h3>
+                <a href="{{ url('publishers/create') }}" class="btn btn-primary btn-sm"><span
+                        class="fas fa-plus"></span>
+                    Add New Publisher</a>
             </div>
 
             <div class="card-body">
@@ -31,8 +33,14 @@ Publisher
                             <td>{{ $publisher->phone }}</td>
                             <td class="text-center">{{ count($publisher->books) }}</td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                <a href="#" class="btn btn-warning btn-sm"><span class="fas fa-edit"></span></a>
+                                <a href="{{ url('publishers/'. $publisher->id .'/edit') }}"
+                                    class="btn btn-warning btn-sm">edit</a>
+                                <form action="{{ url('publishers', ['id' => $publisher->id]) }}" method="post">
+                                    <input type="submit" onclick="return confirm('Are you sure?')"
+                                        class="btn btn-danger btn-sm" value="delete">
+                                    @method('delete')
+                                    @csrf
+                                </form>
                             </td>
                         </tr>
                         @endforeach

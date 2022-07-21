@@ -26,7 +26,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.member.create');
     }
 
     /**
@@ -37,7 +37,16 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'    => 'required|string',
+            'gender'  => 'required',
+            'phone'   => 'required|numeric|unique:members,phone',
+            'address' => 'string',
+            'email'   => 'required|email|unique:members,email',
+        ]);
+        Member::create($request->all());
+
+        return redirect('members');
     }
 
     /**
@@ -59,7 +68,7 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
-        //
+        return view('admin.member.edit', compact('member'));
     }
 
     /**
@@ -71,7 +80,16 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-        //
+        $this->validate($request, [
+            'name'    => 'required|string',
+            'gender'  => 'required',
+            'phone'   => 'required|numeric',
+            'address' => 'string',
+            'email'   => 'required|email',
+        ]);
+        $member->update($request->all());
+
+        return redirect('members');
     }
 
     /**
@@ -82,6 +100,7 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $member->delete();
+        return redirect('members');
     }
 }
