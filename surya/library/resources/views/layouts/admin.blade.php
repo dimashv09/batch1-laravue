@@ -24,8 +24,8 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="assets/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
-                width="60">
+            <img class="animation__shake" src="{{ url('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
+                height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -57,8 +57,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ url('home') }}" class="brand-link">
-                <img src="assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <i class="fas fa-book-open fa-lg mx-3"></i>
                 <span class="brand-text font-weight-light">Library</span>
             </a>
 
@@ -67,7 +66,8 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ url('assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                            alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ auth()->user()->name }}</a>
