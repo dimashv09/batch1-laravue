@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -14,7 +15,14 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('admin.book.index');
+        $books = DB::table('books')
+            ->join('catalogs', 'books.catalog_id', '=', 'catalogs.id')
+            ->join('authors', 'books.author_id', '=', 'authors.id')
+            ->join('publishers', 'books.publisher_id', '=', 'publishers.id')
+            ->select('books.*')
+            ->get();
+
+        return view('admin.book.index', compact('books'));
     }
 
     /**
