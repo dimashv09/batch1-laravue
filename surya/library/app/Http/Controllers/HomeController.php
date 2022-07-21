@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Member;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
