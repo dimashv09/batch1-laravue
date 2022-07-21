@@ -35,5 +35,16 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('/product/print-barcode', [App\Http\Controllers\ProductController::class, 'printBarcode'])->name('product.printBarcode');
 
     Route::resource('product', App\Http\Controllers\ProductController::class);
+
+
+    //member
+    Route::get('/member/data', [App\Http\Controllers\MemberController::class, 'data'])->name('member.data');
+    Route::post('/member/print-member', [App\Http\Controllers\MemberController::class, 'printMember'])->name('member.printMember');
+    Route::resource('member', App\Http\Controllers\MemberController::class);
+
+
+    //supplier
+    Route::get('/supplier/data', [App\Http\Controllers\SupplierController::class, 'data'])->name('supplier.data');
+    Route::resource('supplier', App\Http\Controllers\SupplierController::class);
     
 });

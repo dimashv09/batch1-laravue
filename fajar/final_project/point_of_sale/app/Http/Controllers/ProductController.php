@@ -41,9 +41,9 @@ class ProductController extends Controller
                 return money_format($product->sell_price);
             })
             ->addColumn('aksi', function ($product) {
-                return '<button onclick="editForm(`'. route('product.update', $product->id) .'`)" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i>
+                return '<button type="button" onclick="editForm(`'. route('product.update', $product->id) .'`)" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i>
                     </button>
-                    <button onclick="deleteData(`'. route('product.destroy', $product->id) .'`)" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                    <button type="button" onclick="deleteData(`'. route('product.destroy', $product->id) .'`)" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
                 ';
             })
             ->rawColumns(['aksi', 'product_code', 'checkbox'])
