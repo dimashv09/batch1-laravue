@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use PDF;
+use DNS1D;
 
 class ProductController extends Controller
 {
@@ -136,5 +138,20 @@ class ProductController extends Controller
             $product->delete();
         }
         return response(null, 204);
+    }
+
+    public function printBarcode(Request $request)
+    {
+        $dataproduct = array();
+        foreach ($request->id as $id) {
+            $product = Product::find($id);
+            $dataproduct[] = $product;
+        }
+
+        $no  = 1;
+        $pdf = PDF::loadView('pages.product.barcode', compact('dataproduct', 'no'));
+        $pdf->setPaper('a4', 'potrait');
+        return $pdf->stream('product.pdf');
+
     }
 }

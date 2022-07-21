@@ -29,7 +29,11 @@ Route::group(['middleware' => 'auth'], function (){
     
     //product
     Route::get('/product/data', [App\Http\Controllers\ProductController::class, 'data'])->name('product.data');
-    Route::post('/product/deleteSelected', [App\Http\Controllers\ProductController::class, 'deleteSelected'])->name('product.deleteSelected');
+
+    Route::post('/product/deleteSelected', [App\Http\Controllers\ProductController::class, 'deleteSelected'])->name('product.deleteSelected');  
+
+    Route::post('/product/print-barcode', [App\Http\Controllers\ProductController::class, 'printBarcode'])->name('product.printBarcode');
+
     Route::resource('product', App\Http\Controllers\ProductController::class);
     
 });
