@@ -7,16 +7,15 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $authors = Author::with('books')->get();
-
-        return view('admin.author.index', compact('authors'));
+        $authors = Author::all();
+        return view('admin.author', compact('authors'));
     }
 
     /**
@@ -26,7 +25,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return view('admin.author.create');
+
     }
 
     /**
@@ -67,7 +66,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        return view('admin.author.edit', compact('author'));
+        
     }
 
     /**
@@ -99,6 +98,5 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         $author->delete();
-        return redirect('authors');
     }
 }
