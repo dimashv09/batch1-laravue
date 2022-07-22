@@ -27,6 +27,7 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Phone</th>
                                 <th class="text-center">Address</th>
+                                <th class="text-center">Created at</th>
                                 <th class="text-center" style="width: 50px">Action</th>
                             </tr>
                         </thead>
@@ -101,6 +102,7 @@
             { data: 'name', orderable: true },
             { data: 'email', orderable: true },
             { data: 'phone', class: 'text-center', orderable: true },
+            { data: 'date', class: 'text-center', orderable: true },
             { data: 'address', orderable: true },
             { render: function (index, row, data, meta) {
                     return `
