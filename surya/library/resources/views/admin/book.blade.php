@@ -23,16 +23,12 @@
     <div class="row">
         <div class="col-sm" v-for="book in filteredList">
             <div class="card" style="width: 15rem;" v-on:click="editData(book)">
-                <img src="https://source.unsplash.com/random/600x400/?book cover" class="card-img-top" alt="No Internet">
                 <div class="card-body">
                     <span class="card-text h3 d-block">@{{ book.title }}</span>
                     <div class="row">
                         <div class="col-md">
                             <span class="card-number d-block"><b>Rp.@{{ numberWithCommas(book.price) }},-</b></span>
                             <span class="mt-0"><small>Stock : @{{ book.qty }}</small></span>
-                        </div>
-                        <div class="col-md">
-                            <span class="d-block">Publish at @{{ book.year }}</span>
                         </div>
                     </div>
                 </div>
@@ -121,9 +117,6 @@
 @endsection
 
 @section('js')
-
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script type="text/javascript">
     var actionUrl = '{{ url('books') }}';
     var apiUrl = '{{ url('api/books') }}';

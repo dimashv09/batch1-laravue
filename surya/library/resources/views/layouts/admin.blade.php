@@ -202,9 +202,11 @@
     <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
-    {{-- Vue --}}
+    <!-- Sweetalert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.4"></script>
-    {{-- Axios --}}
+    <!-- Axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     @yield('js')
 </body>
