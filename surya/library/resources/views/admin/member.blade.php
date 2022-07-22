@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Author')
+@section('title', 'Member')
 @section('css')
 <!-- Datatables -->
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -15,7 +15,7 @@
                 <div class="card-header">
                     <button type="button" @click="addData()" class="btn btn-primary btn-sm"><span
                             class="fas fa-plus"></span>
-                        Add New Author</button>
+                        Add New Member</button>
                 </div>
 
                 <div class="card-body">
@@ -24,9 +24,10 @@
                             <tr>
                                 <th style="width: 10px">#</th>
                                 <th class="text-center">Name</th>
-                                <th class="text-center">Email</th>
+                                <th class="text-center">Gender</th>
                                 <th class="text-center">Phone</th>
                                 <th class="text-center">Address</th>
+                                <th class="text-center">Email</th>
                                 <th class="text-center" style="width: 50px">Action</th>
                             </tr>
                         </thead>
@@ -40,7 +41,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Author</h4>
+                    <h4 class="modal-title">Member</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -53,6 +54,15 @@
                         <div class="form-group">
                             <label for="">Name</label>
                             <input class="form-control" type="text" name="name" :value="data.name" id="">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Gender</label>
+                            <select name="gender" class="form-control">
+                                <option :value="data.gender">-- Choose Gender --</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="none">None</option>
+                            </select> 
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
@@ -93,15 +103,16 @@
     <script src="{{ asset('assets') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     
     <script>
-        var actionUrl = '{{ url('authors') }}';
-        var apiUrl = '{{ url('api/authors') }}';
+        var actionUrl = '{{ url('members') }}';
+        var apiUrl = '{{ url('api/members') }}';
 
         var columns = [
             { data: 'DT_RowIndex', class: 'text-center', orderable: true },
             { data: 'name', orderable: true },
-            { data: 'email', orderable: true },
+            { data: 'gender', class: 'text-center', orderable: true },
             { data: 'phone', class: 'text-center', orderable: true },
             { data: 'address', orderable: true },
+            { data: 'email', orderable: true },
             { render: function (index, row, data, meta) {
                     return `
                         <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">

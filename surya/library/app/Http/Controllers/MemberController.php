@@ -7,16 +7,22 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
+        return view('admin.member');
+    }
+
+    public function api()
+    {
         $members = Member::all();
-        
-        return view('admin.member.index', compact('members'));
+        $datatables = datatables()->of($members)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -26,7 +32,6 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return view('admin.member.create');
     }
 
     /**
@@ -68,7 +73,6 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
-        return view('admin.member.edit', compact('member'));
     }
 
     /**
@@ -101,6 +105,5 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         $member->delete();
-        return redirect('members');
     }
 }

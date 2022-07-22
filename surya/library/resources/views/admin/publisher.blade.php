@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="card-body">
-                    <table class="table table-hover table-bordered" id="datatables">
+                    <table class="table table-hover table-bordered" id="datatable">
                         <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
@@ -30,28 +30,13 @@
                                 <th class="text-center" style="width: 50px">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($publishers as $key => $publisher)
-                            <tr>
-                                <td class="text-center">{{ $key+1 }}</td>
-                                <td>{{ $publisher->name }}</td>
-                                <td>{{ $publisher->email }}</td>
-                                <td>{{ $publisher->phone }}</td>
-                                <td>{{ $publisher->address }}</td>
-                                <td class="text-center">
-                                    <a href="#" @click="editData({{ $publisher }})" class="btn btn-warning btn-sm"><span class="fas fa-edit"></span></a>
-                                    <a href="#" @click="deleteData({{ $publisher->id }})" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
     {{-- Modal --}}
-    <div class="modal fade" id="modal-publisher">
+    <div class="modal fade" id="my-modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -60,14 +45,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form :action="actionUrl" method="post">
+                <form :action="actionUrl" method="post" @submit="submitForm($event, data.id)">
                     @csrf
                     {{-- Hanya muncul ketika edit --}}
                     <input type="hidden" name="_method" value="PUT" v-if="editStatus">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="">Name</label>
-                            <input class="form-control" type="text" name="name" :value="data.name" id="">
+                            <input class="form-control" type="text" name="name" :value="data.name" id="">   
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
@@ -108,49 +93,26 @@
     <script src="{{ asset('assets') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     
     <script>
-        $(function () {
-            $("#datatables").DataTable({
-                "responsive": true, 
-                "autoWidth": false,
-            }).buttons().container().appendTo('#datatables_wrapper .col-md-6:eq(0)');
-        });
+        var actionUrl = '{{ url('publishers') }}';
+        var apiUrl = '{{ url('api/publishers') }}';
+
+        var columns = [
+            { data: 'DT_RowIndex', class: 'text-center', orderable: true },
+            { data: 'name', orderable: true },
+            { data: 'email', orderable: true },
+            { data: 'phone', class: 'text-center', orderable: true },
+            { data: 'address', orderable: true },
+            { render: function (index, row, data, meta) {
+                    return `
+                        <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+                            edit
+                        </a>
+                        <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+                            delete
+                        </a>
+                    `;
+                }, orderable: false, width: '100px', class: 'text-center' },
+        ];
     </script>
-
-    <!-- CRUD VueJs -->
-    <script type="text/javascript">
-        var controller = new Vue({
-            el: '#controller',
-            data: {
-                data: {},
-                actionUrl: '{{ url('publishers') }}',
-                editStatus: false //Tambahan ketika mau edit data
-            },
-            mounted: function () {
-
-            },
-            methods: {
-                addData() {
-                    this.data = {};
-                    this.actionUrl = '{{ url('publishers') }}';
-                    this.editStatus = false;
-                    $('#modal-publisher').modal();
-                },
-                editData(data) {
-                    this.data = data;
-                    this.actionUrl = '{{ url('publishers') }}'+'/'+data.id;
-                    this.editStatus = true;
-                    $('#modal-publisher').modal();
-                },
-                deleteData(id) {
-                    this.actionUrl = '{{ url('publishers') }}'+'/'+id;
-                    if (confirm("Are you sure?")) {
-                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response => {
-                            location.reload();
-                        });
-                    }
-                }
-            },
-        })
-
-    </script>
+    <script src="{{ asset('js/myjs.js') }}"></script>
 @endsection
