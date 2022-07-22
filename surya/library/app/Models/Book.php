@@ -9,6 +9,17 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'isbn',
+        'title',
+        'year',
+        'publisher_id',
+        'catalog_id',
+        'author_id',
+        'qty',
+        'price',
+    ];
+
     public function publisher()
     {
         return $this->belongsTo('App\Models\Publisher', 'publisher_id');

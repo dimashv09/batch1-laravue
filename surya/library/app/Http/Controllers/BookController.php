@@ -3,26 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Author;
+use App\Models\Catalog;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        $books = DB::table('books')
-            ->join('catalogs', 'books.catalog_id', '=', 'catalogs.id')
-            ->join('authors', 'books.author_id', '=', 'authors.id')
-            ->join('publishers', 'books.publisher_id', '=', 'publishers.id')
-            ->select('books.*')
-            ->get();
+        $publishers = Publisher::all();
+        $authors    = Author::all();
+        $catalogs   = Catalog::all();
 
-        return view('admin.book.index', compact('books'));
+        return view('admin.book',compact('publishers', 'authors', 'catalogs'));
+    }
+
+    public function api()
+    {
+        $books =  Book::with('author', 'publisher', 'catalog')->latest()->get();
+        return json_encode($books);
     }
 
     /**
@@ -43,7 +47,19 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'isbn'         => 'required|string',
+            'title'        => 'required',
+            'year'         => 'required|numeric',
+            'publisher_id' => 'required|numeric',
+            'author_id'    => 'required|numeric',
+            'catalog_id'   => 'required|numeric',
+            'qty'          => 'required|numeric',
+            'price'        => 'required|numeric',
+        ]);
+
+        $book = Book::create($request->all());
+        return response()->json($book);
     }
 
     /**
@@ -77,7 +93,19 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $this->validate($request, [
+            'isbn'         => 'required|string',
+            'title'        => 'required',
+            'year'         => 'required|numeric',
+            'publisher_id' => 'required|numeric',
+            'author_id'    => 'required|numeric',
+            'catalog_id'   => 'required|numeric',
+            'qty'          => 'required|numeric',
+            'price'        => 'required|numeric',
+        ]);
+
+        $book->update($request->all());
+        return redirect('books');
     }
 
     /**
@@ -88,6 +116,6 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
     }
 }
