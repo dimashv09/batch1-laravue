@@ -24,9 +24,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::group(['middleware' => 'auth'], function (){
+    //category
     Route::get('/category/data', [App\Http\Controllers\CategoryController::class, 'data'])->name('category.data');
     Route::resource('category', App\Http\Controllers\CategoryController::class);
     
+
     //product
     Route::get('/product/data', [App\Http\Controllers\ProductController::class, 'data'])->name('product.data');
 
@@ -46,5 +48,19 @@ Route::group(['middleware' => 'auth'], function (){
     //supplier
     Route::get('/supplier/data', [App\Http\Controllers\SupplierController::class, 'data'])->name('supplier.data');
     Route::resource('supplier', App\Http\Controllers\SupplierController::class);
+
+
+    //expenditure (pengeluaran)
+    Route::get('/expenditure/data', [App\Http\Controllers\ExpenditureController::class, 'data'])->name('expenditure.data');
+    Route::resource('expenditure', App\Http\Controllers\ExpenditureController::class);
     
+
+    //purchase (pembelian)
+    Route::get('/purchase/{id}/create', [App\Http\Controllers\PurchaseController::class, 'create'])->name('purchase.create');
+    Route::resource('purchase',App\Http\Controllers\PurchaseController::class)->except('create');
+
+
+    //Purchase Detail (pembelian detail)
+    Route::resource('purchase_detail',App\Http\Controllers\PurchaseDetailController::class)->except('create', 'show',  'edit');
+
 });

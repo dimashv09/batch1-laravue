@@ -74,7 +74,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('expenditure.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-money-bill"></i>
                         <p>
                             Pengeluaran
@@ -90,7 +90,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('purchase.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Pembelian

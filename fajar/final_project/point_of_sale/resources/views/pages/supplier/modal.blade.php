@@ -26,7 +26,7 @@
                     <div class="form-group row">
                         <label for="phone_number" class="col-md-2 offset-md-1 control-label">No Telp</label>
                         <div class="col-md-6">
-                            <input type="number" name="phone_number" id="phone_number" class="form-control" required>
+                            <input type="text" name="phone_number" id="phone_number" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>

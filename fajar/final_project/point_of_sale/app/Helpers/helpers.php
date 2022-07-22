@@ -5,6 +5,10 @@ function money_format($number) {
     return $result;
 }
 
+function dateFormat($value){
+    return date("d M Y , H:i:s",strtotime($value));
+}   
+
 function terbilang ($number) {
     $number = abs($number);
     $arr  = array('', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan', 'sepuluh', 'sebelas');
