@@ -198,7 +198,7 @@
                         _this.get_books();
                         Swal.fire(
                             'Success!',
-                            'This is a some book',
+                            'There is something new',
                             'success'
                         );
                     })
