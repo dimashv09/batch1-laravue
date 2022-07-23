@@ -41,14 +41,14 @@
                                     <thead>
                                         <tr role="row" class="text-center">
                                             <th class="align-middle" style="width: 10px;">#</th>
-                                            <th class="align-middle">Transaction Starts</th>
-                                            <th class="align-middle">Transaction Ends</th>
-                                            <th class="align-middle">Member's Name</th>
+                                            <th class="align-middle">Transaction Start</th>
+                                            <th class="align-middle">Transaction End</th>
+                                            <th class="align-middle">Member Name</th>
                                             <th class="align-middle">Duration</th>
                                             <th class="align-middle">Total of Books</th>
                                             <th class="align-middle">Total of Purchases</th>
                                             <th class="align-middle">Transaction Status</th>
-                                            <th class="align-middle" style="width: 80px;">Action</th>
+                                            <th class="align-middle" data-orderable="false">Action</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -86,7 +86,6 @@
     });
 
 </script>
-
 <script type="text/javascript">
     var actionUrl = '{{ url('transactions') }}';
     var apiUrl = '{{ url('api/transactions') }}';
@@ -115,7 +114,7 @@
                 `;
             },
             width: '150px',
-            orderable: false
+            orderable: false,
         },
     ];
 
@@ -124,15 +123,18 @@
 <script>
     $('select[name=status]').on('change', function () {
         status = $('select[name=status]').val();
-        if (status == 3) {
-            controller.tabel.ajax.url(apiUrl).load();
-        } else {
+        // Jika all status
+        if (status == 3) { 
+            location.reload();
+        // Jika pilih salah satu status
+        } else { 
             controller.table.ajax.url(`${apiUrl}?status=${status}`).load();
         }
     });
     $('input[name=date]').on('change', function () {
         let date = $('input[name=date]').val();
         console.log(date)
+        // Filter tanggal dilihat dari tanggal transaksi dibuat
         if (date == '') {
             controller.table.ajax.url(apiUrl).load()
         } else {
