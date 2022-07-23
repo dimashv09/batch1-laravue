@@ -9,6 +9,8 @@ class TransactionDetail extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function transaction()
     {
         return $this->belongsTo('App\Models\Transaction', 'transaction_id');

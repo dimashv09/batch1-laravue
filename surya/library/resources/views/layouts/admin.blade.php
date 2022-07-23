@@ -40,6 +40,35 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        @if (transactionAlert())
+                        <span class="badge badge-danger navbar-badge">{{ count(transactionAlert()) }}</span>
+                        @endif
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header">
+                            Transaction Alerts
+                        </span>
+                        <div class="dropdown-divider"></div>
+                        @foreach (transactionAlert() as $note)
+                        <a href="{{ route( 'transactions.show', $note['transaction'])}}" class="dropdown-item">
+                            {{ $note["member"] }}
+                            <span class="float-right text-muted text-sm">{{ $note["day_late"] }} Days</span>
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+                        @endforeach
+                        @if (transactionAlert())
+                        <a href="#" class="dropdown-item dropdown-footer">There's {{ count(transactionAlert()) }}
+                            notification</a>
+                        @else
+                        <a href="#" class="dropdown-item dropdown-footer">There's No notifications</a>
+                        @endif
+                    </div>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
@@ -208,6 +237,14 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.4"></script>
     <!-- Axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+        })
+    </script>
     @yield('js')
 </body>
 

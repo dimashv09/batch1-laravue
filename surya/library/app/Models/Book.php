@@ -37,6 +37,6 @@ class Book extends Model
 
     public function transaction_details()
     {
-        return $this->hasMany('App\Models\DetailTransaction', 'book_id');
+        return $this->hasOne('App\Models\DetailTransaction', 'book_id');
     }
 }

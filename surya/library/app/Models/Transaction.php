@@ -9,13 +9,15 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    public function members()
+    protected $guarded = ['id'];
+
+    public function member()
     {
-        return $this->hasMany('App\Models\Member', 'member_id');
+        return $this->belongsTo(Member::class);
     }
 
-    public function transaction_details()
+    public function transactionDetails()
     {
-        return $this->hasMany('App\Models\DetailTransaction', 'transaction_id');
+        return $this->hasMany(TransactionDetail::class);
     }
 }
