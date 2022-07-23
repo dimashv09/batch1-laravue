@@ -6,6 +6,11 @@
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endsection
+
+{{-- Cek akses --}}
+{{-- Bisa menggunakan @can atau @role --}}
+{{-- Kalau @can dipanggil nama indexnya sedangkan kalau @role dipanggil nama rolenya --}}
+@can('index peminjaman')
 @section('content')
 <div id="controller">
     <div class="content-header">
@@ -61,8 +66,8 @@
         </div>
     </div>
 </div>
-
 @endsection
+@endcan
 @section('js')
 
 <!-- DataTables  & Plugins -->

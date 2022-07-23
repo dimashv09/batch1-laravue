@@ -11,9 +11,18 @@ use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        return view('admin.transaction.index');
+        if (auth()->user()->can('index peminjaman')){
+            return view('admin.transaction.index');
+        } else {
+            return abort('403');
+        }
     }
 
     public function api(Request $request)
@@ -158,8 +167,32 @@ class TransactionController extends Controller
 
     public function destroy(Transaction $transaction)
     {
+        $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->delete();
         $transaction->delete();
 
         return redirect('transactions')->with('success', 'Transaction data has been Deleted');
+    }
+
+    public function test_spatie() {
+        // Tambah role
+        // $role = Role::create(['name' => 'petugas']);
+        // $permission = Permission::create(['name' => 'index peminjaman']);
+
+        // Tambah akses
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        // Cek semua User
+        // $user = User::with('roles')->get();
+        // return $user;
+
+        // Memberikan akses ke user yang login
+        // $user = auth()->user();
+        // $user->assignRole('petugas');
+        // return $user;
+
+        // Hapus role
+        // $user = auth()->user();
+        // $user->removeRole('petugas');
     }
 }
