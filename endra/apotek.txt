@@ -1,0 +1,10 @@
+1. SELECT * FROM `obat` 
+2. SELECT nama, fungsi FROM `obat` 
+3. SELECT nama, fungsi, tanggal_kadaluarsa FROM `obat` 
+4. SELECT * FROM `obat` WHERE harga > 1000
+5. SELECT * FROM `obat` WHERE harga >= 1000
+6. SELECT * FROM `obat` WHERE harga = 1000
+7. SELECT * FROM `distributor` 
+8. SELECT nama, alamat FROM `distributor` 
+9. SELECT nama, alamat, no_telepon FROM `distributor` 
+10. SELECT no_telepon FROM `distributor` 
