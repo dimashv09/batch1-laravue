@@ -1,0 +1,5 @@
+1. UPDATE `distributor` SET `nama`='PT antibiotik' WHERE `no_telepon`= '02137534859'
+2. UPDATE `distributor` SET `no_telepon`='082189456342' WHERE `nama`= 'PT Biofarma'
+3. UPDATE `distributor` SET `fungsi`='Meredakan tenggorokan' WHERE `nama`= 'Adem Sari'
+4. DELETE FROM `obat` WHERE nama = 'bodrex'
+5. DELETE FROM `distributor` WHERE nama = 'PT Tempo' 
