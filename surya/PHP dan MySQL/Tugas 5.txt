@@ -1,0 +1,5 @@
+UPDATE obat SET nama_obat = 'Obatnya diubah satu' WHERE id = 1;
+UPDATE manufaktur SET nama = 'Manufakturnya diubah satu' WHERE id = 1;
+DELETE FROM manufaktur WHERE id = 2;
+DELETE FROM manufaktur WHERE id = 1;
+DELETE FROM obat WHERE id = 2;
