@@ -15,7 +15,7 @@ function terbilang ($number) {
     $terbilang = '';
 
     if ($number < 12) {
-        $terbilang = ' ' . $baca[$number];
+        $terbilang = ' ' . $arr[$number];
     } elseif ($number < 20) { 
         $terbilang = terbilang($number -10) . ' belas';
     } elseif ($number < 100) { 

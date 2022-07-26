@@ -12,7 +12,6 @@ use App\Models\PurchaseDetail;
 class PurchaseDetailController extends Controller
 {
     /**
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -22,12 +21,57 @@ class PurchaseDetailController extends Controller
         $purchase_id = session('purchase_id');
         $product = Product::orderBy('product_name')->get();
         $supplier = Supplier::find(session('supplier_id'));
+        // $diskon = Purchase::find($id)->diskon ?? 0;
         
+
         if (! $supplier) {
             abort(404);
         }
 
         return view('pages.purchase_detail.index', compact('purchase_id', 'product', 'supplier'));
+    }
+
+    public function data($id)
+    {
+        $detail = PurchaseDetail::with('product')
+            ->where('purchase_id', $id)
+            ->get();
+
+        $data = array();
+        $total = 0;
+        $total_items = 0;
+        
+        foreach ($detail as $item) {
+            $row = array();
+            $row['product_code']    = $item->product['product_code'];
+            $row['product_name']    = $item->product['product_name'];
+            $row['purchase_price']  = 'Rp. '. money_format($item->purchase_price);
+            $row['qty']             = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id .'" value="'. $item->qty .'">';
+            $row['subtotal']        = 'Rp. '. money_format($item->subtotal);
+            $row['aksi']           = '<button onclick="deleteData(`'. route('purchase_detail.destroy', $item->id) .'`)" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+            ';
+
+            $data[] = $row;
+
+            $total += $item->purchase_price * $item->qty;
+            $total_items += $item->qty;
+        }
+
+        $data[] = [
+            'product_code'    =>'<div class="total invisible">'. $total .'</div>
+                                <div class="total_items invisible">'. $total_items .'</div>',
+            'product_name'    => '',
+            'purchase_price'  => '',
+            'qty'             => '',
+            'subtotal'        => '',
+            'aksi'            => '',
+        ];
+        
+        return datatables()
+            ->of($data)
+            ->addIndexColumn()
+            ->rawColumns(['aksi', 'qty', 'product_code'])
+            ->make(true);
     }
 
     /**
@@ -48,7 +92,22 @@ class PurchaseDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::where('id', $request->product_id)->first();
+
+        if(! $product){
+            return response()->json("Data gagal disimpan", 400);
+        }
+
+        $detail = new PurchaseDetail();
+        $detail->purchase_id = $request->purchase_id;
+        $detail->product_id = $product->id;
+        $detail->purchase_price = $product->pruchase_price;
+        $detail->qty = 1;
+        $detail->subtotal = $product->pruchase_price;
+        $detail->save();
+
+        return response()->json("Data berhasil disimpan", 200);
+
     }
 
     /**
@@ -82,7 +141,10 @@ class PurchaseDetailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $detail = PurchaseDetail::find($id);
+        $detail->qty = $request->qty;
+        $detail->subtotal = $detail->purchase_price * $request->qty;
+        $detail->update();
     }
 
     /**
@@ -93,6 +155,23 @@ class PurchaseDetailController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $detail = PurchaseDetail::find($id);
+        $detail->delete();
+
+        return response(null, 204);
+    }
+
+    public function loadForm($discount, $total)
+    {
+        $paid = $total - ($discount / 100  * $total);
+
+        $data = [
+            'totalrp' => money_format($total),
+            'paid' => $paid,
+            'paidrp' => money_format($paid),
+            'terbilang' => ucwords(terbilang($paid). 'Rupiah')
+        ];
+
+        return response()->json($data);
     }
 }

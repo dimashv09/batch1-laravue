@@ -128,7 +128,7 @@ class MemberController extends Controller
         $datamember = collect(array());
         foreach ($request->member_id as $id) {
             $member = Member::find($id);
-            $datamember[] = $member;
+            $datamember[] = $member; 
         }
         $datamember = $datamember->chunk(2); //chunk = memecah array
 

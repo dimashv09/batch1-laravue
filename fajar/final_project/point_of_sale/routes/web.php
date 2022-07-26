@@ -57,10 +57,13 @@ Route::group(['middleware' => 'auth'], function (){
 
     //purchase (pembelian)
     Route::get('/purchase/{id}/create', [App\Http\Controllers\PurchaseController::class, 'create'])->name('purchase.create');
+    Route::get('/purchase/data', [App\Http\Controllers\PurchaseController::class, 'data'])->name('purchase.data');
     Route::resource('purchase',App\Http\Controllers\PurchaseController::class)->except('create');
 
 
     //Purchase Detail (pembelian detail)
+    Route::get('/purchase_detail/loadForm/{discount}/{total}', [App\Http\Controllers\PurchaseDetailController::class, 'loadForm'])->name('purchase_detail.load_form');
+    Route::get('/purchase_detail/{id}/data', [App\Http\Controllers\PurchaseDetailController::class, 'data'])->name('purchase_detail.data');
     Route::resource('purchase_detail',App\Http\Controllers\PurchaseDetailController::class)->except('create', 'show',  'edit');
 
 });

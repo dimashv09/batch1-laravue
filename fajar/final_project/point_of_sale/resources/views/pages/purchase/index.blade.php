@@ -14,10 +14,15 @@
                     <button onclick="addForm()" class="btn btn-success btn-xs"><i
                             class="fas fa-plus-circle"></i>
                         Transaksi Baru</button>
+
+                        @empty(! session('purchase_id'))                           
+                        <a href="{{route('purchase_detail.index')}}" class="btn btn-info btn-xs"><i class="fa fa-pencil-alt"></i> Transaksi Aktif
+                        </a>
+                        @endempty
                 </div><!-- /.card-header -->
                 <div class="card-body">
                     <div class="table-responsive">
-                            <table class="table table-stiped table-bordered">
+                            <table class="table table-stiped table-bordered table-purchase">
                                 <thead>
                                     <th width="5%">No</th>
                                     <th>Tanggal</th>
@@ -39,28 +44,52 @@
     <!-- /.row (main row) -->
 </div>
 @includeIf('pages.purchase.supplier')
+@includeIf('pages.purchase.detail')
 
 @endsection
 
 @push('scripts')
 <script>
-    let table;
+    let table, table2;
     $(function () {
-        table = $('.table').DataTable({
-            // responsive: true,
-            // processing: true,
-            // serverSide: true,
-            // autoWidth: false,
-            // ajax: {
-            //     url: '{{ route('supplier.data') }}',
-            // },
-            // columns: [
-            //     {data: 'DT_RowIndex', searchable: false, sortable: false},
-            //     {data: 'name'},
-            //     {data: 'phone_number'},
-            //     {data: 'address'},
-            //     {data: 'aksi', searchable: false, sortable: false},
-            // ]
+        table = $('.table-purchase').DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            autoWidth: false,
+            ajax: {
+                url: '{{ route('purchase.data') }}',
+            },
+            columns: [
+                {data: 'DT_RowIndex', searchable: false, sortable: false},
+                {data: 'created_at'},
+                {data: 'supplier.name'},
+                {data: 'total_items'},
+                {data: 'total_price'},
+                {data: 'discount'},
+                {data: 'paid'},
+                {data: 'aksi', searchable: false, sortable: false},
+            ]
+        });
+        
+        $('.table-supplier').DataTable();
+
+        table2 = $('.table-detail').DataTable({
+            processing: true,
+            bPaginate: false,
+            bInfo : false,
+            bSort : false,
+            searching: false,
+            columns: [
+                {data: 'DT_RowIndex', searchable: false, sortable: false},
+                {data: 'product_code'},
+                {data: 'product_name'},
+                {data: 'purchase_price'},
+                {data: 'qty'},
+                {data: 'subtotal'},
+
+            ]            
+
         });
     });
 
@@ -68,24 +97,15 @@
         $('#modal-supplier').modal('show');
 
     }
-    function editForm(url) {
-        $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Edit Supplier');
-        $('#modal-form form')[0].reset();
-        $('#modal-form form').attr('action', url);
-        $('#modal-form [name=_method]').val('put');
-        $('#modal-form [name=name]').focus();
-        $.get(url)
-            .done((response) => {
-                $('#modal-form [name=name]').val(response.name);
-                $('#modal-form [name=phone_number]').val(response.phone_number);
-                $('#modal-form [name=address]').val(response.address);
-            })
-            .fail((errors) => {
-                alert('Tidak dapat menampilkan data');
-                return;
-            });
+
+    function detail(url) {
+        $('#modal-detail .modal-title').text('Detail Pembelian');
+        $('#modal-detail').modal('show');
+
+        table2.ajax.url(url);
+        table2.ajax.reload();
     }
+
     function deleteData(url) {
         if (confirm('Yakin ingin menghapus data terpilih?')) {
             $.post(url, {
