@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Member;
+use App\Models\Setting;
 use PDF;
 
 class MemberController extends Controller
@@ -132,8 +133,12 @@ class MemberController extends Controller
         }
         $datamember = $datamember->chunk(2); //chunk = memecah array
 
+        $setting = Setting::first();
+
+        return $setting;
+
         $no  = 1;
-        $pdf = PDF::loadView('pages.member.print', compact('datamember', 'no'));
+        $pdf = PDF::loadView('pages.member.print', compact('datamember', 'no', 'setting'));
         $pdf->setPaper('a4', 'potrait');
         return $pdf->stream('member.pdf');
     }

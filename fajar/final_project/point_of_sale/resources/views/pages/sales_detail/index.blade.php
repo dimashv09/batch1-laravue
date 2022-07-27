@@ -35,22 +35,6 @@
 <div class="row">
     <div class="col-md-12 ">
         <div class="card">
-            <div class="card-header">
-                <table>
-                    <tr>
-                        <td>Supplier</td>
-                        <td>:   {{$supplier->name}}</td>
-                    </tr>
-                    <tr>
-                        <td>Telepon</td>
-                        <td>:   {{$supplier->phone_number}}</td>
-                    </tr>
-                    <tr>
-                        <td>Alamat</td>
-                        <td>:   {{$supplier->address}}</td>
-                    </tr>
-                </table>
-            </div>
             <div class="card-body">
                 <form class="form-product">
                     @csrf
@@ -59,7 +43,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <label for="product_code">Kode Produk</label>
-                                    <input type="hidden" name="purchase_id" id="purchase_id" value="{{$purchase_id}}">
+                                    <input type="hidden" name="sale_id" id="sale_id" value="{{$sale_id}}">
                                     <input type="hidden" name="product_id" id="product_id">
                                     <input type="text" class="form-control" id="product_code" name="product_code">
                                     <span class="input-group-append">
@@ -90,7 +74,7 @@
                     <div class="col-lg-4">
                         <form action="{{route('purchase.store')}}" class="form-purchase" method="POST">
                             @csrf
-                            <input type="hidden" name="purchase_id" value="{{ $purchase_id }}">
+                            <input type="hidden" name="sale_id" value="{{ $sale_id }}">
                             <input type="hidden" name="total" id="total" >
                             <input type="hidden" name="total_items" id="total_items">
                             <input type="hidden" name="paid" id="paid">
@@ -104,7 +88,7 @@
                             <div class="form-group row">
                                 <label for="discount" class="col-lg-3 control-label">Diskon</label>
                                 <div class="col-lg-9">
-                                    <input type="number" name="discount" id="discount" class="form-control" value="{{$discount}}">
+                                    <input type="number" name="discount" id="discount" class="form-control" value="0">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -141,7 +125,7 @@
             serverSide: true,
             autoWidth: false,
             ajax: {
-                url: '{{ route('purchase_detail.data', $purchase_id) }}',
+                url: '{{ route('purchase_detail.data', $sale_id) }}',
             },
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},

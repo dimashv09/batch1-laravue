@@ -66,4 +66,9 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/purchase_detail/{id}/data', [App\Http\Controllers\PurchaseDetailController::class, 'data'])->name('purchase_detail.data');
     Route::resource('purchase_detail',App\Http\Controllers\PurchaseDetailController::class)->except('create', 'show',  'edit');
 
+
+    //Sale
+    Route::get('/transaction/new', [App\Http\Controllers\SaleController::class, 'create'])->name('transaction.new');
+    Route::resource('transaction',App\Http\Controllers\SalesDetailController::class)->except('show');
+
 });

@@ -98,7 +98,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('transaction.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
                             Transaksi lama
@@ -106,7 +106,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('transaction.new')}}" class="nav-link">
                         <i class="nav-icon fas fa-cart-arrow-down"></i>
                         <p>
                             Transaksi baru

@@ -18,17 +18,19 @@ class PurchaseDetailController extends Controller
      */
     public function index()
     {   
-        $purchase_id = session('purchase_id');
+        $purchase_id = session('purchase_id'); //get id from purchaseController
         $product = Product::orderBy('product_name')->get();
         $supplier = Supplier::find(session('supplier_id'));
-        // $diskon = Purchase::find($id)->diskon ?? 0;
+        $discount = Purchase::find($purchase_id)->discount ?? 0;
         
+        // return $discount;
+
 
         if (! $supplier) {
             abort(404);
         }
 
-        return view('pages.purchase_detail.index', compact('purchase_id', 'product', 'supplier'));
+        return view('pages.purchase_detail.index', compact('purchase_id', 'product', 'supplier', 'discount'));
     }
 
     public function data($id)

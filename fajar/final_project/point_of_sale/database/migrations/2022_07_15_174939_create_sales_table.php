@@ -15,7 +15,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->integer('member_id');
+            $table->integer('member_id')->nullable();
             $table->integer('total_items');
             $table->integer('total_price');
             $table->integer('discount')->default(0);
