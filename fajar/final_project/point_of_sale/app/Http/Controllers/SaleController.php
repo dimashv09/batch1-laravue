@@ -35,7 +35,7 @@ class SaleController extends Controller
         $sale->save();
 
 
-        session(['sale_id' => $sale->id]);
+        session(['sales_id' => $sale->id]);
 
         return redirect()->route('transaction.index');
     }

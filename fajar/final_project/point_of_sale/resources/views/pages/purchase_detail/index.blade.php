@@ -265,7 +265,7 @@
                 $('#paidrp').val('Rp. ' + response.paidrp);
                 $('#paid').val(response.paid);
                 $('.show-paid').text('Rp. ' + response.paidrp);
-                $('.show-terbilang').text('Rp. ' + response.terbilang );
+                $('.show-terbilang').text(response.terbilang );
             })
             .fail(errors =>{
                 alert('Tidak dapat menampilkan data');

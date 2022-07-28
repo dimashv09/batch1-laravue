@@ -69,6 +69,11 @@ Route::group(['middleware' => 'auth'], function (){
 
     //Sale
     Route::get('/transaction/new', [App\Http\Controllers\SaleController::class, 'create'])->name('transaction.new');
+    
+    Route::get('/transaction/{id}/data', [App\Http\Controllers\SalesDetailController::class, 'data'])->name('transaction.data');
+
+    Route::get('/transaction/loadForm/{discount}/{total}/{received}', [App\Http\Controllers\SalesDetailController::class, 'loadForm'])->name('transaction.load_form');
+
     Route::resource('transaction',App\Http\Controllers\SalesDetailController::class)->except('show');
 
 });
