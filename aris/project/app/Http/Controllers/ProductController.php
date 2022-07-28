@@ -232,7 +232,6 @@ class ProductController extends Controller
             $data = 0;
             $data1 = $data + $request->harga;
             $transaction = $data1 -= $total;
-
         
             return view('product.showcart', compact('count','carts','total','transaction','datas'));
         }else{
@@ -245,7 +244,10 @@ class ProductController extends Controller
 
     public function pdf(Request $request)
     {
-
+        $cart = cart::where('user_id', auth()->user()->id)->get();
+        if ($cart->isEmpty()) {
+            return redirect()->back()->with('success','Tidak ada pesanan saat ini');
+        }
       if ($request->total < 0 ) {
                 return redirect()->back()->with('success','Uang yang anda masukan kurang');
             }
@@ -267,7 +269,61 @@ class ProductController extends Controller
             $total = $datas - $count;
             // dd($request->harga);
             $pdf = PDF::loadView('product.invoice',['carts'=>$carts,'count'=>$count,'cart'=>$cart,'total'=>$total,'date'=>$date,'datas'=>$datas])->setPaper('A4','potrait');
+            $invoice = DB::table('invoices')->select('status')
+            ->where('user_id','=',auth()->user()->id)
+            ->get();
+            
+            $user = auth()->user();
+            $cart = cart::where('user_id', $user->id)->get();
+            $carts = Cart::where('user_id', Auth::user()->id)->sum('quantity');
+            $count = Cart::where('user_id', Auth::user()->id)->sum('price');
+            $total = Cart::where('user_id', Auth::user()->id)->sum('price');
+           
+            $transaction = DB::table('transaction_details')->insert([
+                'user_id' => $user->id,
+                
+            ]);
+            // dd($transaction);
+
+            $transaction_detail = DB::table('transaction_details')->select('id')
+            ->where('user_id','=',auth()->user()->id)->get();
+            // dd($transaction_detail);
+
+            foreach ( $cart as $key => $data) {
+               
+            $order = new Order();
+            $order->name = $user->name;
+            $order->phone = $user->phone;
+            $order->address = $user->address;
+            $order->product_name = $data->product_title;
+            $order->price = $data->price;
+            $order->product_id = $data->product_id;
+            $order->quantity = $data->quantity;
+            $order->user_id = $user->id;
+            $order->total = $request->harga;
+            $order->detail_id = $transaction_detail[0]->id;
+            $order->save();
+
+            $transaction = new Transaction();
+            $transaction->user_id = $order->user_id;
+            $transaction->order_id = $order->id;
+            $transaction->detail_id = $transaction_detail[0]->id;
+            $transaction->save();
+
+        }
+
+        $report = new Report();
+        $report->name = $user->name;
+        $report->address = $user->address;
+        $report->phone = $user->phone;
+        $report->detail_id = $transaction_detail[0]->id;
+        $report->save();
+        DB::table('transaction_details')->where('user_id','=',auth()->user()->id)->delete();
+        DB::table('invoices')->where('user_id','=',auth()->user()->id)->delete();
+       $car = Cart::where('user_id',auth()->user()->id)->delete();
+         // return redirect()->back()->with('success','order anda sudah berhasil');
             return $pdf->download('invoice.pdf');
+
         }else{
             
             return redirect('/login');
