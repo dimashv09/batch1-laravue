@@ -82,7 +82,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('sales.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Penjualan
@@ -101,7 +101,7 @@
                     <a href="{{route('transaction.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
-                            Transaksi lama
+                            Transaksi Aktif
                         </p>
                     </a>
                 </li>
@@ -119,7 +119,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('report.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>
                             Laporan

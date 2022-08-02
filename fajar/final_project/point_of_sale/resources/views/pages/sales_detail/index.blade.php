@@ -73,13 +73,13 @@
                         <div class="show-terbilang"></div>
                     </div>
                     <div class="col-lg-4">
-                        <form action="{{route('transaction.store')}}" class="form-sales" method="POST">
+                        <form action="{{route('transaction.save')}}" class="form-sales" method="post">
                             @csrf
                             <input type="hidden" name="sales_id" value="{{ $sales_id }}">
                             <input type="hidden" name="total" id="total" >
                             <input type="hidden" name="total_items" id="total_items">
                             <input type="hidden" name="paid" id="paid">
-                            <input type="hidden" name="member_id" id="member_id">
+                            <input type="hidden" name="member_id" id="member_id" value="{{ $memberSelected->member_id}}">
 
                             <div class="form-group row">
                                 <label for="totalrp" class="col-lg-3 control-label">Total</label>
@@ -91,7 +91,7 @@
                                 <label for="member_code" class="col-lg-3 control-label">Member</label>
                                 <div class="col-lg-9">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="member_code">
+                                        <input type="text" class="form-control" id="member_code" value="{{ $memberSelected->member_code}}">
                                         <span class="input-group-append">
                                             <button onclick="showMember()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right"></i></button>
                                         </span>
@@ -101,7 +101,8 @@
                             <div class="form-group row">
                                 <label for="discount" class="col-lg-3 control-label">Diskon</label>
                                 <div class="col-lg-9">
-                                    <input type="number" name="discount" id="discount" class="form-control" value="0" readonly>
+                                    <input type="number" name="discount" id="discount" class="form-control" 
+                                    value="{{! empty($memberSelected->member_id) ? $discount : 0}}" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -113,7 +114,7 @@
                             <div class="form-group row">
                                 <label for="received" class="col-lg-3 control-label">Diterima</label>
                                 <div class="col-lg-9">
-                                    <input type="number" id="received" class="form-control" name="received">
+                                    <input type="number" id="received" class="form-control" name="received" value="{{$sale->received ?? 0}}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -171,7 +172,10 @@
             bSort : false,
         })
         .on('draw.dt', function() {
-            loadForm($('#discount').val())
+            loadForm($('#discount').val());
+            setTimeout(() => {
+                $('#received').trigger('input')
+            }, 300);
         });
 
 
@@ -200,7 +204,7 @@
             })
                 .done(response => {
                     $(this).on('mouseout', function() {
-                        table.ajax.reload();
+                        table.ajax.reload(() => loadForm($('#discount').val()));
                     })
                 })
                 .fail(errors => {
@@ -251,8 +255,7 @@
         $.post('{{ route('transaction.store') }}', $('.form-product').serialize())
             .done(response =>{
             $('product_code').focus();
-            table.ajax.reload();
-            // table.ajax.reload(() => loadForm($('#discount').val()));
+            table.ajax.reload(() => loadForm($('#discount').val()));
         }).fail(errors => {
             alert ("Tidak dapat menyimpan data");
             return;
@@ -287,7 +290,7 @@
                     '_method': 'delete'
                 })
                 .done((response) => {
-                    table.ajax.reload();
+                    table.ajax.reload(() => loadForm($('#discount').val()));
                 })
                 .fail((errors) => {
                     alert('Tidak dapat menghapus data');

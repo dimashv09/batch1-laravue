@@ -67,13 +67,38 @@ Route::group(['middleware' => 'auth'], function (){
     Route::resource('purchase_detail',App\Http\Controllers\PurchaseDetailController::class)->except('create', 'show',  'edit');
 
 
-    //Sale
+    //sales
+    Route::get('sales/data', [App\Http\Controllers\SaleController::class, 'data'])->name('sales.data');
+
+    Route::get('sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales.index');
+
+    Route::get('sales/{id}', [App\Http\Controllers\SaleController::class, 'show'])->name('sales.show');
+
+    Route::delete('sales/{id}', [App\Http\Controllers\SaleController::class, 'destroy'])->name('sales.delete');
+
+    //sales transaction
     Route::get('/transaction/new', [App\Http\Controllers\SaleController::class, 'create'])->name('transaction.new');
+    Route::post('/transaction/save', [App\Http\Controllers\SaleController::class, 'store'])->name('transaction.save');
+    Route::get('/transaction/finish', [App\Http\Controllers\SaleController::class, 'finish'])->name('transaction.finish');
+
+    //nota kecil
+    Route::get('/transaction/nota-kecil', [App\Http\Controllers\SaleController::class, 'notaKecil'])->name('transaction.nota_kecil');
+    //nota besar
+    Route::get('/transaction/nota-besar', [App\Http\Controllers\SaleController::class, 'notaBesar'])->name('transaction.nota_besar');
     
+
+    //detail Transaction
     Route::get('/transaction/{id}/data', [App\Http\Controllers\SalesDetailController::class, 'data'])->name('transaction.data');
 
     Route::get('/transaction/loadForm/{discount}/{total}/{received}', [App\Http\Controllers\SalesDetailController::class, 'loadForm'])->name('transaction.load_form');
 
     Route::resource('transaction',App\Http\Controllers\SalesDetailController::class)->except('show');
+
+    //report
+    Route::get('report', [App\Http\Controllers\ReportController::class, 'index'])->name('report.index');
+
+    Route::get('report/data/{awal}/{akhir}', [App\Http\Controllers\ReportController::class, 'data'])->name('report.data');
+    
+    Route::get('report/pdf/{awal}/{akhir}', [App\Http\Controllers\ReportController::class, 'exportPDF'])->name('report.export_pdf');
 
 });

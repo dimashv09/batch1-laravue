@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Member;
 use App\Models\SalesDetail;
+use App\Models\Sale;
 use App\Models\Setting;
 
 class SalesDetailController extends Controller
@@ -25,7 +26,10 @@ class SalesDetailController extends Controller
         // dd($product, $member, $setting);
 
         if($sales_id = session('sales_id')){
-            return view('pages.sales_detail.index', compact('product', 'member', 'discount', 'sales_id'));
+            $sale = Sale::find($sales_id);
+            $memberSelected = $sale->member ?? new Member();
+            
+            return view('pages.sales_detail.index', compact('product', 'member', 'discount', 'sales_id', 'memberSelected', 'sale'));
         }else {
             if(auth()->user()->role('admin')){
                 return redirect()->route('transaction.new');
@@ -169,7 +173,10 @@ class SalesDetailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $detail = SalesDetail::find($id);
+        $detail->qty = $request->qty;
+        $detail->subtotal = $detail->price * $request->qty;
+        $detail->update();
     }
 
     /**
@@ -180,6 +187,9 @@ class SalesDetailController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $detail = SalesDetail::find($id);
+        $detail->delete();
+
+        return response(null, 204);
     }
 }
