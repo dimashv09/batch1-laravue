@@ -9,6 +9,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Tugas query builder
+Route::get('/query_builder', [App\Http\Controllers\HomeController::class, 'query_builder'])->name('query_builder');
+
 
 Route::resource('/catalogs', App\Http\Controllers\CatalogController::class);
 
