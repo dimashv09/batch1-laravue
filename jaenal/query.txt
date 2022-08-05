@@ -1,0 +1,37 @@
+TABEL DETAIL_TRANSAKSI :
+
+1. SELECT * FROM `detail_transaksi`;
+2. SELECT id_tansaksi FROM `detail_transaksi`;
+3. SELECT id_obat FROM `detail_transaksi`;
+4. SELECT jumlah_obat FROM `detail_transaksi`;
+5. SELECT * FROM `detail_transaksi` WHERE id_transaksi > 6;
+6. SELECT * FROM `detail_transaksi` WHERE id_obat > 1990;
+7. SELECT * FROM `detail_transaksi` WHERE jumlah_obat = 4;
+8. SELECT * FROM `detail_transaksi` WHERE jumlah_obat < 2;
+9. SELECT * FROM `detail_transaksi` WHERE id_obat >= 1995;
+10. SELECT * FROM `detail_transaksi` WHERE id_obat <= 1995;
+
+
+TABEL TRANSAKSI :
+1. SELECT * FROM `transaksi`;
+2. SELECT id_transaksi FROM `transaksi`;
+3. SELECT id_pembeli FROM `transaksi`;
+4. SELECT tanggal_transaksi FROM `transaksi`;
+5. SELECT * FROM `transaksi` WHERE id_transaksi > 8;
+6. SELECT * FROM `transaksi` WHERE id_pembeli > 2004;
+7. SELECT * FROM `transaksi` WHERE tanggal_transaksi > 220706;
+8. SELECT * FROM `transaksi` WHERE tanggal_transaksi < 220706;
+9. SELECT * FROM `transaksi` WHERE tanggal_transaksi = 220706;
+10. SELECT * FROM `transaksi` WHERE tanggal_transaksi <= 220706;
+
+TABEL OBAT
+1. SELECT * FROM `obat`
+2. SELECT id FROM `obat`;
+3. SELECT nama_obat FROM `obat`
+4. SELECT `stok_obat` FROM `obat`;
+5. SELECT * FROM `obat` WHERE id < 1993;
+6. SELECT * FROM `obat` WHERE id <= 1993;
+7. SELECT * FROM `obat` WHERE id < 1993;
+8. SELECT * FROM `obat` WHERE stok_obat < 9;
+9. SELECT * FROM `obat` WHERE stok_obat <= 9;
+10. SELECT * FROM `obat` WHERE stok_obat > 9;
