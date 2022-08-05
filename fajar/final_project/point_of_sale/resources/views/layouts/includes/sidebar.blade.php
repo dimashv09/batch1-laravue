@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="{{asset('assets/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
+        <img src="{{$setting->logo_path}}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light font-weight-bold"><strong>{{config('app.name')}}</strong></span>
+        <span class="brand-text font-weight-light font-weight-bold"><strong>{{$setting->company_name}}</strong></span>
     </a>
 
     <!-- Sidebar -->
@@ -15,7 +15,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{auth()->user()->name}} - {{auth()->user()->email}} </a>
+                <a href="{{route('dashboard.index')}}" class="d-block">{{auth()->user()->name}} - {{auth()->user()->email}} </a>
             </div>
         </div>
 
@@ -132,7 +132,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('user.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             User
@@ -140,7 +140,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('setting.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
                             pengaturan

@@ -3,10 +3,10 @@
 @section('title')
     Laporan Pendapatan : {{ tanggal_indonesia($tanggalAwal, false) }} s/d {{ tanggal_indonesia($tanggalAkhir, false)}}
 @endsection
+
+@push('css')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
-@push('css')
-    
 @endpush
 
 @section('content')

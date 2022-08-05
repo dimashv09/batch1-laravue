@@ -10,14 +10,15 @@
             <!-- small box -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>150</h3>
+                    <h3>{{$category}}</h3>
 
-                    <p>New Orders</p>
+                    <p>Total Kategori</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-bag"></i>
+                    <i class="fa fa-list-alt"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('category.index')}}" class="small-box-footer">More info <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -25,14 +26,15 @@
             <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                    <h3>{{$product}}</h3>
 
-                    <p>Bounce Rate</p>
+                    <p>Total Produk</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                    <i class="fab fa-dropbox"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('product.index')}}" class="small-box-footer">More info <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -40,14 +42,15 @@
             <!-- small box -->
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>44</h3>
+                    <h3>{{$member}}</h3>
 
-                    <p>User Registrations</p>
+                    <p>Total Member</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="fa fa-address-card"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('member.index')}}" class="small-box-footer">More info <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -55,14 +58,15 @@
             <!-- small box -->
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>65</h3>
+                    <h3>{{$supplier}}</h3>
 
-                    <p>Unique Visitors</p>
+                    <p>Total Supplier</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
+                    <i class="fas fa-truck-loading"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('supplier.index')}}" class="small-box-footer">More info <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -70,98 +74,103 @@
     <!-- /.row -->
     <!-- Main row -->
     <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">
-                        <i class="fas fa-chart-pie mr-1"></i>
-                        Sales
-                    </h3>
-                    <div class="card-tools">
-                        <ul class="nav nav-pills ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div><!-- /.card-header -->
-                <div class="card-body">
-                    <div class="tab-content p-0">
-                        <!-- Morris chart - Sales -->
-                        <div class="chart tab-pane active" id="revenue-chart"
-                            style="position: relative; height: 300px;">
-                            <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                        </div>
-                        <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                            <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                        </div>
-                    </div>
-                </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-            <!-- /.card -->
-        </section>
-        <!-- /.Left col -->
-        <!-- right col (We are only adding the ID to make the widgets sortable)-->
-        <section class="col-lg-5 connectedSortable">
-
-            <!-- Map card -->
-            <div class="card bg-gradient-primary">
-                <div class="card-header border-0">
-                    <h3 class="card-title">
-                        <i class="fas fa-map-marker-alt mr-1"></i>
-                        Visitors
-                    </h3>
-                    <!-- card tools -->
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-primary btn-sm daterange" data-toggle="tooltip"
-                            title="Date range">
-                            <i class="far fa-calendar-alt"></i>
-                        </button>
-                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse"
-                            data-toggle="tooltip" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                    <!-- /.card-tools -->
+                    <h5 class="card-title">Grafik Pendapatan : {{tanggal_indonesia($tanggal_awal , false)}} s/d
+                        {{tanggal_indonesia($tanggal_akhir, false)}}</h5>
                 </div>
+
+                <!-- /.card-header -->
                 <div class="card-body">
-                    <div id="world-map" style="height: 250px; width: 100%;"></div>
-                </div>
-                <!-- /.card-body-->
-                <div class="card-footer bg-transparent">
                     <div class="row">
-                        <div class="col-4 text-center">
-                            <div id="sparkline-1"></div>
-                            <div class="text-white">Visitors</div>
+                        <div class="col-lg-12">
+                            <div class="chart">
+                                <!-- Sales Chart Canvas -->
+                                <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+                            </div>
+                            <!-- /.chart-responsive -->
                         </div>
-                        <!-- ./col -->
-                        <div class="col-4 text-center">
-                            <div id="sparkline-2"></div>
-                            <div class="text-white">Online</div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-4 text-center">
-                            <div id="sparkline-3"></div>
-                            <div class="text-white">Sales</div>
-                        </div>
-                        <!-- ./col -->
                     </div>
                     <!-- /.row -->
                 </div>
+                <!-- ./card-body -->
+                <!-- /.card-footer -->
             </div>
             <!-- /.card -->
-
-            <!-- /.card -->
-        </section>
-        <!-- right col -->
+        </div>
+        <!-- /.col -->
     </div>
     <!-- /.row (main row) -->
 </div><!-- /.container-fluid -->
+
 @endsection
+
+@push('scripts')
+<script src="{{asset('assets/plugins/chart.js/Chart.min.js')}}"></script>
+
+<script>
+    $(function() {
+        // Get context with jQuery - using jQuery's .get() method.
+        var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
+
+        var salesChartData = {
+            labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+            {
+                label               : 'Digital Goods',
+                backgroundColor     : 'rgba(60,141,188,0.9)',
+                borderColor         : 'rgba(60,141,188,0.8)',
+                pointRadius          : false,
+                pointColor          : '#3b8bba',
+                pointStrokeColor    : 'rgba(60,141,188,1)',
+                pointHighlightFill  : '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data                : [28, 48, 40, 19, 86, 27, 90]
+            },
+            {
+                label               : 'Electronics',
+                backgroundColor     : 'rgba(210, 214, 222, 1)',
+                borderColor         : 'rgba(210, 214, 222, 1)',
+                pointRadius         : false,
+                pointColor          : 'rgba(210, 214, 222, 1)',
+                pointStrokeColor    : '#c1c7d1',
+                pointHighlightFill  : '#fff',
+                pointHighlightStroke: 'rgba(220,220,220,1)',
+                data                : [65, 59, 80, 81, 56, 55, 40]
+            },
+            ]
+        }
+
+        var salesChartOptions = {
+            maintainAspectRatio : false,
+            responsive : true,
+            legend: {
+            display: false
+            },
+            scales: {
+            xAxes: [{
+                gridLines : {
+                display : false,
+                }
+            }],
+            yAxes: [{
+                gridLines : {
+                display : false,
+                }
+            }]
+            }
+        }
+
+        // This will get the first returned node in the jQuery collection.
+        var salesChart = new Chart(salesChartCanvas, { 
+            type: 'line', 
+            data: salesChartData, 
+            options: salesChartOptions
+            }
+        )
+
+    });
+</script>
+
+@endpush

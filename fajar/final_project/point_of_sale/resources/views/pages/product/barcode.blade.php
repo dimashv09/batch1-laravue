@@ -20,11 +20,15 @@
             @foreach ($dataproduct as $produk)
                 <td class="text-center" style="border: 1px solid #333;">
                     <p>{{ $produk->product_name }} - Rp. {{ money_format($produk->sell_price) }}</p>
-                    <img src="data:image/png;base64,{{\DNS2D::getBarcodePNG($produk->product_code, 'QRCODE')}}"  
+                    <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($produk->product_code, 'C39')}}"  
                         alt="{{ $produk->product_code }}"
                         width="180"
                         height="60"> 
+                        <br>
                 </td>
+                @if ($no++ % 3 == 0)
+                </tr><tr>
+                @endif
             @endforeach
         </tr>
     </table>

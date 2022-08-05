@@ -19,11 +19,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
 Route::group(['middleware' => 'auth'], function (){
+
+    Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+
     //category
     Route::get('/category/data', [App\Http\Controllers\CategoryController::class, 'data'])->name('category.data');
     Route::resource('category', App\Http\Controllers\CategoryController::class);
@@ -101,4 +104,15 @@ Route::group(['middleware' => 'auth'], function (){
     
     Route::get('report/pdf/{awal}/{akhir}', [App\Http\Controllers\ReportController::class, 'exportPDF'])->name('report.export_pdf');
 
+    //user
+    Route::get('/user/data', [App\Http\Controllers\UserController::class, 'data'])->name('user.data');
+    Route::resource('user', App\Http\Controllers\UserController::class);
+
+
+    //setting
+    Route::get('setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
+
+    Route::get('setting/first', [App\Http\Controllers\SettingController::class, 'show'])->name('setting.show');
+
+    Route::post('setting', [App\Http\Controllers\SettingController::class, 'update'])->name('setting.update');
 });

@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{config('app.name')}} | Dashboard</title>
+    <title>{{$setting->company_name}} | @yield('title') </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{url($setting->logo_path)}}" type="image/png">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Ionicons -->
@@ -120,6 +121,12 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('assets/dist/js/demo.js')}}"></script>
     <script src="{{asset('validator/validator.min.js')}}"></script>
+    <script>
+        function preview(selector, temporaryFile, width = 200)  {
+            $(selector).empty();
+            $(selector).append(`<img src="${window.URL.createObjectURL(temporaryFile)}" width="${width}">`);
+        }
+    </script>
 
     @stack('scripts')
 </body>

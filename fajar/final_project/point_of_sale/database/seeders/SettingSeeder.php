@@ -22,8 +22,8 @@ class SettingSeeder extends Seeder
             'phone_number' => '0897483634',
             'note_type' => 1,
             'discount' => 5,
-            'logo_path' => 'img/logo.png',
-            'card_path' => 'img/logo.png',
+            'logo_path' => '/img/logo.png',
+            'card_path' => '/img/logo.png',
         ]);
     }
 }
