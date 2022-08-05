@@ -1,0 +1,5 @@
+1. UPDATE `pembeli` SET `alamat`='jakarta timur' WHERE `id_pembeli` = '2001'
+2. UPDATE `obat` SET `stok_obat`='5' WHERE `id` = '1989'
+3. UPDATE `transaksi` SET `tanggal_transaksi`='20220717' WHERE `id_pembeli` = '2001'
+4. DELETE FROM `obat` WHERE id = '1999'
+5. DELETE FROM `pembeli` WHERE id_pembeli = '2008'
