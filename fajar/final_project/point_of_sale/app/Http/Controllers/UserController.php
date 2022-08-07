@@ -116,7 +116,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         if($request->has('password') && $request->password != ""){
-            $user->password = $request->password;
+            $user->password = Hash::make($request->password);
         }
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $user->assignRole($request->roles);

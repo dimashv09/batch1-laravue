@@ -15,7 +15,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="{{route('dashboard.index')}}" class="d-block">{{auth()->user()->name}} - {{auth()->user()->email}} </a>
+                <a href="{{route('dashboard')}}" class="d-block">{{auth()->user()->name}} - {{auth()->user()->email}} </a>
             </div>
         </div>
 
@@ -24,14 +24,14 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('dashboard')}}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
-
+                @if(auth()->user()->hasRole('admin'))
                 <li class="header nav-item bg-secondary text-center">
                     Master
                 </li>
@@ -82,18 +82,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('sales.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Penjualan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{route('purchase.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Pembelian
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('sales.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Penjualan
                         </p>
                     </a>
                 </li>
@@ -147,6 +147,29 @@
                         </p>
                     </a>
                 </li>
+                @else
+                <li class="header nav-item bg-secondary text-center">
+                    Transaksi
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('transaction.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            Transaksi Aktif
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('transaction.new')}}" class="nav-link">
+                        <i class="nav-icon fas fa-cart-arrow-down"></i>
+                        <p>
+                            Transaksi baru
+                        </p>
+                    </a>
+                </li>
+                @endif
+
+                
 
             </ul>
         </nav>

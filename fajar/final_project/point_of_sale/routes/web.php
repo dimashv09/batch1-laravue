@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return redirect()->route('dahboard');
+// });
+
+Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
 Auth::routes();
 
@@ -25,7 +27,17 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function (){
 
-    Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/', function () {
+        return redirect()->route('dashboard');
+    });
+    Route::get('home', function () {
+        return redirect()->route('dashboard');
+    });
+
+    Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
+    //ROUTE ADMIN
+    Route::group(['middleware' => ['role:admin']], function (){
 
     //category
     Route::get('/category/data', [App\Http\Controllers\CategoryController::class, 'data'])->name('category.data');
@@ -69,6 +81,29 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/purchase_detail/{id}/data', [App\Http\Controllers\PurchaseDetailController::class, 'data'])->name('purchase_detail.data');
     Route::resource('purchase_detail',App\Http\Controllers\PurchaseDetailController::class)->except('create', 'show',  'edit');
 
+    //report
+    Route::get('report', [App\Http\Controllers\ReportController::class, 'index'])->name('report.index');
+
+    Route::get('report/data/{awal}/{akhir}', [App\Http\Controllers\ReportController::class, 'data'])->name('report.data');
+    
+    Route::get('report/pdf/{awal}/{akhir}', [App\Http\Controllers\ReportController::class, 'exportPDF'])->name('report.export_pdf');
+
+    //user
+    Route::get('/user/data', [App\Http\Controllers\UserController::class, 'data'])->name('user.data');
+    Route::resource('user', App\Http\Controllers\UserController::class);
+
+
+    //setting
+    Route::get('setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
+
+    Route::get('setting/first', [App\Http\Controllers\SettingController::class, 'show'])->name('setting.show');
+
+    Route::post('setting', [App\Http\Controllers\SettingController::class, 'update'])->name('setting.update');
+
+
+    }); //end route role == admin
+
+
 
     //sales
     Route::get('sales/data', [App\Http\Controllers\SaleController::class, 'data'])->name('sales.data');
@@ -96,23 +131,4 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/transaction/loadForm/{discount}/{total}/{received}', [App\Http\Controllers\SalesDetailController::class, 'loadForm'])->name('transaction.load_form');
 
     Route::resource('transaction',App\Http\Controllers\SalesDetailController::class)->except('show');
-
-    //report
-    Route::get('report', [App\Http\Controllers\ReportController::class, 'index'])->name('report.index');
-
-    Route::get('report/data/{awal}/{akhir}', [App\Http\Controllers\ReportController::class, 'data'])->name('report.data');
-    
-    Route::get('report/pdf/{awal}/{akhir}', [App\Http\Controllers\ReportController::class, 'exportPDF'])->name('report.export_pdf');
-
-    //user
-    Route::get('/user/data', [App\Http\Controllers\UserController::class, 'data'])->name('user.data');
-    Route::resource('user', App\Http\Controllers\UserController::class);
-
-
-    //setting
-    Route::get('setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
-
-    Route::get('setting/first', [App\Http\Controllers\SettingController::class, 'show'])->name('setting.show');
-
-    Route::post('setting', [App\Http\Controllers\SettingController::class, 'update'])->name('setting.update');
 });
