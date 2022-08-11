@@ -14,7 +14,7 @@ class TransactionDetailController extends Controller
      */
     public function index()
     {
-        return view('admin.transactiondetail.index');
+        return view('admin.transactionDetail.index');
     }
 
     /**
