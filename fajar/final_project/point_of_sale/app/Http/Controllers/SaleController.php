@@ -69,7 +69,6 @@ class SaleController extends Controller
         $sale->user_id = auth()->id();
         $sale->save();
 
-
         session(['sales_id' => $sale->id]);
 
         return redirect()->route('transaction.index');
@@ -91,16 +90,17 @@ class SaleController extends Controller
         $sale->discount    = $request->discount;
         $sale->paid        = $request->paid;
         $sale->received    = $request->received;
-
-
-        $sale->save();
+        $sale->update();
 
         
         $detail = SalesDetail::where('sales_id', $sale->id)->get();
         foreach($detail as $item){
+            $item->discount = $request->discount;
+            $item->update();
+
             $product = Product::find($item->product_id);
             $product->stock -= $item->qty;
-            $product->save();
+            $product->update();
         }
 
         return redirect()->route('transaction.finish');

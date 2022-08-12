@@ -230,11 +230,11 @@
         }).focus(function(){
             $(this).select();
         });
+    });
 
-        $('.btn-save').on('click', function () {
+    $('.btn-save').on('click', function () {
             $('.form-sales').submit();
         })
-    });
 
     function showProduct() {
         $('#modal-product').modal('show');

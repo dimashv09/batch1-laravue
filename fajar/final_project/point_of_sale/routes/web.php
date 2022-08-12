@@ -100,11 +100,6 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::post('setting', [App\Http\Controllers\SettingController::class, 'update'])->name('setting.update');
 
-
-    }); //end route role == admin
-
-
-
     //sales
     Route::get('sales/data', [App\Http\Controllers\SaleController::class, 'data'])->name('sales.data');
 
@@ -114,9 +109,16 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::delete('sales/{id}', [App\Http\Controllers\SaleController::class, 'destroy'])->name('sales.delete');
 
+
+    }); //end route role == admin
+
+
+
     //sales transaction
     Route::get('/transaction/new', [App\Http\Controllers\SaleController::class, 'create'])->name('transaction.new');
+
     Route::post('/transaction/save', [App\Http\Controllers\SaleController::class, 'store'])->name('transaction.save');
+
     Route::get('/transaction/finish', [App\Http\Controllers\SaleController::class, 'finish'])->name('transaction.finish');
 
     //nota kecil
@@ -130,5 +132,5 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::get('/transaction/loadForm/{discount}/{total}/{received}', [App\Http\Controllers\SalesDetailController::class, 'loadForm'])->name('transaction.load_form');
 
-    Route::resource('transaction',App\Http\Controllers\SalesDetailController::class)->except('show');
+    Route::resource('transaction',App\Http\Controllers\SalesDetailController::class)->except('create','show', 'edit');
 });

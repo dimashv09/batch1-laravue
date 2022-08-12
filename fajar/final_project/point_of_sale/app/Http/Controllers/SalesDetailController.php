@@ -135,7 +135,6 @@ class SalesDetailController extends Controller
         $detail->product_id = $product->id;
         $detail->price = $product->sell_price;
         $detail->qty = 1;
-        $detail->discount = 0;
         $detail->subtotal = $product->sell_price;
         $detail->save();
 
