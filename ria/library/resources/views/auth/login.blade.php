@@ -74,4 +74,4 @@
   </div>
   <!-- /.card -->
 </div>
-@endsection
+@endsections
