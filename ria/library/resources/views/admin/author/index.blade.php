@@ -1,65 +1,142 @@
 @extends('layouts.admin')
 @section('header', 'Author')
 
+@section('css')
+
+@endsection
+
 @section('content')
-<div class="row">
-<div class="col-12">
-<div class="card">
-<div class="card-header">
-<h3 class="card-title">Data Author</h3>
-<div class="card-tools">
-    <a href="{{ url('authors/create') }}" class="btn btn-sm btn-primary pull-left">Create New Author</a>
-<div class="input-group input-group-sm" style="width: 150px;">
-<input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-<div class="input-group-append">
-<button type="submit" class="btn btn-default">
-<i class="fas fa-search"></i>
-</button>
+<div id="controller">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Data Author</h3>
+          <div class="card-tools">
+            <a href="#" @click="addData()"  class="btn btn-sm btn-primary pull-left">Create New Author</a>
 </div>
-</div>
-</div>
+  </div>
+    </div>
+      </div>
+        </div>
+
+        <table class="table table-head-fixed text-nowrap">
+          <thead>
+            <tr>
+              <th class="text-center">ID</th>
+              <th class="text-center">Name</th>
+              <th class="text-center">Email</th>
+              <th class="text-center">Phone Number</th>
+              <th class="text-center">Address</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            @foreach($authors as $key => $author)
+
+            <tr>
+              <td class="text-center">{{ $key+1 }}</td>
+              <td class="text-center">{{ $author->name }}</td>
+              <td class="text-center">{{ $author->email }}</td>
+              <td class="text-center">{{ $author->phone_number }}</td>
+              <td class="text-center">{{ $author->address }}</td>
+              <td class="text-center">
+                <a href="#" @click="editData({{ $author }})" class="btn btn-warning btn-sm">Edit</a>
+                <a href="#" @click="deleteData({{ $author->id }})"class="btn btn-danger btn-sm">Delete</a>
+
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="card-body table-responsive p-0" style="height: 300px;">
-<table class="table table-head-fixed text-nowrap">
-<thead>
-<tr>
-<th class="text-center">ID</th>
-<th class="text-center">Name</th>
-<th class="text-center">Email</th>
-<th class="text-center">Phone Number</th>
-<th class="text-center">Address</th>
-<th class="text-center">Created Date</th>
-<th class="text-center">Updated Date</th>
-<th class="text-center">Action</th>
-</tr>
-</thead>
-<tbody>
-    @foreach($authors as $key => $author)
-<tr>
-<td class="text-center">{{ $key+1 }}</td>
-<td class="text-center">{{ $author->name }}</td>
-<td class="text-center">{{ $author->email }}</td>
-<td class="text-center">{{ $author->phone_number }}</td>
-<td class="text-center">{{ $author->address }}</td>
-<td class="text-center">{{ date('H:i:s - d M y', strtotime($author->created_at)) }}</td>
-<td class="text-center">{{ date('H:i:s - d M y', strtotime($author->updated_at)) }}</td>
-<td class="text-center">
-    <a href="{{ url('authors/'.$author->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
-    <form action="{{ url('authors', ['id' => $author->id]) }}" method="post">
-        <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are You Sure?')">
-        @method('delete')
-        @csrf
-    </form>
-</td>
-</tr>
-</tbody>
-    @endforeach
-</table>
-</div>
+<div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form :action="actionUrl" method="post" autocomplete="off">
+                <div class="modal-header">
 
-</div>
+                  <h4 class="modal-title">Author</h4>
+                  
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    @csrf
 
-</div>
-</div>
+                    <input type="hidden" name="_method" value="PUT" v-if="editStatus">
+
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input type="text" name="name" :value="data.name" class="form-control" placeholder="Input Name" required="">
+                    </div>
+                    <div class="form-group">
+                      <label>Email</label>
+                      <input type="text" class="form-control" name="email" :value="data.email" placeholder="Input Email" required="">
+                    </div>
+                    <div class="form-group">
+                      <label>Phone Number</label>
+                      <input type="text" class="form-control" name="phone_number" :value="data.phone_number"  placeholder="Input Phone Number" required="">
+                    </div>
+                    <div class="form-group">
+                      <label>Address</label>
+                      <input type="text" class="form-control" name="address" :value="data.address" placeholder="Input Address" required="">
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+              </div>
+@endsection
+
+@section('js')
+
+  <script type="text/javascript">
+    var controller = new Vue({
+      el: '#controller',
+      data: {
+        data : {},
+        actionUrl : '{{ url('authors') }}',
+        editStatus :false
+      },
+      mounted: function () {
+
+      },
+      methods: {
+        addData() {
+          this.data = {};
+          this.actionUrl = '{{ url('authors') }}';
+
+          $('#modal-default').modal();
+
+        },
+        editData(data) {
+          this.data = data;
+          this.editStatus = true;
+          this.actionUrl = '{{ url('authors') }}'+'/'+data.id; 
+          $('#modal-default').modal();
+
+        },
+        deleteData(id) {
+          this.actionUrl = '{{ url('authors') }}'+'/'+id;
+          if (confirm("Are you sure?")) {
+            axios.post(this.actionUrl, {_method: 'DELETE'}).then(response => {
+              location.reload();
+              });
+          }
+
+        }
+      }
+    });
+  </script>
+
 @endsection

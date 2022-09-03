@@ -9,18 +9,14 @@
 <h3 class="card-title">Data Catalog</h3>
 <div class="card-tools">
 	<a href="{{ url('catalogs/create') }}" class="btn btn-sm btn-primary pull-left">Create New Catalog</a>
-<div class="input-group input-group-sm" style="width: 150px;">
-<input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-<div class="input-group-append">
-<button type="submit" class="btn btn-default">
-<i class="fas fa-search"></i>
+
 </button>
 </div>
 </div>
 </div>
 </div>
 
-<div class="card-body table-responsive p-0" style="height: 300px;">
+
 <table class="table table-head-fixed text-nowrap">
 <thead>
 <tr>

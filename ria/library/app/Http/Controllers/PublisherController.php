@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -84,8 +88,11 @@ class PublisherController extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        $this->validate($request,[
+       $this->validate($request,[
             'name'     => ['required'],
+            'email'     => ['required'],
+            'phone_number'     => ['required'],
+            'address'     => ['required'],
         ]);
 
         $publisher->update($request->all());
@@ -101,7 +108,7 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        //$publisher->delete();
+        $publisher->delete();
 
         return redirect('publishers');
     }
