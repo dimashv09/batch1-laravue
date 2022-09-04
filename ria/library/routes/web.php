@@ -39,3 +39,7 @@ Route::resource('/catalogs', App\Http\Controllers\CatalogController::class);
 Route::resource('/authors', App\Http\Controllers\AuthorController::class);
 Route::resource('/publishers', App\Http\Controllers\PublisherController::class);
 
+
+
+Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 'api']);
+Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
