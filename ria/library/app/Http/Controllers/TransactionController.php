@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +23,14 @@ class TransactionController extends Controller
         return view('admin.transaction.index');
     }
 
+    public function api()
+    {
+        $transactons = Transaction::all();
+        $datatables = datatables()->of($transactions)->addIndexColumn();
+
+        return $datatables->make(true);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +38,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.transaction.create');
     }
 
     /**
@@ -35,7 +49,18 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'member_id'     => ['required'],
+            'date_start'     => ['required'],
+            'date_end'     => ['required'],
+            'created_at'     => ['required'],
+            'updated_at'     => ['required'],
+
+        ]);
+
+        Transaction::create($request->all());
+
+        return redirect('transactions');
     }
 
     /**
@@ -57,7 +82,7 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        return view('admin.transaction.edit', compact('transaction'));
     }
 
     /**
@@ -69,7 +94,17 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $this->validate($request,[
+            'member_id'     => ['required'],
+            'date_start'     => ['required'],
+            'date_end'     => ['required'],
+            'created_at'     => ['required'],
+            'updated_at'     => ['required'],
+        ]);
+
+        $transaction->update($request->all());
+
+        return redirect('transactions');
     }
 
     /**
@@ -80,6 +115,8 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+
+        return redirect('transactions');
     }
 }

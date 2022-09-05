@@ -64,7 +64,7 @@
 
                     <div class="form-group">
                       <label>Name</label>
-                      <input type="text" name="name" :value="data.name" class="form-control" placeholder="Input Name" required="">
+                      <input type="text" name="name" :value="book.name" class="form-control" placeholder="Input Name" required="">
                     </div>
                     <div class="form-group">
                     <label>Gender</label>

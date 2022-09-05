@@ -84,7 +84,7 @@ class PublisherController extends Controller
     public function edit(Publisher $publisher)
     {
         //return $publisher;
-        return view('admin.publisher.edit', compact('publisher'));
+        return view('admin.publisher.edit');
     }
 
     /**
