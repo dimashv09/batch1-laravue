@@ -38,8 +38,8 @@
 <td class="text-center">{{ $key+1 }}</td>
 <td class="text-center">{{ $catalog->name }}</td>
 <td class="text-center">{{ count($catalog->books) }}</td>
-<td class="text-center">{{ date('H:i:s - d M y', strtotime($catalog->created_at)) }}</td>
-<td class="text-center">{{ date('H:i:s - d M y', strtotime($catalog->updated_at)) }}</td>
+<td class="text-center">{{ dateFormat($catalog->created_at) }}</td>
+<td class="text-center">{{ dateFormat($catalog->updated_at) }}</td>
 <td class="text-center">
 	<a href="{{ url('catalogs/'.$catalog->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
 	<form action="{{ url('catalogs', ['id' => $catalog->id]) }}" method="post">

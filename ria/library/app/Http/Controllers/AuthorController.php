@@ -23,6 +23,7 @@ class AuthorController extends Controller
         //return $authors;        
         return view('admin.author.index', compact('authors'));
     }
+   
 
     /**
      * Show the form for creating a new resource.

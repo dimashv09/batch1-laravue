@@ -93,6 +93,8 @@
                       <label>Address</label>
                       <input type="text" class="form-control" name="address" :value="data.address" placeholder="Input Address" required="">
                     </div>
+                    <div class="form-group">
+                      
                 </div>
                 <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
