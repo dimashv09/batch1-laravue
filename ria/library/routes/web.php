@@ -1,6 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\TransactionController;
 
 
 /*
@@ -21,7 +29,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/members', [App\Http\Controllers\MemberController::class, 'index']);
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index']);
 Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
 Route::get('/transactiondetails', [App\Http\Controllers\TransactionDetailController::class, 'index']);

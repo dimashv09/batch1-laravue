@@ -5,7 +5,7 @@ var controller = new Vue({
                 data: {},
                 actionUrl,
                 apiUrl,
-                editStatus : false
+                editStatus : false,
             
 
             },

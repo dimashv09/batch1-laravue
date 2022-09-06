@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+
 use App\Models\Transaction;
-use App\Models\Catalog;
-use App\Models\Author;
 use App\Models\Publisher;
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Catalog;
+use App\Models\User;
 use App\Models\Member;
 use Illuminate\Http\Request;
 
@@ -27,6 +30,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
         //$members = Member::with('user')->get();
@@ -161,6 +165,69 @@ class HomeController extends Controller
                         ->get();
 
         //return $data20;
-        return view('home');
+        //return view('home');
+
+
+        //chart
+        $total_catalog = Catalog::count();
+        $total_author = Author::count();
+        $total_publisher = Publisher::count();
+        $total_book = Book::count();
+
+        $data_donut = Book::select(DB::raw("COUNT(publisher_id) as total"))
+                    ->groupBy('publisher_id')
+                    ->orderBy('publisher_id', 'asc')
+                    ->pluck('total');
+
+        //return $data_donut;
+
+        $label_donut = Publisher::orderBy('publishers.id', 'asc')
+                    ->join('books', 'books.publisher_id', '=', 'publishers.id')
+                    ->groupBy('publishers.name')
+                    ->pluck('publishers.name');
+        //return $label_donut;
+
+        // Chart Pie
+        $data_pie = Book::select('price')
+                    ->groupBy('price')
+                    ->orderBy('title', 'asc')
+                    ->pluck('price');
+
+        // return $data_pie;
+
+        $label_pie = Book::orderBy('title', 'asc')
+                    ->groupBy('title')
+                    ->pluck('title');
+                    // return $label_pie;
+
+        // Chart Bar
+        $label_bar = ['Peminjaman', 'Pengembalian'];
+        $data_bar = [];
+
+        foreach ($label_bar as $key => $value) {
+            $data_bar[$key]['label'] = $label_bar[$key];
+            $data_bar[$key]['backgroundColor'] = $key == 0 ? 'rgba(60, 141, 188, 0.9)' : 'rgba(210, 214, 222, 1)';
+            $data_month = [];
+
+            foreach (range(1, 12) as $month) {
+                if ($key == 0) {
+                    $data_month[] = Transaction::select(DB::raw("COUNT(*) as total"))
+                    ->whereMonth('date_start', $month)
+                    ->first()
+                    ->total;
+                } else {
+                    $data_month[] = Transaction::select(DB::raw("COUNT(*) as total"))
+                    ->whereMonth('date_end', $month)
+                    ->first()
+                    ->total;
+                }
+            }
+            $data_bar[$key]['data'] = $data_month;
+        }
+
+        //return view('home', compact('total_member', 'total_catalog', 'total_author', 'total_publisher', 'total_book', 'data_donut', 'label_donut'));
+        // return $data_bar;
+        return view('home', compact('total_book', 'total_publisher', 'total_catalog', 'total_author', 'data_donut', 'label_donut', 'data_pie', 'label_pie', 'data_bar', 'label_bar'));
     }
+
 }
