@@ -17,11 +17,12 @@
           <h3 class="card-title">Data Publisher</h3>
           <div class="card-tools">
             <a href="#" @click="addData()"  class="btn btn-sm btn-primary pull-left">Create New Publisher</a>
-</div>
-  </div>
-    </div>
-      </div>
+          </div>
+          
         </div>
+      </div>
+    </div>
+  </div>
 
         <div class="card-body p-0">
         <table id="example1" class="table table-striped table-bordered">
@@ -32,7 +33,7 @@
               <th class="text-center">Email</th>
               <th class="text-center">Phone Number</th>
               <th class="text-center">Address</th>
-              <th class="text-center">Updated_at</th>
+              <th class="text-center">Updated At</th>
               <th class="text-center">Action</th>
             </tr>
           </thead>
@@ -80,7 +81,7 @@
                     </div>
                     <div class="form-group">
                       <label>Updated At</label>
-                      <input type="text" class="form-control" name="updated_at" :value="data.updated_at" placeholder="Input Updated at" required="">
+                      <input type="text" class="form-control" name="updated_at" :value="data.updated_date" placeholder="Input Date" required="">
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">

@@ -19,16 +19,22 @@ class MemberController extends Controller
      */
     public function index()
     {
+       $members = Member::all();
         return view('admin.member.index');
     }
 
-public function api()
+public function api(Request $request)
     {
-        $members = Member::all();
-        foreach ($members as $key => $member) {
-            $member->date = dateFormat($member->created_at);
+        if ($request->sex) {
+            $datas = Member::where('gender', $request->sex)->get();
+        } else {
+            $datas = Member::all();
         }
-        $datatables = datatables()->of($members)->addIndexColumn();
+
+        $datatables = datatables()
+                        ->of($datas)
+                        ->addIndexColumn();
+                        return $datatables->make(true);
 
         return $datatables->make(true);
     }

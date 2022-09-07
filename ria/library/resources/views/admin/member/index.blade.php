@@ -14,14 +14,22 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Data Member</h3>
           <div class="card-tools">
             <a href="#" @click="addData()"  class="btn btn-sm btn-primary pull-left">Create New Member</a>
-</div>
-  </div>
-    </div>
-      </div>
+          </div>
+
+          <div class="col-md-2">
+            <select class="form-control" name="sex">
+              <option value="0">All Gender</option>
+              <option value="F">Female</option>
+              <option value="M">Male</option>
+            </select>
+          </div>
+
         </div>
+      </div>
+    </div>
+  </div>
 
         <div class="card-body p-0">
         <table id="example1" class="table table-striped table-bordered">
@@ -33,7 +41,6 @@
               <th class="text-center">Email</th>
               <th class="text-center">Phone Number</th>
               <th class="text-center">Address</th>
-              <th class="text-center">Updated_at</th>
               <th class="text-center">Action</th>
             </tr>
           </thead>
@@ -87,10 +94,6 @@
                       <label>Address</label>
                       <input type="text" class="form-control" name="address" :value="data.address" placeholder="Input Address" required="">
                     </div>
-                    <div class="form-group">
-                      <label>Updated At</label>
-                      <input type="text" class="form-control" name="updated_at" :value="data.updated_at" placeholder="Input Updated at" required="">
-                    </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -127,7 +130,6 @@
     {data: 'email', class: 'text-center', orderable: true},
     {data: 'phone_number', class: 'text-center', orderable: true},
     {data: 'address', class: 'text-center', orderable: true},
-    {data: 'date', class: 'text-center', orderable: true},
     {render: function(index, row, data, meta) {
         return `
             <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
@@ -141,4 +143,16 @@
 </script>
 
 <script src="{{ asset('js/data.js') }}"></script>
+<!-- Gender Filter  -->
+<script type="text/javascript">
+    $('select[name=sex]').on('change', function() {
+        sex = $('select[name=sex]').val();
+
+        if (sex == 0 ) {
+            controller.table.ajax.url(apiUrl).load();
+        } else {
+            controller.table.ajax.url(apiUrl+'?sex='+sex).load();
+        }
+    });
+</script>
 @endsection
