@@ -120,7 +120,7 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 <script type="text/javascript">
-  var actionUrl = '{{ url('memebers') }}';
+  var actionUrl = '{{ url('members') }}';
     var apiUrl = '{{ url('api/members') }}';
 
     var columns = [

@@ -21,7 +21,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ url('transaction/'.$transaction->id) }}" method="post">
+              <form action="{{ url('transactions/'.$transaction->id) }}" method="post">
                 @csrf
                 {{ method_field('PUT') }}
               <div class="card-body">

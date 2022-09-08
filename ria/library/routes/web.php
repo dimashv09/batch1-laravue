@@ -53,5 +53,4 @@ Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 
 Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
 Route::get('/api/books', [App\Http\Controllers\BookController::class, 'api']);
 Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']);
-Route::get('/api/transaction', [App\Http\Controllers\TransactionController::class, 'api']);
-Route::get('/api2/transaction', [App\Http\Controllers\TransactionController::class, 'api2']);
+Route::get('/api/transactions', [App\Http\Controllers\TransactionController::class, 'api']);
