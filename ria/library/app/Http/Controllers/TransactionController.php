@@ -23,38 +23,38 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //  return auth()->user()->hasRole('admin');
+        
         return view('admin.transaction.index');
  
     }
 
     public function api(Request $request)
     {
-        if ($request->status) {
-            $transactions = Transaction::with(['transactionDetails.book', 'member'])
+      
+      if ($request->status) {
+            $transactions = Transaction::with(['transaction_details.book', 'member'])
                 ->where('status', '=', $request->status == 2 ? 0 : 1)
                 ->get();
         } else if ($request->date_start) {
-            $transactions = Transaction::with(['transactionDetails.book', 'member'])
+            $transactions = Transaction::with(['transaction_details.book', 'member'])
                 ->where('date_start', '>=', $request->date_start)
                 ->get();
         } else {
-            $transactions = Transaction::with(['transactionDetails.book', 'member'])->get();
+            $transactions = Transaction::with(['transaction_details.book', 'member'])->get();
         }
 
-        $datatables = datatables()
-            ->of($transactions)
-            ->addColumn('duration', function ($transaction) {
-                return dateDifference($transaction->date_start, $transaction->date_end) . " Days";
-            })
-            ->addColumn('purches', function ($transaction) {
-                $purcheses = $transaction->transactionDetails->sum('book.price');
-                return "Rp. " . number_format($purcheses);
-            })
-            ->addColumn('statusTransaction', function ($transaction) {
-                return $transaction->status ? "Has been returned" : "Not returned yet";
-            })
-            ->addIndexColumn();
+        $datatables = datatables()->of($transactions)
+                                  ->addColumn('duration', function ($transaction) {
+                                    return dateDifference($transaction->date_start, $transaction->date_end) . " Days";
+                                })
+                                  ->addColumn('purches', function ($transaction) {
+                                    $purcheses = $transaction->transaction_details->sum('book.price');
+                                    return "Rp. " . number_format($purcheses);
+                                })
+                                  ->addColumn('statusTransaction', function ($transaction) {
+                                    return $transaction->status ? "Has been returned" : "Not been returned";
+                                })
+                                  ->addIndexColumn();
 
         return $datatables->make(true);
     }
@@ -80,14 +80,12 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->book_id;
-        // Validation data
-        $request->validate([
+      $request->validate([
             'member_id' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
             'book_id' => 'required',
-            'status' => '0',
+            'statusTransaction' => '0',
         ]);
 
         try {
@@ -96,7 +94,7 @@ class TransactionController extends Controller
                 'member_id' => $request->member_id,
                 'date_start' => $request->date_start,
                 'date_end' => $request->date_end,
-                'status' => false,
+                'statusTransaction' => false,
             ]);
             // Insert Transaction Details data into database
             if ($transactions) {
@@ -119,7 +117,7 @@ class TransactionController extends Controller
             return $error;
         }
 
-        return redirect('transactions')->with('success', 'New transaction data has been Added');
+        return redirect('transactions');
     }
 
     /**
@@ -130,11 +128,11 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        $books = Book::where('quantity', '>=', 1)->get();
-        $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
+        $books = Book::where('qty', '>=', 1)->get();
+        $transaction_details = TransactionDetail::where('transaction_id', $transaction->id)->get();
 
         // return $transaction->member->id;
-        return view('admin.transaction.show', compact('transaction', 'books', 'transactionDetails'));
+        return view('admin.transaction.show', compact('transaction', 'books', 'transaction_details'));
     }
 
     /**
@@ -145,12 +143,13 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-     //create edit transaction
+      //create edit transaction
+        //create edit transaction
         $members = Member::all();
         $books = Book::where('qty', '>=', 1)->get();
-        $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
+        $transaction_details = TransactionDetail::where('transaction_id', $transaction->id)->get();
 
-        return view('admin.transaction.edit', compact('transaction', 'members', 'books', 'transactionDetails'));
+        return view('admin.transaction.edit', compact('transaction', 'members', 'books', 'transaction_details'));
     }
 
     /**
@@ -162,13 +161,12 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        // return $transaction;
         // Validation data
         $request->validate([
             'member_id' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
-            'status' => 'required',
+            'statusTransaction' => 'required',
             'book_id' => 'required',
         ]);
 
@@ -179,7 +177,7 @@ class TransactionController extends Controller
                     'member_id' => $request->member_id,
                     'date_start' => $request->date_start,
                     'date_end' => $request->date_end,
-                    'status' => $request-> status, 
+                    'statusTransaction' => $request-> status, 
                 ]);
 
             if ($transactions) {
@@ -196,7 +194,7 @@ class TransactionController extends Controller
                     // Update Books Stock
                     $books = Book::find($book);
                     if ($request->status == 1) { // if the book has Returned increment the book stock
-                        $books->quantity += 1;
+                        $books->qty += 1;
                     }
                     $books->update();
                 }
@@ -205,9 +203,9 @@ class TransactionController extends Controller
         } catch (\Throwable $error) {
             DB::rollback();
             return $error;
-        }
+         }
 
-        return redirect('transactions')->with('success', 'Transaction data has been Updated');
+        return redirect('transactions');
     }
 
     /**
@@ -219,11 +217,12 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         
-        $deleteTransactionDetail = TransactionDetail::where('transaction_id', $transaction->id);
+         $deleteTransactionDetail = TransactionDetail::where('transaction_id', $transaction->id);
         $deleteTransaction = Transaction::find($transaction->id);
         // Delete data with specific ID
         if($deleteTransactionDetail->delete()){
             $deleteTransaction->delete();
         }
+        
     }
 }

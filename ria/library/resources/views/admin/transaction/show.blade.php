@@ -27,14 +27,14 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="name">Member's Name</label>
+                                <label for="name">Members Name</label>
                                 <input type="text" class="form-control" id="name" name="name"
                                     value="{{ $transaction->member->name }}" disabled readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="status">Transaction's Status</label>
+                                <label for="status">Transactions Status</label>
                                 <input type="text" class="form-control" id="status" name="status"
                                     value="{{ $transaction->status ? "Has returned" : "Hasn't returned yet"}}" disabled
                                     readonly>
@@ -44,14 +44,14 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="date_start">Transaction Starts</label>
+                                <label for="date_start">Transaction Start</label>
                                 <input type="date" class="form-control" id="date_start" name="date_start"
                                     value="{{ old('date_start', $transaction->date_start) }}" disabled readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="date_end">Transaction Ends</label>
+                                <label for="date_end">Transaction End</label>
                                 <input type="date" class="form-control" id="date_end" name="date_end"
                                     value="{{ old('date_end', $transaction->date_end) }}" disabled readonly>
                             </div>
@@ -66,7 +66,7 @@
                             <option value="{{ $book->id }}" {{ in_array($book->id, old('book_id')) ? 'selected' : '' }}>
                                 {{ $book->title }}</option>
                             @else
-                            <option value="{{ $book->id }}" @foreach($transactionDetails as $detail)
+                            <option value="{{ $book->id }}" @foreach($transaction_details as $detail)
                                 {{ $detail->book_id == $book->id ? 'selected' : '' }} @endforeach>
                                 {{ $book->title }}
                             </option>

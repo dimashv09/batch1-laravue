@@ -8,14 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+   protected $fillable = ['member_id', 'date_start', 'date_end', 'status', 'purches'];
 
-    public function member()
-    {
-        return $this->belongsTo(Member::class);
+
+    public function member(){
+        return $this->belongsTo(Member::class, 'member_id');
     }
 
-    public function transactionDetails()
+    public function detail(){
+        return $this->hasMany(TransactionDetail::class, 'transaction_id');
+    }
+     public function transaction_details()
     {
         return $this->hasMany(TransactionDetail::class);
     }

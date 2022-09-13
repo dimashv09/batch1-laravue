@@ -6,6 +6,7 @@ var controller = new Vue({
                 actionUrl,
                 apiUrl,
                 editStatus : false,
+                status: false,
             
 
             },
@@ -53,5 +54,6 @@ var controller = new Vue({
                     _this.table.ajax.reload();
                 });
              },
+             
         }      
     });

@@ -1,100 +1,102 @@
 @extends('layouts.admin')
-@section ('header', 'Transaction')
+
+@section('header', 'Edit Transaction')
 
 @section('css')
-  <!-- Select2 -->
-  <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-  <!-- daterange picker -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" />
-  <link rel="stylesheet" href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css') }}">
+<!-- Select2 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+    /* For Buttons */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        border-color: #343a40;
+        background-color: #0d6efd;
+    }
+</style>
 @endsection
 
 @section('content')
-<div class="row">
-          <!-- left column -->
-          <div class="col-md-6">
-            <!-- general form elements -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Edit Transaction</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form action="{{ url('transactions/'.$transaction->id) }}" method="post">
-                @csrf
-                {{ method_field('PUT') }}
-              <div class="card-body">
-                <div class="form-group">
-                        <label>Member</label>
-                        <select name="member_id" class="form-control">
-                           @foreach($members as $member)
-                           <option value="{{ $member->id }}" {{ $transaction->member_id == $member->id ? 'selected' : ''}}>{{ $member->name }}</option>
+<div id="controller">
+    <div class="row justify-content-center mb-4">
+        <div class="col-6">
+            <form action="{{ route('transactions.update', $transaction->id) }}" method="post" class="bg-light">
+                <div class="modal-body">
+                    @csrf
+                    @method('put')
+
+                    <div class="form-group">
+                        <label for="name">Members Name</label>
+                        <select name="member_id" id="name" class="form-control form-control-sm">
+                            @foreach ($members as $member)
+                            <option value="{{ $member->id }}"
+                                {{ $transaction->member_id == $member->id ? 'selected' : ''}}>
+                                {{ $member->name }}
+                            </option>
                             @endforeach
                         </select>
-                 </div>
-                <!-- Date -->
-                <div class="form-group">
-                          <label>Transaction Start</label>
-                          <input type="date" class="form-control" name="date_start" value="{{ old('date_start', $transaction->date_start) }}" required>
-                </div>
-                <div class="form-group">
-                          <label>Transaction End</label>
-                          <input type="date" class="form-control" name="date_end" value="{{ old('date_end', $transaction->date_end) }}" required>
-                </div>
-                  <div class="select2-blue">
-                          <label>Book</label>
-                          <select name="book_id[]" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="date_start">Translation Start</label>
+                                <input type="date" class="form-control" id="date_start" name="date_start" required
+                                    value="{{ old('date_start', $transaction->date_start) }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="date_end">Translation End</label>
+                                <input type="date" class="form-control" id="date_end" name="date_end" required
+                                    value="{{ old('date_end', $transaction->date_end) }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Books</label>
+                        <select class="select2 select2-danger" multiple="multiple" data-placeholder="Select a Book"
+                            style="width: 100%;" name="book_id[]">
                             @foreach ($books as $key => $book)
                             @if (old('book_id'))
                             <option value="{{ $book->id }}" {{ in_array($book->id, old('book_id')) ? 'selected' : '' }}>
                                 {{ $book->title }}</option>
                             @else
-                            <option value="{{ $book->id }}" @foreach($transactionDetails as $transactions)
-                                {{ $transactions->book_id == $book->id ? 'selected' : '' }} @endforeach>
+                            <option value="{{ $book->id }}" @foreach($transaction_details as $transaction)
+                                {{ $transaction->book_id == $book->id ? 'selected' : '' }} @endforeach>
                                 {{ $book->title }}
                             </option>
                             @endif
                             @endforeach
-                          </select>
-                  </div><br>
-                  <div class="form-group">
-                  <label> Status </label>
-                    <div class="form-check">
-                          <input class="form-check-input" type="radio" name="status" value="1" {{ ($transaction->status == '1') ? 'checked' : '' }}>
-                          <label class="form-check-label">Has Been Returned</label>
-                  </div>
-                  <div class="form-check">
-                          <input class="form-check-input" type="radio" name="status" value="0" {{ ($transaction->status == '0') ? 'checked' : '' }}>
-                          <label class="form-check-label">Not Been Restored</label>
-                  </div>
-                </div>
-                </div>
-              </div>
-                <!-- /.card-body -->
+                        </select>
+                    </div>
 
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group" v-if="status">
+                        <label for="status">status</label>
+                        <select name="status" id="status" class="form-control form-control-sm">
+                            <option value="0">Not Returned yet</option>
+                            <option value="1">Has Returned</option>
+                        </select>
+                    </div>
                 </div>
-              </form>
-            </div>
+                <div class="modal-footer justify-content-between">
+                    <a href="{{ route('transactions.index') }}" class="btn btn-danger px-5">Cancel</a>
+                    <button type="submit" class="btn btn-primary px-5">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
-@section ('js')
-<!-- Select2 -->
-<script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
-<!-- date-range-picker -->
-<script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/js/tempusdominus-bootstrap-4.min.js" crossorigin="anonymous"></script>
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
+<script>
+    $(function () {
     //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
+    $('.select2').select2(
+    )
     })
-  });
 </script>
+
 @endsection

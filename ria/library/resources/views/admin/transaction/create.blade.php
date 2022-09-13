@@ -20,36 +20,36 @@
                 <div class="modal-body">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Member's Name</label>
+                        <label for="name">Members Name</label>
                         <select name="member_id" id="name"
                             class="form-control @error('member_id') is-invalid @enderror">
                             <option selected>Select Member</option>
                             @foreach ($members as $member)
-                            <option value="{{ $member->id }}">{{ $member->name }}</option>
+                            <option value="{{ $member->id }}">{{$member->name}}</option>
                             @endforeach
                         </select>
                         @error('member_id')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{$message}}</div>
                         @enderror
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="date_start">Translation Starts</label>
+                                <label for="date_start">Translation Start</label>
                                 <input type="date" class="form-control @error('date_start') is-invalid @enderror"
                                     id="date_start" name="date_start" value="{{ old('date_start') }}">
                                 @error('date_start')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="date_end">Translation Ends</label>
+                                <label for="date_end">Translation End</label>
                                 <input type="date" class="form-control @error('date_end') is-invalid @enderror"
-                                    id="date_end" name="date_end" value="{{ old('date_end') }}">
+                                    id="date_end" name="date_end" value="{{old('date_end')}}">
                                 @error('date_end')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
                             </div>
                         </div>
