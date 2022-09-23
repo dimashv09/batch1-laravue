@@ -103,8 +103,9 @@
 		$isbn = $_GET['isbn'];
 		$judul = $_POST['judul'];
 		$tahun = $_POST['tahun'];
-		$id_penerbit = $_POST['id_pengarang'];
-		$tahun = $_POST['id_penerbit'];
+		$id_penerbit = $_POST['id_penerbit'];
+		$id_pengarang = $_POST['id_pengarang'];
+
 		
 		$id_katalog = $_POST['id_katalog'];
 		$qty_stok = $_POST['qty_stok'];

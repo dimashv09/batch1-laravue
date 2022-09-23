@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Edit Katalog</title>
+
 </head>
-<?php 
+<?php
 include_once("../buku/connect.php");
 $id_katalog = $_GET['id_katalog'];
 $katalog = mysqli_query($mysqli, "SELECT * FROM katalog WHERE id_katalog = '$id_katalog'");
 
-while($katalog_data = mysqli_fetch_array($katalog)) {
+while ($katalog_data = mysqli_fetch_array($katalog)) {
 	$nama = $katalog_data['nama'];
 }
 
- ?>
+?>
+
 <body>
-<div class="container">
-	<div class="card">
-		<div class="card-header">
-			<a class="btn btn-primary" href="index.php">Go Home</a>
-		</div>
-	</div>
-	<div class="card">
-		<div class="card-body">
-			<form action="update.php?id_katalog=<?php echo $id_katalog; ?>" method="post">
-					<div class="form-group">
-						<label>Nama</label>
-						<input class="form-control" type="text" name="nama" value="<?php echo $nama; ?>">
-					</div>
-					<div class="form-group">
-						<input class="btn btn-primary" type="submit" name="update" value="Update">
-					</div>
-			</form>
+	<a href="index.php">Go Home</a>
+	<form action="update.php?id_katalog=<?php echo $id_katalog; ?>" method="post">
+		<label>Nama</label>
+		<input stype="text" name="nama" value="<?php echo $nama; ?>">
+		<input type="submit" name="update" value="Update">
+	</form>
 </body>
-<?php 
+<?php
 
 if (isset($_POST['update'])) {
 	$nama = $_POST['nama'];
@@ -43,5 +37,6 @@ if (isset($_POST['update'])) {
 	header("Location:index.php");
 }
 
- ?>
+?>
+
 </html>
