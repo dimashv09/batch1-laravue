@@ -12,20 +12,20 @@ class AuthorSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
-     */
+     */ 
     public function run()
     {
         $faker = Faker::create();
 
-        for ($i=0; $i < 10; $i++) {
-            $author = new Author;
+        for ($i=0; $i < 25; $i++) {
+            $Author = new Author;
 
-            $author->name = $faker->name;
-            $author->email = $faker->email;
-            $author->phone_number = '0821' .$faker->randomNumber(8);
-            $author->address = $faker->address;
+            $Author->Name = $faker->Name;
+            $Author->Email = $faker->Email;
+            $Author->Phone_Number = '0821' .$faker->randomNumber(8);
+            $Author->Address = $faker->Address;
 
-            $author->save();
+            $Author->save();
         }
     }
 }

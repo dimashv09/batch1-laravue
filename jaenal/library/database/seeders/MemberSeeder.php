@@ -16,17 +16,15 @@ class MemberSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $gender = $faker->randomElement(['male', 'female']);
 
-        for ($i=0; $i < 10; $i++) {
+        for ($i=0; $i < 25; $i++) {
             $Member = new Member;
 
-            $Member->name = $faker->name;
-            $Member->gender = $gender;
-
-            $Member->email = $faker->email;
-            $Member->phone_number = '0821' .$faker->randomNumber(8);
-            $Member->address = $faker->address;
+            $Member->Name = $faker->Name;
+            $Member->Gender = $faker->randomElement(['M', 'F']);
+            $Member->Email = $faker->Email;
+            $Member->Phone_Number = '0821' .$faker->randomNumber(8);
+            $Member->Address = $faker->Address;
 
             $Member->save();
         }
