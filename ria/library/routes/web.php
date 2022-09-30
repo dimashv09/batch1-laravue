@@ -54,3 +54,6 @@ Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']
 Route::get('/api/books', [App\Http\Controllers\BookController::class, 'api']);
 Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']);
 Route::get('/api/transactions', [App\Http\Controllers\TransactionController::class, 'api']);
+
+//spatie Transaction
+Route::get('spaties', [TransactionController::class,'setRole']);

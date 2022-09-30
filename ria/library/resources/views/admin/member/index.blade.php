@@ -10,10 +10,12 @@
 
 @section('content')
 <div id="controller">
+
   <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-header">
+          
           <div class="card-tools">
             <a href="#" @click="addData()"  class="btn btn-sm btn-primary pull-left">Create New Member</a>
           </div>
@@ -31,7 +33,7 @@
     </div>
   </div>
 
-        <div class="card-body p-0">
+  <div class="card-body p-0">
         <table id="example1" class="table table-striped table-bordered">
           <thead>
             <tr>
@@ -44,63 +46,69 @@
               <th class="text-center">Action</th>
             </tr>
           </thead>
-
-          
-       </table>
-        </div>
+        </table>
       </div>
-    </div>
-  </div>
-</div>
 
-<div class="modal fade" id="modal-default">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)" >
-                <div class="modal-header">
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
 
-                  <h4 class="modal-title">Member</h4>
+           <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
+              <div class="modal-header">
+                <h4 class="modal-title">Member</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
 
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
+
+             <div class="modal-body">
                     @csrf
 
                     <input type="hidden" name="_method" value="PUT" v-if="editStatus">
 
-                    <div class="form-group">
+                   <div class="form-group">
                       <label>Name</label>
-                      <input type="text" name="name" :value="book.name" class="form-control" placeholder="Input Name" required="">
+                      <input type="text" name="name" :value="data.name" class="form-control" placeholder="Input Name" required="">
                     </div>
+
                     <div class="form-group">
-                    <label>Gender</label>
+                      <label>Gender</label>
                       <select name="gender" id="gender" class="form-control">
-                            <option :selected="data.gender" value="">--Choose Gender--</option>
-                           <option :selected="data.gender" value="Pria">Male</option>
-                           <option :selected="data.gender" value="Wanita">Female</option>
+                        <option :selected="data.gender" value="">--Choose Gender--</option>
+                        <option :selected="data.gender" value="Pria">Male</option>
+                        <option :selected="data.gender" value="Wanita">Female</option>
                       </select>
                     </div>
+
                     <div class="form-group">
                       <label>Email</label>
                       <input type="text" class="form-control" name="email" :value="data.email" placeholder="Input Email" required="">
                     </div>
+
                     <div class="form-group">
                       <label>Phone Number</label>
                       <input type="text" class="form-control" name="phone_number" :value="data.phone_number"  placeholder="Input Phone Number" required="">
                     </div>
+
                     <div class="form-group">
                       <label>Address</label>
                       <input type="text" class="form-control" name="address" :value="data.address" placeholder="Input Address" required="">
                     </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-                </form>
+
+                    <div class="modal-footer justify-content-between">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+
               </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+</div>
 @endsection
 
 @section('js')
