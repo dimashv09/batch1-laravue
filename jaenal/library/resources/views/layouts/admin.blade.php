@@ -132,13 +132,58 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
+            <a href="{{ url ('home') }}" class="nav-link {{ request ()-> is('home') ? 'active' : ''}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Home
               </p>
             </a>
           </li>
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item menu-open">
+              <a href="{{ url ('Catalog') }}" class="nav-link {{ request ()-> is('Catalog') ? 'active' : ''}}">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Catalog
+                </p>
+              </a>
+            </li>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <li class="nav-item menu-open">
+                <a href="{{ url ('Book') }}" class="nav-link {{ request ()-> is('Book') ? 'active' : ''}}">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>
+                    Book
+                  </p>
+                </a>
+              </li>
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item menu-open">
+                  <a href="{{ url ('Member') }}" class="nav-link {{ request ()-> is('Member') ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-handshake"></i>
+                    <p>
+                      Member
+                    </p>
+                  </a>
+                </li>
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                  <li class="nav-item menu-open">
+                    <a href="{{ url ('Publisher') }}" class="nav-link {{ request ()-> is('Publisher') ? 'active' : ''}}">
+                      <i class="nav-icon fas fa-bookmark"></i>
+                      <p>
+                        Publisher
+                      </p>
+                    </a>
+                  </li>
+                  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item menu-open">
+                      <a href="{{ url ('Author') }}" class="nav-link {{ request ()-> is('Author') ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-file-contract"></i>
+                        <p>
+                          Author
+                        </p>
+                      </a>
+                    </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -153,7 +198,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">@yield('header')</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

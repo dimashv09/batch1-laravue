@@ -14,7 +14,7 @@ class Membercontroller extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.Member.index');
     }
 
     /**
