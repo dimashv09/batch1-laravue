@@ -133,7 +133,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item menu-open">
             <a href="{{ url ('home') }}" class="nav-link {{ request ()-> is('home') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-solid fa-house fa-fw"></i>
               <p>
                 Home
               </p>
@@ -160,7 +160,7 @@
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
                   <a href="{{ url ('Member') }}" class="nav-link {{ request ()-> is('Member') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-handshake"></i>
+                    <i class="nav-icon fas fa-solid fa-users fa-fw"></i>
                     <p>
                       Member
                     </p>
