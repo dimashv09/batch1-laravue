@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_details', function (Blueprint $table) {
+        Schema::create('Transaction_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('book_id');
             $table->integer('qty');
             $table->timestamps();
 
-            $table->foreign('transaction_id')->references('id')->on('transactions');
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->foreign('transaction_id')->references('id')->on('Transactions');
+            $table->foreign('book_id')->references('id')->on('Books');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction_details');
+        Schema::dropIfExists('Transaction_details');
     }
 };

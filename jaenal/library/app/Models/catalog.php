@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class catalog extends Model
 {
     use HasFactory;
+
+    public function Books()
+
+    {
+        return $this->hasMany( 'App\Models\Book', 'catalog_id');
+    }
 }

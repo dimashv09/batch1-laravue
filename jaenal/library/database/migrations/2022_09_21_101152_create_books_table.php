@@ -13,21 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('Books', function (Blueprint $table) {
             $table->id();
             $table->integer('isbn');
             $table->string('title', 64);
             $table->integer('year');
-            $table->unsignedBigInteger('publisher_id');
-            $table->unsignedBigInteger('author_id');
-            $table->unsignedBigInteger('catalog_id');
+            $table->unsignedBigInteger('Publisher_id');
+            $table->unsignedBigInteger('Author_id');
+            $table->unsignedBigInteger('Catalog_id');
             $table->integer('qty');
             $table->integer('price');
             $table->timestamps();
 
-            $table->foreign('publisher_id')->references('id')->on('publishers');
-            $table->foreign('author_id')->references('id')->on('authors');
-            $table->foreign('catalog_id')->references('id')->on('catalogs');
+            $table->foreign('Publisher_id')->references('id')->on('Publishers');
+            $table->foreign('Author_id')->references('id')->on('Authors');
+            $table->foreign('Catalog_id')->references('id')->on('Catalogs');
         });
     }
 
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('Books');
     }
 };

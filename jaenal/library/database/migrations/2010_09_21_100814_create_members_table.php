@@ -20,6 +20,8 @@ return new class extends Migration
             $table->char('Phone_Number', 15);
             $table->text('Address');
             $table->string('Email', 64);
+            $table->unsignedBigInteger('member_id');
+            
             $table->timestamps();
         });
     }

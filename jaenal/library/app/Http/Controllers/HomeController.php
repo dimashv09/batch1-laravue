@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Illuminate\Http\Models\Member;
+//use App\Models\Member;
+//use App\Models\Book;
+//use App\Models\Publisher;
+//use App\Models\Author;
+//use App\Models\Catalog;
+use App\Models\Transaction;
 
 class HomeController extends Controller
 {
@@ -24,9 +29,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $Members = Member :: all();
+        //$Members = Member :: All();
+        //$Members = Member :: with ('user')->get();
+        //$Books = Book::with ('Publisher')->get();
+        //$Publishers = Publisher :: with ('Books')->get();
+        //$Books = Book :: with ('Author')->get();
+        //$Authors = Author :: with ('Books')->get();
+        //$Books = Book :: with ('Catalog')->get();
+        //$Catalog = Catalog :: with ('Books')->get();
+        $Transactions = Transaction :: with ('Member')->get();
 
-        return $Members; 
+
+        return $Transactions; 
         return view('home');
     }
 }

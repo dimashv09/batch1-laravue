@@ -21,7 +21,7 @@ class MemberSeeder extends Seeder
             $Member = new Member;
 
             $Member->Name = $faker->Name;
-            $Member->Gender = $faker->randomElement(['M', 'F']);
+            $Member->Gender = $faker->randomElement(['L', 'P']);
             $Member->Email = $faker->Email;
             $Member->Phone_Number = '0821' .$faker->randomNumber(8);
             $Member->Address = $faker->Address;
