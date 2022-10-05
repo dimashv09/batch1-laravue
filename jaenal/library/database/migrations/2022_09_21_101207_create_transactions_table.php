@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('Transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreign('member_id')->references('id')->on('Members');
+            $table->unsignedBigInteger('member_id');
             $table->date('date_start');
             $table->date('date_end');
+
+            $table->foreign('member_id')->references('id')->on('Members');
             $table->timestamps();
         });
     }

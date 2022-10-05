@@ -37,7 +37,7 @@ class HomeController extends Controller
         //$Authors = Author :: with ('Books')->get();
         //$Books = Book :: with ('Catalog')->get();
         //$Catalog = Catalog :: with ('Books')->get();
-        $Transactions = Transaction :: with ('Member')->get();
+        $Transactions = Transaction :: with ('member')->get();
 
 
         return $Transactions; 
