@@ -8,6 +8,8 @@ use App\Models\Member;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\TransactionDetail;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
@@ -24,7 +26,12 @@ class TransactionController extends Controller
     public function index()
     {
         
-        return view('admin.transaction.index');
+          //  return auth()->user()->hasRole('admin');
+         if (auth()->user()->hasRole('admin')) {
+            return view('admin.transaction.index');
+        } else {
+            return abort('403');
+        }
  
     }
 
@@ -224,5 +231,24 @@ class TransactionController extends Controller
             $deleteTransaction->delete();
         }
         
+    }
+
+    public function test_spatie()
+    {
+        // $role = Role::create(['name' => 'admin']);
+        // $permission = Permission::create(['name' => 'borrowing index']);
+
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        // $user = auth()->user();
+        // $user->assignRole('admin');
+        // return $user;
+
+        // $user = User::with('roles')->get();
+        // return $user;
+
+        // $user = auth()->user();
+        // $user->removeRole('admin');
     }
 }

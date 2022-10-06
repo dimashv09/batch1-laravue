@@ -9,6 +9,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\AdminController;
 
 
 /*
@@ -56,4 +57,4 @@ Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']
 Route::get('/api/transactions', [App\Http\Controllers\TransactionController::class, 'api']);
 
 //spatie Transaction
-Route::get('spaties', [TransactionController::class,'setRole']);
+Route::get('test_spatie', [TransactionController::class, 'test_spatie']);
