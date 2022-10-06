@@ -37,14 +37,14 @@ var controller = new Vue({
                     this.editStatus = true;
                     $('#modal-default').modal();
                 },
-                deleteData(event, id) {
-                    if (confirm("Are you sure ?")) {
-                      $(event.target).parents('tr').remove();
-                            axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response => {
-                              alert('Data has been removed');
-                            });
-                }
-             },
+                deleteData(id) {
+                    this.actionUrl = '{{ url('authors') }}'+'/'+id;
+                    if (confirm("Are you sure?")) {
+                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response => {
+                            location.reload();
+                        });
+                    }
+                },
              submitForm(event, id){
                 event.preventDefault();
                 const _this = this;

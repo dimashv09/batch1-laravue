@@ -27,16 +27,15 @@ function transactionAlert()
         $data[$index]["day_late"] = dateDifference($transaction->date_end, $currentDate);
     }
 
-    return $data;
-    function notification(){
-        $date = date('Y-m-d');
-        $transaction = Transaction::where('transactions.status','=','0')
-                                          ->where('transactions.date_end','>',$date)
-                                          ->get();
-        $datas = [
-            'transaction' => $transaction,
-            'count' => $transaction->count()
-        ];
+    function late_notification() {
+        $data = [];
+        $today = date('Y-m-d');
+        $members = Transaction::where('date_end', '<', $today)->where('status', 0)->get();
+        foreach($members as $key => $m) {
+            $data[$key]["transaction"] = $m->id;
+            $data[$key]["member"] = $m->member->name;
+            $data[$key]["delay"] = date_difference($m->date_end, $today);
+        }
         return $data;
     }
 }
