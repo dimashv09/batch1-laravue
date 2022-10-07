@@ -9,9 +9,9 @@ class Member extends Model
 {
     use HasFactory;
     
-    public function user()
+    public function transaction()
 
     {
-        return $this->hasOne( 'App\Models\User', 'member_id');
+        return $this->hasOne( Transaction::class);
     }
 }

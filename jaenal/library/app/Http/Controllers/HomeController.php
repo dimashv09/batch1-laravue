@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\Models\Member;
+use App\Models\Member;
 //use App\Models\Book;
 //use App\Models\Publisher;
 //use App\Models\Author;
 //use App\Models\Catalog;
-use App\Models\Transaction;
+//use App\Models\Transaction;
 
 class HomeController extends Controller
 {
@@ -36,11 +36,12 @@ class HomeController extends Controller
         //$Books = Book :: with ('Author')->get();
         //$Authors = Author :: with ('Books')->get();
         //$Books = Book :: with ('Catalog')->get();
-        //$Catalog = Catalog :: with ('Books')->get();
-        $Transactions = Transaction :: with ('member')->get();
+        //$Catalogs = Catalog :: with ('Books')->get();
+        //$Transactions = Transaction :: with ('member')->get();
+        $Members = Member :: with ('transaction')->get();
 
 
-        return $Transactions; 
+        return $Members; 
         return view('home');
     }
 }

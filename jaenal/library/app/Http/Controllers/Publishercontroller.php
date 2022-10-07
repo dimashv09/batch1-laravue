@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pubisher;
+use App\Models\publisher;
 use Illuminate\Http\Request;
 
 class Publishercontroller extends Controller
@@ -41,10 +41,10 @@ class Publishercontroller extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pubisher  $pubisher
+     * @param  \App\Models\publisher  $publisher
      * @return \Illuminate\Http\Response
      */
-    public function show(Pubisher $pubisher)
+    public function show(Publisher $publisher)
     {
         //
     }
@@ -52,10 +52,10 @@ class Publishercontroller extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Pubisher  $pubisher
+     * @param  \App\Models\Publisher  $publisher
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pubisher $pubisher)
+    public function edit(Publisher $publisher)
     {
         //
     }
@@ -64,10 +64,10 @@ class Publishercontroller extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pubisher  $pubisher
+     * @param  \App\Models\Publisher  $publisher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pubisher $pubisher)
+    public function update(Request $request, Publisher $publisher)
     {
         //
     }
@@ -75,10 +75,10 @@ class Publishercontroller extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pubisher  $pubisher
+     * @param  \App\Models\publisher  $publisher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pubisher $pubisher)
+    public function destroy(Publisher $publisher)
     {
         //
     }

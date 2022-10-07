@@ -12,6 +12,6 @@ class Transaction extends Model
     public function member()
 
     {
-        return $this->hasOne( Member::class);
+        return $this->belongsTo( member::class);
 }
 }
