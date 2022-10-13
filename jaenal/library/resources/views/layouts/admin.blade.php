@@ -141,7 +141,7 @@
           </li>
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item menu-open">
-              <a href="{{ url ('Catalog') }}" class="nav-link {{ request ()-> is('Catalog') ? 'active' : ''}}">
+              <a href="{{ url ('Catalogs') }}" class="nav-link {{ request ()-> is('Catalogs') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
                   Catalog
@@ -150,7 +150,7 @@
             </li>
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <li class="nav-item menu-open">
-                <a href="{{ url ('Book') }}" class="nav-link {{ request ()-> is('Book') ? 'active' : ''}}">
+                <a href="{{ url ('Books') }}" class="nav-link {{ request ()-> is('Books') ? 'active' : ''}}">
                   <i class="nav-icon fas fa-book"></i>
                   <p>
                     Book
@@ -159,7 +159,7 @@
               </li>
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
-                  <a href="{{ url ('Member') }}" class="nav-link {{ request ()-> is('Member') ? 'active' : ''}}">
+                  <a href="{{ url ('Members') }}" class="nav-link {{ request ()-> is('Members') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-solid fa-users fa-fw"></i>
                     <p>
                       Member
@@ -168,7 +168,7 @@
                 </li>
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item menu-open">
-                    <a href="{{ url ('Publisher') }}" class="nav-link {{ request ()-> is('Publisher') ? 'active' : ''}}">
+                    <a href="{{ url ('Publishers') }}" class="nav-link {{ request ()-> is('Publishers') ? 'active' : ''}}">
                       <i class="nav-icon fas fa-bookmark"></i>
                       <p>
                         Publisher
@@ -177,7 +177,7 @@
                   </li>
                   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item menu-open">
-                      <a href="{{ url ('Author') }}" class="nav-link {{ request ()-> is('Author') ? 'active' : ''}}">
+                      <a href="{{ url ('Authors') }}" class="nav-link {{ request ()-> is('Authors') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-file-contract"></i>
                         <p>
                           Author

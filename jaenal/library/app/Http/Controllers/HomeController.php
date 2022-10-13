@@ -72,7 +72,7 @@ class HomeController extends Controller
                     ->select('members.id', 'members.name', 'members.phone_number')
                     ->join('transactions', 'transactions.member_id', '=', 'members.id')
                     ->groupBy('transactions.id')
-                    ->having('COUNT(transactions.id)', '>', 1)
+                    ->having(DB::raw('count(transactions.members.id)'), '>', 1)
                     ->get();*/
 
         //data6
@@ -182,7 +182,7 @@ class HomeController extends Controller
                     ->get();
 
 
-        return $data20; 
+        //return $data5; 
         return view('home');
     }
 }
