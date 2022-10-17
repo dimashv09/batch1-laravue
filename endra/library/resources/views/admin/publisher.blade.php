@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('header', 'Author' )
+@section('header', 'Publisher' )
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -26,21 +26,19 @@
                                 <th class="text-center">Phone Number</th>
                                 <th class="text-center">Address</th>
                                 <th class="text-center">Action</th>
-
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($authors as $key => $author)
+                            @foreach($publishers as $key => $publisher)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ $author->name }}</td>
-                                <td class="text-center">{{ $author->email }}</td>
-                                <td class="text-center">{{ $author->phone_number }}</td>
-                                <td>{{ $author->address }}</td>
+                                <td>{{ $publisher->name }}</td>
+                                <td class="text-center">{{ $publisher->email }}</td>
+                                <td class="text-center">{{ $publisher->phone_number }}</td>
+                                <td>{{ $publisher->address }}</td>
                                 <td class="text-right">
-                                    <a href="#" @click="editData({{ $author }})" class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="#" @click="deleteData({{ $author->id }})" class="btn btn-sm btn-denger ">Delete</a>
-
+                                    <a href="#" @click="editData({{ $publisher }})" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="#" @click="deleteData({{ $publisher->id }})" class="btn btn-sm btn-denger ">Delete</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -56,7 +54,7 @@
                 <form method="post" :action="actionUrl" autocomplete="off">
                     <div class="modal-header">
 
-                        <h4 class="modal-title">Author</h4>
+                        <h4 class="modal-title">Publisher</h4>
                         <button type="button" class="close" data-dissmiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -117,25 +115,25 @@
         el: '#controller',
         data: {
             data: {},
-            actionUrl: "{{ url('authors') }}"
+            actionUrl: "{{ url('publishers') }}"
 
         },
 
         methods: {
             addData() {
                 this.data = {};
-                this.actionUrl = "{{ url('authors') }}";
+                this.actionUrl = "{{ url('publishers') }}";
                 editStatus: false
                 $('#modal-default').modal();
             },
             editData(data) {
                 this.data = data;
-                this.actionUrl = "{{ url('authors') }}" + '/' + data.id;
+                this.actionUrl = "{{ url('publishers') }}" + '/' + data.id;
                 editStatus: true
                 $('#modal-default').modal();
             },
             deleteData(id) {
-                this.actionUrl = "{{ url('authors') }}" + '/' + id;
+                this.actionUrl = "{{ url('publishers') }}" + '/' + id;
                 if (confirm("Are you sure ?")) {
                     axios.post(this.actionUrl, {
                         _method: 'DELETE'

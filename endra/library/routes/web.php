@@ -24,12 +24,7 @@ Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
 Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
 Route::get('/members', [App\Http\Controllers\MemberController::class, 'index']);
 
-Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
-Route::post('/publishers', [App\Http\Controllers\CatalogController::class, 'store']);
-Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherController::class, 'edit']);
-Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update']);
-Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy']);
-Route::get('/publishers/create', [App\Http\Controllers\PublisherController::class, 'create']);
+Route::resource('/publishers', App\Http\Controllers\PublisherController::class);
 
 Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
 Route::post('/catalogs', [App\Http\Controllers\CatalogController::class, 'store']);

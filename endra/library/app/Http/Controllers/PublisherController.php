@@ -14,10 +14,9 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publishers = Publisher::with('books')->get();
+        $publishers = Publisher::all();
 
-        //return $catalogs;
-        return view('admin.publisher.index', compact('publishers'));
+        return view('admin.publisher', compact('publishers'));
     }
 
     /**
@@ -40,13 +39,12 @@ class PublisherController extends Controller
     {
         $this->validate($request, [
             'name' => ['required'],
+            'phone_number' => ['required'],
+            'email' => ['required'],
+            'address' => ['required'],
         ]);
 
-        $publisher = new Publisher;
-        $publisher->name = $request->name;
-        $publisher->save();
-
-        //Publisher::create($request->all());
+        Publisher::create($request->all());
 
         return redirect('publishers');
     }
@@ -84,11 +82,10 @@ class PublisherController extends Controller
     {
         $this->validate($request, [
             'name' => ['required'],
+            'phone_number' => ['required'],
+            'email' => ['required'],
+            'address' => ['required'],
         ]);
-
-        //$publisher = new Publisher;
-        //$publisher->name = $request->name;
-        //$publisher->save();
 
         $publisher->update($request->all());
 
@@ -104,7 +101,5 @@ class PublisherController extends Controller
     public function destroy(Publisher $publisher)
     {
         $publisher->delete();
-
-        return redirect('publishers');
     }
 }
