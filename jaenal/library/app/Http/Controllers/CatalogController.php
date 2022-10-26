@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalog;
 use Illuminate\Http\Request;
+use Symfony\Contracts\Service\Attribute\Required;
+use Whoops\Run;
 
 class Catalogcontroller extends Controller
 {
@@ -27,7 +29,7 @@ class Catalogcontroller extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.Catalog.create');
     }
 
     /**
@@ -38,7 +40,22 @@ class Catalogcontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => ['required'], 
+        ]);
+
+
+        //return $request;
+
+        //cara ke 1
+        /*$Catalog = new Catalog;
+        $Catalog->name = $request->name;
+        $Catalog->save();*/
+
+        //cara ke 2
+        Catalog::create($request->all());
+
+        return redirect('Catalogs');
     }
 
     /**
@@ -60,7 +77,8 @@ class Catalogcontroller extends Controller
      */
     public function edit(Catalog $catalog)
     {
-        //
+        //return $catalog;
+        return view('admin.Catalog.edit', compact('catalog'));
     }
 
     /**
@@ -72,7 +90,13 @@ class Catalogcontroller extends Controller
      */
     public function update(Request $request, Catalog $catalog)
     {
-        //
+        $this->validate($request,[
+            'name' => ['required'], 
+        ]);
+
+        $catalog->update($request->all());
+
+        return redirect('Catalogs');
     }
 
     /**
@@ -83,6 +107,7 @@ class Catalogcontroller extends Controller
      */
     public function destroy(Catalog $catalog)
     {
-        //
+        $catalog->delete();
+        return redirect('Catalogs');
     }
 }
