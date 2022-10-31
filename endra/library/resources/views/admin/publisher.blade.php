@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Catalog</a>
+                    <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Publisher</a>
                 </div>
 
                 <div class="card-body">
@@ -25,24 +25,11 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Phone Number</th>
                                 <th class="text-center">Address</th>
+                                <th class="text-center">Created At</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach($publishers as $key => $publisher)
-                            <tr>
-                                <td>{{ $key+1 }}</td>
-                                <td>{{ $publisher->name }}</td>
-                                <td class="text-center">{{ $publisher->email }}</td>
-                                <td class="text-center">{{ $publisher->phone_number }}</td>
-                                <td>{{ $publisher->address }}</td>
-                                <td class="text-right">
-                                    <a href="#" @click="editData({{ $publisher }})" class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="#" @click="deleteData({{ $publisher->id }})" class="btn btn-sm btn-denger ">Delete</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
+
                     </table>
                 </div>
             </div>
@@ -51,7 +38,7 @@
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" :action="actionUrl" autocomplete="off">
+                <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
                     <div class="modal-header">
 
                         <h4 class="modal-title">Publisher</h4>
@@ -106,43 +93,110 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script type="text/javascript">
-    $(function() {
-        $("#datatable").DataTable();
-    })
-</script>
-<script type="text/javascript">
+    var actionUrl = "{{ url('publishers') }}";
+    var apiUrl = "{{ url('api/publishers') }}";
+
+    var columns = [{
+            data: 'DT_RowIndex',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'name',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'email',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'phone_number',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'address',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            data: 'date',
+            class: 'text-center',
+            orderable: true
+        },
+        {
+            render: function(index, row, data, meta) {
+                return ` 
+                <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})"> 
+                Edit 
+                </a> 
+                <a class = "btn btn-primary btn-sm" onclick = "controller.deleteData(event, ${data.id})" >
+                Delete 
+                </a>`;
+            },
+            orderable: false,
+            width: '200px',
+            class: 'text-center'
+        },
+
+    ];
+
     var controller = new Vue({
         el: '#controller',
         data: {
+            datas: [],
             data: {},
-            actionUrl: "{{ url('publishers') }}"
-
+            actionUrl,
+            apiUrl,
+            editStatus: false,
         },
-
+        mounted: function() {
+            this.datatable();
+        },
         methods: {
+            datatable() {
+                const _this = this;
+                _this.table = $('#datatable').DataTable({
+                    ajax: {
+                        url: _this.apiUrl,
+                        type: 'GET',
+                    },
+                    columns
+                }).on('xhr', function() {
+                    _this.datas = _this.table.ajax.json().data;
+                });
+            },
             addData() {
                 this.data = {};
-                this.actionUrl = "{{ url('publishers') }}";
-                editStatus: false
+                editStatus = false;
                 $('#modal-default').modal();
             },
-            editData(data) {
-                this.data = data;
-                this.actionUrl = "{{ url('publishers') }}" + '/' + data.id;
-                editStatus: true
+            editData(event, row) {
+                this.data = this.datas[row];
+                editStatus = true;
                 $('#modal-default').modal();
             },
-            deleteData(id) {
-                this.actionUrl = "{{ url('publishers') }}" + '/' + id;
+            deleteData(event, id) {
                 if (confirm("Are you sure ?")) {
-                    axios.post(this.actionUrl, {
+                    $(event.target).parents('tr').remove();
+                    axios.post(this.actionUrl + '/' + id, {
                         _method: 'DELETE'
                     }).then(response => {
-                        location.reload();
-                    })
+                        alert('Data has been removed');
+                    });
                 }
-
-            }
+            },
+            submitForm(event, id) {
+                event.preventDefault();
+                const _this = this;
+                var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
+                axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                    $('#modal-default').modal('hide');
+                    _this.table.ajax.reload();
+                });
+            },
         }
     });
 </script>

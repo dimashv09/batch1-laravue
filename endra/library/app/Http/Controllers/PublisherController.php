@@ -14,9 +14,19 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publishers = Publisher::all();
 
-        return view('admin.publisher', compact('publishers'));
+        return view('admin.publisher');
+    }
+
+    public function api()
+    {
+        $publishers = Publisher::all();
+        foreach ($publishers as $key => $publisher) {
+            $publisher->date = convert_date($publisher->created_at);
+        }
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -26,7 +36,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return view('admin.publisher.create');
+        return view('admin.publisher');
     }
 
     /**
@@ -68,7 +78,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        return view('admin.publisher.edit', compact('publisher'));
+        return view('admin.publisher');
     }
 
     /**
