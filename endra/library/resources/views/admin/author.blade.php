@@ -41,7 +41,7 @@
                                 <td>{{ convert_date($author->created_at) }}</td>
                                 <td class="text-right">
                                     <a href="#" @click="editData({{ $author }})" class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="#" @click="deleteData({{ $author->id }})" class="btn btn-sm btn-denger ">Delete</a>
+                                    <a href="#" @click="deleteData({{ $author->id }})" class="btn btn-sm btn-danger ">Delete</a>
 
                                 </td>
                             </tr>
@@ -131,13 +131,13 @@
             addData() {
                 this.data = {};
                 this.actionUrl = "{{ url('authors') }}";
-                editStatus: false
+                this.editStatus = false
                 $('#modal-default').modal();
             },
             editData(data) {
                 this.data = data;
                 this.actionUrl = "{{ url('authors') }}" + '/' + data.id;
-                editStatus: true
+                this.editStatus = true
                 $('#modal-default').modal();
             },
             deleteData(id) {

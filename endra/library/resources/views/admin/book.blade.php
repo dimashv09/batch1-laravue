@@ -36,10 +36,10 @@
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
+                <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, book.id)">
                     <div class=" modal-header">
                         <h4 class="modal-tittle">Book</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Clode">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -126,8 +126,8 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script type="text/javascript">
-    var actionUrl = "{{ url('books ') }}";
-    var apiUrl = "{{ url('api/books ') }}";
+    var actionUrl = "{{ url('books') }}";
+    var apiUrl = "{{ url('api/books') }}";
 
     var app = new Vue({
         el: '#controller',
@@ -183,7 +183,7 @@
                 var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
                 axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
                     $('#modal-default').modal('hide');
-                    _this.table.ajax.reload();
+                    this.get_books();
                 });
             },
             numberWithSpaces(x) {

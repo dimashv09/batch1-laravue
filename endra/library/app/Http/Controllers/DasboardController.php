@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+
 use App\Models\Book;
-use App\Models\Catalog;
 use App\Models\Member;
 use App\Models\Publisher;
 use App\Models\Author;
-use App\Models\Transaction;
 use App\Models\Dasboard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DasboardController extends Controller
 {
@@ -18,10 +17,26 @@ class DasboardController extends Controller
     {
         $total_anggota = Member::count();
         $total_buku = Book::count();
-        $total_peminjaman = Transaction::count();
-        $total_penerbit = Author::count();
+        $total_pengarang = Author::count();
+        $total_penerbit = Publisher::count();
 
-        $data_donut = Book::select(DB::raw("COUNT(id_publisher) as total "))->groupBy('id_publisher')->ordeBy('id_penerbit', 'asc')->pluck('total');
+        $data_donut = Book::select(DB::raw("COUNT(id) as total "))->groupBy('id')->ordeBy('id', 'asc')->pluck('total');
+        $label_donut = Publisher::select(DB::raw("COUNT(id) as total "))->groupBy('id')->ordeBy('id', 'asc')->pluck('total');
+
+        //$label_bar = ['Author'];
+        //$data_bar = [];
+        //
+        //foreach ($label_bar as $key => $value) {
+        //    $data_bar[$key]['label'] = $label_bar[$key];
+        //    $data_bar[$key]['backgroundColor'] = 'rgba(60,141,188,0,0)';
+        //    $data_month = [];
+        //    foreach (range(1, 12) as $month) {
+        //        $data_month[] = Author::select(DB::raw("COUNT(*) as total"))->where('tgl_pi', $month)->first()->total;
+        //    }
+        //    $data_bar[$key]['data'] = $data_month;
+        //}
+
+        return view('admin.dasboard', compact('total_anggota', 'total_buku', 'total_pengarang', 'total_penerbit'));
     }
     /**
      * Display a listing of the resource.

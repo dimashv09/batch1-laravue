@@ -170,12 +170,12 @@
             },
             addData() {
                 this.data = {};
-                editStatus = false;
+                this.editStatus = false;
                 $('#modal-default').modal();
             },
             editData(event, row) {
                 this.data = this.datas[row];
-                editStatus = true;
+                this.editStatus = true;
                 $('#modal-default').modal();
             },
             deleteData(event, id) {

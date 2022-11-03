@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Catalog</a>
+                    <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Member</a>
                 </div>
 
                 <div class="card-body">
@@ -144,7 +144,7 @@
                 <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})"> 
                 Edit 
                 </a> 
-                <a class = "btn btn-denger btn-sm" onclick = "controller.deleteData(event, ${data.id})" >
+                <a class = "btn btn-info btn-sm" onclick = "controller.deleteData(event, ${data.id})" >
                 Delete 
                 </a>`;
             },
@@ -182,12 +182,12 @@
             },
             addData() {
                 this.data = {};
-                editStatus = false;
+                this.editStatus = false;
                 $('#modal-default').modal();
             },
             editData(event, row) {
                 this.data = this.datas[row];
-                editStatus = true;
+                this.editStatus = true;
                 $('#modal-default').modal();
             },
             deleteData(event, id) {

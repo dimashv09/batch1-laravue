@@ -108,7 +108,7 @@ class BookController extends Controller
             'price' => ['required'],
         ]);
 
-        Book::create($request->all());
+        $book->update($request->all());
 
         return redirect('books');
     }
