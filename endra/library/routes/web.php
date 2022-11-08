@@ -29,8 +29,11 @@ Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 
 Route::resource('/members', App\Http\Controllers\MemberController::class);
 Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
 
-Route::get('/dasboard', [App\Http\Controllers\DasboardController::class, 'index']);
+Route::resource('/dasboard', App\Http\Controllers\DasboardController::class);
 Route::get('/api/dasboard', [App\Http\Controllers\DasboardController::class, 'api']);
+
+Route::resource('/transactions', App\Http\Controllers\TransactionController::class);
+Route::get('/api/transactions', [App\Http\Controllers\TransactionController::class, 'api']);
 
 Route::resource('/publishers', App\Http\Controllers\PublisherController::class);
 Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 'api']);

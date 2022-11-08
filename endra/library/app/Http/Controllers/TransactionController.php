@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
+use App\Models\Catalog;
+use App\Models\Book;
+use App\Models\Member;
+use App\Models\Publisher;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -14,7 +19,17 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('admin.transaction.index');
+        $transactions = Transaction::all();
+
+        return view('admin.transaction');
+    }
+
+    public function api()
+    {
+        $transactions = Transaction::all();
+        $datatables = datatables()->of($transactions)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**

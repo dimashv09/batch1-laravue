@@ -19,14 +19,15 @@ class MemberSeeder extends Seeder
         $faker = Faker::create();
 
         for ($i = 0; $i < 15; $i++) {
-            $author = new Member();
-            $author->name = $faker->name;
-            $author->gender = $faker->randomElement(['L', 'P']);
+            $member = new Member();
 
-            $author->phone_number = "0821" . $faker->randomNumber(8);
-            $author->address = $faker->address;
-            $author->email = $faker->email;
-            $author->save();
+            $member->name = $faker->name;
+            $member->gender = $faker->randomElement(['L', 'P']);
+
+            $member->phone_number = "0821" . $faker->randomNumber(8);
+            $member->address = $faker->address;
+            $member->email = $faker->email;
+            $member->save();
         }
     }
 }

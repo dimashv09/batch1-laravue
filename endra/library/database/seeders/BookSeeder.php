@@ -19,18 +19,18 @@ class BookSeeder extends Seeder
         $faker = Faker::create();
 
         for ($i = 0; $i < 15; $i++) {
-            $author = new Book;
+            $book = new Book;
 
-            $author->isbn = $faker->randomNumber(9);
-            $author->tittle = $faker->name;
-            $author->year = rand(2010, 2021);
-            $author->publisher_id = rand(1, 15);
-            $author->author_id = rand(1, 15);
-            $author->catalog_id = rand(1, 4);
-            $author->qty = rand(10, 15);
-            $author->price = rand(10000, 20000);
+            $book->isbn = $faker->randomNumber(9);
+            $book->tittle = $faker->name;
+            $book->year = rand(2010, 2021);
+            $book->publisher_id = rand(1, 15);
+            $book->author_id = rand(1, 15);
+            $book->catalog_id = rand(1, 4);
+            $book->qty = rand(10, 15);
+            $book->price = rand(10000, 20000);
 
-            $author->save();
+            $book->save();
         }
     }
 }
