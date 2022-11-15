@@ -27,6 +27,7 @@ class TransactionController extends Controller
     public function api()
     {
         $transactions = Transaction::all();
+
         $datatables = datatables()->of($transactions)->addIndexColumn();
 
         return $datatables->make(true);

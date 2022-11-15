@@ -10,10 +10,16 @@
 @section('content')
 <div id="controller">
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
                     <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Catalog</a>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" name="status">
+                        <select value="0">Belum Ada</select>
+                        <select value="1">Sudah Ada</select>
+                    </select>
                 </div>
 
                 <div class="card-body">
@@ -100,6 +106,16 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script type="text/javascript">
+    $('select[name=status]').on('change', function() {
+        status = $('select[name=status]').val();
+
+        if (status == 0) {
+            controller.table.ajax.url(actionUrl.load());
+        } else {
+            controller.table.ajax.url(actionUrl + '?status=' + sex).load();
+        }
+    });
+
     var actionUrl = "{{ url('transactions') }}";
     var apiUrl = "{{ url('api/transactions') }}";
 
@@ -120,12 +136,12 @@
             orderable: true
         },
         {
-            data: 'member id',
+            data: 'member_id',
             class: 'text-center',
             orderable: true
         },
         {
-            data: '',
+            data: 'date_start',
             class: 'text-center',
             orderable: true
         },
@@ -135,12 +151,12 @@
             orderable: true
         },
         {
-            data: '',
+            data: 'date_start',
             class: 'text-center',
             orderable: true
         },
         {
-            data: '',
+            data: 'date_start',
             class: 'text-center',
             orderable: true
         },
@@ -161,11 +177,13 @@
 
     ];
 
+
     var controller = new Vue({
         el: '#controller',
         data: {
             datas: [],
             data: {},
+            search: '',
             actionUrl,
             apiUrl,
             editStatus: false,
@@ -215,7 +233,9 @@
                     _this.table.ajax.reload();
                 });
             },
-        }
+        },
+
+
     });
 </script>
 

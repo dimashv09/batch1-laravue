@@ -166,83 +166,55 @@
             data: donutData,
             options: donutOptions
         })
+        //-------------
+        //- BAR CHART -
+        //-------------
 
-    })
+        var areaChartData = {
+            labels: ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022'],
+            datasets: JSON.parse(data_bar)
+        }
+        var barChartCanvas = $('#barChart').get(0).getContext('2d')
+        var barChartData = $.extend(true, {}, areaChartData)
+        //var temp0 = areaChartData.datasets[0]
+        //var temp1 = areaChartData.datasets[1]
+        //barChartData.datasets[0] = temp1
+        //barChartData.datasets[1] = temp0
 
-    //-------------
-    //- BAR CHART -
-    //-------------
+        var barChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            datasetFill: false
+        }
 
-    var areaChartData = {
-        labels: ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022'],
-        datasets: JSON.parse(data_bar)
-    }
-    var barChartCanvas = $('#barChart').get(0).getContext('2d')
-    var barChartData = $.extend(true, {}, areaChartData)
-    //var temp0 = areaChartData.datasets[0]
-    //var temp1 = areaChartData.datasets[1]
-    //barChartData.datasets[0] = temp1
-    //barChartData.datasets[1] = temp0
+        new Chart(barChartCanvas, {
+            type: 'bar',
+            data: barChartData,
+            options: barChartOptions
+        })
 
-    var barChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        datasetFill: false
-    }
-
-    new Chart(barChartCanvas, {
-        type: 'bar',
-        data: barChartData,
-        options: barChartOptions
-    })
-
-
-    //---------------------
-    //- STACKED BAR CHART -
-    //---------------------
-    var stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d')
-    var stackedBarChartData = $.extend(true, {}, barChartData)
-
-    var stackedBarChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            xAxes: [{
-                stacked: true,
-            }],
-            yAxes: [{
-                stacked: true
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+        var pieData = {
+            labels: JSON.parse(label_pengarang),
+            datasets: [{
+                data: JSON.parse(data_pengarang),
+                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
             }]
         }
-    }
-
-    new Chart(stackedBarChartCanvas, {
-        type: 'bar',
-        data: stackedBarChartData,
-        options: stackedBarChartOptions
-    })
-
-    //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieData = {
-        labels: JSON.parse(label_pengarang),
-        datasets: [{
-            data: JSON.parse(data_pengarang),
-            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }]
-    }
-    var pieOptions = {
-        maintainAspectRatio: false,
-        responsive: true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    new Chart(pieChartCanvas, {
-        type: 'pie',
-        data: pieData,
-        options: pieOptions
+        var pieOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(pieChartCanvas, {
+            type: 'pie',
+            data: pieData,
+            options: pieOptions
+        })
     })
 </script>
