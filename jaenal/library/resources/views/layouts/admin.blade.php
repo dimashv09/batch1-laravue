@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+  @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -141,7 +142,7 @@
           </li>
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item menu-open">
-              <a href="{{ url ('Catalogs') }}" class="nav-link {{ request ()-> is('Catalogs') ? 'active' : ''}}">
+              <a href="{{ url ('catalogs') }}" class="nav-link {{ request ()-> is('catalogs') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
                   Catalog
@@ -150,7 +151,7 @@
             </li>
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <li class="nav-item menu-open">
-                <a href="{{ url ('Books') }}" class="nav-link {{ request ()-> is('Books') ? 'active' : ''}}">
+                <a href="{{ url ('books') }}" class="nav-link {{ request ()-> is('Books') ? 'active' : ''}}">
                   <i class="nav-icon fas fa-book"></i>
                   <p>
                     Book
@@ -159,7 +160,7 @@
               </li>
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
-                  <a href="{{ url ('Members') }}" class="nav-link {{ request ()-> is('Members') ? 'active' : ''}}">
+                  <a href="{{ url ('members') }}" class="nav-link {{ request ()-> is('Members') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-solid fa-users fa-fw"></i>
                     <p>
                       Member
@@ -168,7 +169,7 @@
                 </li>
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item menu-open">
-                    <a href="{{ url ('Publishers') }}" class="nav-link {{ request ()-> is('Publishers') ? 'active' : ''}}">
+                    <a href="{{ url ('publishers') }}" class="nav-link {{ request ()-> is('Publishers') ? 'active' : ''}}">
                       <i class="nav-icon fas fa-bookmark"></i>
                       <p>
                         Publisher
@@ -177,7 +178,7 @@
                   </li>
                   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item menu-open">
-                      <a href="{{ url ('Authors') }}" class="nav-link {{ request ()-> is('Authors') ? 'active' : ''}}">
+                      <a href="{{ url ('authors') }}" class="nav-link {{ request ()-> is('Authors') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-file-contract"></i>
                         <p>
                           Author
@@ -247,5 +248,8 @@
 <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+@yield('js')
 </body>
 </html>

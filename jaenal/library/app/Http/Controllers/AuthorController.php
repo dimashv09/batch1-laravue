@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class Authorcontroller extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +18,9 @@ class Authorcontroller extends Controller
      */
     public function index()
     {
-        $Authors = Author::all();
-       // return $Authors;
-        return view('admin.Author.index', compact('Authors'));
+        $authors = author::all();
+       // return $authors;
+        return view('admin.author', compact('authors'));
     }
 
     /**
@@ -37,16 +41,25 @@ class Authorcontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => ['required'], 
+            'email' => ['required'],
+            'phone_Number' => ['required'],
+            'address' => ['required'],
+        ]);
+
+        Author::create($request->all());
+
+        return redirect('authors');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Author  $Author
+     * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function show(Author $Author)
+    public function show(author $author)
     {
         //
     }
@@ -54,10 +67,10 @@ class Authorcontroller extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Author  $Author
+     * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function edit(Author $Author)
+    public function edit(author $author)
     {
         //
     }
@@ -69,19 +82,28 @@ class Authorcontroller extends Controller
      * @param  \App\Models\Author  $Author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Author $Author)
+    public function update(Request $request, author $author)
     {
-        //
+        $this->validate($request,[
+            'name' => ['required'], 
+            'email' => ['required'],
+            'phone_Number' => ['required'],
+            'address' => ['required'],
+        ]);
+
+        $author->update($request->all());
+
+        return redirect('authors');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Author  $Author
+     * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Author $Author)
+    public function destroy(author $author)
     {
-        //
+        $author->delete();
     }
 }

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\publisher;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 
 class Publishercontroller extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,9 @@ class Publishercontroller extends Controller
      */
     public function index()
     {
-        return view('admin.Publisher.index');
+        $publishers = publisher::all();
+       
+        return view('admin.publisher', compact('publishers'));
     }
 
     /**
@@ -35,7 +41,17 @@ class Publishercontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return $request;
+        $this->validate($request,[
+            'name' => ['required'], 
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'address' => ['required'],
+        ]);
+
+        Publisher::create($request->all());
+
+        return redirect('publishers');
     }
 
     /**
@@ -69,8 +85,18 @@ class Publishercontroller extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        //
+        $this->validate($request,[
+            'name' => ['required'], 
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'address' => ['required'],
+        ]);
+
+        $publisher->update($request->all());
+
+        return redirect('publishers');
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -80,6 +106,6 @@ class Publishercontroller extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        //
+        $publisher->delete();
     }
 }

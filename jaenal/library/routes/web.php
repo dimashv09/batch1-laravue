@@ -21,10 +21,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/Books', [App\Http\Controllers\BookController::class, 'index']);
-Route::get('/Members', [App\Http\Controllers\MemberController::class, 'index']);
-Route::get('/Publishers', [App\Http\Controllers\PublisherController::class, 'index']);
-Route::get('/Authors', [App\Http\Controllers\AuthorController::class, 'index']);
+//Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
+//Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
+Route::get('/members', [App\Http\Controllers\MemberController::class, 'index']);
+Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
+Route::get('/transactions', [App\Http\Controllers\AuthorController::class, 'index']);
 
 /*
 Route::get('/Catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
@@ -35,4 +36,6 @@ Route::put('/Catalogs/{catalog}', [App\Http\Controllers\CatalogController::class
 Route::delete('/Catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'destroy']);
 */
 
-Route::resource('/Catalogs', App\Http\Controllers\CatalogController::class);
+Route::resource('/catalogs', App\Http\Controllers\CatalogController::class);
+Route::resource('/authors', App\Http\Controllers\AuthorController::class);
+Route::resource('/publishers', App\Http\Controllers\PublisherController::class);

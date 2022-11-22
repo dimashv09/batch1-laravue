@@ -9,6 +9,10 @@ use Whoops\Run;
 
 class Catalogcontroller extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +20,10 @@ class Catalogcontroller extends Controller
      */
     public function index()
     {
-        $Catalogs = Catalog::with('Books')->get();
+        $catalogs = catalog::with('Books')->get();
 
         //return $Catalogs;
-        return view('admin.Catalog.index', compact('Catalogs'));
+        return view('admin.catalog.index', compact('catalogs'));
     }
 
     /**
@@ -29,7 +33,7 @@ class Catalogcontroller extends Controller
      */
     public function create()
     {
-        return view('admin.Catalog.create');
+        return view('admin.catalog.create');
     }
 
     /**
@@ -55,7 +59,7 @@ class Catalogcontroller extends Controller
         //cara ke 2
         Catalog::create($request->all());
 
-        return redirect('Catalogs');
+        return redirect('catalogs');
     }
 
     /**
@@ -64,7 +68,7 @@ class Catalogcontroller extends Controller
      * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function show(Catalog $catalog)
+    public function show(catalog $catalog)
     {
         //
     }
@@ -75,10 +79,10 @@ class Catalogcontroller extends Controller
      * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Catalog $catalog)
+    public function edit(catalog $catalog)
     {
         //return $catalog;
-        return view('admin.Catalog.edit', compact('catalog'));
+        return view('admin.catalog.edit', compact('catalog'));
     }
 
     /**
@@ -88,7 +92,7 @@ class Catalogcontroller extends Controller
      * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Catalog $catalog)
+    public function update(Request $request, catalog $catalog)
     {
         $this->validate($request,[
             'name' => ['required'], 
@@ -96,7 +100,7 @@ class Catalogcontroller extends Controller
 
         $catalog->update($request->all());
 
-        return redirect('Catalogs');
+        return redirect('catalogs');
     }
 
     /**
@@ -105,9 +109,9 @@ class Catalogcontroller extends Controller
      * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Catalog $catalog)
+    public function destroy(catalog $catalog)
     {
         $catalog->delete();
-        return redirect('Catalogs');
+        return redirect('catalogs');
     }
 }

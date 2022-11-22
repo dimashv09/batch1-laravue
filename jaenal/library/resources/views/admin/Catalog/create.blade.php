@@ -11,7 +11,7 @@
           <h3 class="card-title">Create New Catalog</h3>
         </div>
 
-        <form action="{{ url('Catalogs')}}" method="post">
+        <form action="{{ url('catalogs')}}" method="post">
             @csrf
           <div class="card-body">
             <div class="form-group">

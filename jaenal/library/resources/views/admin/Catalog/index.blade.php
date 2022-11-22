@@ -6,7 +6,7 @@
     <div class="col-12">
     <div class="card">
     <div class="card-header">
-    <a href="{{ url('Catalogs/create')}}"class="btn btn-sm btn-primary pull-right">Create New Catalog</a>
+    <a href="{{ url('catalogs/create')}}"class="btn btn-sm btn-primary pull-right">Create New Catalog</a>
     <div class="card-tools">
     <div class="input-group input-group-sm" style="width: 150px;">
     <input type="text" Name="table_search" class="form-control float-right" placeholder="Mencari">
@@ -32,19 +32,19 @@
     </tr>
     </thead>
     <tbody>
-        @foreach ($Catalogs as $key => $Catalog)
+        @foreach ($catalogs as $key => $catalog)
             
         
     <tr>
     <td>{{$key+1}}</td>
-    <td>{{$Catalog->Name}}</td>
-    <td>{{date('d M Y', strtotime($Catalog->created_at))}}</td>
-    <td>{{date('d M Y', strtotime($Catalog->updated_at))}}</td>
-    <td>{{count($Catalog->Books)}}</td>
+    <td>{{$catalog->Name}}</td>
+    <td>{{date('d M Y', strtotime($catalog->created_at))}}</td>
+    <td>{{date('d M Y', strtotime($catalog->updated_at))}}</td>
+    <td>{{count($catalog->Books)}}</td>
     <td>
-        <a href="{{ url('Catalogs/'.$Catalog->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+        <a href="{{ url('catalogs/'.$catalog->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
 
-        <form action="{{ url('Catalogs', ['id' => $Catalog->id]) }}" method="post">
+        <form action="{{ url('catalogs', ['id' => $catalog->id]) }}" method="post">
             <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm ('Are you sure?')">
             @method('delete')
             @csrf
