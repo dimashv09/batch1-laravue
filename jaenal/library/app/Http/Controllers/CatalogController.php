@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Catalog;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;

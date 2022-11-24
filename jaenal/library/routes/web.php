@@ -39,3 +39,5 @@ Route::delete('/Catalogs/{catalog}', [App\Http\Controllers\CatalogController::cl
 Route::resource('/catalogs', App\Http\Controllers\CatalogController::class);
 Route::resource('/authors', App\Http\Controllers\AuthorController::class);
 Route::resource('/publishers', App\Http\Controllers\PublisherController::class);
+
+Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']);

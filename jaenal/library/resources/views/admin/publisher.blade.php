@@ -32,7 +32,8 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($publishers as $key => $publisher)
+            @foreach 
+            ($publishers as $key => $publisher)
             
         
             <tr>
