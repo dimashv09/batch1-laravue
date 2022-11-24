@@ -21,16 +21,15 @@
             </div>
             </div>
     
-            <div class="card-body table-responsive p-0">
-             <table id="datatable" class="table table-hover text-nowrap">
-             <thead>
-             <tr>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">No</font></font></th>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Name</font></font></th>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email</font></font></th>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Phone Number</font></font></th>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Address</font></font></th>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Action</font></font></th>
+            <div class="card-body table-responsive p-3">
+              <table id="datatable" class="table table-hover text-nowrap">
+              <thead>
+              <tr>
+                 <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">No</font></font></th>
+                 <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Name</font></font></th>
+                 <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email</font></font></th>
+                 <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Phone Number</font></font></th><th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Address</font></font></th>
+                  <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Action</font></font></th>
             </tr>
             </thead>
             <tbody>
@@ -72,7 +71,6 @@
         </div>
           <div class="modal-body">
             @csrf
-            <table id="dataTable" class="table table-bordered table-striped">
 
             <input type="hidden" name="_method" value="PUT" v-if="editStatus">
 
@@ -124,17 +122,9 @@
 <script type="text/javascript">
   $(function () {
     $("#datatable").DataTable();
-    //$('#example2').DataTable({
-      //"paging": true,
-      //"lengthChange": false,
-      //"searching": false,
-      //"ordering": true,
-      //"info": true,
-      //"autoWidth": false,
-      //"responsive": true,
-    //});
   });
 </script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- CRUD Vue js -->
     <script type="text/javascript">
       var controller = new Vue({

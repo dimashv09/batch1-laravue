@@ -134,7 +134,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item menu-open">
             <a href="{{ url ('home') }}" class="nav-link {{ request ()-> is('home') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-solid fa-house fa-fw"></i>
+              <i class="fa-solid fa-house fa-fw" style="color: var(--fa-navy);"></i>
               <p>
                 Home
               </p>
