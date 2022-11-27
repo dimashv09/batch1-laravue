@@ -31,24 +31,6 @@
             <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Action</font></font></th>
             </tr>
             </thead>
-            <tbody>
-            @foreach 
-            ($publishers as $key => $publisher)
-            
-        
-            <tr>
-                <td>{{$key+1}}</td>
-                <td>{{$publisher->name}}</td>
-                <td>{{$publisher->email}}</td>
-                <td>{{$publisher->phone_number}}</td>
-                <td>{{$publisher->address}}</td>
-                <td>
-                    <a href="#" @click="editData({{ $publisher }})" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="#" @click="deleteData({{ $publisher->id }})"class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-            @endforeach
-            </tbody>
                 </table>
             </div>
     
@@ -120,48 +102,25 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script type="text/javascript">
-  $(function () {
-    $("#datatable").DataTable();
-  });
+  var actionUrl = '{{ url('publishers') }}';
+  var apiUrl = '{{ url('api/publishers') }}';
+
+  var columns = [
+    {data: 'DT_RowIndex', class: 'text-center', orderable: true},
+    {data: 'name', class: 'text-center', orderable: false},
+    {data: 'email', class: 'text-center', orderable: false},
+    {data: 'phone_number', class: 'text-center', orderable: false},
+    {data: 'address', class: 'text-center', orderable: false},
+    {render: function (index,row, data, meta){
+          return `
+                <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+                  Edit
+                </a>
+                <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+                  Delete
+                </a>`;
+    }, orderable: false, width: '120px', class: 'txt-center'},
+  ];
 </script>
-<!-- CRUD Vue js -->
-    <script type="text/javascript">
-      var controller = new Vue({
-        el: '#controller',
-        data: {
-          data : {},
-          actionUrl : '{{ url ('publishers') }}',
-          editStatus : false
-        },
-        mounted: function(){
-
-        },
-        methods: {
-          addData (){
-            this.data = {};
-            this.actionUrl = '{{ url('publishers') }}';
-            this.editStatus = false;
-            $('#modal-default').modal();
-          },
-          editData (data){
-            //console.log(data);
-            this.data = data;
-            this.actionUrl = '{{ url('publishers') }}'+'/'+data.id;
-            this.editStatus = true;
-            $('#modal-default').modal();
-          },
-          deleteData (id){
-            //console.log(id);
-            this.actionUrl = '{{ url('publishers') }}'+'/'+id;
-            if (confirm("Are you sure?")) {
-              axios.post(this.actionUrl, {_method: 'DELETE'}).then(response =>{
-                location.reload();
-              })
-            }
-          }
-        }
-      });
-
-    </script>
-
+<script src="{{ asset('js/data.js') }}"></script>
 @endsection

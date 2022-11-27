@@ -19,7 +19,7 @@ class Authorcontroller extends Controller
     public function index()
     {
        // return $authors;
-        return view('admin.author',);
+        return view('admin.author');
     }
 
     

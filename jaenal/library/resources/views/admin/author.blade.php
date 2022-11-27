@@ -16,33 +16,30 @@
         <div class="card">
             <div class="card-header">
                 <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Author</a>
-                <div class="card-tools">
-                
-            </div>
             </div>
     
             <div class="card-body table-responsive p-3">
-              <table id="datatable" class="table table-hover text-nowrap">
+              <table id="datatable" class="table table-striped table-border">
               <thead>
                <tr>
-                 <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">No</font></font></th>
-                 <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Name</font></font></th>
-                 <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Phone Number</font></font></th>
-                 <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Address</font></font></th>
-                 <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email</font></font></th>
-                  <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Action</font></font></th>
+                 <th widht="30px">No</th>
+                 <th>Name</th>
+                 <th>Email</th>
+                 <th>Phone Number</th>
+                 <th>Address</th>
+                 <th class="text-center">Action</th>
                </tr>
             </thead>
                 </table>
             </div>
           </div>
-      </div>
+    </div>
     </div>
 
     <div class="modal fade" id="modal-default">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="post" :action="actionUrl" autocomplete="off">
+      <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
         <div class="modal-header">
 
           <h4 class="modal-title">Author</h4>
@@ -62,6 +59,11 @@
             </div>
             
             <div class="from-group">
+              <label>Email</label>
+              <input type="text" class="form-control" name="email" :value="data.email" required="">
+            </div>
+
+            <div class="from-group">
               <label>Phone Number</label>
               <input type="text" class="form-control" name="phone_Number" :value="data.phone_Number" required="">
             </div>
@@ -70,12 +72,6 @@
               <label>Address</label>
               <input type="text" class="form-control" name="address" :value="data.address" required="">
             </div>
-
-            <div class="from-group">
-              <label>Email</label>
-              <input type="text" class="form-control" name="email" :value="data.email" required="">
-            </div>
-
          </div>
          <div class="modal-footer justify-content-between">
            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -108,97 +104,21 @@
   var apiUrl = '{{ url('api/authors') }}';
 
   var columns = [
-    {data: 'DT_RowIndex', class: 'text-center', orderabel: true},
-    {data: 'name', class: 'text-center', orderabel: true},
-    {data: 'phone_Number', class: 'text-center', orderabel: true},
-    {data: 'address', class: 'text-center', orderabel: true},
-    {data: 'email', class: 'text-center', orderabel: true},
-    {render: function (index, row, data, meta){
-      return `
-            <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
-                Edit
-            </a>
-            <a class="btn btn-denger btn-sm" onclick="controller.deleteData(event, ${data.id})">
-               Delete
-            </a>`;
-
-    }, orderabel: false, widht: '200px', class: 'text-center'},
+    {data: 'DT_RowIndex', class: 'text-center', orderable: true},
+    {data: 'name', class: 'text-center', orderable: false},
+    {data: 'email', class: 'text-center', orderable: false},
+    {data: 'phone_Number', class: 'text-center', orderable: false},
+    {data: 'address', class: 'text-center', orderable: false},
+    {render: function (index,row, data, meta){
+          return `
+                <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+                  Edit
+                </a>
+                <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+                  Delete
+                </a>`;
+    }, orderable: false, width: '120px', class: 'txt-center'},
   ];
-
- var controller = new Vue({
-    el: '#controller',
-    data: {
-      datas: [],
-      data: {},
-      actionUrl,
-      apiUrl,
-      editStatus: false,
-    },
-    mounted: function() {
-      this.datatable();
-    },
-    methods: {
-      datatable(){
-        const _this = this;
-        _this.table = $('#datatable').DataTable({
-          ajax: {
-            url: _this.apiUrl,
-            type: 'GET',
-          },
-          columns: columns
-        }).on('xhr', function() {
-          _this.datas = _this.table.ajax.json().data;
-        });
-      },
-    }
-  });
 </script>
-
-/*<script type="text/javascript">
-  $(function () {
-    $("#datatable").DataTable();
-  });
-</script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<!-- CRUD Vue js -->
-    <script type="text/javascript">
-      var controller = new Vue({
-        el: '#controller',
-        data: {
-          data : {},
-          actionUrl : '{{ url ('authors') }}',
-          editStatus : false
-        },
-        mounted: function(){
-
-        },
-        methods: {
-          addData (){
-            this.data = {};
-            this.actionUrl = '{{ url('authors') }}';
-            this.editStatus = false;
-            $('#modal-default').modal();
-          },
-          editData (data){
-            //console.log(data);
-            this.data = data;
-            this.actionUrl = '{{ url('authors') }}'+'/'+data.id;
-            this.editStatus = true;
-            $('#modal-default').modal();
-          },
-          deleteData (id){
-            //console.log(id);
-            this.actionUrl = '{{ url('authors') }}'+'/'+id;
-            if (confirm("Are you sure?")) {
-              axios.post(this.actionUrl, {_method: 'DELETE'}).then(response =>{
-                location.reload();
-              })
-            }
-          }
-        }
-      });
-
-    </script>
-
+  <script src="{{ asset('js/data.js') }}"></script>
 @endsection
-*/
