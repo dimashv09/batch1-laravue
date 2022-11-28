@@ -11,38 +11,34 @@
 @section('content')
 <div id="controller">
     <div class="row">
-    <div class="col-12">
+      <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Publisher</a>
-                <div class="card-tools">
-            </div>
             </div>
     
-            <div class="card-body p-3">
-              <table id="datatable" class="table table-hover text-nowrap">
-             <thead>
-             <tr>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ID</font></font></th>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Name</font></font></th>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email</font></font></th>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Phone Number</font></font></th>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Address</font></font></th>
-            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Action</font></font></th>
-            </tr>
+            <div class="card-body table-responsive p-3">
+              <table id="datatable" class="table table-striped table-border">
+              <thead>
+               <tr>
+                 <th widht="30px">No</th>
+                 <th>Name</th>
+                 <th>Email</th>
+                 <th>Phone Number</th>
+                 <th>Address</th>
+                 <th class="text-center">Action</th>
+               </tr>
             </thead>
                 </table>
             </div>
-    
-        </div>
-    
+          </div>
     </div>
     </div>
 
     <div class="modal fade" id="modal-default">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="post" :action="actionUrl" autocomplete="off">
+      <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
         <div class="modal-header">
 
           <h4 class="modal-title">Publisher</h4>
@@ -101,6 +97,7 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
 <script type="text/javascript">
   var actionUrl = '{{ url('publishers') }}';
   var apiUrl = '{{ url('api/publishers') }}';
@@ -122,5 +119,6 @@
     }, orderable: false, width: '120px', class: 'txt-center'},
   ];
 </script>
-<script src="{{ asset('js/data.js') }}"></script>
+  <script src="{{ asset('js/data.js') }}"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 @endsection
