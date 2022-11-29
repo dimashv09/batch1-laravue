@@ -21,12 +21,12 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::all();
 
-        return view('admin.transaction');
+        return view('admin.transaction.transaction');
     }
 
     public function api()
     {
-        $transactions = Transaction::with('member', 'transaction_detail', 'book')->get();
+        $transactions = Transaction::with('member', 'transaction_detail.book')->get();
 
         $datatables = datatables()->of($transactions)
             ->addColumn('duration', function ($transaction) {
@@ -59,7 +59,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.transaction.create');
     }
 
     /**
@@ -92,7 +92,7 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        return view('admin.transaction.edit', compact('transaction'));
     }
 
     /**

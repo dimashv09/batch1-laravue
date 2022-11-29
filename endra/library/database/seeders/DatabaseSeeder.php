@@ -20,12 +20,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        //$this->call({
-        //    authorseeder::class,
-        //    publisherseeder::class,
-        //    catalogseeder::class,
-        //    memberseeder::class,
-
-        //});
+        $this->call([
+            AuthorSeeder::class,
+            PublisherSeeder::class,
+            CatalogSeeder::class,
+            BookSeeder::class,
+            MemberSeeder::class,
+            TransactionSeeder::class
+        ]);
     }
 }

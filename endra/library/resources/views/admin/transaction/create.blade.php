@@ -8,13 +8,12 @@
 
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Edit Transaction</h3>
+                <h3 class="card-title">Create New Catalog</h3>
             </div>
 
 
-            <form action="{{ url('transactions/'.$transaction->id) }}" method="post">
+            <form action="{{ url('transactions') }}" method="post">
                 @csrf
-                {{ method_field('PUT')}}
                 <div class="card-body">
 
                     <div class="form-group">
@@ -23,11 +22,11 @@
                     </div>
                     <div class="form-group">
                         <label>Date Start</label>
-                        <input type="date" class="form-control form-control-border border-width-2" id="exampleInputBorderWidth2" style=" width:10px ;">
+                        <input type="date" class="form-control form-control-border border-width-2" id="exampleInputBorderWidth2" style=" width:20% ;">
                     </div>
-                    <div class="form-group">
+                    <div class=" form-group">
                         <label>Date End</label>
-                        <input type="date" class="form-control rounded-0" id="exampleInputRounded0">
+                        <input type="date" class="form-control rounded-0" id="exampleInputRounded0" style=" width:20% ;">
                     </div>
                     <div class="form-group">
                         <label>Multiple</label>
@@ -60,6 +59,7 @@
                 </div>
             </form>
         </div>
+
     </div>
 
     @endsection

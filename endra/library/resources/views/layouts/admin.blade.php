@@ -193,19 +193,20 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="{{ url('transactions') }}" class="nav-link {{ request()->is('transaction') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>
-                                    Transaction
-                                </p>
-                            </a>
-                        </li>
+
                         <li class="nav-item menu-open">
                             <a href="{{ url('members') }}" class="nav-link {{ request()->is('members') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
                                     Member
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('transactions') }}" class="nav-link {{ request()->is('transactions') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Transaction
                                 </p>
                             </a>
                         </li>

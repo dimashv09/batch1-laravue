@@ -13,7 +13,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Catalog</a>
+                    <a href="{{ url('transactions/create') }}" class="btn btn-sm btn-primary pull-right">Create New Catalog</a>
                 </div>
                 <div class="col-md-2">
                     <select class="form-control" name="status">
@@ -30,7 +30,7 @@
                                 <th class="text-center">Date Start</th>
                                 <th class="text-center">Date End</th>
                                 <th class="text-center">Name Member</th>
-                                <th class="text-center">Date Long</th>
+                                <th class="text-center">Duration</th>
                                 <th class="text-center">Total Qty</th>
                                 <th class="text-center">Total Price</th>
                                 <th class="text-center">Status</th>
@@ -38,7 +38,30 @@
 
                             </tr>
                         </thead>
-
+                        <tbody>
+                            @foreach($transactions as $key => $transaction)
+                            <tr>
+                                <td>{{ $key+1 }}</td>
+                                <td class="text-center">{{ $transaction->date_start}}</td>
+                                <td class="text-center">{{ $transaction->date_end }}</td>
+                                <td class="text-center">{{ $transaction->member.name }}</td>
+                                <td class="text-center">{{ $transaction->duration}}</td>
+                                <td class="text-center">{{ $transaction->total }}</td>
+                                <td class="text-center">{{ $transaction->purchase }}</td>
+                                <td class="text-center">{{ $transaction->status }}</td>
+                                <td class="text-center">
+                                    <a href="{{ url('transactions/'.$transaction->id.'/edit') }}" class="btn btn-warning btn-sm">
+                                        Edit</a>
+                                    <form action="{{ url('transactions', ['id' => $transaction->id]) }}" method="post">
+                                        <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return 
+                                    confirm('Are you sure?')">
+                                        @method('delete')
+                                        @csrf
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -54,36 +77,6 @@
                         <button type="button" class="close" data-dissmiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
-                    <div class="modal-body">
-                        @csrf
-
-                        <input type="hidden" name="_method" value="PUT" v-if="editStatus">
-
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" name="name" :value="data.name" required="">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control" name="email" :value="data.email" required="">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="text" class="form-control" name="phone_number" :value="data.phone_number" required="">
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" class="form-control" name="address" :value="data.address" required="">
-                        </div>
-                        <div class="form-group">
-                            <label>Created at</label>
-                            <input type="text" class="form-control" name="created_at" :value="data.created_at" required="">
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dissmiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save change</button>
                     </div>
                 </form>
             </div>
@@ -176,67 +169,6 @@
         },
 
     ];
-
-
-    var controller = new Vue({
-        el: '#controller',
-        data: {
-            datas: [],
-            data: {},
-            search: '',
-            actionUrl,
-            apiUrl,
-            editStatus: false,
-        },
-        mounted: function() {
-            this.datatable();
-        },
-        methods: {
-            datatable() {
-                const _this = this;
-                _this.table = $('#datatable').DataTable({
-                    ajax: {
-                        url: _this.apiUrl,
-                        type: 'GET',
-                    },
-                    columns
-                }).on('xhr', function() {
-                    _this.datas = _this.table.ajax.json().data;
-                });
-            },
-            addData() {
-                this.data = {};
-                this.editStatus = false;
-                $('#modal-default').modal();
-            },
-            editData(event, row) {
-                this.data = this.datas[row];
-                this.editStatus = true;
-                $('#modal-default').modal();
-            },
-            deleteData(event, id) {
-                if (confirm("Are you sure ?")) {
-                    $(event.target).parents('tr').remove();
-                    axios.post(this.actionUrl + '/' + id, {
-                        _method: 'DELETE'
-                    }).then(response => {
-                        alert('Data has been removed');
-                    });
-                }
-            },
-            submitForm(event, id) {
-                event.preventDefault();
-                const _this = this;
-                var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
-                axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
-                    $('#modal-default').modal('hide');
-                    _this.table.ajax.reload();
-                });
-            },
-        },
-
-
-    });
 </script>
 
 @endsection

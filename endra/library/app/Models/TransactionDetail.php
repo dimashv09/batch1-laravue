@@ -9,12 +9,12 @@ class TransactionDetail extends Model
 {
     use HasFactory;
 
-    public function transaction()
+    public function transactions()
     {
         return $this->belongsTo('App\Models\Transaction', 'transaction_id');
     }
 
-    public function book()
+    public function books()
     {
         return $this->belongsTo('App\Models\Book', 'book_id');
     }
