@@ -59,7 +59,10 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return view('admin.transaction.create');
+        $members = Member::all();
+        $books = Book::all();
+
+        return view('admin.transaction.create', compact('members', 'books'));
     }
 
     /**
@@ -70,7 +73,10 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        Transaction::create($request->all());
+
+        return redirect('transactions');
     }
 
     /**

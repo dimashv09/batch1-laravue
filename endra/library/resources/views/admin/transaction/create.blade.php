@@ -8,17 +8,18 @@
 
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Create New Catalog</h3>
+                <h3 class="card-title">Create New Transaction</h3>
             </div>
 
 
-            <form action="{{ url('transactions') }}" method="post">
+            <form action="{{ route('transactions.store') }}" method="post">
                 @csrf
                 <div class="card-body">
+                    <select class="dropdown" type="text" name="member_id" class="form-control form-control-border" id="exampleInputBorder" placeholder="Enter Name">
 
+                    </select>
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control form-control-border" id="exampleInputBorder" placeholder="Enter Name">
                     </div>
                     <div class="form-group">
                         <label>Date Start</label>

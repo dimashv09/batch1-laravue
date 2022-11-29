@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($transactions as $key => $transaction)
+
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td class="text-center">{{ $transaction->date_start}}</td>
@@ -60,7 +60,7 @@
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
