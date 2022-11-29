@@ -26,9 +26,28 @@ class TransactionController extends Controller
 
     public function api()
     {
-        $transactions = Transaction::all();
+        $transactions = Transaction::with('member', 'transaction_detail', 'book')->get();
 
-        $datatables = datatables()->of($transactions)->addIndexColumn();
+        $datatables = datatables()->of($transactions)
+            ->addColumn('duration', function ($transaction) {
+                $date_start = date_create($transaction->date_start);
+                $date_end = date_create($transaction->date_end);
+                $interval = date_diff($date_start, $date_end);
+                return $interval->format('%a') . " Days";
+            })
+            ->addColumn('total', function ($transaction) {
+                $total = $transaction->transactionDetail->sum('qty');
+                return $total;
+            })
+            ->addColumn('purchase', function ($transaction) {
+                $purchases = $transaction->transactionDetail->sum('book.price');
+                return $purchases;
+            })
+            ->addColumn('status', function ($transaction) {
+                $status = $transaction->status ? "Sudah dikembalikan" : "Belum dikembalikan";
+                return $status;
+            })
+            ->addIndexColumn();
 
         return $datatables->make(true);
     }

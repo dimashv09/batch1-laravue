@@ -136,27 +136,27 @@
             orderable: true
         },
         {
-            data: 'member_id',
+            data: 'member.name',
             class: 'text-center',
             orderable: true
         },
         {
-            data: 'date_start',
+            data: 'duration',
             class: 'text-center',
             orderable: true
         },
         {
-            data: 'qty',
+            data: 'total',
             class: 'text-center',
             orderable: true
         },
         {
-            data: 'date_start',
+            data: 'purchase',
             class: 'text-center',
             orderable: true
         },
         {
-            data: 'date_start',
+            data: 'status',
             class: 'text-center',
             orderable: true
         },
