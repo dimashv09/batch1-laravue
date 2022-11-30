@@ -8,6 +8,7 @@ use App\Models\Book;
 use App\Models\Member;
 use App\Models\Publisher;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -21,7 +22,7 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::all();
 
-        return view('admin.transaction.transaction');
+        return view('admin.transaction.transaction', compact('transactions'));
     }
 
     public function api()
@@ -74,7 +75,24 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
 
-        Transaction::create($request->all());
+        $transaction = Transaction::create([
+            'member_id' => $request->member_id,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
+            'status' => $request->status,
+
+        ]);
+
+        if ($transaction) {
+            $books = $request->books;
+            foreach ($books as $book) {
+                TransactionDetail::create([
+                    'transaction_id' => $transaction->id,
+                    'book_id' => $book,
+                    'qty' => 1
+                ]);
+            }
+        }
 
         return redirect('transactions');
     }
