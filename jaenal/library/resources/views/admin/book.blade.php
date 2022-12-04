@@ -113,19 +113,35 @@
 @endsection
 
 @section("js")
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+
 <script type="text/javascript">
     var actionUrl = '{{ url('books') }}';
     var apiUrl = '{{ url('api/books') }}';
 
     var app = new Vue({
-        el: '#controller',
-        data: {
-            books: [],
-            search: '',
-            actionUrl: '{{ url('books')}}',
-            book:{},
-            editStatus: false
-        },
+      el: '#controller',
+      data: {
+          books: [],
+          search: '',
+          book: {},
+          actionUrl,
+          apiUrl,
+          editStatus: false
+      },
         mounted: function () {
             this.get_books();
         },
@@ -143,27 +159,35 @@
                     }
                 });
             },
-            addData(){
+            addData() {
               this.book = {};
-              this.actionUrl = '{{ url('books') }}'
               this.editStatus = false;
-                $('#modal-default').modal();
-            },
-            editData(book){
+              $('#modal-default').modal();
+          },
+          editData(book) {
               this.book = book;
-              this.actionUrl = '{{ url('books') }}'+'/'+this.book.id;
               this.editStatus = true;
               $('#modal-default').modal();
-            },
-            deleteData(id){
-              //console.log(id);
-              this.actionUrl = '{{ url('books') }}'+'/'+id;
-              if (confirm("Are you sure?")) {
-                axios.post(this.actionUrl, {_method: 'DELETE'}).then(response =>{
-                  location.reload();
-                });
-            }
           },
+          deleteData(id) {
+              if (confirm("Are you sure ?")) {
+                  $(event.target).parents('tr').remove();
+                  axios.post(this.actionUrl + '/' + id, {
+                      _method: 'DELETE'
+                  }).then(response => {
+                      alert('Data has been removed');
+                  });
+              }
+          },
+          submitForm(event, id) {
+            event.preventDefault();
+            const _this = this;
+            var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
+            axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                $('#modal-default').modal('hide');
+                this.get_books();
+            });
+        },
             numberWithSpaces(x) {
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }
