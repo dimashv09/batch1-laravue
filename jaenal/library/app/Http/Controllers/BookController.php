@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Publisher;
+use App\Models\Author;
+use App\Models\Catalog;
 use Illuminate\Http\Request;
 
 class Bookcontroller extends Controller
@@ -14,7 +17,16 @@ class Bookcontroller extends Controller
      */
     public function index()
     {
-        return view('admin.Book.index');
+        $publishers = Publisher :: all();
+        $authors = Author :: all();
+        $catalogs = Catalog :: all();
+        return view('admin.book', compact('publishers', 'authors', 'catalogs'));
+    }
+
+    public function api()
+    {
+        $books = Book::all();
+        return json_encode($books);
     }
 
     /**
@@ -44,7 +56,7 @@ class Bookcontroller extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show(Book $book)
+    public function show(book $book)
     {
         //
     }
@@ -55,7 +67,7 @@ class Bookcontroller extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit(book $book)
     {
         //
     }
@@ -67,7 +79,7 @@ class Bookcontroller extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, book $book)
     {
         //
     }
@@ -78,7 +90,7 @@ class Bookcontroller extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy(book $book)
     {
         //
     }
