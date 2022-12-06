@@ -151,7 +151,7 @@
             </li>
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <li class="nav-item menu-open">
-                <a href="{{ url ('books') }}" class="nav-link {{ request ()-> is('Books') ? 'active' : ''}}">
+                <a href="{{ url ('books') }}" class="nav-link {{ request ()-> is('books') ? 'active' : ''}}">
                   <i class="nav-icon fas fa-book"></i>
                   <p>
                     Book
@@ -160,7 +160,7 @@
               </li>
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
-                  <a href="{{ url ('members') }}" class="nav-link {{ request ()-> is('Members') ? 'active' : ''}}">
+                  <a href="{{ url ('members') }}" class="nav-link {{ request ()-> is('members') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-solid fa-users fa-fw"></i>
                     <p>
                       Member
@@ -169,7 +169,7 @@
                 </li>
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item menu-open">
-                    <a href="{{ url ('publishers') }}" class="nav-link {{ request ()-> is('Publishers') ? 'active' : ''}}">
+                    <a href="{{ url ('publishers') }}" class="nav-link {{ request ()-> is('publishers') ? 'active' : ''}}">
                       <i class="nav-icon fas fa-bookmark"></i>
                       <p>
                         Publisher
@@ -178,7 +178,7 @@
                   </li>
                   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item menu-open">
-                      <a href="{{ url ('authors') }}" class="nav-link {{ request ()-> is('Authors') ? 'active' : ''}}">
+                      <a href="{{ url ('authors') }}" class="nav-link {{ request ()-> is('authors') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-file-contract"></i>
                         <p>
                           Author

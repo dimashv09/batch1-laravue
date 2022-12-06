@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Publisher;
 use App\Models\Author;
 use App\Models\Catalog;
+use App\Models\Book;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 
-class Bookcontroller extends Controller
+class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +17,17 @@ class Bookcontroller extends Controller
      */
     public function index()
     {
-        $publishers = Publisher :: all();
-        $authors = Author :: all();
-        $catalogs = Catalog :: all();
+
+        $publishers = Publisher::all();
+        $authors = Author::all();
+        $catalogs = Catalog::all();
+
         return view('admin.book', compact('publishers', 'authors', 'catalogs'));
     }
-
     public function api()
     {
         $books = Book::all();
+
         return json_encode($books);
     }
 
@@ -36,7 +38,7 @@ class Bookcontroller extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.book');
     }
 
     /**
@@ -47,7 +49,20 @@ class Bookcontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'isbn' => ['required'],
+            'title' => ['required'],
+            'year' => ['required'],
+            'publisher_id' => ['required'],
+            'author_id' => ['required'],
+            'catalog_id' => ['required'],
+            'qty' => ['required'],
+            'price' => ['required'],
+        ]);
+
+        Book::create($request->all());
+
+        return redirect('books');
     }
 
     /**
@@ -56,7 +71,7 @@ class Bookcontroller extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show(book $book)
+    public function show(Book $book)
     {
         //
     }
@@ -67,7 +82,7 @@ class Bookcontroller extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(book $book)
+    public function edit(Book $book)
     {
         //
     }
@@ -79,9 +94,23 @@ class Bookcontroller extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, book $book)
-    {
-        //
+    public function update(Request $request, Book $book)
+    {   
+
+        $this->validate($request, [
+            'isbn' => ['required'],
+            'title' => ['required'],
+            'year' => ['required'],
+            'publisher_id' => ['required'],
+            'author_id' => ['required'],
+            'catalog_id' => ['required'],
+            'qty' => ['required'],
+            'price' => ['required'],
+        ]);
+
+        $book->update($request->all());
+
+        return redirect('books');
     }
 
     /**
@@ -90,8 +119,9 @@ class Bookcontroller extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(book $book)
+    public function destroy(Book $book)
     {
-        //
+
+        $book->delete(); 
     }
 }
