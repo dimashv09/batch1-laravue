@@ -44,7 +44,7 @@
                                 <td>{{ $key+1 }}</td>
                                 <td class="text-center">{{ $transaction->date_start }}</td>
                                 <td class="text-center">{{ $transaction->date_end }}</td>
-                                <td class="text-center">{{ $transaction->date_end }}</td>
+                                <td class="text-center">{{ $transaction->duration }}</td>
                                 <td class="text-center">{{ $transaction->duration}}</td>
                                 <td class="text-center">{{ $transaction->total }}</td>
                                 <td class="text-center">{{ $transaction->purchase }}</td>

@@ -36,6 +36,7 @@
                         <select class="select2" name="books[]" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
                             @foreach($books as $book)
                             <option value="{{ $book->id }}">{{ $book->tittle }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
