@@ -154,8 +154,9 @@
             deleteData (id){
               //console.log(id);
               if (confirm("Are you sure?")) {
-                $(event.target).parents('tr').remove();
                 axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response =>{
+                    $('#modal-default').modal('hide');
+                    this.get_books();
                   alert('Data has been removed');
                 });
                 }

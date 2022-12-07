@@ -142,6 +142,15 @@
           </li>
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item menu-open">
+              <a href="{{ url ('members') }}" class="nav-link {{ request ()-> is('members') ? 'active' : ''}}">
+                <i class="nav-icon fas fa-solid fa-users fa-fw"></i>
+                <p>
+                  Member
+                </p>
+              </a>
+            </li>
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item menu-open">
               <a href="{{ url ('catalogs') }}" class="nav-link {{ request ()-> is('catalogs') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
@@ -158,15 +167,6 @@
                   </p>
                 </a>
               </li>
-              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item menu-open">
-                  <a href="{{ url ('members') }}" class="nav-link {{ request ()-> is('members') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-solid fa-users fa-fw"></i>
-                    <p>
-                      Member
-                    </p>
-                  </a>
-                </li>
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item menu-open">
                     <a href="{{ url ('publishers') }}" class="nav-link {{ request ()-> is('publishers') ? 'active' : ''}}">

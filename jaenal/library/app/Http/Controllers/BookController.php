@@ -71,7 +71,7 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show(Book $book)
+    public function show(book $book)
     {
         //
     }
@@ -82,7 +82,7 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit(book $book)
     {
         //
     }
@@ -94,7 +94,7 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, book $book)
     {   
 
         $this->validate($request, [
@@ -119,7 +119,7 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy(book $book)
     {
 
         $book->delete(); 
