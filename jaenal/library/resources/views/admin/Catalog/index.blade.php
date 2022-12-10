@@ -38,8 +38,8 @@
     <tr>
     <td>{{$key+1}}</td>
     <td>{{$catalog->Name}}</td>
-    <td>{{date('d M Y', strtotime($catalog->created_at))}}</td>
-    <td>{{date('d M Y', strtotime($catalog->updated_at))}}</td>
+    <td>{{ convert_date($catalog->created_at)}}</td>
+    <td>{{ convert_date($catalog->updated_at)}}</td>
     <td>{{count($catalog->Books)}}</td>
     <td>
         <a href="{{ url('catalogs/'.$catalog->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
