@@ -134,12 +134,21 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item menu-open">
             <a href="{{ url ('home') }}" class="nav-link {{ request ()-> is('home') ? 'active' : ''}}">
-              <i class="fa-solid fa-house fa-fw" style="color: var(--fa-navy);"></i>
+              <i class="nav-icon fas fa-tree" style="color: var(--fa-navy);"></i>
               <p>
                 Home
               </p>
             </a>
           </li>
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item menu-open">
+              <a href="{{ url ('dashboards') }}" class="nav-link {{ request ()-> is('dashboards') ? 'active' : ''}}">
+                <i class="nav-icon fas fa-tachometer-alt" style="color: var(--fa-navy);"></i>
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item menu-open">
               <a href="{{ url ('members') }}" class="nav-link {{ request ()-> is('members') ? 'active' : ''}}">
@@ -170,7 +179,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item menu-open">
                     <a href="{{ url ('publishers') }}" class="nav-link {{ request ()-> is('publishers') ? 'active' : ''}}">
-                      <i class="nav-icon fas fa-bookmark"></i>
+                      <i class="nav-icon ion ion-clipboard mr-1"></i>
                       <p>
                         Publisher
                       </p>
@@ -179,7 +188,7 @@
                   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item menu-open">
                       <a href="{{ url ('authors') }}" class="nav-link {{ request ()-> is('authors') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-file-contract"></i>
+                        <i class="nav-icon ion ion-person-add"></i>
                         <p>
                           Author
                         </p>

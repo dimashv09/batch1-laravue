@@ -46,7 +46,7 @@ class HomeController extends Controller
         //query buildder
         
         //data1
-        $data = Member::select('*')
+        /*$data = Member::select('*')
                     ->join('users', 'users.member_id','=','members.id')
                     ->get();
         

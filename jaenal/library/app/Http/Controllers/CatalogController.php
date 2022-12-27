@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Author;
 use App\Models\Catalog;
 use Illuminate\Http\Request;
-use Symfony\Contracts\Service\Attribute\Required;
-use Whoops\Run;
 
 class Catalogcontroller extends Controller
 {
@@ -101,7 +98,7 @@ class Catalogcontroller extends Controller
 
         $catalog->update($request->all());
 
-        return redirect('catalogs');
+        return redirect()->route('catalog.index');
     }
 
     /**
