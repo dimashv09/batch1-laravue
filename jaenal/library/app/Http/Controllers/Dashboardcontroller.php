@@ -35,7 +35,7 @@ class Dashboardcontroller extends Controller
             $data_bar[$key]['label'] = $label_bar[$key];
             $data_bar[$key]['backgroundColor'] = 'rgba(60,141,188,9)';
             $data_year = [];
-            foreach (range(1, 12) as $year) {
+            foreach (range(2010, 2022) as $year) {
                 $data_year[] = Book::select(DB::raw("COUNT(*) as total"))->where('year', $year)->first()->total;
             }
             $data_bar[$key]['data'] = $data_year;
@@ -44,7 +44,7 @@ class Dashboardcontroller extends Controller
         $data_pengarang = Book::select(DB::raw("COUNT(author_id) as total "))->groupBy('author_id')->orderBy('author_id', 'asc')->pluck('total');
         $label_pengarang = Author::orderBy('authors.id', 'asc')->join('books', 'books.author_id', '=', 'authors.id')->groupBy('name')->pluck('name');
 
-        return $data_bar;
+        //return $data_bar;
         return view('admin.dashboard', compact('total_anggota', 'total_buku', 'total_pengarang', 'total_penerbit', 'data_donut', 'label_donut', 'data_bar', 'data_pengarang', 'label_pengarang'));
     }
     
