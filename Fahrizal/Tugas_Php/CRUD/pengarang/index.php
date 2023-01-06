@@ -7,7 +7,7 @@
     <title>Pengarang</title>
 </head>
 <?php
-include_once("../buku/connect.php");
+include_once("../connect.php");
 $pengarang = mysqli_query($mysqli, "SELECT pengarang.*, id_pengarang,nama_pengarang,email,telp,alamat FROM pengarang");
 $no = 0;
 ?>
