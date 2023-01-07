@@ -37,16 +37,20 @@
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
-            </ul>
+<li class="nav-item">
+<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+</li>
+<li class="nav-item d-none d-sm-inline-block">
+<a href="home" class="nav-link">Home</a>
+</li>
+<li class="nav-item d-none d-sm-inline-block">
+<a href="#" class="nav-link">Contact</a>
+</li>
+</ul>
+<ul class="navbar-nav ml-auto">
+</ul>
+
+
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -127,10 +131,69 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
 						with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <a href="home" class="nav-link ">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Home</p>
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('dasboard') }}" class="nav-link {{ request()->is('dasboard') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Dasboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('catalogs') }}" class="nav-link {{ request()->is('catalogs') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Catalog
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('authors') }}" class="nav-link {{ request()->is('authors') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Author
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('publishers') }}" class="nav-link {{ request()->is('publishers') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-chart-pie"></i>
+                                <p>
+                                    Publisher
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('books') }}" class="nav-link {{ request()->is('book') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Book
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('members') }}" class="nav-link {{ request()->is('members') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p>
+                                    Member
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('transactions') }}" class="nav-link {{ request()->is('transactions') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-cash-register"></i>
+                                <p>
+                                    Transaction
+                                </p>
                             </a>
                         </li>
                     </ul>
@@ -146,14 +209,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">@yield('wrapper-title', 'Dashboard')</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ request()->route()->uri }}">{{
-                                        Route::currentRouteName() }}</a></li>
-                                <li class="breadcrumb-item active">Admin</li>
-                            </ol>
+                        <ol class="breadcrumb float-sm-right">
+<li class="breadcrumb-item"><a>{{ Auth::user()->name }}</a></li>
+<li class="breadcrumb-item active">@yield('header')</li>
+</ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
