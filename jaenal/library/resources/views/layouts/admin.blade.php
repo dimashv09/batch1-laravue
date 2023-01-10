@@ -143,12 +143,21 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item menu-open">
               <a href="{{ url ('dashboards') }}" class="nav-link {{ request ()-> is('dashboards') ? 'active' : ''}}">
-                <i class="nav-icon fas fa-tachometer-alt" style="color: var(--fa-navy);"></i>
+                <i class="nav-icon fas fa-chart-pie" style="color: var(--fa-navy);"></i>
                 <p>
                   Dashboard
                 </p>
               </a>
             </li>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <li class="nav-item menu-open">
+                <a href="{{ url ('transactions') }}" class="nav-link {{ request ()-> is('transactions') ? 'active' : ''}}">
+                  <i class="nav-icon fas fa-tachometer-alt" style="color: var(--fa-navy);"></i>
+                  <p>
+                    Transaction
+                  </p>
+                </a>
+              </li>
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item menu-open">
               <a href="{{ url ('members') }}" class="nav-link {{ request ()-> is('members') ? 'active' : ''}}">

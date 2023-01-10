@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 
-class TransactionDetailcontroller extends Controller
+class TransactionDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class TransactionDetailcontroller extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.transaction.transactionDetail');
     }
 
     /**

@@ -81,7 +81,7 @@
                             <label>Catalog</label>
                             <select name="catalog_id" class="form-control">
                                 @foreach($catalogs as $catalog)
-                                <option :selected="book.catalog_id == {{ $catalog->id }}" value="{{ $catalog->id }}">{{ $catalog->Name }}</option>
+                                <option :selected="book.catalog_id == {{ $catalog->id }}" value="{{ $catalog->id }}">{{ $catalog->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Harga Pinjam</label>
+                            <label>Borrow Price</label>
                             <input type="number" class="form-control" name="price" required="" :value="book.price">
                         </div>
 

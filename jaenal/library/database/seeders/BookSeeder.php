@@ -22,7 +22,7 @@ class BookSeeder extends Seeder
 
             $catalog->isbn = $faker->randomNumber(9);
             $catalog->title = $faker->name;
-            $catalog->year = rand(2010,2022);
+            $catalog->year = rand(2010,2015);
 
             $catalog->Publisher_id = rand(1,10);
             $catalog->author_id = rand(1,10);

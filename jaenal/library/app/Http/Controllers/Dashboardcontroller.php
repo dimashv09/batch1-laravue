@@ -35,7 +35,7 @@ class Dashboardcontroller extends Controller
             $data_bar[$key]['label'] = $label_bar[$key];
             $data_bar[$key]['backgroundColor'] = 'rgba(60,141,188,9)';
             $data_year = [];
-            foreach (range(2010, 2022) as $year) {
+            foreach (range(2010, 2015) as $year) {
                 $data_year[] = Book::select(DB::raw("COUNT(*) as total"))->where('year', $year)->first()->total;
             }
             $data_bar[$key]['data'] = $data_year;

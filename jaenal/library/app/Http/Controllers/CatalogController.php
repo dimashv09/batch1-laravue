@@ -18,7 +18,7 @@ class Catalogcontroller extends Controller
      */
     public function index()
     {
-        $catalogs = catalog::with('Books')->get();
+        $catalogs = Catalog::with('Books')->get();
 
         //return $Catalogs;
         return view('admin.catalog.index', compact('catalogs'));
@@ -66,7 +66,7 @@ class Catalogcontroller extends Controller
      * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function show(catalog $catalog)
+    public function show(Catalog $catalog)
     {
         //
     }
@@ -77,7 +77,7 @@ class Catalogcontroller extends Controller
      * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function edit(catalog $catalog)
+    public function edit(Catalog $catalog)
     {
         //return $catalog;
         return view('admin.catalog.edit', compact('catalog'));
@@ -90,7 +90,7 @@ class Catalogcontroller extends Controller
      * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, catalog $catalog)
+    public function update(Request $request, Catalog $catalog)
     {
         $this->validate($request,[
             'name' => ['required'], 
@@ -98,7 +98,7 @@ class Catalogcontroller extends Controller
 
         $catalog->update($request->all());
 
-        return redirect()->route('catalog.index');
+        return redirect()->route('catalogs.index');
     }
 
     /**
@@ -107,7 +107,7 @@ class Catalogcontroller extends Controller
      * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(catalog $catalog)
+    public function destroy(Catalog $catalog)
     {
         $catalog->delete();
         return redirect('catalogs');

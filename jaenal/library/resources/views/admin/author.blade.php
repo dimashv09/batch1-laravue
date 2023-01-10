@@ -18,16 +18,16 @@
                 <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Author</a>
             </div>
     
-            <div class="card-body table-responsive p-3">
-              <table id="datatable" class="table table-striped table-border">
+            <div class="card-body p-0">
+              <table id="datatable" class="table table-striped table-bordered">
               <thead>
                <tr>
                  <th widht="30px">No</th>
-                 <th>Name</th>
-                 <th>Email</th>
-                 <th>Phone Number</th>
-                 <th>Address</th>
-                 <th>Created At</th>
+                 <th class="text-center">Name</th>
+                 <th class="text-center">Email</th>
+                 <th class="text-center">Phone Number</th>
+                 <th class="text-center">Address</th>
+                 <th class="text-center">Created At</th>
                  <th class="text-center">Action</th>
                </tr>
             </thead>

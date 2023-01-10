@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Member;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class Transactioncontroller extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,10 @@ class Transactioncontroller extends Controller
      */
     public function index()
     {
-        //
+        
+
+        //return $Catalogs;
+        return view('admin.transaction.index');
     }
 
     /**
@@ -24,7 +33,10 @@ class Transactioncontroller extends Controller
      */
     public function create()
     {
-        //
+        $members = Member::all();
+        $books = Book::where('qty', '>=', 1)->get();
+
+        return view('admin.transaction.create', compact('members', 'books'));
     }
 
     /**

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'gender', 'phone_Number', 'address', 'email'];
     
     public function transaction()
 

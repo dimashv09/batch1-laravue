@@ -37,7 +37,7 @@
         
     <tr>
     <td>{{$key+1}}</td>
-    <td>{{$catalog->Name}}</td>
+    <td>{{$catalog->name}}</td>
     <td>{{ convert_date($catalog->created_at)}}</td>
     <td>{{ convert_date($catalog->updated_at)}}</td>
     <td>{{count($catalog->Books)}}</td>
