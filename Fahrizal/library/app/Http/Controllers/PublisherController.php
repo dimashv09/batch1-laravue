@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        return view('admin.publisher.index');
+        $books = Book::with('publisher')->get();
+        return $books;
+        return $this->hasMany('App\Models\Book', 'publisher_id');
+        return view('admin.member.index');
     }
 
     /**

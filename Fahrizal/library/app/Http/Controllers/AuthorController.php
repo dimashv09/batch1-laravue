@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view('admin.Author.index');
+        $books = Book::with('Author')->get();
+        return $books;
+        return $this->hasMany('App\Models\Book', 'Author_id');
     }
 
     /**
