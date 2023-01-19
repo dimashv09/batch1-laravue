@@ -1,0 +1,7 @@
+5 query update dan delete pada database apotek
+
+1). update tb_customer set nama_cust = 'sarawi' where nama_cust = 'awi mahmud';
+2). update tb_alamat set kecamatan = 'oba utara' where kecamatan = 'oba tengah';
+3). update tb_customer set nama_cust = 'ari', jk_cust = 'laki-laki' where id = 1;
+4). delete from tb_customer where nama_cust = 'sarawi';
+5). delete from tb_obat where nama_obat = 'assam mafenamat
