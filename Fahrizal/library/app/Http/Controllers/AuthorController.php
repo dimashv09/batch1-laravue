@@ -15,9 +15,11 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $books = Book::with('Author')->get();
-        return $books;
-        return $this->hasMany('App\Models\Book', 'Author_id');
+        //$books = Book::with('Author')->get();
+        //return $books;
+        //return $this->hasMany('App\Models\Book', 'Author_id');
+
+        return view('admin.transaction.index');
     }
 
     /**

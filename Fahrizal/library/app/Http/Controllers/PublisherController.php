@@ -15,9 +15,9 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $books = Book::with('publisher')->get();
-        return $books;
-        return $this->hasMany('App\Models\Book', 'publisher_id');
+        //$books = Book::with('publisher')->get();
+        //return $books;
+        //return $this->hasMany('App\Models\Book', 'publisher_id');
         return view('admin.member.index');
     }
 

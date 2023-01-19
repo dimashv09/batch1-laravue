@@ -15,9 +15,9 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        $books = Book::with('author')->get();
-        return $books;
-        return $this->hasMany('App\Models\Book', 'author_id');
+        //$books = Book::with('author')->get();
+        //return $books;
+        //return $this->hasMany('App\Models\Book', 'author_id');
         return view('admin.catalog.index');
     }
 
