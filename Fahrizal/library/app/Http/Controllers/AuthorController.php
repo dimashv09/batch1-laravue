@@ -18,8 +18,8 @@ class AuthorController extends Controller
         //$books = Book::with('Author')->get();
         //return $books;
         //return $this->hasMany('App\Models\Book', 'Author_id');
-
-        return view('admin.transaction.index');
+        $authors = Author::all();
+        return view('admin.author.index', compact('authors'));
     }
 
     /**

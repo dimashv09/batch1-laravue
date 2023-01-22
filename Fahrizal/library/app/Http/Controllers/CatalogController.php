@@ -18,7 +18,10 @@ class CatalogController extends Controller
         //$books = Book::with('author')->get();
         //return $books;
         //return $this->hasMany('App\Models\Book', 'author_id');
-        return view('admin.catalog.index');
+        $catalogs = catalog::all();
+
+        //return $catalogs;
+        return view('admin.catalog.index', compact('catalogs'));
     }
 
     /**

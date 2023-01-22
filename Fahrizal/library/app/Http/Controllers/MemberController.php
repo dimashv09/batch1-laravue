@@ -16,7 +16,8 @@ class MemberController extends Controller
     {
         //$members = Member::with('user')->get();
         //return $members;
-        return view('admin.member.index');
+        $members = member::all();
+        return view('admin.member.index', compact('members'));
     }
 
     /**

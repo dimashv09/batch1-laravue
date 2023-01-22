@@ -18,7 +18,8 @@ class PublisherController extends Controller
         //$books = Book::with('publisher')->get();
         //return $books;
         //return $this->hasMany('App\Models\Book', 'publisher_id');
-        return view('admin.member.index');
+        $publishers = publisher::all();
+        return view('admin.publisher.index', compact('publishers'));
     }
 
     /**
