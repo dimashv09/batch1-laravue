@@ -15,22 +15,22 @@ $json = json_decode($data, TRUE);
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 	<style>
-		.container-fluid {
-			background-color: yellow;
-			height: 50px;
-			padding: 10px;
+		header {
+			background-color:#FFC300;
+			padding: 20px;
+			padding-left: 50px;
+			height: 70px;
+			font-size: 500px;
 		}
 	</style>
-	<title>Document</title>
+	<title>Daftar Nilai</title>
 </head>
 
 <body>
-	<div class="container-fluid col-12">
-		<h4>Daftar Nilai</h4>
-	</div>
-	<div class="container" style="border: 1px; margin-top: 10px;">
-		<table class="table table-bordered border-dark table-striped mt-5">
-			<thead>
+	<header class="col-12"><h4>Daftar Nilai</h4></header>
+	<div class="mx-auto col-8">
+		<table class="table table-bordered border-dark text-center table-striped mt-5">
+			<thead class="bg-secondary text-white" style="height: 50px;font-size:large;">
 				<tr>
 					<th>No</th>
 					<th>Nama</th>
@@ -44,35 +44,39 @@ $json = json_decode($data, TRUE);
 			</thead>
 
 			<tbody>
-				<?php foreach ($json as $json) : ?>
-				  <?php for ($no = 1; $no <= 10;$no++) { ?>
-				    <?php 
-
-						$nilai = $json['nilai'];
-						
-						if ($nilai >= 90) {
-							echo " ";
-						} elseif ($hasil >= 80 && $hasil < 90) {
-							echo $add_data[1];
-						}
-						if ($hasil >= 70 && $hasil < 80) {
-							echo $add_data[2];
-						} else {
-							echo $add_data[3];
-						}
+				<?php foreach ($json as $no => $json) : ?>
+					<?php 
+						$hasil = $json['nilai'];
 					?>
 						<tr>
-							<td><?= $no ?></td>
+							<td><?= $no+1 ?></td>
 							<td><?= $json['nama'] ?></td>
 							<td><?= $json['tanggal_lahir'] ?></td>
-							<td><?= $json['umur'] ?></td>
+							<td><?php 
+							//tanggal lahir	
+								$tanggal_lahir = new DateTime($json['tanggal_lahir']);
+								$sekarang = new DateTime();
+								$umur = $sekarang->diff($tanggal_lahir)->y;
+							echo $umur . " tahun";
+							?></td>
 							<td><?= $json['alamat'] ?></td>
 							<td><?= $json['kelas'] ?></td>
 							<td><?= $json['nilai'] ?></td>
-							<td><?echo $hasil; ?></td>
+							<td><?php
+							//hasil
+								if ($json['nilai'] >= 90) {
+									echo "A";
+								} elseif ($json['nilai'] >= 80) {
+									echo "B";
+								}
+								elseif ($json['nilai'] >= 60 ) {
+									echo "C";
+								} else {
+									echo "D";
+								} 
+							?>
+							</td>
 						</tr>
-					
-				  <?php }?>
 				  
 				<?php endforeach ?>
 			</tbody>
