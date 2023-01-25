@@ -76,7 +76,7 @@ $json = json_decode($data, TRUE);
 								} 
 							?>
 							</td>
-						</tr>
+						</tr> 
 				  
 				<?php endforeach ?>
 			</tbody>
