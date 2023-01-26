@@ -10,6 +10,8 @@
 <div class="card">
 <div class="card-header">
 <h3 class="card-title">Data publishers</h3>
+</br>
+    <a href="{{url('publishers/create')}}" class="btn btn-sm btn-primary pull-right">Create New Publisher</a>
 </div>
 
 <div class="card-body">

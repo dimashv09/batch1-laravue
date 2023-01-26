@@ -9,6 +9,8 @@
 <div class="card">
 <div class="card-header">
 <h3 class="card-title">Data Transaction</h3>
+</br>
+    <a href="{{url('transactions/create')}}" class="btn btn-sm btn-primary pull-right">Create New Transaction</a>
 </div>
 
 <div class="card-body">

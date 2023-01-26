@@ -29,7 +29,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.author.create');
     }
 
     /**
@@ -40,7 +40,22 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => ['required'],
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'address' => ['required']
+        ]);
+
+        //$author = new author;
+        //$author->name = $request->name;
+        //$author->email = $request->email;
+        //$author->phone_number = $request->phone_number;
+        //$author->address = $request->address;
+        //$author->save();
+
+        Author::create($request->all());
+        return redirect('authors');
     }
 
     /**
@@ -62,7 +77,8 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        $authors = Author::all();
+        return view('admin.author.edit', compact('author'));
     }
 
     /**
@@ -74,7 +90,15 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $this->validate($request, [
+            'name' => ['required'],
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'address' => ['required']
+        ]);
+
+        $author->update($request->all());
+        return redirect('authors');
     }
 
     /**
@@ -85,6 +109,8 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+
+        return redirect('authors');
     }
 }

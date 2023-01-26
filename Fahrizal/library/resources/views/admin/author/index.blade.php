@@ -11,6 +11,8 @@
 <div class="card">
 <div class="card-header">
 <h3 class="card-title">Data Author</h3>
+</br>
+    <a href="{{url('authors/create')}}" class="btn btn-sm btn-primary pull-right">Create New Author</a>
 </div>
 
 <div class="card-body">
@@ -23,6 +25,7 @@
 <th class="text-center">Phone_Number</th>
 <th class="text-center">Address</th>
 <th class="text-center">Created At</th>
+<th class="text-center">Action</th>
 </tr>
 </thead>
 <tbody>
@@ -34,6 +37,14 @@
 <td class="text-center">{{$author->phone_number }}</td>
 <td class="text-center">{{$author->address }}</td>
 <td class="text-center">{{ date('d/M/Y', strtotime($author->created_at))  }}</td>
+<td class="text-center">
+    <a href="{{url('authors/'.$author->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
+    <form action="{{ url('authors', ['id' => $author->id.])"method="post">
+        <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure ?')">
+        @method('delete')
+        @csrf
+    </form>
+</td>
 </tr>
     @endforeach
 </tbody>

@@ -9,6 +9,8 @@
 <div class="card">
 <div class="card-header">
 <h3 class="card-title">Data Member</h3>
+</br>
+    <a href="{{url('members/create')}}" class="btn btn-sm btn-primary pull-right">Create New Member</a>
 </div>
 
 <div class="card-body">

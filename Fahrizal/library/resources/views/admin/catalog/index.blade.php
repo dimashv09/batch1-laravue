@@ -10,6 +10,8 @@
 <div class="card">
 <div class="card-header">
 <h3 class="card-title">Data Catalog</h3>
+</br>
+    <a href="{{url('catalogs/create')}}" class="btn btn-sm btn-primary pull-right">Create New Catalogs</a>
 </div>
 
 <div class="card-body">
