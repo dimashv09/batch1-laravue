@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Basic Component</title>
+</head>
+<body>
+	<div id="app" v-if="nama == 'indah'"> 
+		{{ message }} <br>
+		<label v-for="user in users">nama : {{ user.nama }}, umur : {{ user.umur }}, asal : {{ user.asal }}, <br></label>
+	</div>
+	
+</body>
+</html>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script type="text/javascript">
+  const { createApp } = Vue
+  createApp({
+    data() {
+      return {
+        message: 'Hello Vue!',
+		status: 'jangan tampilkan',
+		users: [
+			{
+				nama : 'Awi mahmud',
+				umur : '27 Tahun',
+				asal : 'Sofifi',
+			},
+			{
+				nama : 'Bayu',
+				umur : '25 Tahun',
+				asal : 'Ternate',
+			},
+			{
+				nama : 'Nyong',
+				umur : '25',
+				asal : 'Tidore',
+			},
+		]
+      }
+    }
+  }).mount('#app')
+</script>
+
