@@ -73,16 +73,17 @@
 			$alamat = $_POST['alamat']; 
 			$judul = $_POST['judul'];
 			$tahun = $_POST['tahun'];
+			
+			//get database connection
+			include_once('koneksi.php');
+	 
+			//push data on the table
+			$hasil = mysqli_query($koneksi, "INSERT INTO penerbit(id_penerbit, nama_penerbit, email, telp, alamat, judul, tahun) 
+											VALUES ('$id_penerbit','$nama_penerbit', '$email', '$telp', '$alamat', '$judul', '$tahun');
+								");
+			header('Location: index.php');
 		}
 
-		//get database connection
-		include_once('koneksi.php');
-
-		//push data on the table
-		$hasil = mysqli_query($koneksi, "INSERT INTO penerbit(id_penerbit, nama_penerbit, email, telp, alamat, judul, tahun) 
-										VALUES ('$id_penerbit','$nama_penerbit', '$email', '$telp', '$alamat', '$judul', '$tahun');
-							");
-		header('Location: index.php');
 
 	?>
 </body>

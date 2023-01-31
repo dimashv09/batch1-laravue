@@ -23,7 +23,7 @@
 		<a href="../buku/index.php">Buku</a> |
 		<a href="index.php">Penerbit</a> |
 		<a href="../pengarang/index.php">Pengarang</a> |
-		<a href="">Katalog</a> 
+		<a href="../katalog/index.php">Katalog</a> |
 	</center>
 	<br>
 
@@ -31,15 +31,15 @@
 	<table class="table table-bordered table-striped text-center">
 		<thead class = "bg-secondary">
 			<tr>
-				<td>No</td>
-				<td>Id Penerbit</td>
-				<td>Nama Penerbit</td>
-				<td>Email</td>
-				<td>No tlpn</td>
-				<td>Alamat</td>
-				<td>Judul</td>
-				<td>Tahun</td>
-				<td>Aksi</td>
+				<th>No</th>
+				<th>Id Penerbit</th>
+				<th>Nama Penerbit</th>
+				<th>Email</th>
+				<th>No tlpn</th>
+				<th>Alamat</th>
+				<th>Judul</th>
+				<th>Tahun</th>
+				<th>Aksi</th>
 			</tr>
 		</thead>
 		<tbody>
