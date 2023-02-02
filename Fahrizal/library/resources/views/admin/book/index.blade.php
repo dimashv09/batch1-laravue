@@ -27,21 +27,32 @@
 <th class="text-center">Qty</th>
 <th class="text-center">Price</th>
 <th class="text-center">Created At</th>
+<th class="text-center">Action</th>
 </tr>
 </thead>
 <tbody>
-    @foreach($books as $key => $books)
+    @foreach($books as $key => $book)
 <tr>
 <td>{{ $key+1}}</td>
-<td class="text-center">{{$books->isbn }}</td>
-<td class="text-center">{{$books->tittle }}</td>
-<td class="text-center">{{$books->year }}</td>
-<td class="text-center">{{$books->publisher_id }}</td>
-<td class="text-center">{{$books->author_id }}</td>
-<td class="text-center">{{$books->catalog_id }}</td>
-<td class="text-center">{{$books->qty }}</td>
-<td class="text-center">{{$books->price }}</td>
-<td class="text-center">{{ date('d/M/Y', strtotime($books->created_at))  }}</td>
+<td class="text-center">{{$book->isbn }}</td>
+<td class="text-center">{{$book->tittle }}</td>
+<td class="text-center">{{$book->year }}</td>
+<td class="text-center">{{$book->publisher_id }}</td>
+<td class="text-center">{{$book->author_id }}</td>
+<td class="text-center">{{$book->catalog_id }}</td>
+<td class="text-center">{{$book->qty }}</td>
+<td class="text-center">{{$book->price }}</td>
+<td class="text-center">{{ date('d/M/Y', strtotime($book->created_at))  }}</td>
+<td class="text-center">
+
+<a href="{{url('books/'.$book->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
+
+    <form action="{{ url('books', ['id' => $book->id]) }}"method="post">
+        <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure ?')">
+        @method('delete')
+        @csrf
+    </form>
+    </td>
 </tr>
     @endforeach
 </tbody>

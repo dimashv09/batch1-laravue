@@ -24,18 +24,26 @@
 <th class="text-center">Address</th>
 <th class="text-center">Email</th>
 <th class="text-center">Created At</th>
+<th class="text-center">Action</th>
 </tr>
 </thead>
 <tbody>
-    @foreach($members as $key => $members)
+    @foreach($members as $key => $member)
 <tr>
-<td>{{ $key+1}}</td>
-<td class="text-center">{{$members->name }}</td>
-<td class="text-center">{{$members->gander }}</td>
-<td class="text-center">{{$members->phone_number }}</td>
-<td class="text-center">{{$members->address }}</td>
-<td class="text-center">{{$members->email }}</td>
-<td class="text-center">{{ date('d/M/Y', strtotime($members->created_at))  }}</td>
+<td>{{ $key+1 }}</td>
+<td class="text-center">{{$member->name }}</td>
+<td class="text-center">{{$member->gander }}</td>
+<td class="text-center">{{$member->phone_number }}</td>
+<td class="text-center">{{$member->address }}</td>
+<td class="text-center">{{$member->email }}</td>
+<td class="text-center">{{ date('d/M/Y', strtotime($member->created_at))  }}</td>
+<td class="text-center">
+    <a href="{{url('members/'.$member->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
+    
+    <form action="{{ url('members', ['id' => $member->id]) }}"method="post">
+        <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure ?')">
+        @method('delete')
+        @csrf
 </tr>
     @endforeach
 </tbody>

@@ -21,20 +21,29 @@
 <th style="width: 10px">ID.</th>
 <th class="text-center">Name</th>
 <th class="text-center">Email</th>
-<th class="text-center">Phone_Number</th>
+<th class="text-center">Phone Number</th>
 <th class="text-center">Address</th>
 <th class="text-center">Created At</th>
+<th class="text-center">Action</th>
 </tr>
 </thead>
 <tbody>
-    @foreach($publishers as $key => $publishers)
+    @foreach($publishers as $key => $publisher)
 <tr>
 <td>{{ $key+1}}</td>
-<td class="text-center">{{$publishers->name }}</td>
-<td class="text-center">{{$publishers->email }}</td>
-<td class="text-center">{{$publishers->phone_number }}</td>
-<td class="text-center">{{$publishers->address }}</td>
-<td class="text-center">{{ date('d/M/Y', strtotime($publishers->created_at))  }}</td>
+<td class="text-center">{{$publisher->name }}</td>
+<td class="text-center">{{$publisher->email }}</td>
+<td class="text-center">{{$publisher->phone_number }}</td>
+<td class="text-center">{{$publisher->address }}</td>
+<td class="text-center">{{ date('d/M/Y', strtotime($publisher->created_at))  }}</td>
+<td class="text-center">
+    <a href="{{url('publishers/'.$publisher->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
+    
+    <form action="{{ url('publishers', ['id' => $publisher->id]) }}"method="post">
+        <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure ?')">
+        @method('delete')
+        @csrf
+</td>
 </tr>
     @endforeach
 </tbody>

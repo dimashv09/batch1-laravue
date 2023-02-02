@@ -36,7 +36,16 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'date_start' => ['required'],
+            'date_end' => ['required'],
+            'member_id' => ['required'],
+            'qty' => ['required'],
+
+        ]);
+
+        Transaction::create($request->all());
+        return redirect('transactions');
     }
 
     /**
@@ -58,9 +67,9 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        $transactions = transaction::all();
+        return view('admin.transaction.edit', compact('transaction'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -70,8 +79,18 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $this->validate($request, [
+            'date_start' => ['required'],
+            'date_end' => ['required'],
+            'member_id' => ['required'],
+            'qty' => ['required'],
+
+        ]);
+
+        transaction::updated($request->all());
+        return redirect('transactions');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -81,6 +100,8 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+
+        return redirect('transatcions');
     }
 }

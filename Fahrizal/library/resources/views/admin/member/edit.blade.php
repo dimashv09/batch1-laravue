@@ -1,35 +1,37 @@
 @extends('layouts.admin')
-@section('header','Create')
+@section('header','Edit')
 @section('content')
+
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
-                <h3 class="card-title">Create New Member</h3>
+                <h3 class="card-title">Edit Member</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ url('members') }}" method="post">
+              <form action="{{ url('members/'.$member->id) }}" method="post">
                 @csrf
+                {{method_field('PUT')}}
                 <div class="card-body">
                   <div class="form-group">
                     <label>Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter name" required="">
+                    <input type="text" name="name" class="form-control" placeholder="Enter name" required="" value="{{$member->name}}">
                   </div>
                   <div class="form-group">
                     <label>Gander</label>
-                    <input type="text" name="Gander" class="form-control" placeholder="Enter gander" required="">
+                    <input type="text" name="gander" class="form-control" placeholder="Enter gander" required="" value="{{$member->gander}}">
                   </div>
                   <div class="form-group">
                     <label>Phone Number</label>
-                    <input type="text" name="phone_number" class="form-control" placeholder="Enter phone number" required="">
+                    <input type="text" name="phone number" class="form-control" placeholder="Enter Phone Number" required="" value="{{$member->phone_number}}">
                   </div>
                   <div class="form-group">
-                    <label>addres</label>
-                    <input type="text" name="address" class="form-control" placeholder="Enter address" required="">
+                    <label>address</label>
+                    <input type="text" name="address" class="form-control" placeholder="Enter address" required="" value="{{$member->address}}">
                   </div>
                   <div class="form-group">
-                    <label>email</label>
-                    <input type="text" name="email" class="form-control" placeholder="Enter email" required="">
+                    <label>@mail</label>
+                    <input type="text" name="email" class="form-control" placeholder="Enter emai" required="" value="{{$member->email}}">
                   </div>
                 <!-- /.card-body -->
                 <div>
@@ -40,4 +42,5 @@
             </div>
             </div>
             <!-- /.card -->
+
 @endsection

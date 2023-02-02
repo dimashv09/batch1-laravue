@@ -39,7 +39,7 @@
 <td class="text-center">{{ date('d/M/Y', strtotime($author->created_at))  }}</td>
 <td class="text-center">
     <a href="{{url('authors/'.$author->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
-    <form action="{{ url('authors', ['id' => $author->id.])"method="post">
+    <form action="{{ url('authors', ['id' => $author->id]) }}"method="post">
         <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure ?')">
         @method('delete')
         @csrf

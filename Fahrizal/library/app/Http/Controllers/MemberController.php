@@ -38,8 +38,20 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => ['required'],
+            'gander' => ['required'],
+            'phone_number' => ['required'],
+            'address' => ['required'],
+            'email' => ['required'],
+
+        ]);
+
+        Member::create($request->all());
+        return redirect('members');
+
     }
+
 
     /**
      * Display the specified resource.
@@ -60,7 +72,8 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
-        //
+        $members = member::all();
+        return view('admin.member.edit', compact('member'));
     }
 
     /**
@@ -72,7 +85,19 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-        //
+
+        $this->validate($request, [
+            'name' => ['required'],
+            'gander' => ['required'],
+            'phone_number' => ['required'],
+            'address' => ['required'],
+            'email' => ['required'],
+        ]);
+
+        Member::updated($request->all());
+        return redirect('members');
+
+
     }
 
     /**
@@ -83,6 +108,8 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $member->delete();
+
+        return redirect('members');
     }
 }

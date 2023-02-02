@@ -23,17 +23,26 @@
 <th class="text-center">Member Id</th>
 <th class="text-center">Qty</th>
 <th class="text-center">Created At</th>
+<th class="text-center">Action</th>
 </tr>
 </thead>
 <tbody>
-    @foreach($transactions as $key => $transactions)
+    @foreach($transactions as $key => $transaction)
 <tr>
 <td>{{ $key+1}}</td>
-<td class="text-center">{{$transactions->date_start }}</td>
-<td class="text-center">{{$transactions->date_end }}</td>
-<td class="text-center">{{$transactions->member_id }}</td>
-<td class="text-center">{{$transactions->qty }}</td>
-<td class="text-center">{{ date('d/M/Y', strtotime($transactions->created_at))  }}</td>
+<td class="text-center">{{$transaction->date_start }}</td>
+<td class="text-center">{{$transaction->date_end }}</td>
+<td class="text-center">{{$transaction->member_id }}</td>
+<td class="text-center">{{$transaction->qty }}</td>
+<td class="text-center">{{ date('d/M/Y', strtotime($transaction->created_at))  }}</td>
+<td class="text-center">  
+<a href="{{url('transactions/'.$transaction->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
+
+    <form action="{{ url('transactions', ['id' => $transaction->id]) }}"method="post">
+        <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure ?')">
+        @method('delete')
+        @csrf
+</td>
 </tr>
     @endforeach
 </tbody>
