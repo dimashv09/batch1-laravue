@@ -40,7 +40,7 @@ class MemberController extends Controller
     {
         $this->validate($request, [
             'name' => ['required'],
-            'gander' => ['required'],
+            'gender' => ['required'],
             'phone_number' => ['required'],
             'address' => ['required'],
             'email' => ['required'],
@@ -85,16 +85,15 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-
         $this->validate($request, [
             'name' => ['required'],
-            'gander' => ['required'],
+            'gender' => ['required'],
             'phone_number' => ['required'],
             'address' => ['required'],
             'email' => ['required'],
         ]);
 
-        Member::updated($request->all());
+        $member->update($request->all());
         return redirect('members');
 
 

@@ -40,28 +40,28 @@ Route::delete('/authors/{author}', [App\Http\Controllers\AuthorController::class
 
 Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
 Route::get('/publishers/create', [App\Http\Controllers\PublisherController::class, 'create']);
-Route::post('/publishers', [App\Http\Controllers\AuthorController::class, 'store']);
-Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\AuthorController::class, 'edit']);
-Route::put('/publishers/{publisher}', [App\Http\Controllers\AuthorController::class, 'update']);
-Route::delete('/publishers/{publisher}', [App\Http\Controllers\AuthorController::class, 'destroy']);
+Route::post('/publishers', [App\Http\Controllers\PublisherController::class, 'store']);
+Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherController::class, 'edit']);
+Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update']);
+Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy']);
 
-Route::get('/books', [App\Http\Controllers\bookController::class, 'index']);
-Route::get('/books/create', [App\Http\Controllers\bookController::class, 'create']);
-Route::post('/books', [App\Http\Controllers\bookController::class, 'store']);
-Route::get('/books/{book}/edit', [App\Http\Controllers\bookController::class, 'edit']);
-Route::put('/books/{book}', [App\Http\Controllers\bookController::class, 'update']);
-Route::delete('/books/{book}', [App\Http\Controllers\bookController::class, 'destroy']);
+Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
+Route::get('/books/create', [App\Http\Controllers\BookController::class, 'create']);
+Route::post('/books', [App\Http\Controllers\BookController::class, 'store']);
+Route::get('/books/{book}/edit', [App\Http\Controllers\BookController::class, 'edit']);
+Route::put('/books/{book}', [App\Http\Controllers\BookController::class, 'update']);
+Route::delete('/books/{book}', [App\Http\Controllers\BookController::class, 'destroy']);
 
-Route::get('/members', [App\Http\Controllers\memberController::class, 'index']);
-Route::get('/members/create', [App\Http\Controllers\memberController::class, 'create']);
-Route::post('/members', [App\Http\Controllers\memberController::class, 'store']);
-Route::get('/members/{member}/edit', [App\Http\Controllers\memberController::class, 'edit']);
-Route::put('/members/{member}', [App\Http\Controllers\memberController::class, 'update']);
-Route::delete('/members/{member}', [App\Http\Controllers\memberController::class, 'destroy']);
+Route::get('/members', [App\Http\Controllers\MemberController::class, 'index']);
+Route::get('/members/create', [App\Http\Controllers\MemberController::class, 'create']);
+Route::post('/members', [App\Http\Controllers\MemberController::class, 'store']);
+Route::get('/members/{member}/edit', [App\Http\Controllers\MemberController::class, 'edit']);
+Route::put('/members/{member}', [App\Http\Controllers\MemberController::class, 'update']);
+Route::delete('/members/{member}', [App\Http\Controllers\MemberController::class, 'destroy']);
 
-Route::get('/transactions', [App\Http\Controllers\transactionController::class, 'index']);
-Route::get('/transactions/create', [App\Http\Controllers\transactionController::class, 'create']);
-Route::post('/transactions', [App\Http\Controllers\transactionController::class, 'store']);
-Route::get('/transactions/{transaction}/edit', [App\Http\Controllers\transactionController::class, 'edit']);
-Route::put('/transactions/{transaction}', [App\Http\Controllers\transactionController::class, 'update']);
-Route::delete('/transactions/{transaction}', [App\Http\Controllers\mtransactionController::class, 'destroy']);
+Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
+Route::get('/transactions/create', [App\Http\Controllers\TransactionController::class, 'create']);
+Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store']);
+Route::get('/transactions/{transaction}/edit', [App\Http\Controllers\TransactionController::class, 'edit']);
+Route::put('/transactions/{transaction}', [App\Http\Controllers\TransactionController::class, 'update']);
+Route::delete('/transactions/{transaction}', [App\Http\Controllers\TransactionController::class, 'destroy']);

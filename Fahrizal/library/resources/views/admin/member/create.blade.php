@@ -16,8 +16,8 @@
                     <input type="text" name="name" class="form-control" placeholder="Enter name" required="">
                   </div>
                   <div class="form-group">
-                    <label>Gander</label>
-                    <input type="text" name="Gander" class="form-control" placeholder="Enter gander" required="">
+                    <label>Gender</label>
+                    <input type="text" name="gender" class="form-control" placeholder="Enter gender" required="">
                   </div>
                   <div class="form-group">
                     <label>Phone Number</label>

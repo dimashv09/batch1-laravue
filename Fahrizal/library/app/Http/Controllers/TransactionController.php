@@ -87,7 +87,7 @@ class TransactionController extends Controller
 
         ]);
 
-        transaction::updated($request->all());
+        $transaction->updated($request->all());
         return redirect('transactions');
     }
 

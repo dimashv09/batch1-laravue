@@ -19,7 +19,7 @@
 <tr>
 <th style="width: 10px">No.</th>
 <th class="text-center">Name</th>
-<th class="text-center">Gander</th>
+<th class="text-center">Gender</th>
 <th class="text-center">Phone Number</th>
 <th class="text-center">Address</th>
 <th class="text-center">Email</th>
@@ -32,7 +32,7 @@
 <tr>
 <td>{{ $key+1 }}</td>
 <td class="text-center">{{$member->name }}</td>
-<td class="text-center">{{$member->gander }}</td>
+<td class="text-center">{{$member->gender }}</td>
 <td class="text-center">{{$member->phone_number }}</td>
 <td class="text-center">{{$member->address }}</td>
 <td class="text-center">{{$member->email }}</td>

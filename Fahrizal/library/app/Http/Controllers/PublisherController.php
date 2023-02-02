@@ -48,7 +48,7 @@ class PublisherController extends Controller
 
         ]);
 
-        publisher::create($request->all());
+        Publisher::create($request->all());
         return redirect('publishers');
     }
 
@@ -92,7 +92,7 @@ class PublisherController extends Controller
 
         ]);
 
-        Publisher::updated($request->all());
+        $publisher->update($request->all());
         return redirect('publishers');
     }
 

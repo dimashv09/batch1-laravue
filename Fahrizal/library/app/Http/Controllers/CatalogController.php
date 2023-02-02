@@ -87,7 +87,7 @@ class CatalogController extends Controller
             'name' => ['required'],
         ]);
 
-        catalog::updated($request->all());
+        $catalog->update($request->all());
         return redirect('catalogs');
 
     }

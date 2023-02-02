@@ -42,6 +42,7 @@
         <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure ?')">
         @method('delete')
         @csrf
+</form>
 </td>
 </tr>
     @endforeach

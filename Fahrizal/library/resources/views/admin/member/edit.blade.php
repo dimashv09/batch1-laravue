@@ -18,12 +18,12 @@
                     <input type="text" name="name" class="form-control" placeholder="Enter name" required="" value="{{$member->name}}">
                   </div>
                   <div class="form-group">
-                    <label>Gander</label>
-                    <input type="text" name="gander" class="form-control" placeholder="Enter gander" required="" value="{{$member->gander}}">
+                    <label>Gender</label>
+                    <input type="text" name="gender" class="form-control" placeholder="Enter gender" required="" value="{{$member->gender}}">
                   </div>
                   <div class="form-group">
                     <label>Phone Number</label>
-                    <input type="text" name="phone number" class="form-control" placeholder="Enter Phone Number" required="" value="{{$member->phone_number}}">
+                    <input type="text" name="phone_number" class="form-control" placeholder="Enter phone_number" required="" value="{{$member->phone_number}}">
                   </div>
                   <div class="form-group">
                     <label>address</label>
