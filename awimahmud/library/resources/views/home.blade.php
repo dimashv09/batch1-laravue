@@ -8,19 +8,19 @@
         </div>
     </div>
     <div class="col-12 mx-auto text-center">
-        <div class="col" >
+        <div class="col">
             <div class="bg-danger">
-				<p class="">Laravel</p>
+                <p class="">Laravel</p>
             </div>
         </div>
         <div class="col">
             <div class="bg-primary">
-				<p>Php and Mysql</p>
+                <p>Php and Mysql</p>
             </div>
         </div>
         <div class="col">
             <div class="bg-success">
-				<p>Vue.js</p>
+                <p>Vue.js</p>
             </div>
         </div>
     </div>
@@ -33,3 +33,4 @@
     </div>
 </div>
 @endsection
+
