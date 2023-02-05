@@ -1,10 +1,10 @@
 @extends('layouts.admin')
-
+@section('header', 'Home');
 @section('content')
 <div clas="container-fluid">
-    <div class="col rounded" style="width:100%;height:20vh;background:#eaeaea;justify-content:center;display:flex;">
+    <div class="col rounded mb-5" style="width:100%;height:20vh;background:#eaeaea;justify-content:center;display:flex;">
         <div class="warraper rounded bg-secondary" style="width:100%;height:150px;align-items:center;display:flex;justify-content:center;">
-            <h2 class="font-monospace">404 NOT FOUND</h2>
+            <h2 class="font-monospace">Homepage</h2>
         </div>
     </div>
     <div class="col-12 mx-auto text-center">
