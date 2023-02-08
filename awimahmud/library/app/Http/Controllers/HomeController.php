@@ -164,7 +164,7 @@ class HomeController extends Controller
                         ->whereRaw('month(members.created_at)=6')
                         ->get();
 
-        return $Data20;
+        // return $Data20;
         return view('home');
     }
 }
