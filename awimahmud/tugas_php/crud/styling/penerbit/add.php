@@ -1,3 +1,7 @@
+<?php
+include_once('koneksi.php');
+$penerbit = mysqli_query($koneksi, "SELECT * FROM penerbit");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,12 +60,6 @@
 
 	</style>
 </head>
-<?php
-include_once('koneksi.php');
-$penerbit = mysqli_query($koneksi, "SELECT * FROM penerbit");
-$buku = mysqli_query($koneksi, "SELECT * FROM buku");
-?>
-
 <body>
 	<div class="container mt-5">
 		<!-- tombol back home -->
@@ -69,7 +67,6 @@ $buku = mysqli_query($koneksi, "SELECT * FROM buku");
 
 			<a href="index.php" class="btn btn-new"><< Back Home </a>
 		</div>
-
 		<!--awal card-->
 		<div class="card text-white mt-3">
 
@@ -89,17 +86,11 @@ $buku = mysqli_query($koneksi, "SELECT * FROM buku");
 					<div class="row">
 						<div class="col-md-4">
 							<label>ID Penerbit</label>
-							<select name="id_penerbit" style="color: black;" class="form-select">
-								<?php
-								while ($penerbit_data = mysqli_fetch_assoc($penerbit)) {
-									echo "<option value='" . $penerbit_data['id_penerbit'] . "'>" . $penerbit_data['id_penerbit'] . "</option>";
-								}
-								?>
-							</select>
+							<input type="text" class="form-control" name="id_penerbit" placeholder="Masukan Id penerbit">
 						</div>
 						<div class="col-md-4">
 							<label>Nama Penerbit</label>
-							<input type="text" class="form-control" name="Nama Penerbit" placeholder="Masukan nama penerbit">
+							<input type="text" class="form-control" name="nama_penerbit" placeholder="Masukan nama penerbit">
 						</div>
 						<div class="col-md-4">
 							<label>Email</label>
@@ -109,14 +100,6 @@ $buku = mysqli_query($koneksi, "SELECT * FROM buku");
 						<div class="col-md-4">
 							<label>Telepon</label>
 							<input class="form-control" type="text" name="telp" placeholder="Masukan nomor telepon">
-						</div>
-						<div class="col-md-4">
-							<label>Judul</label>
-							<input class="form-control" type="text" name="judul" placeholder="Masukan judul">
-						</div>
-						<div class="col-md-4">
-							<label>Tahun</label>
-							<input class="form-control" type="text" name="tahun" placeholder="Masukan tahun">
 						</div>
 						<div class="col-md-6 mx-auto">
 							<label>Alamat</label>
@@ -142,24 +125,20 @@ $buku = mysqli_query($koneksi, "SELECT * FROM buku");
 		<!-- akhir card -->
 	</div>
 	<?php
+	include_once('koneksi.php');
 	if (isset($_POST['submit'])) {
 		$id_penerbit = $_POST['id_penerbit'];
 		$nama_penerbit = $_POST['nama_penerbit'];
 		$email = $_POST['email'];
 		$telp = $_POST['telp'];
 		$alamat = $_POST['alamat'];
-		$judul = $_POST['judul'];
-		$tahun = $_POST['tahun'];
 
 		//get database connection
-		include_once('koneksi.php');
-
-		//push data on the table
-		$hasil = mysqli_query($koneksi, "INSERT INTO penerbit(id_penerbit, nama_penerbit, email, telp, alamat, judul, tahun) 
-											VALUES ('$id_penerbit','$nama_penerbit', '$email', '$telp', '$alamat', '$judul', '$tahun');
-								");
-		header('Location: index.php');
+		$hasil = mysqli_query($koneksi, "INSERT INTO penerbit(id_penerbit, nama_penerbit, email, telp, alamat) 
+												VALUES ('$id_penerbit','$nama_penerbit', '$email', '$telp', '$alamat');");
+		header('Location: index.php');	
 	}
+
 	?>
 </body>
 

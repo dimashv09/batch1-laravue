@@ -2,9 +2,7 @@
 	//koneksi ke database
 	include_once('koneksi.php');
 	//query database yang di perlukan
-	$penerbit = mysqli_query($koneksi, "SELECT penerbit.*, judul, tahun FROM penerbit
-									left join buku on penerbit.id_penerbit = buku.id_penerbit ORDER BY id_penerbit ASC;
-									");
+	$penerbit = mysqli_query($koneksi, "SELECT * FROM penerbit");
 
 ?>
 <!DOCTYPE html>
@@ -96,8 +94,6 @@
 							<th>Email</th>
 							<th>No tlpn</th>
 							<th>Alamat</th>
-							<th>Judul</th>
-							<th>Tahun</th>
 							<th>Aksi</th>
 						</tr>
 					</thead>
@@ -112,8 +108,6 @@
 							echo "<td>" . $data_penerbit['email'] . "</td>";
 							echo "<td>" . $data_penerbit['telp'] . "</td>";
 							echo "<td>" . $data_penerbit['alamat'] . "</td>";
-							echo "<td>" . $data_penerbit['judul'] . "</td>";
-							echo "<td>" . $data_penerbit['tahun'] . "</td>";
 							echo "<td><a class='btn btn-warning btn-aksi' href='edit.php?id_penerbit=$data_penerbit[id_penerbit]'> Edit</a>  <a class='btn btn-danger btn-aksi' href='delete.php?id_penerbit=$data_penerbit[id_penerbit]'>Delete</a></td></tr>";
 							$no = $no + 1;
 						}

@@ -145,7 +145,7 @@ $pengarang = mysqli_query($koneksi, "SELECT * FROM pengarang");
 		$telp = $_POST['telp'];
 		$alamat = $_POST['alamat'];
 
-		$result1 = mysqli_query($koneksi, "INSERT INTO pengarang (id_pengarang, nama_pengarang, email, telp, alamat) VALUES ('$id_pengarang', '$nama_pengarang', '$email', '$telp', '$alamat')");
+		$result = mysqli_query($koneksi, "INSERT INTO pengarang (id_pengarang, nama_pengarang, email, telp, alamat) VALUES ('$id_pengarang', '$nama_pengarang', '$email', '$telp', '$alamat')");
 		if ($result) {
 			echo "Data berhasil ditambahkan";
 		} else {

@@ -1,7 +1,6 @@
 <?php
 //connection
 include_once('koneksi.php');
-
 //get id
 $id_pengarang = $_GET['id_pengarang'];
 
@@ -92,20 +91,20 @@ $alamat = $data_pengarang['alamat'];
 						</div>
 						<div class="col-md-4">
 							<label>Nama Pengarang</label>
-							<input type="text" value="<?php echo $nama_pengarang?>" style="height: 35px;" class="form-control" name="judul" placeholder="Masukan nama">
+							<input type="text" value="<?php echo $nama_pengarang?>" style="height: 35px;" class="form-control" name="nama_pengarang" placeholder="Masukan nama">
 						</div>
 						<div class="col-md-4">
 							<label>Email</label>
-							<input type="text"  value="<?php echo $email?>" style="height: 35px;"  class="form-control" name="tahun" placeholder="Masukan email">
+							<input type="text"  value="<?php echo $email?>" style="height: 35px;"  class="form-control" name="email" placeholder="Masukan email">
 						</div>
 						
 						<div class="col-md-4">
 							<label>Telepon</label>
-							<input type="text" value="<?php echo $telp?>" style="height: 35px;" class="form-control" name="qty_stok" placeholder="Masukan nomor telpon">
+							<input type="text" value="<?php echo $telp?>" style="height: 35px;" class="form-control" name="telp" placeholder="Masukan nomor telpon">
 						</div>
 						<div class="col-md-4">
 							<label>Alamat</label>
-							<textarea name="" id="" cols="30" rows="3" value="<?php echo $alamat?> class="form-control" name="harga_pinjam" placeholder="Masukan alamat"></textarea>
+							<textarea name="" id="" cols="30" rows="3" value="<?php echo $alamat?> class="form-control" name="alamat" placeholder="Masukan alamat"></textarea>
 						</div>
 					</div>
 					<!-- akhir row -->
@@ -127,6 +126,7 @@ $alamat = $data_pengarang['alamat'];
 		<!-- akhir card -->
 	</div>
 	<?php
+	include_once('koneksi.php');
 	if (isset($_POST['update'])) {
 		$id_pengarang = $_GET['id_pengarang'];
 		$nama_pengarang = $_POST['nama_pengarang'];

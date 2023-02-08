@@ -21,6 +21,7 @@ while ($data_buku = mysqli_fetch_array($buku)) {
 	$qty_stok = $data_buku['qty_stok'];
 	$harga_pinjam = $data_buku['harga_pinjam'];
 }
+ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">

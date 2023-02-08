@@ -12,7 +12,6 @@ $katalog = mysqli_query($koneksi, "SELECT * FROM katalog");
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 	<title>Add Buku</title>
 	<style>
 		.container{
@@ -113,14 +112,14 @@ $katalog = mysqli_query($koneksi, "SELECT * FROM katalog");
 		<!-- akhir card -->
 	</div>
 	<?php
-	if(isset($_POST['Submit'])){
+	include_once('koneksi.php');
+	if(isset($_POST['submit'])){
 		$id_katalog = $_POST['id_katalog'];
 		$nama = $_POST['nama'];
 
 		// include_once('koneksi.php');
 
 		$result = mysqli_query($koneksi, "INSERT INTO katalog(id_katalog, nama) VALUES('$id_katalog', '$nama');");
-		
 		
 		header('Location: index.php');
 	}
