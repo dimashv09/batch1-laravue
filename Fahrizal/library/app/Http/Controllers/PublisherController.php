@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +23,7 @@ class PublisherController extends Controller
         //return $books;
         //return $this->hasMany('App\Models\Book', 'publisher_id');
         $publishers = publisher::all();
-        return view('admin.publisher.index', compact('publishers'));
+        return view('admin.publisher.publisher', compact('publishers'));
     }
 
     /**
@@ -71,8 +75,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        $publishers = Publisher::all();
-        return view('admin.publisher.edit', compact('publisher'));
+
     }
 
     /**

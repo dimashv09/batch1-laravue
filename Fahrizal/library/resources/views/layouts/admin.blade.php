@@ -22,7 +22,6 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-
     @yield('css')
 </head>
 
@@ -253,8 +252,6 @@
     <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- Summernote -->
     <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
     <!-- Vue js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
     <!-- Axios -->
@@ -265,6 +262,10 @@
     <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     @yield('js')
 </body>
 
