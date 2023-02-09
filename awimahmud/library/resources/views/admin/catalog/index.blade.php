@@ -2,10 +2,10 @@
 @section('header', 'Catalog');
 
 @section('content')
-<div class="col-md-12">
+<div class="col-md-6">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Data Catalog</h3>
+            <a href="{{ url('catalogs/create') }}" class="btn btn-primary btn-sm pull-right">Add New Catalog</a>
             <div class="card-tools">
                 {{-- <ul class="pagination pagination-sm float-right">
                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -21,19 +21,28 @@
             <table class="table  table-bordered">
                 <thead class="bg-secondary">
                     <tr>
-                        <th class='text-center' style="width: 10px">No</th>
+                        <th style="width: 5px">No</th>
                         <th class='text-center'>Nama</th>
                         <th class='text-center'>Total</th>
                         <th class='text-center'>Created_at</th>
+                        <th class='text-center'>Actions</th>
                     </tr>
                 </thead>
                 @foreach ($catalogs as $key => $catalog )
                 <tbody>
                     <tr>
-                        <td class="text-center">{{ $key+1 }}</td>
+                        <td>{{ $key+1 }}</td>
                         <td class="text-center">{{ $catalog->name}}</td>
                         <td class="text-center">{{ count($catalog->books)}}</td>
                         <td class="text-center">{{ date('H:i:s - d M Y', strtotime($catalog->created_at)) }}</td>
+                        <td class="text-center justify-content-center" >
+                            <a href="{{ url('catalogs/'.$catalog->id.'/edit') }}" class="btn btn-warning btn-sm mr-1">Edit</a>
+                            <form action="{{ url('catalogs',['id' => $catalog->id]) }}" method="POST" class="d-inline-flex"> 
+                                <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure?')">
+                                @method('delete')
+                                @csrf
+                            </form>
+                        </td>  
                     </tr>
                 </tbody>
                 @endforeach
