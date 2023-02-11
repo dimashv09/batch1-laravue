@@ -25,7 +25,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return view('admin.publisher.create');
+       //
     }
 
     /**
@@ -37,9 +37,9 @@ class PublisherController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required',
-            'phone_number' => 'required',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'phone_number' => 'required|numeric|digits:12',
             'address' => 'required',
         ]);
 
@@ -66,7 +66,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        return view('admin.publisher.edit', compact('publisher'));
+        //
     }
 
     /**
@@ -79,13 +79,13 @@ class PublisherController extends Controller
     public function update(Request $request, Publisher $publisher)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required',
-            'phone_number' => 'required',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'phone_number' => 'required|numeric|digits:12',
             'address' => 'required',
         ]);
             $publisher->update($request->all());
-
+             
             return redirect('publishers');
     }
 
