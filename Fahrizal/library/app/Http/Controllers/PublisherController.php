@@ -22,9 +22,15 @@ class PublisherController extends Controller
         //$books = Book::with('publisher')->get();
         //return $books;
         //return $this->hasMany('App\Models\Book', 'publisher_id');
-        $publishers = publisher::all();
-        return view('admin.publisher.publisher', compact('publishers'));
+        return view('admin.publisher.publisher');
     }
+    public function api()
+    {
+        $publishers = Publisher::all();
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+        return $datatables->make(true);
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('title', 'Publishers')
-@section('wrapper-title', 'Publishers')
+@section('title', 'Members')
+@section('wrapper-title', 'Members')
 
 @section('css')
 	<!-- DataTables -->
@@ -10,11 +10,11 @@
 @endsection
 
 @section('content')
-<div id="publisherVue">
+<div id="memberVue">
     <div class="row">
         <div class="card w-100 overflow-auto">
             <div class="card-header">
-            <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Publisher</a>
+            <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Member</a>
             </div>
             <div class="card-body">
                 <table id="dataTable" class="table table-bordered table-striped w-100">
@@ -22,15 +22,14 @@
 							<tr>
 								<th style="width: 10px">#</th>
 								<th>Name</th>
-								<th>Email</th>
+								<th>Gender</th>
 								<th>Phone Number</th>
 								<th>Address</th>
-								{{-- <th>Total Books</th> --}}
+								<th>Email</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							
 						</tbody>
 					</table>
 				</div>
@@ -43,7 +42,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">@{{ editStatus == false ? 'Create ' : 'Edit ' }} publisher</h4>
+						<h4 class="modal-title">@{{ editStatus == false ? 'Create ' : 'Edit ' }} member</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -54,9 +53,20 @@
 						<div class="modal-body">
 							<div class="card-body">
 								<div class="form-group">
-									<label for="name">publisher's Name</label>
+									<label for="name">member's Name</label>
 									<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Lorem Ipsum" :value="data.name">
 									@error('name')
+										<div class="text-danger mt-1">*{{ $message }}</div>
+									@enderror
+								</div>
+								<div class="form-group">
+									<label for="name">Gender</label>
+									<select name="gender" class="form-control @error('gender') is-invalid @enderror" aria-label="Default select example">
+										<option hidden>Select gender</option>
+										<option value="F" :selected="this.data.gender === 'F'">F</option>
+										<option value="M" :selected="this.data.gender === 'M'">M</option>
+									</select>
+									@error('gender')
 										<div class="text-danger mt-1">*{{ $message }}</div>
 									@enderror
 								</div>
@@ -68,16 +78,16 @@
 									@enderror
 								</div>
 								<div class="form-group">
-									<label for="name">Email</label>
-									<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="email@exampl.com"  :value="data.email">
-									@error('email')
-										<div class="text-danger mt-1">*{{ $message }}</div>
-									@enderror
-								</div>
-								<div class="form-group">
 									<label for="phone_number">Address</label>
 									<input type="text" name="address" class="form-control @error('address') is-invalid @enderror" placeholder="5, Buana Street, Antares" :value="data.address">
 									@error('address')
+									<div class="text-danger mt-1">*{{ $message }}</div>
+									@enderror
+								</div>
+								<div class="form-group">
+									<label for="name">Email</label>
+									<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="email@exampl.com"  :value="data.email">
+									@error('email')
 										<div class="text-danger mt-1">*{{ $message }}</div>
 									@enderror
 								</div>
@@ -110,8 +120,8 @@
 	<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 	<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 	<script>
-		var actionUrl = "{{ url('publishers') }}";
-		var apiUrl = "{{ url('api/publishers') }}";
+		var actionUrl = "{{ url('members') }}";
+		var apiUrl = "{{ url('api/members') }}";
 		var columns = [
 			{
 				data: 'DT_RowIndex',
@@ -120,6 +130,11 @@
 			},
 			{
 				data: 'name',
+				class: 'text-center',
+				orderable: true
+			},
+			{
+				data: 'gender',
 				class: 'text-center',
 				orderable: true
 			},
@@ -141,12 +156,12 @@
 			{
 				render: function (index, row, data, meta) {
 					return `
-						<button onclick="publisherVue.editData(event, ${meta.row})"  class="btn btn-sm btn-warning text-white">Edit</button>
-						<button onclick="publisherVue.deleteData(event, ${data.id})"  class="btn btn-sm btn-danger text-white">Delete</button>
+						<button onclick="memberVue.editData(event, ${meta.row})"  class="btn btn-sm btn-warning text-white">Edit</button>
+						<button onclick="memberVue.deleteData(event, ${data.id})"  class="btn btn-sm btn-danger text-white">Delete</button>
 					`;
 				}, 
 				orderable: false, 
-				width: '160px', 
+				width: '160px',
 				class: 'text-center' 
 			}
 		];

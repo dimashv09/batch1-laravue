@@ -23,8 +23,16 @@ class AuthorController extends Controller
         //$books = Book::with('Author')->get();
         //return $books;
         //return $this->hasMany('App\Models\Book', 'Author_id');
+        //$authors = Author::all();
+        // return view('admin.author.author', compact('authors'));
+        return view('admin.author.author');
+    }
+
+    public function api()
+    {
         $authors = Author::all();
-        return view('admin.author.author', compact('authors'));
+        $datatables = datatables()->of($authors)->addIndexColumn();
+        return $datatables->make(true);
     }
 
     /**

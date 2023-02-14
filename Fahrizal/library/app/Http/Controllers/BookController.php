@@ -22,6 +22,7 @@ class BookController extends Controller
         return view('admin.book.index', compact('books'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *

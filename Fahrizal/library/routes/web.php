@@ -29,6 +29,10 @@ Route::resource('/books', App\Http\Controllers\BookController::class);
 Route::resource('/members', App\Http\Controllers\MemberController::class);
 Route::resource('/transactions', App\Http\Controllers\TransactionController::class);
 
+//API//
+Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']);
+Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
+Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 'api']);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
 
 //Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
