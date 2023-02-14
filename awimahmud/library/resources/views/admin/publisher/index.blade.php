@@ -2,6 +2,10 @@
 @section('header','Publisher')
 
 @section('css')
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endsection
 @section('content')
 <div id="controller">
@@ -13,7 +17,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body p-0">
-                    <table class="table table-bordered">
+                    <table data-page-length='25' id="datatable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th style="width: 10px">No</th>
@@ -94,6 +98,24 @@
 </div>
 @endsection
 @section('js')
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script>
+  $(document).ready(function () {
+    $('#datatable').DataTable()
+  });
+</script>
 <script type="text/javascript">
     const controller = {
         data() {
@@ -128,6 +150,5 @@
         },
     }
     Vue.createApp(controller).mount('#controller');
-
 </script>
 @endsection

@@ -15,10 +15,6 @@
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <!-- Daterange picker -->
-  <!--  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css"> -->
-    <!-- summernote -->
-  <!--  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css"> -->
     @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

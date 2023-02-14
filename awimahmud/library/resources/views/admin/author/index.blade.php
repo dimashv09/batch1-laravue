@@ -2,8 +2,10 @@
 @section('header','Author')
 
 @section('css')
-
-@endsection
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">@endsection
 @section('content')
 <div id="controller">
     <div class="row">
@@ -14,7 +16,7 @@
                 </div>
 
                 <div class="card-body p-0">
-                    <table class="table table-bordered">
+                    <table id="datatable" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th style="width: 10px">No</th>
@@ -25,21 +27,6 @@
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        @foreach ($authors as $key => $author)
-                        <tbody>
-                            <tr>
-                                <td class="text-center">{{ $key+1 }}</td>
-                                <td class="text-center">{{ $author->name }}</td>
-                                <td class="text-center">{{ $author->email }}</td>
-                                <td class="text-center">{{ $author->phone_number }}</td>
-                                <td class="text-center">{{ $author->address }}</td>
-                                <td class="text-center d-flex align-items-center justify-content-center">
-                                    <a href="#" @click="editData({{ $author }})" class="btn btn-warning btn-md mr-2">Edit</a>
-                                    <a href="#" @click="deleteData({{ $author->id }})" class="btn btn-danger btn-md mr-2">Delete</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                        @endforeach
                     </table>
                 </div>
             </div>
@@ -90,7 +77,76 @@
 
 @endsection
 @section('js')
-<script type="text/javascript">
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+{{-- <script>
+  $(document).ready(function () {
+    $("#datatable").DataTable();
+  });
+</script> --}}
+<script>
+  	var actionUrl = '{{ url('authors') }}';
+	var apiUrl = '{{ url('api/authors') }}';
+
+	var columns = [
+         //kolom harus sesuai dgn tabel headnya
+		{data: 'DT_RowIndex":', class: 'text-center', orderable: true},
+		{data: 'name', class: 'text-center', orderable: true},
+		{data: 'email', class: 'text-center', orderable: true},
+		{data: 'phone_number', class: 'text-center', orderable: true},
+		{data: 'address', class: 'text-center', orderable: true},
+        //render ini untuk mengisi data pada kolom actionnya
+		{render: function(index, row, data, meta){
+			return
+			  `
+			   <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">Edit</a>
+			   <a href="#" class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">Delete<a/>
+			  `;
+		}, orderable: false, width: '200px', class: 'text-center'},
+		];
+
+
+        var controller = new Vue({
+            el: '#controller',
+            data: {
+                datas: [],
+                data: {},
+                actionUrl,
+                apiUrl,
+                editStatus: false,
+            },
+            mounted: function () {
+                this.datatable();
+            }
+            methods: {
+                datatable() {
+                    const _this = this;
+                    _this.table = $('#datatable').DataTable({
+                        ajax: {
+                            url: _this.apiUrl,
+                            type 'GET',    
+                        },
+                        columns: columns
+                    }).on('xhr', function (){
+                        _this.datas = _this.table.ajax.json().data;
+                    });
+                },
+            }
+        });
+</script>
+
+{{-- <script type="text/javascript">
 const controller = {
     data() {
         return {
@@ -126,29 +182,5 @@ const controller = {
 }
 Vue.createApp(controller).mount('#controller')
 
-/*   var controller = new Vue({
-        el: '#controller',
-        data: {
-            data: {},
-            actionUrl: '{{ url('authors') }}'
-        },
-        mounted: function() {
-
-        },
-        methods: {
-            addData() {
-                $('#modal-default').modal();
-            },
-            
-            editData() {
-
-            },
-            deleteData() {
-
-            },
-
-        },
-    });
-    */
-</script>
+</script> --}}
 @endsection
