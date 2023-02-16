@@ -90,32 +90,28 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-{{-- <script>
-  $(document).ready(function () {
-    $("#datatable").DataTable();
-  });
-</script> --}}
 <script>
   	var actionUrl = '{{ url('authors') }}';
 	var apiUrl = '{{ url('api/authors') }}';
 
 	var columns = [
          //kolom harus sesuai dgn tabel headnya
-		{data: 'DT_RowIndex":', class: 'text-center', orderable: true},
+		{data: 'DT_RowIndex', class: 'text-center', orderable: true},
 		{data: 'name', class: 'text-center', orderable: true},
 		{data: 'email', class: 'text-center', orderable: true},
 		{data: 'phone_number', class: 'text-center', orderable: true},
 		{data: 'address', class: 'text-center', orderable: true},
         //render ini untuk mengisi data pada kolom actionnya
 		{render: function(index, row, data, meta){
-			return
-			  `
-			   <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">Edit</a>
-			   <a href="#" class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">Delete<a/>
-			  `;
+			return `
+			   <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+                 Edit
+               </a>
+			   <a href="#" class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+                 Delete
+               </a>`;
 		}, orderable: false, width: '200px', class: 'text-center'},
-		];
-
+	];
 
         var controller = new Vue({
             el: '#controller',
@@ -128,21 +124,21 @@
             },
             mounted: function () {
                 this.datatable();
-            }
-            methods: {
+            },
+             methods: {
                 datatable() {
-                    const _this = this;
-                    _this.table = $('#datatable').DataTable({
-                        ajax: {
-                            url: _this.apiUrl,
-                            type 'GET',    
-                        },
-                        columns: columns
-                    }).on('xhr', function (){
+                        const _this = this;
+                        _this.table = $('#datatable').DataTable({
+                            ajax: {
+                                url: _this.apiUrl,
+                                type: 'GET',
+                            },
+                            columns: columns,
+                        }).on('xhr', function() {
                         _this.datas = _this.table.ajax.json().data;
-                    });
+                        });
                 },
-            }
+            },
         });
 </script>
 

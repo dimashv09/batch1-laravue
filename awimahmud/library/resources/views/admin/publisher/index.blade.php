@@ -17,7 +17,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body p-0">
-                    <table data-page-length='25' id="datatable" class="table table-striped table-bordered">
+                    <table id="datatable" class="table table-stripped table-bordered">
                         <thead>
                             <tr>
                                 <th style="width: 10px">No</th>
@@ -30,8 +30,8 @@
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        @foreach ($publishers as $key => $publisher)
                         <tbody>
+                            @foreach ($publishers as $key => $publisher)
                             <tr>
                                 <td class="text-center">{{ $key+1 }}</td>
                                 <td class="text-center">{{ $publisher->name }}</td>
@@ -45,8 +45,8 @@
                                     <a href="#" @click="deleteData({{ $publisher->id }})" class="btn btn-danger btn-md mr-2">Delete</a>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
-                        @endforeach
                     </table>
                 </div>
                 <!-- /.card-body -->
@@ -113,18 +113,17 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script>
   $(document).ready(function () {
-    $('#datatable').DataTable()
+    $("#datatable").DataTable();
   });
 </script>
 <script type="text/javascript">
-    const controller = {
-        data() {
-            return { 
+    var controller = new Vue({
+        el: '#controller'
+        data:  { 
                 data: {},
                 actionUrl: '{{ url(' publishers ') }}',
                 editStatus: false
-            }
-        },
+            },
         methods: {
             addData() {
                 this.data = {};
@@ -148,7 +147,7 @@
                 }
             }
         },
-    }
-    Vue.createApp(controller).mount('#controller');
+    });
+   
 </script>
 @endsection
