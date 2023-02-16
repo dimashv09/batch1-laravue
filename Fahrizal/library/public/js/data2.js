@@ -1,5 +1,5 @@
-var authorVue = new Vue({
-    el: "#authorVue",
+var publisherVue = new Vue({
+    el: "#publisherVue",
     data: {
         dataList: [],
         data: {},
@@ -23,16 +23,19 @@ var authorVue = new Vue({
                 _this.dataList = _this.table.ajax.json().data;
             })
         },
+//add
         addData() {
             this.data = []
             this.editStatus = false
             $('#modal-crud').modal();
         },
+//Edit
         editData(event, row) {
             this.data = this.dataList[row]
             this.editStatus = true
             $('#modal-crud').modal();
         },
+//delete
         deleteData(event, id) {
             Swal.fire({
                 title: 'Delete!',
@@ -52,6 +55,7 @@ var authorVue = new Vue({
                     })
                 }
             });
+
         },
         submitForm(event, id) {
             const _this = this

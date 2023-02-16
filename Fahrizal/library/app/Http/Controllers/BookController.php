@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Catalog;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,10 +17,19 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = book::all();
-        return view('admin.book.index', compact('books'));
+        $publishers = Publisher::all();
+        $catalogs = Catalog::all();
+        $authors = Author::all();
+        return view('admin.book.book', compact(['publishers', 'catalogs', 'authors']));
     }
 
+    public function api()
+    {
+        $books = Book::all();
+        $datatables = datatables()->of($books)->addIndexColumn();
+
+        return $datatables->make(true);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -30,7 +38,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('admin.book.create');
+        //
     }
 
     /**
@@ -51,8 +59,7 @@ class BookController extends Controller
             'qty' => ['required'],
             'price' => ['required']
         ]);
-
-        book::create($request->all());
+        Book::create($request->all());
         return redirect('books');
     }
 
@@ -75,8 +82,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        $books = book::all();
-        return view('admin.book.edit', compact('book'));
+        //
     }
 
     /**
@@ -89,14 +95,14 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $this->validate($request, [
-            'isbn' => ['required'],
+            'isbn' => ['required', 'integer'],
             'tittle' => ['required'],
-            'year' => ['required'],
-            'publisher_id' => ['required'],
-            'author_id' => ['required'],
-            'catalog_id' => ['required'],
-            'qty' => ['required'],
-            'price' => ['required']
+            'year' => ['required', 'integer'],
+            'publisher_id' => ['required', 'integer'],
+            'author_id' => ['required', 'integer'],
+            'catalog_id' => ['required', 'integer'],
+            'qty' => ['required', 'integer'],
+            'price' => ['required', 'integer']
         ]);
         $book->update($request->all());
         return redirect('books');
@@ -111,7 +117,6 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-
         return redirect('books');
     }
 }

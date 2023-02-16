@@ -1,5 +1,5 @@
-var authorVue = new Vue({
-    el: "#authorVue",
+var memberVue = new Vue({
+    el: "#memberVue",
     data: {
         dataList: [],
         data: {},

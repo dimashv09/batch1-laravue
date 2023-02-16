@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class catalog extends Model
+class Catalog extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
 
+    protected $fillable = ['name'];
 
     public function books()
     {
-        return $this->hasMany('App\Models\Book', 'catalog_id');
+        return $this->hasMany(Book::class, 'catalog_id');
     }
 }

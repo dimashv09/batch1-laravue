@@ -151,5 +151,5 @@
 			}
 		];
 </script>
-<script src="{{ asset ('js/data.js') }}"></script>
+<script src="{{ asset ('js/data2.js') }}"></script>
 @endsection

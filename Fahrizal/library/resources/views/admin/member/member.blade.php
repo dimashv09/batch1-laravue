@@ -14,7 +14,7 @@
     <div class="row">
         <div class="card w-100 overflow-auto">
             <div class="card-header">
-            <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Member</a>
+            <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Author</a>
             </div>
             <div class="card-body">
                 <table id="dataTable" class="table table-bordered table-striped w-100">
@@ -22,7 +22,7 @@
 							<tr>
 								<th style="width: 10px">#</th>
 								<th>Name</th>
-								<th>Gender</th>
+								<th>Gander</th>
 								<th>Phone Number</th>
 								<th>Address</th>
 								<th>Email</th>
@@ -166,5 +166,5 @@
 			}
 		];
 </script>
-<script src="{{ asset ('js/data.js') }}"></script>
+<script src="{{ asset ('js/data1.js') }}"></script>
 @endsection
