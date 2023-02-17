@@ -19,11 +19,11 @@ class MemberController extends Controller
      */
     public function index()
     {
-       $members = Member::all();
+        $members = Member::all();
         return view('admin.member');
     }
 
-public function api(Request $request)
+    public function api(Request $request)
     {
         if ($request->sex) {
             $datas = Member::where('gender', $request->sex)->get();
@@ -32,10 +32,8 @@ public function api(Request $request)
         }
 
         $datatables = datatables()
-                        ->of($datas)
-                        ->addIndexColumn();
-                        return $datatables->make(true);
-
+            ->of($datas)
+            ->addIndexColumn();
         return $datatables->make(true);
     }
 
@@ -47,7 +45,6 @@ public function api(Request $request)
      */
     public function create()
     {
-
     }
 
     /**
@@ -58,7 +55,7 @@ public function api(Request $request)
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name'               => ['required'],
             'gender'             => ['required'],
             'phone_Number'       => ['required'],
@@ -103,7 +100,7 @@ public function api(Request $request)
      */
     public function update(Request $request, Member $member)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name'               => ['required'],
             'gender'             => ['required'],
             'phone_Number'       => ['required'],

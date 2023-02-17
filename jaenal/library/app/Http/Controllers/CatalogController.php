@@ -42,8 +42,8 @@ class Catalogcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name' => ['required'], 
+        $this->validate($request, [
+            'name' => ['required'],
         ]);
 
 
@@ -92,8 +92,8 @@ class Catalogcontroller extends Controller
      */
     public function update(Request $request, Catalog $catalog)
     {
-        $this->validate($request,[
-            'name' => ['required'], 
+        $this->validate($request, [
+            'name' => ['required'],
         ]);
 
         $catalog->update($request->all());
