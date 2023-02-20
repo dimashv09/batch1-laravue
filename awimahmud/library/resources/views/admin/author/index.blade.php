@@ -5,11 +5,12 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">@endsection
+  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+@endsection
 @section('content')
-<div id="controller">
+<div class="container" id="controller">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <a href="#" @click="addData()" class="btn btn-primary btn-sm pull-right" >Create New Author</a>
@@ -35,7 +36,7 @@
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form :action="actionUrl" method="post">
+                <form :action="actionUrl" method="post" @submit="submitForm($event, data.id)">
                     <div class="modal-header">
                         <h4 class="modal-title">Create New Data</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -75,6 +76,7 @@
     <!-- /.modal -->
 </div>
 
+
 @endsection
 @section('js')
 <!-- DataTables  & Plugins -->
@@ -96,7 +98,7 @@
 
 	var columns = [
          //kolom harus sesuai dgn tabel headnya
-		{data: 'DT_RowIndex', class: 'text-center', orderable: true},
+		{data: 'DT_RowIndex', class: 'text-center', orderable: false},
 		{data: 'name', class: 'text-center', orderable: true},
 		{data: 'email', class: 'text-center', orderable: true},
 		{data: 'phone_number', class: 'text-center', orderable: true},
@@ -113,70 +115,6 @@
 		}, orderable: false, width: '200px', class: 'text-center'},
 	];
 
-        var controller = new Vue({
-            el: '#controller',
-            data: {
-                datas: [],
-                data: {},
-                actionUrl,
-                apiUrl,
-                editStatus: false,
-            },
-            mounted: function () {
-                this.datatable();
-            },
-             methods: {
-                datatable() {
-                        const _this = this;
-                        _this.table = $('#datatable').DataTable({
-                            ajax: {
-                                url: _this.apiUrl,
-                                type: 'GET',
-                            },
-                            columns: columns,
-                        }).on('xhr', function() {
-                        _this.datas = _this.table.ajax.json().data;
-                        });
-                },
-            },
-        });
 </script>
-
-{{-- <script type="text/javascript">
-const controller = {
-    data() {
-        return {
-            data: {},
-            actionUrl: '{{ url('authors') }}',
-            editStatus: false
-        }
-    },
-     methods: {
-            addData() {
-                this.data = {};
-                this.actionUrl = '{{ url('authors') }}';
-                this.editStatus = false;
-                $('#modal-default').modal();
-            },
-            
-            editData(data) {
-                this.data = data;
-                this.actionUrl = '{{ url('authors') }}'+'/'+data.id;
-                this.editStatus = true;
-                $('#modal-default').modal();
-            },
-            deleteData(id) {
-                this.actionUrl = '{{ url('authors') }}'+'/'+id;
-                if(confirm("Are you sure ?")) {
-                    axios.post(this.actionUrl, {_method: 'DELETE'}).then(response => {
-                        location.reload();
-                    });
-                }
-            },
-
-        },
-}
-Vue.createApp(controller).mount('#controller')
-
-</script> --}}
+<script src="{{ asset('assets/js/data.js') }}"></script>
 @endsection
