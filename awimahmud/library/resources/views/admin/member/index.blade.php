@@ -26,6 +26,7 @@
                                 <th class="text-center">Phone Number</th>
                                 <th class="text-center">Address</th>
                                 <th class="text-center">Email</th>
+                                <th class="text-center">Created_at</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -114,6 +115,7 @@
 		{data: 'phone_number', class: 'text-center', orderable: true},
 		{data: 'address', class: 'text-center', orderable: true},
 		{data: 'email', class: 'text-center', orderable: true},
+		{data: 'date', class: 'text-center', orderable: true},
         //render ini untuk mengisi data pada kolom actionnya
 		{render: function(index, row, data, meta){
 			return `
