@@ -33,7 +33,6 @@
                     this.data = this.datas[row];
                     this.editStatus = true;
                     $('#modal-default').modal();
-
                 },
                 deleteData(event, id) {
                     if(confirm('Are you sure ?')){
