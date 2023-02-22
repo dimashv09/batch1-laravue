@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +23,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
 Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
 Route::get('/transaction_details', [App\Http\Controllers\TransactionDetailController::class, 'index']);
@@ -46,3 +46,5 @@ Route::get('/api/publishers', [PublisherController::class, 'api']);
 
 Route::resource('authors', AuthorController::class);
 Route::get('/api/authors', [AuthorController::class, 'api']);
+
+Route::get('/home', [AdminController::class, 'dashboard']);
