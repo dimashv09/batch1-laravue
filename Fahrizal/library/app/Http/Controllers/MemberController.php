@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -24,10 +20,13 @@ class MemberController extends Controller
     public function api()
     {
         $members = Member::all();
-        $datatables = datatables()->of($members)->addIndexColumn();
+        $datatables = datatables()->of($members)
+            ->addColumn('date', function ($member) {
+                return convert_date($member->created_at);
+            })->addIndexColumn();
+
         return $datatables->make(true);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +34,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return view('admin.member.create');
+        //
     }
 
     /**
@@ -47,19 +46,17 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required'],
-            'gender' => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
-            'email' => ['required'],
-
+            'name' => ['required', 'min:3'],
+            'gender' => 'required',
+            'phone_number' => ['required', 'min:10'],
+            'email' => ['required', 'email', 'unique:members'],
+            'address' => ['required']
         ]);
-
-        Member::create($request->all());
-        return redirect('members');
-
+        $create = Member::create($request->all());
+        if ($create) {
+            return redirect('members');
+        }
     }
-
 
     /**
      * Display the specified resource.
@@ -80,8 +77,7 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
-        $members = member::all();
-        return view('admin.member.edit', compact('member'));
+        //
     }
 
     /**
@@ -94,17 +90,14 @@ class MemberController extends Controller
     public function update(Request $request, Member $member)
     {
         $this->validate($request, [
-            'name' => ['required'],
+            'name' => ['required', 'min:3'],
             'gender' => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
-            'email' => ['required'],
+            'phone_number' => ['required', 'min:10'],
+            'email' => ['required', 'email', 'unique:members,email,' . $member->id],
+            'address' => ['required']
         ]);
-
         $member->update($request->all());
         return redirect('members');
-
-
     }
 
     /**
@@ -116,7 +109,6 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         $member->delete();
-
         return redirect('members');
     }
 }

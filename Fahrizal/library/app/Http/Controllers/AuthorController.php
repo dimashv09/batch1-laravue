@@ -2,36 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //$books = Book::with('Author')->get();
-        //return $books;
-        //return $this->hasMany('App\Models\Book', 'Author_id');
-        //$authors = Author::all();
-        // return view('admin.author.author', compact('authors'));
         return view('admin.author.author');
     }
 
     public function api()
     {
         $authors = Author::all();
-        $datatables = datatables()->of($authors)->addIndexColumn();
+
+        // foreach($authors as $key => $author) {
+        // 	$author->date = convert_date($author->created_at);
+        // }
+
+        $datatables = datatables()->of($authors)
+            ->addColumn('date', function ($author) {
+                return convert_date($author->created_at);
+            })->addIndexColumn();
+
         return $datatables->make(true);
     }
 
@@ -42,7 +45,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return view('admin.author.create');
+        //
     }
 
     /**
@@ -53,15 +56,12 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
-            'name' => ['required'],
-            'email' => ['required'],
-            'phone_number' => ['required'],
+            'name' => ['required', 'min:3'],
+            'phone_number' => ['required', 'min:10'],
+            'email' => ['required', 'email', 'unique:publishers'],
             'address' => ['required']
         ]);
-
-
         Author::create($request->all());
         return redirect('authors');
     }
@@ -85,7 +85,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-
+        //
     }
 
     /**
@@ -98,12 +98,11 @@ class AuthorController extends Controller
     public function update(Request $request, Author $author)
     {
         $this->validate($request, [
-            'name' => ['required'],
-            'email' => ['required'],
-            'phone_number' => ['required'],
+            'name' => ['required', 'min:3'],
+            'phone_number' => ['required', 'min:10'],
+            'email' => ['required', 'email', 'unique:publishers,email,' . $author->id],
             'address' => ['required']
         ]);
-
         $author->update($request->all());
         return redirect('authors');
     }
@@ -117,5 +116,6 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         $author->delete();
+        return redirect('authors');
     }
 }

@@ -26,8 +26,8 @@ class Book extends Model
         return $this->belongsTo(Publisher::class, 'author_id');
     }
 
-    public function transactionDetails()
+    public function transactionDtails()
     {
-        return $this->hasMany(TransactionDetail::class, 'book_id');
+        return $this->hasMany(TransactionDtail::class, 'book_id');
     }
 }

@@ -2,31 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
 use App\Models\Catalog;
 use Illuminate\Http\Request;
 
 class CatalogController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //$books = Book::with('author')->get();
-        //return $books;
-        //return $this->hasMany('App\Models\Book', 'author_id');
-        $catalogs = catalog::all();
-
-        //return $catalogs;
-        return view('admin.catalog.index', compact('catalogs'));
+        $catalogs = Catalog::with('books')->get();
+        return view('admin.catalog.catalog', compact('catalogs'));
     }
 
     /**
@@ -48,12 +42,10 @@ class CatalogController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required'],
+            'name' => ['required', 'min:3']
         ]);
-
-        catalog::create($request->all());
+        Catalog::create($request->all());
         return redirect('catalogs');
-
     }
 
     /**
@@ -75,8 +67,8 @@ class CatalogController extends Controller
      */
     public function edit(Catalog $catalog)
     {
-        $catalogs = catalog::all();
         return view('admin.catalog.edit', compact('catalog'));
+        //
     }
 
     /**
@@ -89,13 +81,13 @@ class CatalogController extends Controller
     public function update(Request $request, Catalog $catalog)
     {
         $this->validate($request, [
-            'name' => ['required'],
+            'name' => ['required', 'min:3']
         ]);
-
         $catalog->update($request->all());
         return redirect('catalogs');
-
+        //
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -105,7 +97,6 @@ class CatalogController extends Controller
     public function destroy(Catalog $catalog)
     {
         $catalog->delete();
-
         return redirect('catalogs');
     }
 }

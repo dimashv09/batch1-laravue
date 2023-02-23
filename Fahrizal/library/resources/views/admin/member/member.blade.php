@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('header','Member')
 @section('title', 'Members')
 @section('wrapper-title', 'Members')
 

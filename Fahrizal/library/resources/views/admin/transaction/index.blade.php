@@ -1,7 +1,13 @@
 @extends('layouts.admin')
 @section('header','Transaction')
-@section('content')
+@section('css')
+	<!-- DataTables -->
+	<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+@endsection
 
+@section('content')
 <html lang="en" style="height: auto;"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

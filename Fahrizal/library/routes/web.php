@@ -12,7 +12,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('Dashboard');
 
 //Resourcec
 Route::resource('/catalogs', App\Http\Controllers\CatalogController::class, [

@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('header','Author')
 @section('title', 'Authors')
 @section('wrapper-title', 'Authors')
 
@@ -19,13 +20,14 @@
             <div class="card-body">
                 <table id="dataTable" class="table table-bordered table-striped w-100">
 						<thead>
-							<tr>
+							<tr style="text-align: center">
 								<th style="width: 10px">#</th>
 								<th>Name</th>
 								<th>Email</th>
 								<th>Phone Number</th>
 								<th>Address</th>
-								<th>Actions</th>
+								<th>Created At</th>
+								<th>Actions</th>	
 							</tr>
 						</thead>
 						<tbody>
@@ -111,31 +113,14 @@
 		var actionUrl = "{{ url('authors') }}";
 		var apiUrl = "{{ url('api/authors') }}";
 		var columns = [
-			{
-				data: 'DT_RowIndex',
-				class: 'text-center',
-				orderable: true
-			},
-			{
-				data: 'name',
-				class: 'text-center',
-				orderable: true
-			},
-			{
-				data: 'email',
-				class: 'text-center',
-				orderable: true
-			},
-			{
-				data: 'phone_number',
-				class: 'text-center',
-				orderable: true
-			},
-			{
-				data: 'address',
-				class: 'text-center',
-				orderable: true
-			},
+
+			{ data: 'DT_RowIndex', class: 'text-center', orderable: true},
+			{ data: 'name', class: 'text-center', orderable: true },
+			{ data: 'email', class: 'text-center', orderable: true },
+			{ data: 'phone_number', class: 'text-center', orderable: true },
+			{ data: 'address', class: 'text-center', orderable: true },
+			{ data: 'date', class: 'text-center', orderable: true },
+			
 			{
 				render: function (index, row, data, meta) {
 					return `

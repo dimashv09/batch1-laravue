@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/fahri.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->
@@ -94,9 +95,9 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="home" class="brand-link">
-                <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+                <img src="https://ih1.redbubble.net/image.1788133237.8111/st,small,507x507-pad,600x600,f8f8f8.jpg" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">ユツリヒセカワ</span>
+                <span class="brand-text font-weight-light">TETSUYA KUMIKO</span>
             </a>
 
             <!-- Sidebar -->
@@ -112,29 +113,33 @@
                     </div>
                 </div>
 
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
 						with font-awesome or any other icon font library -->
+
                         <li class="nav-item menu-open">
                             <a href="{{ url('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('members') }}" class="nav-link {{ request()->is('members') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Member
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item menu-open">
+                            <a href="{{ url('books') }}" class="nav-link {{ request()->is('book') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Book
                                 </p>
                             </a>
                         </li>
@@ -159,23 +164,6 @@
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Publisher
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item menu-open">
-                            <a href="{{ url('books') }}" class="nav-link {{ request()->is('book') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    Book
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item menu-open">
-                            <a href="{{ url('members') }}" class="nav-link {{ request()->is('members') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>
-                                    Member
                                 </p>
                             </a>
                         </li>

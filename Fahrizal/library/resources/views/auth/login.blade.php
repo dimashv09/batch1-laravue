@@ -1,6 +1,11 @@
 @extends('layouts.app')
-
 @section('title', 'Login')
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/dist/css/login.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+@endsection
+
 @section('content')
 <div class="login-box">
     <!-- /.login-logo -->
@@ -77,4 +82,5 @@
     </div>
     <!-- /.card -->
 </div>
+
 @endsection

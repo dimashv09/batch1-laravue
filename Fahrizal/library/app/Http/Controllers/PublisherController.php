@@ -2,36 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //$books = Book::with('publisher')->get();
-        //return $books;
-        //return $this->hasMany('App\Models\Book', 'publisher_id');
-        return view('admin.publisher.publisher');
+        $publishers = Publisher::with('books')->get();
+        return view('admin.publisher.publisher', compact('publishers'));
     }
+
     public function api()
     {
         $publishers = Publisher::all();
-        $datatables = datatables()->of($publishers)->addIndexColumn();
+        $datatables = datatables()->of($publishers)
+            ->addColumn('date', function ($publisher) {
+                return convert_date($publisher->created_at);
+            })->addIndexColumn();
+
         return $datatables->make(true);
     }
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -51,15 +52,15 @@ class PublisherController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required'],
-            'email' => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
-
+            'name' => ['required', 'min:3'],
+            'phone_number' => ['required', 'min:10'],
+            'email' => ['required', 'email', 'unique:publishers'],
+            'address' => ['required']
         ]);
-
-        Publisher::create($request->all());
-        return redirect('publishers');
+        $create = Publisher::create($request->all());
+        if ($create) {
+            return redirect('publishers');
+        }
     }
 
     /**
@@ -81,7 +82,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-
+        return view('admin.publisher.edit', compact('publisher'));
     }
 
     /**
@@ -94,13 +95,11 @@ class PublisherController extends Controller
     public function update(Request $request, Publisher $publisher)
     {
         $this->validate($request, [
-            'name' => ['required'],
-            'email' => ['required'],
-            'phone_number' => ['required'],
-            'address' => ['required'],
-
+            'name' => ['required', 'min:3'],
+            'phone_number' => ['required', 'min:10'],
+            'email' => ['required', 'email', 'unique:publishers,email,' . $publisher->id],
+            'address' => ['required']
         ]);
-
         $publisher->update($request->all());
         return redirect('publishers');
     }
@@ -114,7 +113,6 @@ class PublisherController extends Controller
     public function destroy(Publisher $publisher)
     {
         $publisher->delete();
-
         return redirect('publishers');
     }
 }

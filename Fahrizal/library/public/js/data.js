@@ -48,7 +48,7 @@ var authorVue = new Vue({
                 if (result.isConfirmed) {
                     axios.post(actionUrl + '/' + id, {_method: 'DELETE'}).then(response => {
                         Swal.fire('Deleted!', '', 'success')
-                        this.get_books()
+                        this.get_authors()
                     })
                 }
             });
@@ -59,7 +59,7 @@ var authorVue = new Vue({
             var url = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id
             axios.post(url, new FormData($(event.target)[0])).then(response => {
                 $('#modal-crud').modal('hide')
-                _this.table.ajax.reload();
+                _this.get_authors();
             })
         }
     }
