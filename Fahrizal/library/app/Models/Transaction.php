@@ -11,18 +11,18 @@ class Transaction extends Model
     use HasFactory;
     protected $fillable = ['member_id', 'date_start', 'date_end', 'status'];
 
-    public function transactionDtail()
+    public function transactionDetail()
     {
-        return $this->hasMany(TransactionDtail::class, 'transaction_id');
+        return $this->hasMany(TransactionDetail::class, 'transaction_id');
     }
 
-    public function Member(): BelongsTo
+    public function member()
     {
-        return $this->belongsTo(Member::class);
+        return $this->belongsTo(Member::class, 'member_id');
     }
 
-    public function books()
-    {
-        return $this->belongsToMany(Book::class, 'transaction_dtails')->withPivot('quantity');
-    }
+// public function books()
+// {
+//     return $this->belongsToMany(Book::class, 'transaction_details')->withPivot('qty');
+// }
 }

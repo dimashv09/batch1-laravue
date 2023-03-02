@@ -12,16 +12,14 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('member_id');
-            $table->date('date_start');
-            $table->date('date_end');
+            $table->unsignedBigInteger('transaction_id');
+            $table->unsignedBigInteger('book_id');
             $table->integer('qty');
-            $table->boolean('status')->default(0);
             $table->timestamps();
-
-            $table->foreign('member_id')->references('id')->on('members');
+            $table->foreign('transaction_id')->references('id')->on('transactions');
+            $table->foreign('book_id')->references('id')->on('books');
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('transaction_details');
     }
 };
