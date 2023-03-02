@@ -61,25 +61,18 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
+                        <span class="badge badge-warning navbar-badge">
+                         @if(notifikasi())
+                           {{ count(notifikasi()) }}   
+                        @endif
+                        </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">15 Notifications</span>
+                        <span class="dropdown-item dropdown-header">Notifikasi</span>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
+                            @foreach (notifikasi() as $notifikasi )
+                                <p class="text-sm m-3">{{ $notifikasi }}</p>
+                            @endforeach
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
@@ -265,6 +258,8 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- overlayScrollbars -->
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
@@ -272,7 +267,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ <!-- <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script> -->
+   <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+
     @yield('js')
 </body>
 </html>

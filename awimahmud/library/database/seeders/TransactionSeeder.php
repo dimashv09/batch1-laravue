@@ -17,11 +17,12 @@ class TransactionSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        
+        $status = ['Sudah dikembalikan', 'Belum dikembalikan'];
         for($i = 0; $i < 15;$i++) {
             
             $transaction = new Transaction;
-            
+
+            $transaction->status = $status[array_rand($status)];
             $transaction->member_id = rand(1,10);
             $transaction->date_start = $faker->date();
             $transaction->data_end= $faker->date();

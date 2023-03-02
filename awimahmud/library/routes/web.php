@@ -6,6 +6,9 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TransactionController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,8 +27,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
-Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
-Route::get('/transaction_details', [App\Http\Controllers\TransactionDetailController::class, 'index']);
 
 Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
 Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']);
@@ -48,3 +49,9 @@ Route::resource('authors', AuthorController::class);
 Route::get('/api/authors', [AuthorController::class, 'api']);
 
 Route::get('/home', [AdminController::class, 'dashboard']);
+
+
+Route::resource('/transactions', TransactionController::class);
+Route::get('/api/transactions', [TransactionController::class, 'api']);
+
+Route::get('/transaction_details', [App\Http\Controllers\TransactionDetailController::class, 'index']);
