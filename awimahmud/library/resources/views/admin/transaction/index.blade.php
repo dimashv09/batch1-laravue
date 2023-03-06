@@ -22,7 +22,7 @@
                     <div class="col-md-2 mt-3">
                         <label class="col-sm">Status </label>
                         <div class="form-group">
-                            <select id="filter-status" v-model="status" @change="loadStatus"  class="form-control" name='status' >
+                            <select id="filter-status" class="form-control" name='status' >
                                 <option value="0">Semua</option>
                                 <option value="1">Sudah dikembalikan</option>
                                 <option value="2">Belum dikembalikan</option>
@@ -33,7 +33,7 @@
                         <div class="mr-3 mt-3">
                             <label>Tanggal Peminjaman</label>
                             <div class="form-group" >
-                                <input type="date" value="" id="filter-date_start"  name="date_start" v-model="date_start" @change="loadDate" class="form-control">
+                                <input type="date" value="" id="filter-date_start"  name="date_start" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -186,8 +186,6 @@
                 actionUrl,
                 apiUrl,
                 editStatus: false,
-                date_start: '',
-                status: ''
                 
                
             },

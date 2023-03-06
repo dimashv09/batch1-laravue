@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
+            $table->boolean('status');
             $table->unsignedBigInteger('member_id');
             $table->date('date_start');
             $table->date('data_end');

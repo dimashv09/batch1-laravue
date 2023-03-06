@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\TransactionDetail;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class TransactionController extends Controller
@@ -24,7 +25,7 @@ class TransactionController extends Controller
     {
         return view('admin.transaction.index');
     }
-    
+
     // public function status(Request $request)
     // {
     //     if ($request->status) {
@@ -33,65 +34,63 @@ class TransactionController extends Controller
     //         $data = Transaction::all();
     //     }
 
-        
+
     //     $datatable = datatables()->of($data)->addIndexColumn();
-        
+
     //     return $datatable->make(true);
     // }
-    
-    public function api(Request $request)   
+
+    public function api(Request $request)
     {
-         $transactions = Transaction::with('member','details.books')->get();
+        $transactions = Transaction::with('member', 'details.books')->get();
 
 
-        
-            if(request()->input('status')) {
-                switch (request()->input('status')) {
-                    case '1':
-                        $transactions = $transactions->where('status','=','Sudah dikembalikan');
-                        break;
-                    case '2':
-                        $transactions = $transactions->where('status','=','Belum dikembalikan');
-                        break;
-                    
-                }                               
+
+        if (request()->input('status')) {
+            switch (request()->input('status')) {
+                case '1':
+                    $transactions = $transactions->where('status', '=', 'Sudah dikembalikan');
+                    break;
+                case '2':
+                    $transactions = $transactions->where('status', '=', 'Belum dikembalikan');
+                    break;
             }
+        }
 
-            if($request->has('date_start')){
-                // $transactions = Transaction::where('date_start', $request->date_start)->get();
-                $date_starts = Carbon::parse($request->start_date)->toDateTimeString();
-                $transactions = $date_starts;
-                
-            }
+        if ($request->has('date_start')) {
+            // $transactions = Transaction::where('date_start', $request->date_start)->get();
+            $date_starts = Carbon::parse($request->start_date)->toDateTimeString();
+            $transactions = $date_starts;
+        }
         $datatables = datatables()->of($transactions)->addIndexColumn()
-                            ->addColumn('nama', function ($transaction) {
-                                
-                                return $transaction->member->name;
-                            })
-                            ->addColumn('date_start', function ($transaction) {
-                                if($transaction->date_start ? $transaction->date_start : $transaction);
-                                return convert_date($transaction->date_start);
-                            })
-                            ->addColumn('durasi', function ($transaction) {
-                                $start = new DateTime($transaction->date_start);
-                                $end = new DateTime($transaction->date_end);
-                                $interval = $start->diff($end);
-                                return $interval->format('%a') . " Hari";
-                            })
-                            ->addColumn('total_buku', function ($transaction) {
-                                return $transaction->details->sum('qty');
-                            })
-                            ->addColumn('total_bayar', function ($transaction) {
-                                if ($transaction->details) {
-                                    $total_bayar = $transaction->details->sum('books.price') * $transaction->details->sum('qty');
-                                    return "Rp. " . number_format($total_bayar);
-                                } else {
-                                    return '-';
-                                }
-                            });              
-                         
-                                // ->addIndexColumn();
-                                
+            ->addColumn('nama', function ($transaction) {
+
+                return $transaction->member->name;
+            })
+            ->addColumn('date_start', function ($transaction) {
+                if ($transaction->date_start ? $transaction->date_start : $transaction);
+                return convert_date($transaction->date_start);
+            })
+            ->addColumn('durasi', function ($transaction) {
+                $start = new DateTime($transaction->date_start);
+                $end = new DateTime($transaction->date_end);
+                $interval = $start->diff($end);
+                return $interval->format('%a') . " Hari";
+            })
+            ->addColumn('total_buku', function ($transaction) {
+                return $transaction->details->sum('qty');
+            })
+            ->addColumn('total_bayar', function ($transaction) {
+                if ($transaction->details) {
+                    $total_bayar = $transaction->details->sum('books.price') * $transaction->details->sum('qty');
+                    return "Rp. " . number_format($total_bayar);
+                } else {
+                    return '-';
+                }
+            });
+
+        // ->addIndexColumn();
+
         return $datatables->make(true);
     }
 
@@ -103,16 +102,16 @@ class TransactionController extends Controller
     public function create()
     {
         $members = Member::all();
-        $transaction = Transaction::with('member','details.books');
- 
+        $transaction = Transaction::with('member', 'details.books');
+
         $books = Book::select('books.id', 'books.title')
-        ->join('transaction_details', 'transaction_details.book_id', '=', 'books.id')
-        ->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-        ->join('members', 'members.id', '=', 'transactions.member_id')
-        ->groupBy('books.id','books.title')
-        ->orderBy('books.title')
-        ->get();
-        return view('admin.transaction.create', compact('members','books'));
+            ->join('transaction_details', 'transaction_details.book_id', '=', 'books.id')
+            ->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->join('members', 'members.id', '=', 'transactions.member_id')
+            ->groupBy('books.id', 'books.title')
+            ->orderBy('books.title')
+            ->get();
+        return view('admin.transaction.create', compact('members', 'books'));
     }
 
     /**
@@ -123,12 +122,13 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         // Validasi input dari form
         $request->validate([
             'member_id' => 'required',
             'date_start' => 'required|date',
             'data_end' => 'required|date|after:date_start',
-            'book_id' => 'required|array|min:1',
+            'books' => 'required|array|min:1',
         ]);
 
         // Membuat transaksi baru dengan status 'Belum dikembalikan'
@@ -140,7 +140,7 @@ class TransactionController extends Controller
         $transaction->save();
 
         // Menyimpan detail transaksi
-        foreach ($request->book_id as $book_id) {
+        foreach ($request->books as $book_id) {
             $book = Book::findOrFail($book_id);
 
             // Mengecek apakah stok buku mencukupi
@@ -159,8 +159,8 @@ class TransactionController extends Controller
             $book->qty -= 1;
             $book->save();
         }
-        
-        dd('redirect to transactions.index');
+
+        // dd('redirect to transactions.index');
         // Redirect ke halaman transaksi
         return redirect()->route('transactions.index')->withSuccess('Transaksi berhasil ditambahkan');
     }
@@ -174,9 +174,9 @@ class TransactionController extends Controller
      */
     public function show(string $id)
     {
-        $transaction = Transaction::with('member','details.books')->findOrFail($id);
+        $transaction = Transaction::with('member', 'details.books')->findOrFail($id);
         // dd($transaction);
-        return view('admin.transaction.detail', compact('transaction')); 
+        return view('admin.transaction.detail', compact('transaction'));
     }
 
     /**
@@ -187,14 +187,15 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-       // $transaction = Transaction::with('transactionDetail')->findOrFail($id);
+        // $transaction = Transaction::with('transactionDetail')->findOrFail($id);
         $books = Book::all();
         $members = Member::all();
+        $status = $transaction->status;
         $details = $transaction->transactionDetail;
         $date_start = $transaction->date_start;
         $data_end = $transaction->data_end;
-       
-        return view('admin.transaction.edit', compact('transaction', 'details', 'books', 'members', 'date_start', 'data_end'));
+
+        return view('admin.transaction.edit', compact('transaction', 'details', 'books', 'members', 'date_start', 'data_end', 'status'));
     }
 
     /**
@@ -206,27 +207,44 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
+        //     $validator = Validator::make($request->all(), [
+        //         'member_id' => 'required',
+        //         'date_start' => 'required|date',
+        //         'data_start' => 'required',
+        //         'status' => 'required',
+        //     ]);
+
+        //      if ($validator->fails()) {
+        //         return redirect()->back()->withErrors($validator)->withInput();
+        //     } 
+
+        // dd($request->all());
 
         $transaction->update($request->all());
-        //  if($transaction->status == 'Sudah dikembalikan'){
-        //  $book = $transaction->update->request->all
-        
-        // $book->where('books.id','=','book_id')->get();
-        
-        // $add = $book->increment('qty');
-        // $book->save();
-        //   // $transaction = 
-        // }
-        // if ($transaction->status == 'Belum dikembalikan') {
+            
+        if ($transaction->status == 0) {
+            $transaction->update(['status' => 'Sudah dikembalikan']);
+        } else {
+            $transaction->update(['status' => 'Belum dikembalikan']);
+        }
 
-        //     $book = Transaction::with('details.books')->first();
-        //     $book->where('books.id', '=', 'book_id')->get();
+        if ($transaction) {
+            if (is_array($request->books)) {
+                foreach ($request->books as $book_id) {
+                    $book_id = Book::findOrfail($book_id);
+                    $transactionDetail = $transaction->details()->where('book_id', $book_id)->first();
 
-        //     $add = $book->decrement('qty');
-        //     $book->save(); $book = Transaction::with('details.books')->where('books.id', '=', 'book_id')->get();
-        // }
-        return redirect('transactions');
-    }
+                    $transactionDetail = $transaction->details()->firstOrCreate(['book_id' => $book_id->id]);
+                    
+                    $transactionDetail->qty += 1;
+                    $transactionDetail->update();
+                    
+                    }
+                }
+            }
+            return redirect('transactions');
+        }
+    
 
 
     /**
@@ -237,6 +255,6 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
     }
 }

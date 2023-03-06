@@ -63,7 +63,7 @@
 							<tr>
 								<td class="text-bold">Buku</td>
 								<td class="select2-purple">
-									<select name="books" class="form-control select2 col-md-10" multiple="multiple" data-dropdown-css-class="select2-purple">
+									<select name="books[]" class="form-control select2 col-md-10" multiple="multiple" data-dropdown-css-class="select2-purple">
 										@foreach ( $books as $book )
 											<option value="{{ $book->id }}">{{ $book->title }}</option>	
 										@endforeach
@@ -76,13 +76,13 @@
 								<td class="">
 									<div class="form-group clearfix">
 										<div class="icheck-danger d-inline">
-											<input type="radio" name="status" checked id="radioDanger1" value="Sudah dikembalikan">
+											<input type="radio" name="status" checked id="radioDanger1" value="0" {{ $transaction->status == 1 ? 'checked' : ''}}>
 											<label for="radioDanger1">
 											</label>
 											<span class="">Sudah dikembalikan</span>
 										</div>
 										<div class="icheck-danger d-inline ml-1">
-											<input type="radio" name="status" id="radioDanger2" value="Sudah dikembalikan">
+											<input type="radio" name="status" id="radioDanger2" value="1" {{ $transaction->status == 0 ? 'checked' : '' }}>
 											<label for="radioDanger2">
 											</label>
 											<span class="">Belum dikembalikan</span>
@@ -110,49 +110,5 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ asset('assets//plugins/select2/js/select2.full.min.js') }}"></script>
-<script>
-		var actionUrl = "{{ url('transactions') }}";
-		var apiUrl = "{{ url('api/transactions') }}";
 
-
-		var controller = new Vue({
-			el: "#controller",
-			data: {
-				dataList: [],
-				data: {},
-				actionUrl,
-				apiUrl,
-				editStatus: false
-			},
-			methods: {
-				addData() {
-					this.data = []
-					this.editStatus = false
-					$('#modal-crud').modal();
-				},
-				editData(event, row) {
-					this.data = this.dataList[row]
-					this.editStatus = true
-					$('#modal-crud').modal();
-				},
-				deleteData(event, id) {
-					if (confirm('Are you sure?')) {
-						$(event.target).parents('tr').remove();
-						axios.post(this.actionUrl + '/' + id, {_method: 'DELETE'}).then(response => {
-							alert("Data has been removed")
-						})
-					}
-				},
-				submitForm(event, id) {
-					const _this = this
-					event.preventDefault();
-					var url = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id
-					axios.post(url, new FormData($(event.target)[0])).then(response => {
-						$('#modal-crud').modal('hide')
-						_this.table.ajax.reload();
-					})
-				}
-			}
-		})
-	</script>
 @endsection

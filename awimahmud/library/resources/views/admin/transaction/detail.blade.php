@@ -37,9 +37,9 @@
 								</div>
 								
 								<div class="col-md-6">
-									<select class="col-md custom-select select2" multiple="multiple">
+									<select class="col-md custom-select select2" multiple="multiple" name="books[]">
 										@foreach ( $transaction->details as $item )
-											<option>{{ $item->book->title }}</option>
+											<option>{{ $item->books['title'] }}</option>
 										@endforeach
 									</select>	
 								</div>

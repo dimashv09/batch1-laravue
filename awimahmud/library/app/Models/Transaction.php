@@ -10,6 +10,8 @@ class Transaction extends Model
 
     use HasFactory;
     protected $fillable = ['member_id','date_start','data_end','status','qty','title'];
+    protected $guarded = [];
+    
     public function member()
     {
         return $this->belongsTo('App\Models\Member', 'member_id');

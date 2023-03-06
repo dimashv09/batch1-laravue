@@ -17,7 +17,7 @@ class TransactionSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $status = ['Sudah dikembalikan', 'Belum dikembalikan'];
+        $status = [0, 1];
         for($i = 0; $i < 15;$i++) {
             
             $transaction = new Transaction;

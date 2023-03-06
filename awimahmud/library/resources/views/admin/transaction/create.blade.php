@@ -58,7 +58,7 @@
 							<tr class="">
 								<td class="text-bold">Buku</td>
 								<td class="select2-purple">
-									<select name="books" class="form-control select2 col-md-10" multiple="multiple" data-dropdown-css-class="select2-purple" >
+									<select name="books[]" class="form-control select2 col-md-10" multiple="multiple" data-dropdown-css-class="select2-purple" >
 										@foreach ( $books as $book )
 											<option value="{{ $book->id }}">{{ $book->title }}</option>	
 										@endforeach
