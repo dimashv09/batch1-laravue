@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -112,3 +113,4 @@ class MemberController extends Controller
         return redirect('members');
     }
 }
+?>

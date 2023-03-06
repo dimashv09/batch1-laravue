@@ -75,7 +75,39 @@
                             </div>
                         </form>
                     </div>
+
                 </li>
+                <li class="nav-item">
+				<a class="nav-link" data-widget="fullscreen" href="#" role="button">
+				<i class="fas fa-expand-arrows-alt"></i>
+				</a>
+			</li>
+            
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    @if (count(late_notification()))
+                    <span class="badge badge-warning navbar-badge">{{ count(late_notification()) }}</span>
+                    @endif
+                    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right w-auto">
+                        <span class="dropdown-item dropdown-header">Notification</span>
+                        <div class="dropdown-divider"></div>
+                        @foreach (late_notification() as $data)
+                        <a href="{{ route( 'transaction.show', ['transaction' => $data['transaction'] ] )}}" class="dropdown-item">
+                            <i class="fas fa-exclamation-circle mr-2"></i> {{ $data["member"] }} haven't returned the book yet
+                            <p class="text-muted text-sm">{{ $data["delay"] }} days</p>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        @endforeach
+                        @if (count(late_notification()))
+                            <a href="#" class="dropdown-item dropdown-footer">Total {{ count(late_notification()) }} data</a>
+                        @else
+                            <a href="#" class="dropdown-item dropdown-footer">No data found</a>
+                        @endif
+                    </div>
+                </a>
+			</li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">

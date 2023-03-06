@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Catalog;
 use App\Models\Publisher;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -120,3 +121,4 @@ class BookController extends Controller
         return redirect('books');
     }
 }
+?>

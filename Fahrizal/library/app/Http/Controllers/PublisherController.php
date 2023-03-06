@@ -116,3 +116,4 @@ class PublisherController extends Controller
         return redirect('publishers');
     }
 }
+?>

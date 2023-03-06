@@ -26,3 +26,4 @@ class Transaction extends Model
 //     return $this->belongsToMany(Book::class, 'transaction_details')->withPivot('qty');
 // }
 }
+?>
