@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endsection
 @section('content')
+
+{{-- @role('petugas') --}}
 <div id="controller">
     <div class="row">
         <div class="col">
@@ -127,7 +129,7 @@
 	</div> --}}
     <!-- /.modal -->
 </div>
-
+{{-- @endrole --}}
 
 @endsection
 @section('js')

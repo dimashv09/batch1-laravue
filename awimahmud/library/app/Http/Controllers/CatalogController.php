@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalog;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class CatalogController extends Controller
 {
@@ -12,13 +14,7 @@ class CatalogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $catalogs = Catalog::with('books')->get();
-
-        // return $catalogs;
-        return view('admin.catalog.index', compact('catalogs'));
-    }
+ 
 
     /**
      * Show the form for creating a new resource.

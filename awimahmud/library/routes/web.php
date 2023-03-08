@@ -1,11 +1,16 @@
 <?php
 
+use Spatie\Permission\Models\Role;
+// use App\Models\User;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use Spatie\Permission\Models\Permission;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransactionController;
 
 
@@ -25,6 +30,28 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+// Route::get('test', function() {
+//     $role = Role::where('id', 3)->first();
+//     $permision = Permission::findById(4);
+//     $role->givePermissionTo($permision);
+// });
+
+// Route::get('test_spatie', function () {
+//     $user = User::findOrFail(4);
+
+//     $user->assignRole('petugas');
+
+//     // return $user;
+// });
+
+// $role = Role::findOrFail(1);
+// Auth::login($role);
+
+
+// Route::get('/transactions', function() {
+//     view('admin.transaction.index');
+// })->middleware('role:p');
 
 Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
 
@@ -50,8 +77,11 @@ Route::get('/api/authors', [AuthorController::class, 'api']);
 
 Route::get('/home', [AdminController::class, 'dashboard']);
 
-
 Route::resource('/transactions', TransactionController::class);
 Route::get('/api/transactions', [TransactionController::class, 'api']);
 
 Route::get('/transaction_details', [App\Http\Controllers\TransactionDetailController::class, 'index']);
+
+
+
+Route::get('/test_spatie', [AdminController::class, 'test_spatie']);
