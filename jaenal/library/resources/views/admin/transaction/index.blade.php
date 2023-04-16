@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="card-body p-3">
-                        <table id="example1" class="table table-striped table-bordered text-center w-100">
+                        <table id="datatable" class="table table-striped table-bordered text-center w-100">
                             <thead>
                                 <tr>
                                     <th class="align-middle" style="width: 10px;">#</th>
@@ -150,12 +150,7 @@
             }
         });
     </script>
-    <!-- Page specific script -->
-    <script type="text/javascript">
-        $(function() {
-            $("#example1").DataTable();
-        });
-    </script>
+
 
 
 

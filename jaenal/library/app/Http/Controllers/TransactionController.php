@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\User;
 use App\Models\Member;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\TransactionDetail;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
