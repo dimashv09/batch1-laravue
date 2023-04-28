@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
-class Authorcontroller extends Controller
+class AuthorController extends Controller
 {
     public function __construct()
     {
@@ -18,21 +18,12 @@ class Authorcontroller extends Controller
      */
     public function index()
     {
-       // return $authors;
-        return view('admin.author');
+        $authors = Author::all();
+
+        //return $authors;        
+        return view('admin.author.index', compact('authors'));
     }
 
-    
-    public function api()
-    {
-        $authors = Author :: all();
-        $datatables = datatables()->of($authors)
-                                ->addColumn('date', function($author){
-                                    return convert_date($author->created_at);
-                                })->addIndexColumn();
-
-        return $datatables->make(true);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -41,7 +32,7 @@ class Authorcontroller extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.author.create');
     }
 
     /**
@@ -52,14 +43,20 @@ class Authorcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name' => ['required'], 
-            'email' => ['required'],
-            'phone_Number' => ['required'],
-            'address' => ['required'],
+        $this->validate($request, [
+            'name'     => ['required'],
+            'email'     => ['required'],
+            'phone_number'     => ['required'],
+            'address'     => ['required'],
         ]);
 
+        //$author = new Author;
+        //$author->name = $request->name;
+        //$author->save();
+
         Author::create($request->all());
+
+        //return $request;
 
         return redirect('authors');
     }
@@ -70,7 +67,7 @@ class Authorcontroller extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function show(author $author)
+    public function show(Author $author)
     {
         //
     }
@@ -81,25 +78,26 @@ class Authorcontroller extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function edit(author $author)
+    public function edit(Author $author)
     {
-        //
+        //return $author;
+        return view('admin.author.edit', compact('author'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Author  $Author
+     * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, author $author)
+    public function update(Request $request, Author $author)
     {
-        $this->validate($request,[
-            'name' => ['required'], 
-            'email' => ['required'],
-            'phone_Number' => ['required'],
-            'address' => ['required'],
+        $this->validate($request, [
+            'name'     => ['required'],
+            'email'     => ['required'],
+            'phone_number'     => ['required'],
+            'address'     => ['required'],
         ]);
 
         $author->update($request->all());
@@ -113,8 +111,10 @@ class Authorcontroller extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function destroy(author $author)
+    public function destroy(Author $author)
     {
         $author->delete();
+
+        return redirect('authors');
     }
 }

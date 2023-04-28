@@ -39,7 +39,7 @@
                         <table id="datatable" class="table table-striped table-bordered text-center w-100">
                             <thead>
                                 <tr>
-                                    <th class="align-middle" style="width: 10px;">#</th>
+                                    <th class="align-middle" style="width: 10px;">NO</th>
                                     <th class="align-middle">Transaction Start</th>
                                     <th class="align-middle">Transaction End</th>
                                     <th class="align-middle">Members Name</th>

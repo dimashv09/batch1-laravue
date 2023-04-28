@@ -1,4 +1,20 @@
 @extends('layouts.admin')
+
+@section('css')
+    <!-- Select2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+        integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* For Buttons */
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            border-color: #343a40;
+            background-color: #0d6efd;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div id="controller">
         <div class="row justify-content-center align-items-center mb-4">
@@ -7,67 +23,88 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Create New Transaction</h3>
+                        <h3 class="card-title">Edit Transaction</h3>
                     </div>
-
-                    <form action="{{ url('transactions') }}" method="post">
-                        <div class="card-body">
+                    <form action="{{ route('transactions.update', $transaction->id) }}" method="post" class="bg-light">
+                        <div class="modal-body">
                             @csrf
+                            @method('put')
+
+                            <div class="form-group">
+                                <label for="name">Members Name</label>
+                                <select name="member_id" id="name" class="form-control form-control-sm">
+                                    @foreach ($members as $member)
+                                        <option value="{{ $member->id }}"
+                                            {{ $transaction->member_id == $member->id ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="row">
-                                <label>Member&emsp;&emsp;&emsp;&emsp;</label>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <select class="form-control select2">
-                                            <option selected>Select Member</option>
-                                            @foreach ($members as $member)
-                                                <option value="{{ $member->id }}">{{ $member->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="date_start">Transaction&emsp;&emsp;&nbsp;&nbsp;</label>
-                                <div class="col-md-3">
-                                    <div class="form-group">
+                                        <label for="date_start">Translation Start</label>
                                         <input type="date" class="form-control" id="date_start" name="date_start"
-                                            value="{{ old('date_start') }}">
+                                            required value="{{ old('date_start', $transaction->date_start) }}">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="date" class="form-control" id="date_end" name="date_end"
-                                            value="{{ old('date_end') }}">
+                                        <label for="date_end">Translation End</label>
+                                        <input type="date" class="form-control" id="date_end" name="date_end" required
+                                            value="{{ old('date_end', $transaction->date_end) }}">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <label>Book&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</label>
-                                <div class="col-md-7">
-                                    <select class="form-control select2">
-                                        <option selected>Select Book</option>
-                                        @foreach ($books as $book)
-                                            <option value="{{ $book->id }}">{{ $book->title }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>&nbsp;
-                            <div class="row">
-                                <label>Status&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;</label>
-                                <div class="col-md-7">
-                                    <input type="radio" id="status" name="fav_language" value="1">
-                                    <label for="status">Has Returned</label><br>
-                                    <input type="radio" id="status" name="fav_language" value="2">
-                                    <label for="status">Not Returned</label><br>
-                                </div>
+                            <div class="form-group">
+                                <label>Books</label>
+                                <select class="select2 select2-danger" multiple="multiple" data-placeholder="Select a Book"
+                                    style="width: 100%;" name="book_id[]">
+                                    @foreach ($books as $key => $book)
+                                        @if (old('book_id'))
+                                            <option value="{{ $book->id }}"
+                                                {{ in_array($book->id, old('book_id')) ? 'selected' : '' }}>
+                                                {{ $book->title }}</option>
+                                        @else
+                                            <option value="{{ $book->id }}"
+                                                @foreach ($transaction_details as $transaction)
+                                {{ $transaction->book_id == $book->id ? 'selected' : '' }} @endforeach>
+                                                {{ $book->title }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group" v-if="status">
+                                <label for="status">status</label>
+                                <select name="status" id="status" class="form-control form-control-sm">
+                                    <option value="0">Not Returned yet</option>
+                                    <option value="1">Has Returned</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="modal-footer justify-content-between">
+                            <a href="{{ route('transactions.index') }}" class="btn btn-danger px-5">Cancel</a>
+                            <button type="submit" class="btn btn-primary px-5">Save</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection
+
+    @section('js')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+            integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+        <script>
+            $(function() {
+                //Initialize Select2 Elements
+                $('.select2').select2()
+            })
+        </script>
+    @endsection
