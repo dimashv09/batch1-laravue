@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="#" @click="addData()" class="btn btn-primary btn-sm pull-right" >Create New Author</a>
+                    <a href="#" @click="addData()" v-if="hasAnyPermission(['admin.author.create'])" class="btn btn-primary btn-sm pull-right" >Create New Author</a>
                 </div>
 
                 <div class="card-body p-0">

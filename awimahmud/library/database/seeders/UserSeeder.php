@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Foundation\Auth\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
@@ -15,10 +17,22 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'user_multiple_roles',
-            'email' => 'user@gmail.com',
+        //create user
+        $userAdmin = User::create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('password'),
         ]);
+        $userAuthor = User::create([
+            'name' => 'author',
+            'email' => 'author@gmail.com',
+            'password' => bcrypt('password'),
+        ]);
+        $userPublisher = User::create([
+            'name' => 'publisher',
+            'email' => 'publisher@gmail.com',
+            'password' => bcrypt('password'),
+        ]);
+
     }
 }

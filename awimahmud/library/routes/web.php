@@ -1,18 +1,17 @@
 <?php
 
-use Spatie\Permission\Models\Role;
-// use App\Models\User;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
-use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\TransactionController;
-
+use App\Http\Controllers\TransactionDetailController;
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,57 +30,49 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('test', function() {
-//     $role = Role::where('id', 3)->first();
-//     $permision = Permission::findById(4);
-//     $role->givePermissionTo($permision);
-// });
 
-// Route::get('test_spatie', function () {
-//     $user = User::findOrFail(4);
+//prefix "admin"
+Route::prefix('admin')->group(function () { 
+    
+   //middleware auth
+   Route::group(['middleware'=> ['auth']], function(){
+        //route catalogs
+        Route::resource('/catalogs', CatalogController::class)
+            ->middleware('permission:catalog.index|catalog.create|catalog.edit|catalog.delete');
 
-//     $user->assignRole('petugas');
+        //route books
+        Route::resource('/books', BookController::class)
+            ->middleware('permission:book.index|book.create');
+        Route::get('/api/books', [BookController::class, 'api']);
 
-//     // return $user;
-// });
+        //route members
+        Route::resource('/members', MemberController::class)
+            ->middleware('permission:member.index|member.create|member.edit|member.delete');
+        Route::get('/api/members', [MemberController::class, 'api']);
 
-// $role = Role::findOrFail(1);
-// Auth::login($role);
+        //route pulishers
+        Route::resource('publishers', PublisherController::class)
+            ->middleware('permission:pubisher.index|publisher.create|publisher.edit|publisher.delete');
+        Route::get('/api/publishers', [PublisherController::class, 'api']);
 
+        //route authors
+        Route::resource('authors', AuthorController::class)
+            ->middleware('permission:author.index|author.create');
+        Route::get('/api/authors', [AuthorController::class, 'api']);
 
-// Route::get('/transactions', function() {
-//     view('admin.transaction.index');
-// })->middleware('role:p');
+        //route transacions
+        Route::resource('/transactions', TransactionController::class)
+            ->middleware('permission:admin.transaction.index|transaction.create|transaction.edit|transaction.delete|transaction.detail');
+        Route::get('/api/transactions', [TransactionController::class, 'api']);
 
-Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
+        //route categories
+        Route::resource('/categories', CategoryController::class)->middleware('permssion:category.index');
 
-Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
-Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']);
-Route::post('/catalogs', [App\Http\Controllers\CatalogController::class, 'store']);
-Route::get('/catalogs/{catalog}/edit', [App\Http\Controllers\CatalogController::class, 'edit']);
-Route::put('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'update']);
-Route::delete('/catalogs/{catalog}', [App\Http\Controllers\CatalogController::class, 'destroy']);
-
-Route::resource('/books', BookController::class);
-Route::get('/api/books', [BookController::class, 'api']);
-
-Route::resource('/members', MemberController::class);
-Route::get('/api/members', [MemberController::class, 'api']);
-  
-  
-Route::resource('publishers', PublisherController::class);
-Route::get('/api/publishers', [PublisherController::class, 'api']);
-
-Route::resource('authors', AuthorController::class);
-Route::get('/api/authors', [AuthorController::class, 'api']);
-
-Route::get('/home', [AdminController::class, 'dashboard']);
-
-Route::resource('/transactions', TransactionController::class);
-Route::get('/api/transactions', [TransactionController::class, 'api']);
-
-Route::get('/transaction_details', [App\Http\Controllers\TransactionDetailController::class, 'index']);
-
-
-
-Route::get('/test_spatie', [AdminController::class, 'test_spatie']);
+        //route home
+        Route::get('/home', [AdminController::class, 'dashboard'])
+            ->middleware('permission:dashboard');
+            
+        //route test spatie for assgin role and permission to database
+        Route::get('/test_spatie', [AdminController::class, 'test_spatie']);
+   }); 
+});

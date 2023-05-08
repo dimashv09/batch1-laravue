@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('publisher_id');
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('catalog_id');
+            $table->unsignedBigInteger('category_id')->default(0);
             $table->integer('qty');
             $table->integer('price');
             $table->timestamps();
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->foreign('publisher_id')->references('id')->on('publishers');
             $table->foreign('author_id')->references('id')->on('authors');
             $table->foreign('catalog_id')->references('id')->on('catalogs');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

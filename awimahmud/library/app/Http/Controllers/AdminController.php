@@ -81,70 +81,39 @@ class AdminController extends Controller
 
     public function test_spatie()
     {
-        // $user = User::factory()->create([
-        //     'name' => 'Awi Mahmud',
-        //     'email' => 'awi21@gmail.com',
-        // ]);
+  
+        //create user
+        $userAdmin = User::findOrfail(26);
+        $userAuthor = User::findOrfail(27);
+        $userPublisher = User::findOrfail(28);
 
-        // $user = User::findOrFail(4);
+        //get all admin permission
+        $adminPermissions = Permission::all();
 
-        // $user->assignRole('petugas');
+        //get permission author
+        $dataAuthor = ['home', 'admin.author.index', 'admin.author.create'];
+        $authorPermissions = Permission::whereIn('name', $dataAuthor)->get();
 
-        // return $user;
-        // $role = Role::create(['name' => 'petugas']);
-        // $permission = Permission::create(['name' => 'index peminjaman']);
+        //get permission publisher
+        $dataPublisher = ['home', 'admin.publisher.index', 'admin.publisher.create', 'admin.publisher.edit', 'admin.publisher.delete'];
+        $publisherPermissions = Permission::whereIn('name', $dataPublisher)->get();
 
-        // $role = Role::findOrFail(1);
-        // $permission = Permission::findOrFail(1);
-        // $roles = $role->givePermissionTo($permission);
-        // return $roles;
+        //get role admin
+        $adminRole = Role::where('name', 'admin')->first();
+        //get role author
+        $authorRole = Role::where('name', 'author')->first();
+        //get role publisher
+        $publisherRole = Role::where('name', 'publisher')->first();
 
-        // Role::create([
-        // 'name' => 'author',
-        // 'name' => 'publisher',
-            
-        
-        
-    //     function permission(){
-    //         $permission1 = Permission::where('id', 2)->first();
-    //         $permission2 = Permission::where('id', 3)->first();
-    //         $permission3 = Permission::where('id', 4)->first();
-    //         $role = Role::findById(1);
+        //assign permission to role
+        $adminRole->syncPermissions($adminPermissions);
+        $authorRole->syncPermissions($authorPermissions);
+        $publisherRole->syncPermissions($publisherPermissions);
 
-    //         return $role->givePermissionTo([$permission1, $permission2, $permission3]);
-           
-    //     }
-
-    //    permission();
-    // ]);
-        // Permission::create([
-        // 'name' => 'create_data'
-        // 'name' => 'edit_data',
-        // 'name' => 'delete_data',
-            
-    // ]);
-        // return $user;
-        // $role->givePermissionTo($permission);
-        // $permission->assignRole($role);
-
-        $user = User::where('id', 2)->first();
-        $user->assignRole('petugas');
-        return $user;
-
-        // $user = User::with('roles')->get();
-        // return $user;
-
-        // $user = auth()->user();
-        // $user->removeRole('petugas');
-
-
-        // $user = User::findOrFail(2);
-
-        // $role1 = Role::findOrFail(1);
-        // $role2 = Role::findOrFail(2);
-        // $role3 = Role::findOrFail(3);
-
-        // $user->assignRole(['petugas', 'publisher', 'author']);
+        //assign role to user
+        $userAdmin->assignRole($adminRole);
+        $userAuthor->assignRole($authorRole);
+        $userPublisher->assignRole($publisherRole);
         
     }
 }

@@ -23,7 +23,7 @@ class TransactionDetailSeeder extends Seeder
             $detail = new TransactionDetail;
             
             $detail->transaction_id = rand(1,15);
-            $detail->book_id = rand(1,20);
+            $detail->book_id = rand(1,25);
             $detail->qty = rand(10,20);
             
             $detail->save();

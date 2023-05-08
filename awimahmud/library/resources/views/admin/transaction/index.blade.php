@@ -52,6 +52,7 @@
                                 <th class="text-center">Lama Pinjam (hari)</th>
                                 <th class="text-center">Total Buku</th>
                                 <th class="text-center">Total Bayar</th>
+                                <th class="text-center">Denda</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -164,6 +165,7 @@
 		{data: 'durasi', class: 'text-center', orderable: true},
 		{data: 'total_buku', class: 'text-center', orderable: true},
 		{data: 'total_bayar', class: 'text-center', orderable: true},
+		{data: 'denda', class: 'text-center', orderable: true},
 		{data: 'status', class: 'text-center', orderable: true},
         //render ini untuk mengisi data pada kolom actionnya
 		{render: function(index, row, data, meta){
@@ -210,7 +212,7 @@
                                 d.status = $('#filter-status').val();
                                // d.date_start = $('#filter-date_start').val();
                                 
-                               }
+                               } 
                             },
                             columns
                         }).on('xhr', function() {

@@ -19,7 +19,7 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response'
      */
     public function index()
     {
@@ -46,8 +46,8 @@ class TransactionController extends Controller
 
 
 
-        if (request()->input('status')) {
-            switch (request()->input('status')) {
+        if (Request()->input('status')) {
+            switch (Request()->input('status')) {
                 case '1':
                     $transactions = $transactions->where('status', '=', 'Sudah dikembalikan');
                     break;
@@ -55,6 +55,8 @@ class TransactionController extends Controller
                     $transactions = $transactions->where('status', '=', 'Belum dikembalikan');
                     break;
             }
+        }elseif(Request()->input('status') == '0' || Request()->input('status') == 'semua'){
+            $transactions->where('status', $request->status);
         }
 
         if ($request->has('date_start')) {
