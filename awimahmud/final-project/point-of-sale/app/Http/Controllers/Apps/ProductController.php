@@ -62,7 +62,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        try {
             //validate
             $this->validate($request, [
                 'image'         => 'required|image|mimes:jpeg,jpg,png|max:2000',
@@ -73,28 +72,13 @@ class ProductController extends Controller
                 'sell_price'    => 'required',
                 'stock'         => 'required',
             ]);
-    
+
             //upload image
-    
-            if ($request->file('image')) {
-                    // File has a name
-                    //create Product
-                    $image = $request->file('image');
-                    $imagePath = $image->storeAs('public/products', $image->hashName());
-                    Product::create([
-                        'image'         => $imagePath,
-                        'barcode'       => $request->barcode,
-                        'title'         => $request->title,
-                        'description'   => $request->description,
-                        'category_id'   => $request->category_id,
-                        'buy_price'     => $request->buy_price,
-                        'sell_price'    => $request->sell_price,
-                        'stock'         => $request->stock,
-                    ]);
-            }
-    
-            // File does not have a name
+            //upload file
+            $image = $request->file('image');
+            $imagePath = $image->storeAs('public/products', $image->hashName());
             Product::create([
+                'image'         => $imagePath,
                 'barcode'       => $request->barcode,
                 'title'         => $request->title,
                 'description'   => $request->description,
@@ -103,19 +87,10 @@ class ProductController extends Controller
                 'sell_price'    => $request->sell_price,
                 'stock'         => $request->stock,
             ]);
-
-
+    
             //redirect
             return redirect()->route('apps.products.index');
-            
-        }catch(ValidationException $e){
-            return redirect()->back()->with('error', $e->getMessage())->withInput();
-        } catch (QueryException $e) {
-            if (isset($e->errorInfo) && is_array($e->errorInfo) && count($e->errorInfo) > 0 && $e->errorInfo[0] == '23000' && $e->errorInfo[1] == 1062) {
-                return redirect()->back()->with('error', 'Kode barcode sudah ada')->withInfo();
-            }
-            return abort(500, 'Internal Server Error');
-        }
+        
     }
 
     /**

@@ -1,6 +1,5 @@
 <template>
     <ul class="c-sidebar-nav">
-
         <li class="c-sidebar-nav-item">
             <Link class="c-sidebar-nav-link" v-if="hasAnyPermission(['dashboard.index'])" :class="{ 'active': $page.url.startsWith('/apps/dashboard') }" href="/apps/dashboard">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer2" viewBox="0 0 16 16">

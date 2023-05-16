@@ -57,7 +57,6 @@ class CategoryController extends Controller
         $this->validate($request, [
             'image' => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'name' => 'required|unique:categories',
-            'description' => 'required',
         ]);
 
         //upload image
@@ -101,7 +100,6 @@ class CategoryController extends Controller
         //validate
         $this->validate($request, [
             'name' => 'required|unique:categories,name,'. $category->id,
-            'description' => 'required'
         ]);
 
         //check image Update

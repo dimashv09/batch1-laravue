@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Apps;
 
 use Inertia\Inertia;
 use App\Models\Profit;
+use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Exports\ProfitExport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\TransactionDetail;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProfitController extends Controller
 {
@@ -27,11 +30,12 @@ class ProfitController extends Controller
         ]);
 
         //get data profits by range date
-        $profits = Profit::with('transaction')->whereDate('created_at', '>=', $request->start_date)->whereDate('created_at', '<=', $request->end_date)->get();
-        
-        //get total by range date
+        $profits = Profit::with('transaction.details.product')->whereDate('created_at', '>=', $request->start_date)->whereDate('created_at', '<=', $request->end_date)->get();
+
+        //get total
         $total =  Profit::whereDate('created_at', '>=', $request->start_date)->whereDate('created_at', '<=', $request->end_date)->sum('total');
-        
+                        
+        //redirect
         return Inertia::render('Apps/Profits/Index', [
             'profits' => $profits,
             'total'   => (int)$total

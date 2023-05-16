@@ -126,8 +126,8 @@
 		},
 
 		props: {
-			categories: Array,
-			errors: Object
+			errors: Object,
+			categories: Array
 		},
 
 		setup() {

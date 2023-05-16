@@ -47,10 +47,12 @@
 										<a :href="`/apps/profits/export?start_date=${start_date}&end_date=${end_date}`" target="_blank" class="btn btn-success btn-md border-0 shadow me-3"><i class="fa fa-file"></i> EXCEL</a>
 										<a :href="`/apps/profits/pdf?start_date=${start_date}&end_date=${end_date}`" target="_blank" class="btn btn-secondary btn-md btn-md border-0 shadow"><i class="fa fa-file-pdf"></i> PDF</a>
 									</div>
-									<table class="table table-bordered">
+									<table class="table table-bordered table-striped">
 										<thead>
 											<tr style="background-color: #e6e6e7;">
 												<th scope="col">Date</th>
+												<th scope="col">Product</th>
+												<th scope="col">Qty</th>
 												<th scope="col">Invoice</th>
 												<th scope="col">Total</th>
 											</tr>
@@ -58,11 +60,13 @@
 										<tbody>
 											<tr v-for="profit in profits" :key="profit.id">
 												<td>{{ profit.created_at }}</td>
+												<td>{{ profit.transaction.details[0].product.title }}</td>
+												<td>{{ profit.transaction.details[0].qty }}</td>
 												<td class="text-center">{{ profit.transaction.invoice }}</td>						
 												<td class="text-end">Rp. {{ formatPrice(profit.total) }}</td>
 											</tr>
 											<tr>
-												<td colspan="2" class="text-center fw-bold" style="background-color: $e6e6e7;">TOTAL</td>
+												<td colspan="4" class="text-center fw-bold" style="background-color: $e6e6e7;">TOTAL</td>
 												<td class="text-end fw-bold" style="background-color: $e6e6e7;">Rp. {{formatPrice(total)}}</td>
 											</tr>
 										</tbody>
@@ -105,7 +109,7 @@
 		props: {
 			errors: Object,
 			profits: Array,
-			total: Number
+			total: Number,
 		},
 
 		setup() {
@@ -126,7 +130,7 @@
 			return {
 				start_date,
 				end_date,
-				filter
+				filter,
 			}
 		}
 

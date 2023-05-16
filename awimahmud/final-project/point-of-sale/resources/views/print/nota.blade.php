@@ -111,7 +111,7 @@
 	<div class="content">
 		<div class="title" style="padding-bottom: 13px">
 			<div style="text-align: center;text-transaform: uppercase;font-size: 15px">
-				KitaPOS.
+				SarawiStore.
 			</div>
 			<div style="text-align: center">
 				Alamat: Desa Bukit Durian, Dusun Bukulasa, Kec. Oba Utara, Kota. Tidore Kepulauan

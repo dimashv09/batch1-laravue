@@ -21,7 +21,7 @@ class ProfitExport implements FromView
     public function view(): View
     {
         return view('exports.profits', [
-            'profits' => Profit::with('transaction')->whereDate('created_at', '>=', $this->start_date)->whereDate('created_at', '<=', $this->end_date)->get(),
+            'profits' => Profit::with('transaction.details.product')->whereDate('created_at', '>=', $this->start_date)->whereDate('created_at', '<=', $this->end_date)->get(),
             'total' => Profit::whereDate('created_at', '>=', $this->start_date)->whereDate('created_at', '<=', $this->end_date)->sum('total')
         ]);
     }
