@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\User;
 use App\Models\Member;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\TransactionDetail;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
@@ -22,8 +25,13 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::all();
-        return view('admin.transaction.index');
+
+        //return auth()->user()->hasRole('admin');
+        if (auth()->user()->hasRole('admin')) {
+            return view('admin.transaction.index');
+        } else {
+            return abort('403');
+        }
     }
 
     public function api(Request $request)
@@ -73,7 +81,7 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -121,7 +129,7 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Transaction $transaction
+     * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
     public function show(Transaction $transaction)
@@ -136,7 +144,7 @@ class TransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Transaction $transaction
+     * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
     public function edit(Transaction $transaction)
@@ -153,8 +161,8 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Transaction $transaction
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Transaction $transaction)
@@ -209,7 +217,7 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Transaction $transaction
+     * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
     public function destroy(Transaction $transaction)
@@ -221,5 +229,26 @@ class TransactionController extends Controller
         if ($deleteTransactionDetail->delete()) {
             $deleteTransaction->delete();
         }
+    }
+
+    public function test_spatie()
+    {
+        // $role = Role::create(['name' => 'admin']);
+        // $permission = Permission::create(['name' => 'borrowing index']);
+
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        // $user = User::with('roles')->get();
+        // return $user;
+
+        // $user = auth()->user();
+        // $user->assignRole('admin');
+        // return $user;
+
+
+
+        // $user = auth()->user();
+        // $user->removeRole('admin');
     }
 }

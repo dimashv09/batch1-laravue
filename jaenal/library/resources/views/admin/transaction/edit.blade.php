@@ -100,11 +100,12 @@
             integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
         <script>
             $(function() {
                 //Initialize Select2 Elements
                 $('.select2').select2()
             })
         </script>
+        <script src="{{ asset('js/data.js') }}"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     @endsection
