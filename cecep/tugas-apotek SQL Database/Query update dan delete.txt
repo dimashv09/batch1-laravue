@@ -1,0 +1,5 @@
+1. UPDATE `obat` SET `nama`='[Tolak angin]',`bentuk`='[cair]',`manfaat`='[meredakan masuk angin]'WHERE 1;
+2. UPDATE `obat` SET `nama`='oskadon',`bentuk`='kapsul,tablet',`manfaat`='meredakan sakit kepala'WHERE `kode_obat`='A0002';
+3. UPDATE `obat` SET `nama`='ACE Inhibitor',`bentuk`='kapsul',`manfaat`='obat untuk mengatasi tekanan darah tinggi'WHERE `kode_obat`='A0003';
+4. DELETE FROM `obat` WHERE id_obat = '9'
+5. DELETE FROM `obat` WHERE id_obat = '4'
