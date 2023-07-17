@@ -41,7 +41,7 @@
                 <?php echo $no; ?>
             </td>
             <td>
-                <?php echo "Nama murid  $i " ?>
+                <?php echo "Nama Ke $i " ?>
             </td>
             <td>
                 <?php echo "Kelas $a" ?>
