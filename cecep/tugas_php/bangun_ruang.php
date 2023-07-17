@@ -29,7 +29,7 @@
             $c = "Volume";
             $a = "luas alas";
             $b = "tinggi";
-            echo "prisma <br> $c = $a*$b";
+            echo "Prisma <br> $c = $a*$b";
             echo "<hr>";
 
 
