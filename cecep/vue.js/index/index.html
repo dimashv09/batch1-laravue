@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Component vue.js</title>
+    <h1>ngikutin video eduwork</h1>
+</head>
+<body>
+    <div id="app" v-if="status == 'tampilkan' ">
+        {{ message }} <br><br>
+        <label v-for="user in users">Name : {{user.name}}, Umur : {{user.age}} <br> </label>
+      </div>
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+<script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue!',
+      status: 'tampilkan',
+      users: [
+        {
+            name : 'cecep',
+            age : '20,'
+        },
+        {
+            name : 'basyir',
+            age : '21'
+        }
+      ]
+    }
+  })
+</script>
