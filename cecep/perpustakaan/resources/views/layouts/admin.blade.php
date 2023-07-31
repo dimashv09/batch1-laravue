@@ -258,7 +258,7 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">
-              <a class="nav-link" href="{{ route('logout') }}"
+              <a href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                  document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
