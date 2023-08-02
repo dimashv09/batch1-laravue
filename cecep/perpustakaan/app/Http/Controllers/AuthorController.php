@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 
 class AuthorController extends Controller
 {
@@ -12,7 +13,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.author.index');
     }
 
     /**

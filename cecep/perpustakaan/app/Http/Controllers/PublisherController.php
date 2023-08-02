@@ -12,7 +12,7 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.publisher.index');
     }
 
     /**

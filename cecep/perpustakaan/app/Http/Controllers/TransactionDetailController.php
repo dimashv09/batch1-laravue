@@ -12,7 +12,7 @@ class TransactionDetailController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.transaction_detail.index');
     }
 
     /**

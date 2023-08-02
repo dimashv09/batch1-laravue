@@ -42,8 +42,9 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+      <li class="nav-link d-none d-sm-inline-block">
+        <a href="{{ url('home') }}">Home</a>
+       
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -163,12 +164,22 @@
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
-      </li>
+
+        <li class="nav-link active">
+              <a href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                 document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+              </a>
+
+                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              </li>
+      <!-- </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
         </a>
-      </li>
+      </li> -->
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -214,32 +225,62 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Dashboard
+                Library
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
+                <a href="{{ url('author') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
+                  <p>Authors</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{{ url('book') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
+                  <p>Books</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{{ url('catalog') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
+                  <p>Catalogs</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('member') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Members</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('publisher') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Publishers</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('transaction') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Transactions</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('transaction_detail') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Transaction Details</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('user') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Users</p>
                 </a>
               </li>
             </ul>
           </li>
-          
+        </ul> 
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -252,21 +293,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">
-              <a href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                 document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-              </a>
-
-                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-              </li>
-            </ol>
+            <h1 class="m-0">@yield('header')</h1><br>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
