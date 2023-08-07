@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
+use App\Models\Catalog;
+use App\Models\Book;
+use App\Models\Publisher;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +28,14 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $members = Member::with('user')->get();
+        // $books = Book::with('publisher')->get();
+        // $publishers = Publisher::with('books')->get();
+        // $authors = Author::with('books')->get();
+        // $books = Book::with('catalog')->get();
+        // $catalogs = Catalog::with('books')->get();
+
+        // return $catalogs;
         return view('home');
     }
 }
