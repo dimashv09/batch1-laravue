@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Transaction;
 use App\Models\Catalog;
 use App\Models\Book;
 use App\Models\Publisher;
@@ -34,8 +35,44 @@ class HomeController extends Controller
         // $authors = Author::with('books')->get();
         // $books = Book::with('catalog')->get();
         // $catalogs = Catalog::with('books')->get();
+        // $transactions = Transaction::with('member')->get();
+        // $members = Member::with('transaction')->get();
 
-        // return $catalogs;
+
+        // Query builder
+        // no 5
+        $data5 = Member::select('*')
+                    ->join('users', 'users.member_id', '=','member_id')
+                    ->get();
+
+        // no 6
+        $data6 = Member::select('name', 'phone_number', 'date_start', 'date_end')
+        ->join('transactions', 'transactions.member_id', '=', 'member_id')
+        ->get();
+
+        // no 7
+        $data7 = Member::select('name', 'phone_number', 'date_start', 'date_end')
+        ->join('transactions', 'transactions.member_id', '=', 'member_id')
+        ->where('transactions.date_end', '=', '06')
+        ->get();
+
+        // no 8
+        $data8 = Member::select('name', 'phone_number', 'date_start', 'date_end')
+        ->join('transactions', 'transactions.member_id', '=', 'member_id')
+        ->where('transactions.date_start', '=', '05')
+        ->get();
+
+        // no 9
+        $data9 = Member::select('name', 'phone_number', 'date_start', 'date_end')
+        ->join('transactions', 'transactions.member_id', '=', 'member_id')
+        ->where('transactions.date_start', '=', '06', 'and', 'transactions.date_end', '=', '06')
+        ->get();
+
+        // no 10
+        // $data10 = 
+
+
+        // return $data9;
         return view('home');
     }
 }

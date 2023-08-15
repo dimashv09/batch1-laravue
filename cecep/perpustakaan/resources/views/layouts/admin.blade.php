@@ -75,64 +75,7 @@
         </div>
       </li>
 
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-comments"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
-      </li>
+
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -188,8 +131,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <!-- <img src="" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
+      <span class="brand-text font-weight-light">Cmbi-354</span>
     </a>
 
     <!-- Sidebar -->
@@ -197,7 +140,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="https://www.clipartkey.com/mpngs/m/237-2374286_administrator-network-icons-system-avatar-computer-admin-icon.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ auth()->user()->name }}</a>
@@ -219,66 +162,65 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          
+          <li class="nav-item">
+            <a href="{{ url('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Library
-                <i class="right fas fa-angle-left"></i>
+                Home
+                
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            
               <li class="nav-item">
-                <a href="{{ url('author') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
+                <a href="{{ url('authors') }}" class="nav-link {{ request()->is('authors') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Authors</p>
+                  <p>Author</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('book') }}" class="nav-link">
+                <a href="{{ url('books') }}" class="nav-link {{ request()->is('books') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Books</p>
+                  <p>Book</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('catalog') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Catalogs</p>
+                <a href="{{ url('catalogs') }}" class="nav-link {{ request()->is('catalogs') ? 'active' : '' }}">
+                  <i class="fas fa-table nav-icon"></i>
+                  <p>Catalog</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('member') }}" class="nav-link">
+                <a href="{{ url('members') }}" class="nav-link {{ request()->is('members') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Members</p>
+                  <p>Member</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('publisher') }}" class="nav-link">
+                <a href="{{ url('publishers') }}" class="nav-link {{ request()->is('publishers') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Publishers</p>
+                  <p>Publisher</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('transaction') }}" class="nav-link">
+                <a href="{{ url('transactions') }}" class="nav-link {{ request()->is('transactions') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Transactions</p>
+                  <p>Transaction</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('transaction_detail') }}" class="nav-link">
+                <a href="{{ url('transaction_details') }}" class="nav-link {{ request()->is('transaction_details') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Transaction Details</p>
+                  <p>Transaction Detail</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('user') }}" class="nav-link">
+                <a href="{{ url('users') }}" class="nav-link {{ request()->is('user') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users</p>
                 </a>
               </li>
-            </ul>
+            
           </li>
         </ul> 
       <!-- /.sidebar-menu -->
@@ -301,12 +243,16 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-
+    <section class="content"> 
+      <div class="container-fluid">
+        @yield('content')
+      </div>
+    </endsection>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2023 <a href="https://www.instagram.com/cecepbasyir46.1/">cecepbasyir46.1</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.2.0
