@@ -6,7 +6,7 @@
     <div class="col-md-6">
         <div class="card">
           <div class="card-header">
-                <h3 class="card-title">Data Catalog</h3>
+                <a href="{{ url('catalogs/create') }}" class="btn btn-sm btn-primary pull-right">Create New Catalog</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -40,8 +40,8 @@
                   <li class="page-item"><a class="page-link" href="#">3</a></li>
                   <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                 </ul>
-                </div>
-        </div> -->
+                </div> -->
+        </div>
     </div>
 </div>
 @endsection

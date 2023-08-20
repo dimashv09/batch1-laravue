@@ -23,7 +23,7 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.catalog.create');
     }
 
     /**
@@ -31,7 +31,13 @@ class CatalogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $catalog = new Catalog;
+        // $catalog->name = $request->name;
+        // $catalog->save();
+
+        Catalog::create($request->all());
+
+        return redirect('catalogs');
     }
 
     /**
