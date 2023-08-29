@@ -8,13 +8,17 @@ use PhpParser\Node\Stmt\Return_;
 
 class AuthorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $authors = Author::all();
-        return view('admin.author.index', compact('authors'));
+        return view('admin.author', compact('authors'));
     }
 
     /**
@@ -22,7 +26,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return view('admin.author.create');
+        return view('admin.author.');
     }
 
     /**
@@ -32,6 +36,9 @@ class AuthorController extends Controller
     {
          $this->validate($request,[
             'name' => ['required'],
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'address' => ['required'],
         ]);
 
         Author::create($request->all());
@@ -53,7 +60,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        return view('admin.author.edit', compact('author'));
+        return view('admin.author.', compact('author'));
     }
 
     /**
@@ -63,9 +70,12 @@ class AuthorController extends Controller
     {
         $this->validate($request,[
             'name' => ['required'],
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'address' => ['required'],
         ]);
 
-        $author->update($request->all());
+        $author::update($request->all());
 
         return redirect('authors');
     }
@@ -77,6 +87,5 @@ class AuthorController extends Controller
     {
         $author->delete();
 
-        return redirect('authors');
     }
 }
