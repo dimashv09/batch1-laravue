@@ -7,13 +7,17 @@ use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {   
         $publishers = Publisher::all();
-        return view('admin.publisher.index', compact('publishers'));
+        return view('admin.publisher', compact('publishers'));
     }
 
     /**
@@ -21,7 +25,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return view('admin.publisher.create');
+        return view('admin.publisher');
     }
 
     /**
@@ -31,6 +35,9 @@ class PublisherController extends Controller
     {
         $this->validate($request,[
             'name' => ['required'],
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'address' => ['required'],
         ]);
 
         Publisher::create($request->all());
@@ -52,7 +59,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        return view('admin.publisher.edit', compact('publisher'));
+        return view('admin.publisher', compact('publisher'));
     }
 
     /**
@@ -61,12 +68,16 @@ class PublisherController extends Controller
     public function update(Request $request, Publisher $publisher)
     {
         $this->validate($request,[
-            'name' => ['required'],
-        ]);
+        'name' => ['required'],
+        'email' => ['required'],
+        'phone_number' => ['required'],
+        'address' => ['required'],
+    ]);
 
-        $publisher->update($request->all());
+    $publisher->update($request->all());
 
-        return redirect('publishers');
+    return redirect('publishers');
+
     }
 
     /**
@@ -75,7 +86,5 @@ class PublisherController extends Controller
     public function destroy(Publisher $publisher)
     {
         $publisher->delete();
-
-        return redirect('publishers');
     }
 }
