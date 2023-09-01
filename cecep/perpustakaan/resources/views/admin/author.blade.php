@@ -2,7 +2,10 @@
 @section('header', 'Author')
 
 @section('css')
-
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endsection
 
 @section('content')
@@ -14,7 +17,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered">
+                <table id="datatable" class="table table-bordered">
                   <thead>
                     <tr>
                       <th style="width: 10px">No</th>
@@ -28,14 +31,14 @@
                   <tbody>
                     @foreach($authors as $key => $author)
                     <tr>
-                      <td>{{ $key+1 }}</td>
+                      <td class="text-center">{{ $key+1 }}</td>
                       <td>{{ $author->name }}</td>
                       <td>{{ $author->email }}</td>
-                      <td>{{ $author->phone_number }}</td>
+                      <td class="text-center">{{ $author->phone_number }}</td>
                       <td>{{ $author->address }}</td>
                       <td class="text-right">
-                        <a href="#" @click="editData({{ $author }})" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="#" @click="deleteData({{ $author->id }})" class="btn btn-warning btn-sm">Delete</a>
+                        <a href="#" @click="editData({{ $author }})" class="btn btn-warning btn-sm" style="display: flex;">Edit</a>
+                        <a href="#" @click="deleteData({{ $author->id }})" class="btn btn-danger btn-sm" style="display: flex;">Delete</a>
 
                       </td>
                     </tr>
@@ -99,7 +102,31 @@
 @endsection
 
 @section('js')
-  <script type="text/javascript">
+<!-- DataTables Plugins -->
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script type="text/javascript">
+  $(function () {
+    $("#datatable").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    
+      
+    });
+</script>
+<!-- CRUD Vue js -->
+<script type="text/javascript">
     var controller = new Vue({
       el: '#controller',
       data: {
@@ -136,6 +163,6 @@
 
     });
 
-  </script>
+</script>
 
 @endsection

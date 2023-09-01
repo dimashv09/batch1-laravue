@@ -133,7 +133,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <!-- <img src="" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-      <span class="brand-text font-weight-light">Cmbi-354</span>
+      <span class="brand-text font-weight-light">Cmbi-galipat</span>
     </a>
 
     <!-- Sidebar -->
@@ -175,7 +175,7 @@
             
               <li class="nav-item">
                 <a href="{{ url('authors') }}" class="nav-link {{ request()->is('authors') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="nav-icon fa-thin fa-person"></i>
                   <p>Author</p>
                 </a>
               </li>
