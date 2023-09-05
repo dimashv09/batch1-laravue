@@ -8,7 +8,7 @@
 </head>
 <?php
 	//mengambil database
-	include_once("connect.php");
+	include_once("../connect.php");
 	//mengambil data buku berdasarkan idnya yaitu isbn dan tampilkan
 	$isbn = $_GET['isbn'];
 
@@ -116,9 +116,9 @@
 			$harga_pinjam = $_POST['harga_pinjam'];
 
 			//koneksikan file database
-			include_once('connect.php');
+			include_once('../connect.php');
 
-			$result = mysqli_query($koneksi, "UPDATE buku SET judul = '$judul', tahun = '$tahun', id_penerbit = '$id_penerbit', id_pengarang = '$id_pengarang', id_katalog = '$id_katalog', qty_stok = '$qty_stok', harga_pinjam = '$harga_pinjam' WHERE isbn = '$isbn'" );
+			$result = mysqli_query($mysqli, "UPDATE buku SET judul = '$judul', tahun = '$tahun', id_penerbit = '$id_penerbit', id_pengarang = '$id_pengarang', id_katalog = '$id_katalog', qty_stok = '$qty_stok', harga_pinjam = '$harga_pinjam' WHERE isbn = '$isbn'" );
 
 
 			//Redirect to homepage to display updated user in list

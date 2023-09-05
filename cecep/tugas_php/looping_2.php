@@ -35,7 +35,7 @@
             <th>NAMA</th>
             <th>KELAS</th>
         </tr>
-        <?php for ($no = 1, $i = 1, $a = 1; $i <= 10, $a <= 10; $i += 1, $a += 1) { ?>
+        <?php for ($no = 1, $i = 10, $a = 10; $i >= 1, $a >= 1; $i -= 1, $a -= 1) { ?>
         <tr>
             <td>
                 <?php echo $no; ?>

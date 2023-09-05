@@ -166,7 +166,7 @@
           
           <li class="nav-item">
             <a href="{{ url('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-home"></i>
               <p>
                 Home
                 
@@ -175,13 +175,13 @@
             
               <li class="nav-item">
                 <a href="{{ url('authors') }}" class="nav-link {{ request()->is('authors') ? 'active' : '' }}">
-                  <i class="nav-icon fa-thin fa-person"></i>
+                  <i class="nav-icon fas fa-user-edit"></i>
                   <p>Author</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ url('books') }}" class="nav-link {{ request()->is('books') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-book nav-icon"></i>
                   <p>Book</p>
                 </a>
               </li>
@@ -193,32 +193,32 @@
               </li>
               <li class="nav-item">
                 <a href="{{ url('members') }}" class="nav-link {{ request()->is('members') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-users nav-icon"></i>
                   <p>Member</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ url('publishers') }}" class="nav-link {{ request()->is('publishers') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-paper-plane nav-icon"></i>
                   <p>Publisher</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ url('transactions') }}" class="nav-link {{ request()->is('transactions') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-handshake nav-icon"></i>
                   <p>Transaction</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ url('transaction_details') }}" class="nav-link {{ request()->is('transaction_details') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-info-circle nav-icon"></i>
                   <p>Transaction Detail</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ url('users') }}" class="nav-link {{ request()->is('user') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Users</p>
+                  <i class="fas fa-user nav-icon"></i>
+                  <p>User</p>
                 </a>
               </li>
             

@@ -4,7 +4,7 @@
 </head>
 
 <?php
-	include_once("connect.php");
+	include_once("../connect.php");
     $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit");
     $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang");
     $katalog = mysqli_query($mysqli, "SELECT * FROM katalog");
@@ -92,7 +92,7 @@
 			$qty_stok = $_POST['qty_stok'];
 			$harga_pinjam = $_POST['harga_pinjam'];
 			
-			include_once("connect.php");
+			include_once("../connect.php");
 
 			$result = mysqli_query($mysqli, "INSERT INTO `buku` (`isbn`, `judul`, `tahun`, `id_penerbit`, `id_pengarang`, `id_katalog`, `qty_stok`, `harga_pinjam`) VALUES ('$isbn', '$judul', '$tahun', '$id_penerbit', '$id_pengarang', '$id_katalog', '$qty_stok', '$harga_pinjam');");
 			

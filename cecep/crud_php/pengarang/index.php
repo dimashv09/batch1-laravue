@@ -1,5 +1,5 @@
 <?php
-include_once('connect.php');
+include_once('../connect.php');
 
 $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang ORDER BY nama_pengarang ASC");
 
@@ -17,14 +17,15 @@ $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang ORDER BY nama_pengar
 </head>
 <body>
 	<center>
-		<a href="../buku/index.php">Buku</a>
-		<a href="../penerbit/index.php">Penerbit</a>
-		<a href="../pengarang/index.php">Pengarang</a>
-		<a href="../katalog/index.php">Katalog</a>
+		<a href="../buku/index.php">Buku</a> |
+		<a href="../katalog/index.php">Katalog</a> |
+		<a href="../penerbit/index.php">Penerbit</a> |
+		<a href="../pengarang/index.php">Pengarang</a> 
+        <hr>
 	</center>
 	<br><br>
 
-	<a href="add.php">Tambah</a><br><br>
+	<a href="add.php">Tambah Data Pengarang</a><br><br>
 
 	<table class="table table-bordered">
 		<thead>

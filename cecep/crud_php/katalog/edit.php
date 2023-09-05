@@ -1,5 +1,5 @@
 <?php
-include_once('connect.php');
+include_once('../connect.php');
 
 if(isset($_POST['update'])){
   $id_katalog = $_GET['id_katalog'];

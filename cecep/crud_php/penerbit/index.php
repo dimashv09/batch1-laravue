@@ -1,5 +1,5 @@
 <?php
-include_once('connect.php');
+include_once('../connect.php');
 
 $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit ORDER BY nama_penerbit ASC");
 
@@ -17,14 +17,15 @@ $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit ORDER BY nama_penerbit
 </head>
 <body>
 	<center>
-		<a href="../buku/index.php">Buku</a>
-		<a href="../penerbit/index.php">Penerbit</a>
-		<a href="../pengarang/index.php">Pengarang</a>
-		<a href="../katalog/index.php">Katalog</a>
+		<a href="../buku/index.php">Buku</a> |
+		<a href="../katalog/index.php">Katalog</a> |
+		<a href="../penerbit/index.php">Penerbit</a> |
+		<a href="../pengarang/index.php">Pengarang</a> 
+        <hr>
 	</center>
 	<br><br>
 
-	<a href="add.php">Tambah</a><br><br>
+	<a href="add.php">Tambah Data Penerbit</a><br><br>
 
 	<table class="table table-bordered">
 		<thead>

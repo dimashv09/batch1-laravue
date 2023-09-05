@@ -1,5 +1,5 @@
 <?php
-include_once("connect.php");
+include_once("../connect.php");
  
 $katalog = $_GET['id_katalog'];
  

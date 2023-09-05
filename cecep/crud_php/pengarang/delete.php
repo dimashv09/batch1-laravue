@@ -1,5 +1,5 @@
 <?php
-include_once("connect.php");
+include_once("../connect.php");
  
 $pengarang = $_GET['id_pengarang'];
  

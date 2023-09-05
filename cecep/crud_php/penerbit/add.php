@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data</title>
+    <title>Tambah Data Penerbit</title>
     <style>
         input{
             margin: 0px;
@@ -11,8 +11,9 @@
     </style>
 </head>
 <?php
-include_once('connect.php');
-$pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang");
+include_once('../connect.php');
+$penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit");
+
 
 ?>
 <body>
@@ -21,23 +22,23 @@ $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang");
 		<table width="25%" border="0">
             <tr>
                 <td>
-                    <select name="id_pengarang" style="color: coral;">
+                    <select name="id_penerbit" style="color: coral;">
                     <?php 
-                    while($pengarang_data = mysqli_fetch_assoc($pengarang)) {
-                        echo "<option value='".$pengarang_data['id_pengarang']."'>".$pengarang_data['id-pengarang']."</option>"; 
+                    while($penerbit_data = mysqli_fetch_assoc($penerbit)) {
+                        echo "<option value='".$penerbit_data['id_penerbit']."'>".$penerbit_data['id-penerbit']."</option>"; 
                     }
                     ?>
 
                 </select>
                 </td>
             </tr>
-            <tr>
-            <td>ID Pengarang</td>
-				<td><input type="text" style="color: black;" name="id_pengarang"></td>
+			<tr>
+            <td>ID Penerbit</td>
+				<td><input type="text" style="color: black;" name="id_penerbit"></td>
 			</tr>
             <tr>
-            <td>Nama Pengarang</td>
-				<td><input type="text" style="color: black;" name="nama_pengarang"></td>
+            <td>Nama Penerbit</td>
+				<td><input type="text" style="color: black;" name="nama_penerbit"></td>
 			</tr>
             <tr>
 				<td>Email</td>
@@ -52,6 +53,7 @@ $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang");
 				<td>Alamat</td>
 				<td><input type="text" style="color:black;" name="alamat"></td>
 			</tr>
+			
 			<tr>
 				<td></td>
 				<td><input type="submit" style="color:black;" name="submit " value="Save"></td>
@@ -61,19 +63,20 @@ $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang");
 
 	<?php 
 		if(isset($_POST['submit'])){
-			$id_pengarang = $_POST['id_pengarang'];
-			$nama_pengarang = $_POST['nama_pengarang'];
+			$id_penerbit = $_POST['id_penerbit'];
+			$nama_penerbit = $_POST['nama_penerbit'];
 			$email = $_POST['email'];
 			$telp = $_POST['telp'];
 			$alamat = $_POST['alamat']; 
-			
+			$judul = $_POST['judul'];
+			$tahun = $_POST['tahun'];
 			
 			//get database connection
-			include_once('connect.php');
+			include_once('../connect.php');
 	 
 			//push data on the table
-			$hasil = mysqli_query($mysqli, "INSERT INTO pengarang(id_pengarang, nama_pengarang, email, telp, alamat) 
-											VALUES ('$id_pengarang','$nama_pengarang', '$email', '$telp', '$alamat');
+			$hasil = mysqli_query($mysqli, "INSERT INTO penerbit(id_penerbit, nama_penerbit, email, telp, alamat, judul, tahun) 
+											VALUES ('$id_penerbit','$nama_penerbit', '$email', '$telp', '$alamat', '$judul', '$tahun');
 								");
 			header('Location: index.php');
 		}

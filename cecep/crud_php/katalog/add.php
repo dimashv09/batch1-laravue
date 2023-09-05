@@ -1,15 +1,16 @@
 <html>
 <head>
-	<title>Tambah Data Katalog</title>
+	<title>Add Katalog</title>
 </head>
 
 <?php
-	include_once("connect.php");
+	include_once("../connect.php");
     $katalog = mysqli_query($mysqli, "SELECT * FROM katalog");
+    $buku = mysqli_query($mysqli, "SELECT * FROM buku");
 ?>
  
 <body>
-	<a href="index.php">Back</a>
+	<a href="index.php">Go To Home</a>
 	<br/><br/>
  
 	<form action="add.php" method="post" name="form1">
@@ -24,7 +25,7 @@
 			</tr>
 			<tr> 
 				<td></td>
-				<td><input type="submit" name="submit" value="Tambah"></td>
+				<td><input type="submit" name="submit" value="Add"></td>
 			</tr>
 			
 		</table>
@@ -37,7 +38,7 @@
 			$id_katalog = $_POST['id_katalog'];
 			$nama = $_POST['nama'];
 			
-			include_once("connect.php");
+			include_once("../connect.php");
 
 			$result = mysqli_query($mysqli, "INSERT INTO `katalog` (`id_katalog`, `nama`) VALUES('$id_katalog', '$nama');");
 			
