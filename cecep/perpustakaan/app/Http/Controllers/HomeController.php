@@ -9,6 +9,7 @@ use App\Models\Book;
 use App\Models\Publisher;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpParser\Node\VarLikeIdentifier;
 
 class HomeController extends Controller
@@ -90,8 +91,7 @@ class HomeController extends Controller
         ->get();
 
         // no 13
-        $data13 = Member::select('name', 'phone_number', 'address', 'date_start', 'date_end', 'books.isbn', 'transaction_details.qty', 'books.title')
-        // ->sum('transaction_details.qty * books.price', 'as', 'Total') 
+        $data13 = Member::select(DB::raw('transaction_details.qty * books.price AS total'),'name', 'phone_number', 'address', 'date_start', 'date_end', 'books.isbn', 'transaction_details.qty', 'books.title')
         ->join('transactions', 'transactions.member_id', '=', 'member_id')
         ->leftJoin('transaction_details', 'transaction_details.transaction_id', '=', 'transactions.id')
         ->leftJoin('books', 'books.id', '=', 'transaction_details.book_id')
@@ -139,7 +139,7 @@ class HomeController extends Controller
         ->where('members.created_at', 'like', '%2023-08-04%')
         ->get();
 
-        return $data11;
+        return $data13;
         return view('home');
     }
 }
