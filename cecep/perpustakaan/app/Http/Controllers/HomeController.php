@@ -139,7 +139,7 @@ class HomeController extends Controller
         ->where('members.created_at', 'like', '%2023-08-04%')
         ->get();
 
-        return $data13;
+        // return $data13;
         return view('home');
     }
 }

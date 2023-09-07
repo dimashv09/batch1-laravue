@@ -16,8 +16,15 @@ class PublisherController extends Controller
      */
     public function index()
     {   
+        return view('admin.publisher');
+    }
+
+    public function api()
+    {
         $publishers = Publisher::all();
-        return view('admin.publisher', compact('publishers'));
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**

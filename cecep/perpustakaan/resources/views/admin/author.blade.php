@@ -11,7 +11,7 @@
 @section('content')
 <div id="controller">
   <div class="row">
-      <div class="col-md-100%">
+      <div class="col-12">
           <div class="card">
             <div class="card-header">
                   <a href="#" @click="addData()"  class="btn btn-sm btn-primary pull-right">Create New Author</a>
@@ -38,7 +38,7 @@
   <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
-              <form method="post" :action="actionUrl" autocomplete="off">
+              <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event. data.id)">
                 <div class="modal-header">
   
                   <h4 class="modal-title">Author</h4>
@@ -116,42 +116,9 @@
         </a>`;  
     }, orderable: false, width: '200px', class: 'text-center'},
   ];
-
-  var controller = new Vue({
-    el: '#controller',
-    data: {
-      datas: [],
-      data: {},
-      actionUrl,
-      apiUrl,
-      editStatus: false,
-    },
-    mouted: function () {
-        this.datatable();
-    },
-    methods: {
-      datatable() {
-        const _this = this;
-        _this.table = $('#datatable').DataTable({
-          ajax: {
-              url: _this.apiUrl,
-              type: 'GET',
-          },
-          columns: columns
-        }).on('xhr', function (){
-          _this.datas = _this.table.ajax.json().data;
-        });
-      },
-      addData() {
-        this.data = {};
-        this.actionUrl = '{{ url('authors') }}',
-        this.editStatus = false;
-        $('#modal-default').modal();
-      },
-    }
-  })
-
 </script>
+<script src="{{ asset('js/data.js') }}"></script>
+
 <!-- <script type="text/javascript">
   $(function () {
     $("#datatable").DataTable({
