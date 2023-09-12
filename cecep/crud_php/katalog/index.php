@@ -39,12 +39,12 @@ $katalog = mysqli_query($mysqli, "SELECT * FROM katalog ORDER BY nama ASC");
 		<tbody>
 			<?php
 			$no = 1;
-			while($data_katalog = mysqli_fetch_assoc($katalog)){
+			while($katalog_data = mysqli_fetch_assoc($katalog)){
 				echo "<tr>
 					  <td>".$no++."</td>
-					  <td>".$data_katalog['id_katalog']."</td>
-					  <td>".$data_katalog['nama']."</td>
-					  <td><a href='edit.php?id_katalog=$data_katalog[id_katalog]' class='btn btn-primary'>Edit</a>  <a href='delete.php?id_katalog=$data_katalog[id_katalog]' class='btn btn-danger'>Delete</a></td>
+					  <td>".$katalog_data['id_katalog']."</td>
+					  <td>".$katalog_data['nama']."</td>
+					  <td><a href='edit.php?id_katalog=$katalog_data[id_katalog]' class='btn btn-primary'>Edit</a>  <a href='delete.php?id_katalog=$katalog_data[id_katalog]' class='btn btn-danger'>Delete</a></td>
 				
 					</tr>";
 			}

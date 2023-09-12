@@ -68,8 +68,6 @@ $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit");
 			$email = $_POST['email'];
 			$telp = $_POST['telp'];
 			$alamat = $_POST['alamat']; 
-			$judul = $_POST['judul'];
-			$tahun = $_POST['tahun'];
 			
 			//get database connection
 			include_once('../connect.php');

@@ -6,7 +6,7 @@
 <?php
 	include_once("../connect.php");
     $katalog = mysqli_query($mysqli, "SELECT * FROM katalog");
-    $buku = mysqli_query($mysqli, "SELECT * FROM buku");
+    // $buku = mysqli_query($mysqli, "SELECT * FROM buku");
 ?>
  
 <body>
@@ -26,24 +26,21 @@
 			<tr> 
 				<td></td>
 				<td><input type="submit" name="submit" value="Add"></td>
-			</tr>
-			
+			</tr>			
 		</table>
 	</form>
-	
-	<?php
-	 
+</body>
+<?php
 		// Check If form submitted, insert form data into users table.
-		if(isset($_POST['Submit'])) {
+		if(isset($_POST['submit'])) {
 			$id_katalog = $_POST['id_katalog'];
 			$nama = $_POST['nama'];
 			
 			include_once("../connect.php");
 
-			$result = mysqli_query($mysqli, "INSERT INTO `katalog` (`id_katalog`, `nama`) VALUES('$id_katalog', '$nama');");
+			$result = mysqli_query($mysqli, "INSERT INTO katalog (id_katalog, nama) VALUES('$id_katalog', '$nama');");
 			
 			header("Location:index.php");
 		}
 	?>
-</body>
 </html>

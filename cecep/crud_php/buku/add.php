@@ -74,7 +74,7 @@
 			</tr>
 			<tr> 
 				<td></td>
-				<td><input type="submit" name="Submit" value="Add"></td>
+				<td><input type="submit" name="submit" value="Add"></td>
 			</tr>
 		</table>
 	</form>
@@ -82,7 +82,7 @@
 	<?php
 	 
 		// Check If form submitted, insert form data into users table.
-		if(isset($_POST['Submit'])) {
+		if(isset($_POST['submit'])) {
 			$isbn = $_POST['isbn'];
 			$judul = $_POST['judul'];
 			$tahun = $_POST['tahun'];
