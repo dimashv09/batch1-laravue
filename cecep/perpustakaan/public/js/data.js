@@ -25,7 +25,6 @@ var controller = new Vue({
       },
       addData() {
         this.data = {};
-        this.actionUrl = "{{ url('authors') }}",
         this.editStatus = false;
         $('#modal-default').modal();
       },

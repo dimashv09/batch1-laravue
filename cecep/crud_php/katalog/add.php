@@ -25,14 +25,14 @@
 			</tr>
 			<tr> 
 				<td></td>
-				<td><input type="submit" name="submit" value="Add"></td>
+				<td><input type="submit" name="Submit" value="Add"></td>
 			</tr>			
 		</table>
 	</form>
 </body>
 <?php
 		// Check If form submitted, insert form data into users table.
-		if(isset($_POST['submit'])) {
+		if(isset($_POST['Submit'])) {
 			$id_katalog = $_POST['id_katalog'];
 			$nama = $_POST['nama'];
 			

@@ -54,13 +54,13 @@ $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang");
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="submit" style="color:black;" name="submit " value="Save"></td>
+				<td><input type="submit" style="color:black;" name="Submit" value="Add"></td>
 			</tr>
 		</table>
 	</form>
 
 	<?php 
-		if(isset($_POST['submit'])){
+		if(isset($_POST['Submit'])){
 			$id_pengarang = $_POST['id_pengarang'];
 			$nama_pengarang = $_POST['nama_pengarang'];
 			$email = $_POST['email'];

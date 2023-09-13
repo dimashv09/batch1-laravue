@@ -56,13 +56,13 @@ $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit");
 			
 			<tr>
 				<td></td>
-				<td><input type="submit" style="color:black;" name="submit " value="Save"></td>
+				<td><input type="submit" style="color:black;" name="Submit" value="Add"></td>
 			</tr>
 		</table>
 	</form>
 
 	<?php 
-		if(isset($_POST['submit'])){
+		if(isset($_POST['Submit'])){
 			$id_penerbit = $_POST['id_penerbit'];
 			$nama_penerbit = $_POST['nama_penerbit'];
 			$email = $_POST['email'];
@@ -73,8 +73,8 @@ $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit");
 			include_once('../connect.php');
 	 
 			//push data on the table
-			$hasil = mysqli_query($mysqli, "INSERT INTO penerbit(id_penerbit, nama_penerbit, email, telp, alamat, judul, tahun) 
-											VALUES ('$id_penerbit','$nama_penerbit', '$email', '$telp', '$alamat', '$judul', '$tahun');
+			$hasil = mysqli_query($mysqli, "INSERT INTO penerbit(id_penerbit, nama_penerbit, email, telp, alamat) 
+											VALUES ('$id_penerbit','$nama_penerbit', '$email', '$telp', '$alamat');
 								");
 			header('Location: index.php');
 		}

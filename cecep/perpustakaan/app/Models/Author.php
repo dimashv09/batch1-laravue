@@ -11,8 +11,8 @@ class Author extends Model
 
     protected $fillable = ['name', 'email', 'phone_number', 'address'];
 
-    public function books()
-    {
-        return $this->hasMany('App\Models\Book', 'author_id');
-    }
+    // public function books()
+    // {
+    //     return $this->hasMany('App\Models\Book', 'author_id');
+    // }
 }

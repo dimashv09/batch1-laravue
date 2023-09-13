@@ -1,7 +1,7 @@
 <?php
 include_once("../connect.php");
  
-$pengarang = $_GET['id_pengarang'];
+$id_pengarang = $_GET['id_pengarang'];
  
 $result = mysqli_query($mysqli, "DELETE FROM pengarang WHERE id_pengarang ='$id_pengarang'");
 
