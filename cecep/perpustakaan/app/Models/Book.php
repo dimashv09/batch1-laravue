@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-    public function Catalog()
-    {
-        return $this->belongsTo('App\Models\Author', 'catalog_id');
-    }
+
+    protected $fillable = ['isbn', 'title', 'year', 'qty', 'price'];
+
+    // public function Catalog()
+    // {
+    //     return $this->belongsTo('App\Models\Author', 'catalog_id');
+    // }
 }

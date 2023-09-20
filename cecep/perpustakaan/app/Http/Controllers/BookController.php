@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
+use App\Models\Publisher;
 use App\Models\Book;
+use App\Models\Catalog;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -12,7 +15,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('admin.book');
+        $publishers = Publisher::all();
+        $authors = Author::all();
+        $catalogs = Catalog::all();
+
+        return view('admin.book', compact('publishers', 'authors', 'catalogs'));
     }
 
     public function api()
@@ -27,7 +34,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.book.');
     }
 
     /**
@@ -35,7 +42,17 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'isbn' => ['required'],
+            'title' => ['required'],
+            'year' => ['required'],
+            'qty' => ['required'],
+            'price' => ['required'],
+        ]);
+
+        Book::create($request->all());
+
+        return redirect('books');
     }
 
     /**
@@ -51,7 +68,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('admin.book.', compact('book'));
     }
 
     /**
@@ -59,7 +76,23 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $this->validate($request,[
+            'isbn' => ['required'],
+            'title' => ['required'],
+            'year' => ['required'],
+            'qty' => ['required'],
+            'price' => ['required'],
+        ]);
+
+        // $author::update($request->all());
+        $book->isbn = $request->isbn;
+        $book->title = $request->title;
+        $book->year = $request->year;
+        $book->qty = $request->qty;
+        $book->price = $request->price;
+        $book->save();
+
+        return redirect('books');
     }
 
     /**
@@ -67,6 +100,6 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
     }
 }

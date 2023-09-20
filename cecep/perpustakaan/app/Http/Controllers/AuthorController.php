@@ -80,7 +80,12 @@ class AuthorController extends Controller
             'address' => ['required'],
         ]);
 
-        $author::update($request->all());
+        // $author::update($request->all());
+        $author->name = $request->name;
+        $author->email = $request->email;
+        $author->phone_number = $request->phone_number;
+        $author->address = $request->address;
+        $author->save();
 
         return redirect('authors');
     }

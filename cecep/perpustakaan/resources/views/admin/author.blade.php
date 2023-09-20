@@ -95,11 +95,11 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script type="text/javascript">
-    var actionUrl = '{{ url('authors') }}';
-    var apiUrl = '{{ url('api/authors') }}';
+    var actionUrl = "{{ url('authors') }}";
+    var apiUrl = "{{ url('api/authors') }}";
 
     var columns = [
-      {data: 'DT_RowIndex', class: 'text-center', orderable: true},
+      {data: 'DT_RowIndex', class: 'text-center', orderable: false},
       {data: 'name', class: 'text-center', orderable: true},
       {data: 'email', class: 'text-center', orderable: true},
       {data: 'phone_number', class: 'text-center', orderable: true},
