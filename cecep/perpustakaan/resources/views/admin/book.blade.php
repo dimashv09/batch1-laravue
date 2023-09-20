@@ -40,7 +40,7 @@
     <div class="modal fade" id="modal-default">
          <div class="modal-dialog">
             <div class="modal-content">
-                    <form method="post" action="" autocomplete="off" @submit="submitForm($event, data.id)">
+                    <form method="post" action="" autocomplete="off" @submit="submitForm($event, book.id)">
                         <div class="modal-header">
                             <h4 class="modal-title">Book</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
