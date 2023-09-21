@@ -46,6 +46,9 @@ class BookController extends Controller
             'isbn' => ['required'],
             'title' => ['required'],
             'year' => ['required'],
+            'publisher' => ['required'],
+            'author' => ['required'],
+            'catalog' => ['required'],
             'qty' => ['required'],
             'price' => ['required'],
         ]);
@@ -80,6 +83,9 @@ class BookController extends Controller
             'isbn' => ['required'],
             'title' => ['required'],
             'year' => ['required'],
+            'publisher' => ['required'],
+            'author' => ['required'],
+            'catalog' => ['required'],
             'qty' => ['required'],
             'price' => ['required'],
         ]);
@@ -88,6 +94,9 @@ class BookController extends Controller
         $book->isbn = $request->isbn;
         $book->title = $request->title;
         $book->year = $request->year;
+        $book->publisher = $request->publisher;
+        $book->author = $request->author;
+        $book->catalog = $request->catalog;
         $book->qty = $request->qty;
         $book->price = $request->price;
         $book->save();

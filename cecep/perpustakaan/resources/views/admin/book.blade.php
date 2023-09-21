@@ -139,6 +139,7 @@
         el: '#controller',
         data: {
             books: [],
+            actionUrl,
             search: '',
             book: {},
             editStatus: false
@@ -171,7 +172,20 @@
                 $('#modal-default').modal();
             },
             deleteData(id) {
-                console.log(id);
+                if (confirm("Are You Sure ?")) {
+                    axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response => {
+                    alert('Data has been removed');
+                });
+            }
+            },
+            submitForm(id) {
+                // event.preventDefault();
+                const _this = this;
+                var actionUrl = ! this.editStatus ? this.actionUrl :  this.actionUrl+'/'+id;
+                axios.post(actionUrl, new FormData($(event.target)[0])).  then(response => {
+                $('#modal-default').modal('hide');
+                _this.table.ajax.reload();
+            });
             },
             numberWithSpaces(x) {
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
