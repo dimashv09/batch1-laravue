@@ -40,7 +40,7 @@
     <div class="modal fade" id="modal-default">
          <div class="modal-dialog">
             <div class="modal-content">
-                    <form method="post" action="" autocomplete="off" @submit="submitForm($event, book.id)">
+                    <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, book.id)">
                         <div class="modal-header">
                             <h4 class="modal-title">Book</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -59,12 +59,12 @@
 
                             <div class="form-group">
                                 <label>Title</label>
-                                <input type="text" class="form-control" name="title" required="":value="book.title">
+                                <input type="text" class="form-control" name="title" required="" :value="book.title">
                             </div>
 
                             <div class="form-group">
                                 <label>Year</label>
-                                <input type="number" class="form-control" name="year" required="":value="book.year">
+                                <input type="number" class="form-control" name="year" required="" :value="book.year">
                             </div>
 
                             <div class="form-group">
@@ -139,9 +139,10 @@
         el: '#controller',
         data: {
             books: [],
-            actionUrl,
             search: '',
             book: {},
+            actionUrl,
+            apiUrl,
             editStatus: false
         },
         mounted: function () {
@@ -150,6 +151,7 @@
         methods: {
             get_books() {
                 const _this = this;
+                // axios.get('api/books').then(function (response) { _this.books = response.data.data })
                 $.ajax({
                         url: apiUrl,
                         method: 'GET',
@@ -169,23 +171,43 @@
             editData(book) {
                 this.book = book;
                 this.editStatus = true;
+                // this.actionUrl = this.actionUrl+"/"+book.id;
                 $('#modal-default').modal();
             },
-            deleteData(id) {
+            deleteData(event, id) {
                 if (confirm("Are You Sure ?")) {
-                    axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response => {
-                    alert('Data has been removed');
-                });
-            }
+                    $(event.target).parents('tr').remove();
+                    axios.post(this.actionUrl + '/' + id, { 
+                        _method: 'DELETE' 
+                        }).then(response => {
+                        alert('Data has been removed');                        
+                        });
+                    }
+
+                // if (confirm("Are you sure?")) {
+                // axios.post(this.actionUrl, {_method: 'DELETE'}).then(response =>{
+                // alert('Data has been removed');
+                // location.reload();
+                // });
+                // }
             },
-            submitForm(id) {
+            submitForm(event, id) {
                 // event.preventDefault();
+                // const _this = this;
+                // var Url = !this.editStatus ? actionUrl :  actionUrl + '/' + id;                
+                // axios.post(Url, new FormData($(event.target)[0])).then(response => {
+                //     $('#modal-default').modal('hide');
+                //     this.get_book()
+                // // _this.table.ajax.reload();
+                // });
+
+                event.preventDefault();
                 const _this = this;
-                var actionUrl = ! this.editStatus ? this.actionUrl :  this.actionUrl+'/'+id;
-                axios.post(actionUrl, new FormData($(event.target)[0])).  then(response => {
-                $('#modal-default').modal('hide');
-                _this.table.ajax.reload();
-            });
+                var actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id;
+                axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                    $('#modal-default').modal('hide');
+                    this.get_books();
+                });
             },
             numberWithSpaces(x) {
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");

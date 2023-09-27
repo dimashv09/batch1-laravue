@@ -16,8 +16,8 @@
                       <th style="width: 10px">No</th>
                       <th class="text-center">Name</th>
                       <th class="text-center">Books</th>
-                      <th class="text-center">Action</th>
                       <th class="text-center">Created at</th>
+                      <th class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -26,9 +26,11 @@
                       <td>{{ $key+1 }}</td>
                       <td>{{ $catalog->name }}</td>
                       <td class="text-center">{{ count($catalog->books) }}</td>
-                      <td class="text-center">{{ date('d-m-y', strtotime($catalog->created_at)) }}</td>
+                      <td class="text-center">{{ convert_date($catalog->created_at) }}</td>
                       <td class="text-center">
-                        <a href="{{ url('catalogs/'.$catalog->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ url('print_catalog/'.$catalog->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+                        
+                        <a href="{{ url('catalogs/'.$catalog->id) }}" class="btn btn-primary btn-sm" target="_blank">Print</a>
 
                         <form action="{{ url('catalogs', ['id' => $catalog->id]) }}" method="post">
                           <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure?')">

@@ -46,9 +46,9 @@ class BookController extends Controller
             'isbn' => ['required'],
             'title' => ['required'],
             'year' => ['required'],
-            'publisher' => ['required'],
-            'author' => ['required'],
-            'catalog' => ['required'],
+            'publisher_id' => ['required'],
+            'author_id' => ['required'],
+            'catalog_id' => ['required'],
             'qty' => ['required'],
             'price' => ['required'],
         ]);
@@ -83,20 +83,20 @@ class BookController extends Controller
             'isbn' => ['required'],
             'title' => ['required'],
             'year' => ['required'],
-            'publisher' => ['required'],
-            'author' => ['required'],
-            'catalog' => ['required'],
+            'publisher_id' => ['required'],
+            'author_id' => ['required'],
+            'catalog_id' => ['required'],
             'qty' => ['required'],
             'price' => ['required'],
         ]);
 
-        // $author::update($request->all());
+        // $book->update($request->all());
         $book->isbn = $request->isbn;
         $book->title = $request->title;
         $book->year = $request->year;
-        $book->publisher = $request->publisher;
-        $book->author = $request->author;
-        $book->catalog = $request->catalog;
+        $book->publisher_id = $request->publisher_id;
+        $book->author_id = $request->author_id;
+        $book->catalog_id = $request->catalog_id;
         $book->qty = $request->qty;
         $book->price = $request->price;
         $book->save();
@@ -110,5 +110,7 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
+
+        return dd('$book');
     }
 }

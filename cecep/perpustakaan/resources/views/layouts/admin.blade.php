@@ -172,6 +172,13 @@
                 
               </p>
             </a>
+
+              <li class="nav-item">
+                <a href="{{ url('dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-chart-line"></i>
+                    <p>dashboard</p>
+                </a>
+              </li>
             
               <li class="nav-item">
                 <a href="{{ url('authors') }}" class="nav-link {{ request()->is('authors') ? 'active' : '' }}">

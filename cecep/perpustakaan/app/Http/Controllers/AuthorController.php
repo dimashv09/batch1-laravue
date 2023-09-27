@@ -22,7 +22,17 @@ class AuthorController extends Controller
     public function api()
     {
         $authors = Author::all();
-        $datatables = datatables()->of($authors)->addIndexColumn();
+        // helpers dgn foreach
+        // foreach ($authors as $key => $author) {
+        //     $author->date = convert_date($author->created_at);
+        // }
+
+        $datatables = datatables()->of($authors)
+        // menambahkan tabel date dgn yajra
+        ->addColumn('date', function($author) {
+            return convert_date($author->created_at);
+        })
+        ->addIndexColumn();
 
         return $datatables->make(true);
     }
@@ -81,6 +91,7 @@ class AuthorController extends Controller
         ]);
 
         // $author::update($request->all());
+
         $author->name = $request->name;
         $author->email = $request->email;
         $author->phone_number = $request->phone_number;
