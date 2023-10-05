@@ -106,7 +106,7 @@
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default bg-danger" v-if="editStatus" v-on:click="deleteData(book.id)">Delete</button>
+                            <button type="button" class="btn btn-default bg-danger" v-if="editStatus" v-on:click="deleteData($event, book.id)">Delete</button>
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                         </div>
                     </form>
@@ -151,7 +151,6 @@
         methods: {
             get_books() {
                 const _this = this;
-                // axios.get('api/books').then(function (response) { _this.books = response.data.data })
                 $.ajax({
                         url: apiUrl,
                         method: 'GET',
@@ -180,7 +179,9 @@
                     axios.post(this.actionUrl + '/' + id, { 
                         _method: 'DELETE' 
                         }).then(response => {
-                        alert('Data has been removed');                        
+                            $('#modal-default').modal('hide');
+                            this.get_books();
+                            alert('Data has been removed');                        
                         });
                     }
 
