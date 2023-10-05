@@ -81,7 +81,7 @@
 <!-- Page specific script -->
 <script>
     $(function () {
-        $("#dataTable").DataTable();
+        $("#datatable").Datatable();
     });
 </script>
 
@@ -93,11 +93,11 @@
         {data: 'DT_RowIndex', orderable: true},
         {data: 'date_start', orderable: false},
         {data: 'date_end', orderable: false},
-        // {data: 'member.name', orderable: false},
-        // {data: 'duration', orderable: false},
-        // {data: 'transaction_details', orderable: false},
-        // {data: 'purches', orderable: false},
-        // {data: 'statusTransaction', orderable: false},
+        {data: 'member.name', orderable: false},
+        {data: 'duration', orderable: false},
+        {data: 'transaction_details', orderable: false},
+        {data: 'purches', orderable: false},
+        {data: 'statusTransaction', orderable: false},
         {render: function(index, row, data, meta) {
             return `
             <a href="${actionUrl}/${data.id}" class="badge bg-info py-2 px-3 mb-2">

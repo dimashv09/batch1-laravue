@@ -34,34 +34,34 @@ class TransactionController extends Controller
 
     public function api(Request $request)
     {
-        // if ($request->status) {
-        //     $transactions = Transaction::with(['transaction_details.book', 'member'])
-        //     ->where('status', '=', $request->status == 2 ? 0 : 1)
-        //     ->get();
-        // } else if ($request->date_start) { 
-        //     $transactions = Transaction::with(['transaction_details.book', 'member'])
-        //     ->where('date_start', '>=', $request->date_start)
-        //     ->get();
-        // } else {
-        //     $transactions = Transaction::with(['transaction_details.book', 'member'])->get();
-        // }
+        if ($request->status) {
+            $transactions = Transaction::with(['transaction_details.book', 'members'])
+            ->where('status', '=', $request->status == 2 ? 0 : 1)
+            ->get();
+        } else if ($request->date_start) { 
+            $transactions = Transaction::with(['transaction_details.book', 'members'])
+            ->where('date_start', '>=', $request->date_start)
+            ->get();
+        } else {
+            $transactions = Transaction::with(['transaction_details.book', 'members'])->get();
+        }
 
-        // $datatables = datatables()
-            // ->of($transactions)
-            // ->addColumn('duration', function ($transaction) {
-            //     return date($transaction->date_start, $transaction->date_end) . " Days";
-            // })
-            // ->addColumn('purches', function ($transaction) {
-            //     $purcheses = $transaction->transactionDetail->sum('book.price');
-            //     return "Rp. " . number_format($purcheses);
-            // })
-            // ->addColumn('statusTransaction', function ($transaction) {
-            //     return $transaction->status ? "Has been returned" : "Not returned yet";
-            // })
-            // ->addIndexColumn();
+        $datatables = datatables()
+            ->of($transactions)
+            ->addColumn('duration', function ($transactions) {
+                return date($transactions->date_start, $transactions->date_end) . " Days";
+            })
+            ->addColumn('purches', function ($transactions) {
+                $purcheses = $transactions->transactionDetails->sum('book.price');
+                return "Rp. " . number_format($purcheses);
+            })
+            ->addColumn('statusTransaction', function ($transactions) {
+                return $transactions->status ? "Has been returned" : "Not returned yet";
+            })
+            ->addIndexColumn();
 
-        $transactions = Transaction::all();
-        $datatables = datatables()->of($transactions)->addIndexColumn();
+        // $transactions = Transaction::all();
+        // $datatables = datatables()->of($transactions)->addIndexColumn();
 
             return $datatables->make(true);
         }
