@@ -86,8 +86,8 @@
 </script> -->
 
 <script>
-    var actionUrl = `{{ url('transactions'); }}`
-    var apiUrl = `{{ url('api/transactions'); }}`
+    var actionUrl = "{{ url('transactions') }}"
+    var apiUrl = "{{ url('api/transactions') }}"
 
     var columns = [
         {data: 'DT_RowIndex', orderable: true},
