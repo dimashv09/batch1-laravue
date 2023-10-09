@@ -79,11 +79,11 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 <!-- Page specific script -->
-<script>
+<!-- <script>
     $(function () {
         $("#datatable").Datatable();
     });
-</script>
+</script> -->
 
 <script>
     var actionUrl = `{{ url('transactions'); }}`
@@ -117,7 +117,7 @@
 <script src="{{ asset('js/data.js') }}"></script>
 
 <!-- Filter Script -->
-<!-- <script>
+<script>
     $('select[name=status]').on('change', function() {
         let status = $('select[name=status]').val();
 
@@ -138,5 +138,5 @@
         controller.table.ajax.url(`${apiUrl}?date_start=${date}`).load()
         }
     })
-</script> -->
+</script>
 @endsection

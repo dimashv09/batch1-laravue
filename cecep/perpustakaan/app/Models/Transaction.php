@@ -16,6 +16,11 @@ class Transaction extends Model
         return $this->belongsTo(Member::class, 'member_id');
     }
 
+    public function books()
+    {
+        return $this->hasMany(Book::class, 'book_id');
+    }
+
     // Get the Transaction Detail for the Transaction
     public function transactionDetails()
     {

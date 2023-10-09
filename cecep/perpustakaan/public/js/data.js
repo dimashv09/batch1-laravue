@@ -17,6 +17,9 @@ var controller = new Vue({
           ajax: {
               url: _this.apiUrl,
               type: 'GET',
+              data: function (d) {
+                d.status = $('#filter-status').val();
+              }
           },
           columns
         }).on('xhr', function (){

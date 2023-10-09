@@ -23,7 +23,7 @@ class TransactionController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index(Request $request)
+    public function index()
     {
 
         // $transactions = Transaction::all(); tdk di gunakan krn menggunakan api
@@ -35,33 +35,38 @@ class TransactionController extends Controller
     public function api(Request $request)
     {
         if ($request->status) {
-            $transactions = Transaction::with(['transaction_details.book', 'members'])
+            $transaction = Transaction::with(['transactionDetails.book', 'member'])
             ->where('status', '=', $request->status == 2 ? 0 : 1)
             ->get();
-        } else if ($request->date_start) { 
-            $transactions = Transaction::with(['transaction_details.book', 'members'])
+        }
+         else if ($request->date_start) { 
+            $transaction = Transaction::with(['transactionDetails.book', 'member'])
             ->where('date_start', '>=', $request->date_start)
             ->get();
-        } else {
-            $transactions = Transaction::with(['transaction_details.book', 'members'])->get();
+        } 
+        else {
+            $transactions = Transaction::with(['transactionDetails.book', 'member'])->get();
         }
 
-        $datatables = datatables()
-            ->of($transactions)
-            ->addColumn('duration', function ($transactions) {
-                return date($transactions->date_start, $transactions->date_end) . " Days";
+        $datatables = datatables()->of($transactions)
+            // ->addColumn('member.name', function ($transaction) {
+
+            //     return $transaction->member->name;
+            // })
+            ->addColumn('duration', function ($transaction) {
+                return dateDiff($transaction->date_start, $transaction->date_end) . " Days";
             })
-            ->addColumn('purches', function ($transactions) {
-                $purcheses = $transactions->transactionDetails->sum('book.price');
+            ->addColumn('purches', function ($transaction) {
+                $purcheses = $transaction->transactionDetails->sum('book.price');
                 return "Rp. " . number_format($purcheses);
             })
-            ->addColumn('statusTransaction', function ($transactions) {
-                return $transactions->status ? "Has been returned" : "Not returned yet";
-            })
-            ->addIndexColumn();
+            ->addColumn('statusTransaction', function ($transaction) {
+                return $transaction->status ? "Has been returned" : "Not returned yet";
+            });
+            // ->addIndexColumn();
 
-        // $transactions = Transaction::all();
-        // $datatables = datatables()->of($transactions)->addIndexColumn();
+        // $transaction = Transaction::all();
+        // $datatables = datatables()->of($transaction)->addIndexColumn();
 
             return $datatables->make(true);
         }
@@ -74,7 +79,7 @@ class TransactionController extends Controller
         $members = Member::all();
         $books = Book::where('qty', '>=', 1)->get();
 
-        return view('admin.transaction.create', compact('members', 'books'));
+        return view('admin.transaction.create', compact('member', 'book'));
     }
 
     /**
@@ -86,12 +91,12 @@ class TransactionController extends Controller
             'member_id' => $request->member_id,
             'date_start' => $request->date_start,
             'date_end' => $request->date_end,
-            'status' => $request->status,
+            'book' => $request->book,
 
         ]);
 
         if ($transaction) {
-            $books = $request->books;
+            $books = $request->book;
             foreach ($books as $book) {
                 TransactionDetail::create([
                     'transaction_id' => $transaction->id,
@@ -101,7 +106,7 @@ class TransactionController extends Controller
             }
         }
 
-        return redirect('transactions');
+        return redirect('transaction');
     }
 
     /**
