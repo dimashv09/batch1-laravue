@@ -93,7 +93,7 @@
         {data: 'DT_RowIndex', orderable: true},
         {data: 'date_start', orderable: false},
         {data: 'date_end', orderable: false},
-        {data: 'member.name', orderable: false},
+        {data: 'name', orderable: false},
         {data: 'duration', orderable: false},
         {data: 'transaction_details', orderable: false},
         {data: 'purches', orderable: false},

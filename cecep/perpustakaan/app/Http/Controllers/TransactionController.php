@@ -49,10 +49,10 @@ class TransactionController extends Controller
         }
 
         $datatables = datatables()->of($transactions)
-            // ->addColumn('member.name', function ($transaction) {
+            ->addColumn('name', function ($transaction) {
 
-            //     return $transaction->member->name;
-            // })
+                return $transaction->member->name;
+            })
             ->addColumn('duration', function ($transaction) {
                 return dateDiff($transaction->date_start, $transaction->date_end) . " Days";
             })
@@ -79,7 +79,7 @@ class TransactionController extends Controller
         $members = Member::all();
         $books = Book::where('qty', '>=', 1)->get();
 
-        return view('admin.transaction.create', compact('member', 'book'));
+        return view('admin.transaction.create', compact('members', 'books'));
     }
 
     /**
@@ -96,13 +96,18 @@ class TransactionController extends Controller
         ]);
 
         if ($transaction) {
-            $books = $request->book;
-            foreach ($books as $book) {
+            // $books = $request->book;
+            foreach ($request->book_id as $book) {
                 TransactionDetail::create([
                     'transaction_id' => $transaction->id,
                     'book_id' => $book,
                     'qty' => 1
                 ]);
+
+                 // update Books Stock
+                 $books = Book::find($book);
+                 $books->qty -= 1;
+                 $books->save();
             }
         }
 
@@ -130,7 +135,35 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $transactions = Transaction::find($transaction->id)
+            ->update([
+                'member_id' => $request->member_id,
+                'date_start' => $request->date_start,
+                'date_end' => $request->date_end,
+                'status' => $request->status,
+            ]);
+
+        if ($transaction) {
+            // Delete all matched transaction Detail
+            TransactionDetail::where('transaction_id', $transaction->id)->delete();
+             // Insert new Transaction Details data into database
+             foreach ($request->book_id as $book) {
+                TransactionDetail::create([
+                    'transaction_id' => $transaction->id,
+                    'book_id' => $book,
+                    'qty' => 1,
+                ]);
+
+                // Update Books Stock
+                $books = Book::find($book);
+                if ($request->status == 1) { // if the book has Returned increment the book stock
+                    $books->qty += 1;
+                }
+                $books->update();
+             }
+        }
+
+        return redirect('transactions')->with('success', 'Transaction data has been Updated');
     }
 
     /**
