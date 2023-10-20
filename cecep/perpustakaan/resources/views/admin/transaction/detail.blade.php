@@ -29,7 +29,7 @@
 <div id="controller">
     <div class="row justify-content-center mb-4">
         <div class="col-6">
-            <form action="{{ route('transactions.update', $transaction->id) }}" method="post" class="bg-dark">
+            <form action="{{ route('transactions.update', $transaction->id) }}" method="post" class="bg-white">
                 <div class="modal-body">
                     @csrf
                     @method('put')

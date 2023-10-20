@@ -11,6 +11,7 @@ use App\Models\Member;
 use App\Models\TransactionDetail;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Log;
 
 
 class TransactionController extends Controller
@@ -35,12 +36,12 @@ class TransactionController extends Controller
     public function api(Request $request)
     {
         if ($request->status) {
-            $transaction = Transaction::with(['transactionDetails.book', 'member'])
+            $transactions = Transaction::with(['transactionDetails.book', 'member'])
             ->where('status', '=', $request->status == 2 ? 0 : 1)
             ->get();
         }
          else if ($request->date_start) { 
-            $transaction = Transaction::with(['transactionDetails.book', 'member'])
+            $transactions = Transaction::with(['transactionDetails.book', 'member'])
             ->where('date_start', '>=', $request->date_start)
             ->get();
         } 
@@ -48,17 +49,19 @@ class TransactionController extends Controller
             $transactions = Transaction::with(['transactionDetails.book', 'member'])->get();
         }
 
-        $datatables = datatables()->of($transactions)
+        $datatables = datatables()->of($transactions)->addIndexColumn()
             ->addColumn('name', function ($transaction) {
-
                 return $transaction->member->name;
             })
             ->addColumn('duration', function ($transaction) {
                 return dateDiff($transaction->date_start, $transaction->date_end) . " Days";
             })
-            ->addColumn('purches', function ($transaction) {
-                $purcheses = $transaction->transactionDetails->sum('book.price');
-                return "Rp. " . number_format($purcheses);
+            ->addColumn('total', function ($transaction) {
+                return $transaction->transactionDetails->count();
+            })
+            ->addColumn('purchase', function ($transaction) {
+                $purchases = $transaction->transactionDetails->sum('book.price');
+                return "Rp. " . number_format($purchases);
             })
             ->addColumn('statusTransaction', function ($transaction) {
                 return $transaction->status ? "Has been returned" : "Not returned yet";
@@ -76,9 +79,21 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $members = Member::all();
-        $books = Book::where('qty', '>=', 1)->get();
+        // $members = Member::all();
+        // $books = Book::where('qty', '>=', 1)->get();
 
+        // return view('admin.transaction.create', compact('members', 'books'));
+
+        $members = Member::all();
+        $transaction = Transaction::with('member', 'details.books');
+
+        $books = Book::select('books.id', 'books.title')
+            ->join('transaction_details', 'transaction_details.book_id', '=', 'books.id')
+            ->join('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->join('members', 'members.id', '=', 'transactions.member_id')
+            ->groupBy('books.id', 'books.title')
+            ->orderBy('books.title')
+            ->get();
         return view('admin.transaction.create', compact('members', 'books'));
     }
 
@@ -111,7 +126,7 @@ class TransactionController extends Controller
             }
         }
 
-        return redirect('transaction');
+        return redirect('transactions');
     }
 
     /**
@@ -119,7 +134,11 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        return view('admin.transaction.details', compact('transaction'));
+        $books = Book::where('qty', '>=', 1)->get();
+        $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
+
+        // return $transaction->member->id;
+        return view('admin.transaction.detail', compact('transaction', 'books', 'transactionDetails'));
     }
 
     /**
@@ -127,7 +146,12 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        return view('admin.transaction.edit', compact('transaction'));
+        $members = Member::all();
+        $books = Book::where('qty', '>=', 1)->get();
+        $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
+
+
+        return view('admin.transaction.edit', compact('members', 'books', 'transaction', 'transactionDetails'));
     }
 
     /**

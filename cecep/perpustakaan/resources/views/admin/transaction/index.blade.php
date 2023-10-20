@@ -95,8 +95,8 @@
         {data: 'date_end', orderable: false},
         {data: 'name', orderable: false},
         {data: 'duration', orderable: false},
-        {data: 'transaction_details', orderable: false},
-        {data: 'purches', orderable: false},
+        {data: 'total', orderable: false},
+        {data: 'purchase', orderable: false},
         {data: 'statusTransaction', orderable: false},
         {render: function(index, row, data, meta) {
             return `
