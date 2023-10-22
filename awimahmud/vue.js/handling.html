@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Belajar Event Handling Vuejs</title>
+</head>
+<body>
+<div id="idname">
+	<!-- cara 1 proses increament langsung dalam event on click -->
+	<button v-on:click="counter1++">tombol 1</button>&nbsp;
+	<!-- cara 2 proses increament pada methods counter -->
+	<button v-on:click="counter">tombol 2</button>
+	<p>diklik sebanyak {{ counter1 }}</p>
+	<p>diklik sebanyak {{ counter2 }}</p>
+
+	<hr>
+	<!-- `greet` is the name of the method defined above -->
+	<button @click="greet">Say Hi</button>&nbsp;
+	<button @click="check">check</button>
+	<hr>
+	
+	<h4>Ini event modifier</h4>
+	<!-- .prevent akan membatalkan kunjungan link -->
+	<a v-on:click.prevent="prevent(' klik Ok untuk membatalkan')" href="https://vuejs.org">prevent</a>&nbsp;
+	<!-- .once hanya bisa sekali klik -->
+	<button @click.once="once('Hi')">once</button>&nbsp;
+	<a v-on:click.stop="stop" href="https://vuejs.org">stop</a>
+	<hr>
+
+	<h4>ini key modifier</h4>
+	<!-- .enter fungsinya akan mensubmit seperti button  dia menggunakan key enter -->
+	<input type="text" v-on:keyup.enter="submit" />
+	<template v-if="nama.length > 1">
+		<ul>
+			<h5>Total: {{ nama.length }}</h5>
+			<li v-for="(item, index) of nama">{{ index+1 }} - {{ item }}</li>
+		</ul>
+	</template> 
+	<h4>ini key modifier</h4>
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<script>
+	const learn = {
+		data() {
+			return {
+				counter1: 0,
+				counter2: 0,
+				nama: ['awi', 'andi'],
+				test: 'check check apa kah',
+				
+			}
+		},
+		//methods event hendlers
+		methods : {
+			counter(){
+				this.counter2 +=1
+			},
+			greet(event) {
+				alert(`hello ${this.nama}!`); //menggunskan string interpolation
+				if(event) {
+					alert(event.target.tagName)
+				}
+			},
+			check(event) {
+				alert(`Ceeeh ${this.test}`)
+					if(event){
+						alert(event.target.tagName)
+					}
+				},
+				//methods in inline hendlers tanpa DOM event
+			prevent: function(message){
+					alert('Halo' + message + ''); //menggunakan string concatenation
+			},
+			once: function(message){
+					alert(`Hi ${message}`);
+			},
+			stop: function(message){
+				alert(`Hi ${message}`);
+			},
+			submit: function(event){
+				let text = event.target.value
+				 this.nama.push(text);
+				 event.terget.value = ""
+			}
+			}
+		}
+		
+Vue.createApp(learn).mount('#idname')
+</script>
+</body>
+</html>

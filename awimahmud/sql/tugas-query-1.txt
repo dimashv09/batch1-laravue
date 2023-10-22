@@ -1,0 +1,34 @@
+10 query sql pada database Apotek beserta penjelasannya
+
+1). Select id_obat, nama_obat from tb_obat where nama _obat = "Paramex" 
+limit 3;
+//Tampilkan id obat dan nama obat dari tabel obat dimana nama obatnya adalah Paramex, tampilkan hanya 3 row data saja
+
+2). Select avg(harga_obat) as "harga tertinggi" from tb_detail_penjualan
+//Tampilkan harga rata-rata obat dari tabel detail penjualan 
+
+3). Select * from Customer
+WHERE kecamatan IN ('oba', 'oba tengah'');
+//Tampilkan semua isi data tabel customer dimana kecamatannya Oba dan Oba tengah
+
+4). Select * from tb_detail_penjualan where harga_obat between 5000 and 10000;
+//Tampilkan semua data pada tabel detail penjualan dimana harga obatnya berkisar antara 5000 sampai 10000
+
+5). Select * from tb_detail_penjualan where harga_obat between 5000 and 10000 and jenis_obat not in "Paramex";
+/Tampilkan semua data pada tabel detail penjualan dimana harga obatnya berkisar antara 5000 sampai 10000 dan jenis obatnya bukan Paramex 
+
+
+6). Select * from Customer where nama_cust like = "a%";
+//Tampilkan semua data customer dimana nam customer berawalan huruf a
+
+7). Select * from Customer where nama_cust like = "%a";
+//Tampilkan semua data customer dimana nam customer berakhiran huruf a
+
+8). Select * from Customer where nama_cust like = "%awi%";
+//Tampilkan semua data customer dimana nam customer ada kata awi
+
+9). Select * from Customer where nama_cust like = "a%o";
+//Tampilkan semua data customer dimana nam customer berawalan huruf a dan berakhiran o
+
+10). Select * from Customer where nama_cust like = "a__%"; 
+//Tampilkan semua data customer dimana awalannya huruf a dan panjang karakter 3
