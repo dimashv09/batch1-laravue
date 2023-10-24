@@ -164,7 +164,7 @@ class TransactionController extends Controller
                 'member_id' => $request->member_id,
                 'date_start' => $request->date_start,
                 'date_end' => $request->date_end,
-                'status' => $request->status,
+                'statusTransaction' => $request->status,
             ]);
 
         if ($transaction) {
@@ -176,6 +176,7 @@ class TransactionController extends Controller
                     'transaction_id' => $transaction->id,
                     'book_id' => $book,
                     'qty' => 1,
+                    'status' => 1,
                 ]);
 
                 // Update Books Stock

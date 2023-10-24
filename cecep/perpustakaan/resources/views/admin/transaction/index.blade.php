@@ -51,7 +51,7 @@
                                 <th class="align-middle">Lama Pinjam(hari)</th>
                                 <th class="align-middle">Total Buku</th>
                                 <th class="align-middle">Total Bayar</th>
-                                <th class="align-middle">Transaction Status</th>
+                                <th class="align-middle">Status Transaction</th>
                                 <th class="align-middle" style="width: 80px;">Action</th>
                             </tr>
                         </thead>

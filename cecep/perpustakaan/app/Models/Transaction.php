@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = ['member_id', 'date_start', 'date_end', 'status'];
 
     // Get the Member that owns the Transaction
     public function member()
