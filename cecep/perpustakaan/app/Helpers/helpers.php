@@ -17,7 +17,7 @@
         return $interval->format($differenceFormat);
     }
     
-    function transactionAlert()
+    function transactionNotif()
     {
         $data = [];
         $currentDate = date('Y-m-d');
