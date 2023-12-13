@@ -19,3 +19,5 @@ echo "BMI ANDA:". number_format($bmi, 1) ."<br>";
 echo "kategori BMI:". $kategori;
 
 ?>
+
+<?php  ?>
